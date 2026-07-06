@@ -1,0 +1,374 @@
+import type {
+  AboutPageContent,
+  AwardsPageContent,
+  ContactPageContent,
+  FaqPageContent,
+  HomePageContent,
+  NeighborhoodsPageContent,
+  ProcessPageContent,
+  ServiceDetailPageContent,
+  ServicesPageContent,
+  SitePage,
+  SitePageContentMap,
+  SitePageSlug,
+  TestimonialsPageContent,
+  WarrantyPageContent,
+} from '../types';
+
+export const DEMO_SITE_PAGES: Record<SitePageSlug, SitePage> = {
+  home: {
+    id: 'demo-home',
+    slug: 'home',
+    meta_title: "Bellevue's Custom Home Builder",
+    meta_description: 'Built on your lot. Designed for your life. Custom homes on the Seattle Eastside since 1960.',
+    content: {
+      hero: {
+        eyebrow: 'Celebrating 65 Years · Est. 1960',
+        title: "Bellevue's Custom",
+        title_emphasis: 'Home Builder',
+        subtitle: 'Built on your lot. Designed for your life.',
+        image_url: '/assets/ph-arch-1.svg',
+        marquee: 'Since 1960 · Bellevue · Clyde Hill · Medina · Redmond · Custom Build · Design · Remodel ·',
+        cta_primary_url: 'https://estimator.buchan.com/',
+        cta_primary_label: 'Get Your Build Estimate',
+      },
+      legacy: {
+        title: '65 years.',
+        title_line2: 'One standard.',
+        title_emphasis: 'Yours.',
+        eyebrow: 'The Buchan Legacy',
+        paragraphs: [
+          "Since 1960, three generations of Buchan craftsmen have built on the Seattle Eastside — in Bellevue, Clyde Hill, Medina, and Redmond. We don't build to a spec sheet. We build to a standard, and that standard is yours.",
+          'Every joint, every grain, every quiet wall is a decision made by hand. The result is a home that feels inevitable — as if it could have stood nowhere else.',
+        ],
+      },
+      services: {
+        eyebrow: 'What We Do',
+        title: 'Three ways to build',
+        title_emphasis: 'something lasting.',
+        items: [
+          { title: 'Build', description: 'Ground-up custom homes on your lot.', image_url: '/assets/ph-arch-2.svg', link: '/build' },
+          { title: 'Design', description: 'Architecture and interiors, unified.', image_url: '/assets/ph-arch-3.svg', link: '/design' },
+          { title: 'Remodel', description: 'Transform the home you already love.', image_url: '/assets/ph-arch-4.svg', link: '/remodel' },
+        ],
+      },
+      recent_work: {
+        eyebrow: 'Recent Work',
+        title: "Homes we're proud of.",
+      },
+      concierge: {
+        eyebrow: 'The Concierge Promise',
+        quote: "Every client deserves a single point of contact who knows their project inside and out. That's the Buchan way.",
+        cite: 'Mischelle McCall · Client Concierge',
+        image_url: '/assets/ph-portrait.svg',
+      },
+    } satisfies HomePageContent,
+  },
+  about: {
+    id: 'demo-about',
+    slug: 'about',
+    meta_title: 'About Us',
+    meta_description: 'Three generations of Buchan craftsmen building on the Seattle Eastside since 1960.',
+    content: {
+      hero: { eyebrow: 'Our Story', title: 'Built on legacy.', title_emphasis: 'Defined by you.' },
+      timeline: {
+        eyebrow: 'Timeline',
+        title: '65 years of craft.',
+        items: [
+          { year: '1960', title: 'Founded', body: 'John Buchan opens his first workshop in Bellevue.' },
+          { year: '1985', title: 'Second Generation', body: 'David Buchan joins the family business.' },
+          { year: '2014', title: 'Design Studio', body: 'In-house architecture and interiors launched.' },
+          { year: 'Today', title: '65 Years', body: 'Three generations, one standard — yours.' },
+        ],
+      },
+      mission: {
+        eyebrow: 'Our Mission',
+        title: 'Your standard is',
+        title_emphasis: 'our standard.',
+        body: "We don't build to impress other builders. We build to the standard you set — in every joint, every finish, every quiet detail.",
+        image_url: '/assets/ph-arch-2.svg',
+      },
+      team: {
+        eyebrow: 'The Team',
+        title: 'People who care',
+        title_emphasis: 'deeply.',
+        members: [
+          { name: 'Mischelle McCall', role: 'Client Concierge', image_url: '/assets/ph-portrait.svg' },
+          { name: 'David Buchan', role: 'President', image_url: '/assets/ph-portrait.svg' },
+          { name: 'Sarah Lindqvist', role: 'Design Director', image_url: '/assets/ph-portrait.svg' },
+          { name: 'Marcus Reyes', role: 'Construction Manager', image_url: '/assets/ph-portrait.svg' },
+        ],
+      },
+      giving_back: {
+        eyebrow: 'Giving Back',
+        title: 'Building community,',
+        title_emphasis: 'not just homes.',
+        image_url: '/assets/ph-arch-3.svg',
+      },
+      cta: {
+        join_title: 'Join our team.',
+        join_body: "We're always looking for craftspeople who share our standard.",
+        land_title: 'We buy land.',
+        land_body: "Have a lot on the Eastside? We'd love to hear about it.",
+      },
+    } satisfies AboutPageContent,
+  },
+  services: {
+    id: 'demo-services',
+    slug: 'services',
+    meta_title: 'Services',
+    meta_description: 'Build, Design, and Remodel — three ways to create something lasting with John Buchan Homes.',
+    content: {
+      hero: { eyebrow: 'What We Do', title: 'Three ways to build', title_emphasis: 'something lasting.' },
+      items: [
+        { title: 'Build', slug: 'build', description: 'Ground-up custom homes on your lot — from foundation to final walkthrough.', image_url: '/assets/ph-arch-2.svg' },
+        { title: 'Design', slug: 'design', description: 'Architecture and interiors under one roof, designed for how you live.', image_url: '/assets/ph-arch-3.svg' },
+        { title: 'Remodel', slug: 'remodel', description: 'Whole-home and room-scale renovations with the same Buchan standard.', image_url: '/assets/ph-arch-4.svg' },
+      ],
+      cta_title: 'Ready to begin?',
+    } satisfies ServicesPageContent,
+  },
+  build: {
+    id: 'demo-build',
+    slug: 'build',
+    meta_title: 'Custom Build',
+    meta_description: 'Ground-up custom homes on your lot in Bellevue, Clyde Hill, Medina, and Redmond.',
+    content: {
+      hero: { eyebrow: 'Services', title: 'Custom', title_emphasis: 'Build' },
+      image_url: '/assets/ph-arch-1.svg',
+      steps: [
+        { n: '01', title: 'Lot & Vision', body: 'We evaluate your land and understand your goals.' },
+        { n: '02', title: 'Design', body: 'Architecture and interiors developed together.' },
+        { n: '03', title: 'Estimate', body: 'Transparent pricing before we break ground.' },
+        { n: '04', title: 'Permitting', body: 'We navigate codes and approvals on your behalf.' },
+        { n: '05', title: 'Build', body: 'Craftsmanship at every stage, on your lot.' },
+      ],
+      cta_title: "Let's talk about your project.",
+    } satisfies ServiceDetailPageContent,
+  },
+  design: {
+    id: 'demo-design',
+    slug: 'design',
+    meta_title: 'Design',
+    meta_description: 'Architecture and interior design unified under one roof.',
+    content: {
+      hero: { eyebrow: 'Services', title: 'Design &', title_emphasis: 'Architecture' },
+      image_url: '/assets/ph-arch-3.svg',
+      steps: [
+        { n: '01', title: 'Discovery', body: 'How you live, how you want to feel at home.' },
+        { n: '02', title: 'Concept', body: 'Initial plans and material palettes.' },
+        { n: '03', title: 'Development', body: 'Detailed drawings and specifications.' },
+        { n: '04', title: 'Build', body: 'Design intent carried through construction.' },
+      ],
+      cta_title: "Let's talk about your project.",
+    } satisfies ServiceDetailPageContent,
+  },
+  remodel: {
+    id: 'demo-remodel',
+    slug: 'remodel',
+    meta_title: 'Remodel',
+    meta_description: 'Whole-home and room-scale renovations on the Seattle Eastside.',
+    content: {
+      hero: { eyebrow: 'Services', title: 'Thoughtful', title_emphasis: 'Remodel' },
+      image_url: '/assets/ph-arch-4.svg',
+      steps: [
+        { n: '01', title: 'Assessment', body: 'Understanding your existing home and goals.' },
+        { n: '02', title: 'Design', body: "Plans that respect what works and improve what doesn't." },
+        { n: '03', title: 'Phasing', body: 'Minimal disruption while you stay in your home.' },
+        { n: '04', title: 'Finish', body: 'The same Buchan standard, in the home you already love.' },
+      ],
+      cta_title: "Let's talk about your project.",
+    } satisfies ServiceDetailPageContent,
+  },
+  process: {
+    id: 'demo-process',
+    slug: 'process',
+    meta_title: 'Our Process',
+    meta_description: 'From first conversation to final walkthrough — how we build custom homes on the Eastside.',
+    content: {
+      hero: { eyebrow: 'How We Work', title: 'The Buchan', title_emphasis: 'Process' },
+      steps: [
+        { n: '01', title: 'Conversation & Lot', duration: 'Week 1–2', body: 'We listen first — your vision, your land, your timeline.', tag: 'Discovery' },
+        { n: '02', title: 'Design Development', duration: 'Weeks 3–12', body: 'Architecture and interiors evolve together under one roof.', tag: 'Design' },
+        { n: '03', title: 'Estimate & Contract', duration: 'Week 13–14', body: 'Transparent pricing. No surprises before we break ground.', tag: 'Planning' },
+        { n: '04', title: 'Permitting', duration: 'Weeks 15–20', body: 'We navigate codes and approvals on your behalf.', tag: 'Permits' },
+        { n: '05', title: 'Construction', duration: 'Months 6–18', body: 'Craftsmanship at every stage, with regular site visits.', tag: 'Build' },
+        { n: '06', title: 'Warranty & Aftercare', duration: 'Ongoing', body: "Our relationship doesn't end at the walkthrough.", tag: 'Care' },
+      ],
+      cta_title: 'Ready to begin?',
+    } satisfies ProcessPageContent,
+  },
+  neighborhoods: {
+    id: 'demo-neighborhoods',
+    slug: 'neighborhoods',
+    meta_title: 'Neighborhoods',
+    meta_description: 'Custom homes in Bellevue, Clyde Hill, Medina, Redmond, and across the Seattle Eastside.',
+    content: {
+      hero: { eyebrow: 'Where We Build', title: 'Eastside', title_emphasis: 'Neighborhoods' },
+      areas: [
+        { name: 'Bellevue', body: 'From Bridle Trails to downtown, we know every neighborhood.', image_url: '/assets/ph-arch-1.svg' },
+        { name: 'Clyde Hill', body: "Estate-scale homes on some of the Eastside's most coveted lots.", image_url: '/assets/ph-arch-2.svg' },
+        { name: 'Medina', body: 'Lake Washington views and quiet streets — built to match.', image_url: '/assets/ph-arch-3.svg' },
+        { name: 'Redmond', body: "Growing families and established neighborhoods we've served for decades.", image_url: '/assets/ph-arch-4.svg' },
+      ],
+      cta_title: 'Find your neighborhood.',
+    } satisfies NeighborhoodsPageContent,
+  },
+  testimonials: {
+    id: 'demo-testimonials',
+    slug: 'testimonials',
+    meta_title: 'Testimonials',
+    meta_description: 'What our clients say about building with John Buchan Homes.',
+    content: {
+      hero: { eyebrow: 'Client Stories', title: 'In their', title_emphasis: 'words.' },
+      featured: {
+        quote: 'Building with Buchan felt like working with family — patient, precise, and deeply committed to getting it right.',
+        cite: 'The Harmon Family · Clyde Hill',
+        image_url: '/assets/ph-arch-1.svg',
+      },
+      quotes: [
+        { name: 'The Castellanos Family', city: 'Clyde Hill', quote: 'They treated our home like it was their own — every detail considered, every question answered.' },
+        { name: 'James & Elena Park', city: 'Medina', quote: 'The process was transparent from day one. No surprises, just craftsmanship.' },
+        { name: 'Robert Whitmore', city: 'Bellevue', quote: 'Three generations of builders who still show up on site. That matters.' },
+        { name: 'Sarah Lindqvist', city: 'Hunts Point', quote: 'Our remodel exceeded what we imagined — and felt inevitable when it was done.' },
+        { name: 'David Okonkwo', city: 'Redmond', quote: 'Built on our lot, on our timeline, to our standard. Exactly as promised.' },
+        { name: 'Priya Anand', city: 'Yarrow Point', quote: 'Mischelle made sure we never felt lost in the process. That concierge touch is real.' },
+      ],
+      cta_title: 'Ready to write your story?',
+    } satisfies TestimonialsPageContent,
+  },
+  contact: {
+    id: 'demo-contact',
+    slug: 'contact',
+    meta_title: 'Contact',
+    meta_description: 'Get in touch with John Buchan Homes — custom builder on the Seattle Eastside since 1960.',
+    content: {
+      hero: { eyebrow: 'Get in Touch', title: 'Start the', title_emphasis: 'conversation.' },
+      inquiry_title: 'Send an inquiry',
+      service_options: [
+        'I want to build a custom home',
+        'I am looking for a new home',
+        'I have land to sell',
+        "I'm planning a remodel",
+        'General inquiry',
+      ],
+      visit_title: 'Visit us',
+      phone: '425.827.2266',
+      phone_href: 'tel:4258272266',
+      office: 'Bellevue, Washington\nServing the Seattle Eastside',
+      cta_title: 'Know your numbers?',
+    } satisfies ContactPageContent,
+  },
+  faq: {
+    id: 'demo-faq',
+    slug: 'faq',
+    meta_title: 'FAQ',
+    meta_description: 'Answers to common questions about building a custom home with John Buchan Homes on the Seattle Eastside.',
+    content: {
+      hero: { eyebrow: 'Questions', title: 'What to', title_emphasis: 'expect.' },
+      intro: 'Building a custom home is a significant investment of time and trust. Here are answers to the questions we hear most often from Eastside homeowners.',
+      categories: [
+        {
+          title: 'Getting Started',
+          items: [
+            { question: 'Do you only build on my lot?', answer: 'Yes. We specialize in ground-up custom homes and major remodels on the Seattle Eastside — Bellevue, Clyde Hill, Medina, Redmond, and surrounding communities. We do not build spec homes on our own land.' },
+            { question: 'How do I know if my lot is buildable?', answer: 'We evaluate your lot early in the process — zoning, setbacks, slope, utilities, and access. Our team helps you understand what is possible before design begins in earnest.' },
+            { question: 'Can I bring my own architect?', answer: 'Absolutely. We also offer in-house design and architecture if you prefer a single team from concept through construction. Either way, we coordinate the full build.' },
+          ],
+        },
+        {
+          title: 'Process & Timeline',
+          items: [
+            { question: 'How long does a custom build take?', answer: 'Most custom homes on the Eastside take 12–18 months from breaking ground to final walkthrough, depending on size, complexity, and permitting. Design and permitting typically add several months before construction begins.' },
+            { question: 'What happens during permitting?', answer: 'We navigate city and county codes, submit plans, and manage revisions on your behalf. Permitting timelines vary by jurisdiction — we keep you informed at every stage.' },
+            { question: 'Will I have a single point of contact?', answer: 'Yes. Our Client Concierge stays with you from first conversation through aftercare — one person who knows your project inside and out.' },
+          ],
+        },
+        {
+          title: 'Budget & Pricing',
+          items: [
+            { question: 'How is pricing structured?', answer: 'We provide transparent estimates before breaking ground. You will understand scope, allowances, and selections so there are no surprises when construction begins.' },
+            { question: 'Do you offer a cost estimator?', answer: 'Yes. Use our online Build Estimator for a preliminary sense of budget, then contact us to refine numbers based on your lot and vision.' },
+            { question: 'What is included in a custom build?', answer: 'Every project is tailored to you. We guide you through structure, finishes, and fixtures — with the same Buchan standard in places you see and places you never will.' },
+          ],
+        },
+        {
+          title: 'After Move-In',
+          items: [
+            { question: 'What warranty do you provide?', answer: 'We stand behind our work with a structured warranty and responsive aftercare. See our Warranty & Aftercare page for full details.' },
+            { question: 'Who do I call after we move in?', answer: 'Your concierge remains your first call. We coordinate punch-list items, warranty questions, and any follow-up needs promptly.' },
+          ],
+        },
+      ],
+      cta_title: 'Still have questions?',
+    } satisfies FaqPageContent,
+  },
+  warranty: {
+    id: 'demo-warranty',
+    slug: 'warranty',
+    meta_title: 'Warranty & Aftercare',
+    meta_description: 'John Buchan Homes warranty coverage and ongoing aftercare for custom homes on the Seattle Eastside.',
+    content: {
+      hero: { eyebrow: 'Peace of Mind', title: 'Warranty &', title_emphasis: 'Aftercare.' },
+      intro: 'Our relationship does not end at the walkthrough. For generations, Buchan clients have counted on us long after the keys are handed over — because true craftsmanship deserves lasting support.',
+      sections: [
+        {
+          title: 'Built to last — backed by us.',
+          body: 'Every Buchan home is constructed to a standard we would build for our own families. That means rigorous quality checks during construction and a clear warranty process once you move in.',
+        },
+        {
+          title: 'Your concierge, after move-in.',
+          body: 'Mischelle McCall and our team remain your single point of contact. Whether it is a warranty question, a seasonal check-in, or guidance on caring for your home, you are never left searching for answers.',
+        },
+      ],
+      coverage_items: [
+        { title: 'Structural warranty', description: 'Coverage for major structural components per our written warranty agreement and applicable Washington State requirements.' },
+        { title: 'Workmanship', description: 'We address defects in materials and workmanship reported during the warranty period promptly and professionally.' },
+        { title: 'Systems & finishes', description: 'Mechanical, electrical, and installed systems are documented at handover. We help you understand care, maintenance, and warranty terms for each.' },
+        { title: 'Punch list & close-out', description: 'Before you move in, we walk every room with you. Open items are tracked to completion — nothing is left unresolved.' },
+        { title: 'Ongoing support', description: 'Questions after warranty? We are still here. Buchan clients are part of a community we have served for over 65 years.' },
+      ],
+      cta_title: 'Questions about coverage?',
+    } satisfies WarrantyPageContent,
+  },
+  awards: {
+    id: 'demo-awards',
+    slug: 'awards',
+    meta_title: 'Awards, Press & Credentials',
+    meta_description: 'Recognition, press, and professional credentials for John Buchan Homes — Bellevue custom builder since 1960.',
+    content: {
+      hero: { eyebrow: 'Recognition', title: 'Awards &', title_emphasis: 'credentials.' },
+      intro: 'For more than six decades, John Buchan Homes has been recognized by clients, industry peers, and the design community for craftsmanship, service, and integrity on the Seattle Eastside.',
+      awards: [
+        { title: 'Best of Houzz — Design', year: '2022', description: 'Recognized for excellence in residential design and client satisfaction.' },
+        { title: 'Best of Houzz — Design', year: '2021', description: 'Honored for outstanding design work and portfolio quality.' },
+        { title: 'Best of Houzz — Service', year: '2020', description: 'Awarded for exceptional client service throughout the building process.' },
+        { title: 'Best of Houzz — Service', year: '2017', description: 'Consistent recognition for communication, reliability, and results.' },
+        { title: 'Best of Houzz — Service', year: '2016', description: 'Client-reviewed excellence in custom home building.' },
+        { title: 'Best of Houzz — Service', year: '2014', description: 'Among the first Eastside builders honored on Houzz for service.' },
+        { title: 'Houzz Community Recommended', year: '—', description: 'Recommended by the Houzz community for quality and professionalism.' },
+        { title: '25K+ Houzz Saves', year: '—', description: 'Our work has been saved and shared by thousands of homeowners and design professionals.' },
+      ],
+      press: [
+        { title: 'Built for the rain', source: 'John Buchan Homes Blog', date: '2026', excerpt: 'What "built for the rain" really means in the Pacific Northwest — and why it matters for your home.', url: '/blog/built-for-the-rain' },
+        { title: 'Clyde Hill estate, framing to finish', source: 'John Buchan Homes Blog', date: '2026', excerpt: 'A look at every stage of one of our most considered builds to date.', url: '/blog/clyde-hill-framing-to-finish' },
+        { title: 'Six Best of Houzz awards', source: 'Company Updates', date: '2026', excerpt: 'Recognition is nice. The standard behind it is the point.', url: '/blog/best-of-houzz' },
+      ],
+      credentials: [
+        { title: 'Licensed & insured', body: 'John Buchan Homes is a licensed general contractor serving Bellevue and the greater Seattle Eastside, fully insured for your protection.' },
+        { title: '65 years in business', body: 'Three generations of Buchan craftsmen — building on the Eastside since 1960.' },
+        { title: 'Design-build expertise', body: 'In-house architecture and interiors, unified under one roof from first sketch to final walkthrough.' },
+        { title: 'Client concierge', body: 'Dedicated single point of contact throughout your project and beyond.' },
+      ],
+      cta_title: 'Experience the Buchan standard.',
+    } satisfies AwardsPageContent,
+  },
+};
+
+export function getDemoSitePage<S extends SitePageSlug>(slug: S): SitePage<S> {
+  return DEMO_SITE_PAGES[slug] as SitePage<S>;
+}
+
+export function getDemoPageContent<S extends SitePageSlug>(slug: S): SitePageContentMap[S] {
+  return getDemoSitePage(slug).content;
+}

@@ -1,0 +1,108 @@
+import { useCallback, useEffect, useState } from 'react';
+import type { Post } from '../types';
+import { supabase, isSupabaseConfigured } from '../lib/supabase';
+import { DEMO_POSTS } from '../data/demo';
+
+export function usePosts(options?: { publishedOnly?: boolean; admin?: boolean }) {
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchPosts = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    if (!isSupabaseConfigured) {
+      let data = DEMO_POSTS;
+      if (options?.publishedOnly) data = data.filter((p) => p.status === 'Published');
+      setPosts(data);
+      setLoading(false);
+      return;
+    }
+    try {
+      let query = supabase.from('posts').select('*').order('date', { ascending: false });
+      if (options?.publishedOnly && !options?.admin) {
+        query = query.eq('status', 'Published');
+      }
+      const { data, error: err } = await query;
+      if (err) throw err;
+      setPosts((data as Post[]) ?? []);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Failed to load posts');
+      let data = DEMO_POSTS;
+      if (options?.publishedOnly) data = data.filter((p) => p.status === 'Published');
+      setPosts(data);
+    } finally {
+      setLoading(false);
+    }
+  }, [options?.publishedOnly, options?.admin]);
+
+  useEffect(() => { fetchPosts(); }, [fetchPosts]);
+
+  const savePost = async (post: Partial<Post> & { title: string }) => {
+    if (!isSupabaseConfigured) throw new Error('Supabase not configured');
+    const payload = {
+      title: post.title,
+      slug: post.slug,
+      category: post.category,
+      status: post.status,
+      date: post.date,
+      excerpt: post.excerpt ?? '',
+      body: post.body ?? '',
+      image_url: post.image_url ?? '',
+      meta_title: post.meta_title ?? '',
+      meta_description: post.meta_description ?? '',
+    };
+    if (post.id) {
+      const { error: err } = await supabase.from('posts').update(payload).eq('id', post.id);
+      if (err) throw err;
+    } else {
+      const { error: err } = await supabase.from('posts').insert(payload);
+      if (err) throw err;
+    }
+    await fetchPosts();
+  };
+
+  const deletePost = async (id: string) => {
+    if (!isSupabaseConfigured) throw new Error('Supabase not configured');
+    const { error: err } = await supabase.from('posts').delete().eq('id', id);
+    if (err) throw err;
+    await fetchPosts();
+  };
+
+  return { posts, loading, error, refetch: fetchPosts, savePost, deletePost };
+}
+
+export function usePost(slug: string) {
+  const [post, setPost] = useState<Post | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function load() {
+      setLoading(true);
+      if (!isSupabaseConfigured) {
+        setPost(DEMO_POSTS.find((p) => p.slug === slug && p.status === 'Published') ?? null);
+        setLoading(false);
+        return;
+      }
+      try {
+        const { data, error: err } = await supabase
+          .from('posts')
+          .select('*')
+          .eq('slug', slug)
+          .eq('status', 'Published')
+          .single();
+        if (err) throw err;
+        setPost(data as Post);
+      } catch (e) {
+        setError(e instanceof Error ? e.message : 'Post not found');
+        setPost(DEMO_POSTS.find((p) => p.slug === slug && p.status === 'Published') ?? null);
+      } finally {
+        setLoading(false);
+      }
+    }
+    load();
+  }, [slug]);
+
+  return { post, loading, error };
+}

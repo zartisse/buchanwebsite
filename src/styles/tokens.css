@@ -1,0 +1,16 @@
+:root {
+  --color-bg-dark: #0d1512;
+  --color-bg-mid: #1a2420;
+  --color-bg-light: #efefe3;
+  --color-bg-admin: #efefe3;
+  --color-text: #f5f0e8;
+  --color-text-muted: rgba(245, 240, 232, 0.72);
+  --color-text-dark: #1a2420;
+  --color-accent: #b0824c;
+  --color-accent-light: #c79a60;
+  --color-accent-muted: rgba(176, 130, 76, 0.16);
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --section-padding: clamp(80px, 12vh, 140px) 8vw;
+  --max-width: 1280px;
+}
