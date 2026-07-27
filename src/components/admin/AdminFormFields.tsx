@@ -1,21 +1,5 @@
-import { uploadMedia } from '../../lib/utils';
+import { ImageDropzone } from './ImageDropzone';
 import styles from '../../styles/admin.module.css';
-
-export async function handleImageUpload(
-  e: React.ChangeEvent<HTMLInputElement>,
-  onUrl: (url: string) => void,
-  folder: string,
-) {
-  const file = e.target.files?.[0];
-  if (!file) return;
-  try {
-    onUrl(await uploadMedia(file, folder));
-  } catch {
-    const reader = new FileReader();
-    reader.onload = () => onUrl(reader.result as string);
-    reader.readAsDataURL(file);
-  }
-}
 
 export function ImageField({
   label,
@@ -29,15 +13,12 @@ export function ImageField({
   folder?: string;
 }) {
   return (
-    <div className={styles.field}>
-      <label className={styles.label}>{label}</label>
-      <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, onChange, folder)} />
-      {value && (
-        <div className={styles.heroPreview} style={{ marginTop: 8 }}>
-          <img src={value} alt="" />
-        </div>
-      )}
-    </div>
+    <ImageDropzone
+      label={label}
+      folder={folder}
+      value={value}
+      onChange={onChange}
+    />
   );
 }
 

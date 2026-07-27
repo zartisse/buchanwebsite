@@ -17,6 +17,7 @@ import type {
 import { getDemoSitePage } from '../../data/sitePagesDemo';
 import { PageMeta } from '../ui/PageMeta';
 import { HeroFields, ImageField, MetaFields } from './AdminFormFields';
+import { MediaDropzone } from './MediaDropzone';
 import styles from '../../styles/admin.module.css';
 
 interface SitePageEditorProps {
@@ -114,7 +115,14 @@ function HomeEditor({ content, onChange }: { content: HomePageContent; onChange:
           <label className={styles.label}>Subtitle</label>
           <input className={styles.input} value={content.hero.subtitle} onChange={(e) => onChange({ ...content, hero: { ...content.hero, subtitle: e.target.value } })} />
         </div>
-        <ImageField label="Hero image" value={content.hero.image_url} onChange={(url) => onChange({ ...content, hero: { ...content.hero, image_url: url } })} folder="pages/home" />
+        <MediaDropzone
+          label="Hero video"
+          folder="pages/home/video"
+          accept="video"
+          value={content.hero.video_url ?? ''}
+          onChange={(url) => onChange({ ...content, hero: { ...content.hero, video_url: url || undefined } })}
+        />
+        <ImageField label="Hero poster (fallback image)" value={content.hero.image_url} onChange={(url) => onChange({ ...content, hero: { ...content.hero, image_url: url } })} folder="pages/home" />
         <div className={styles.field}>
           <label className={styles.label}>Marquee text</label>
           <input className={styles.input} value={content.hero.marquee} onChange={(e) => onChange({ ...content, hero: { ...content.hero, marquee: e.target.value } })} />

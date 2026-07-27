@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { Post, PostCategory, PostStatus } from '../../types';
-import { slugify, uploadMedia } from '../../lib/utils';
+import { slugify } from '../../lib/utils';
+import { ImageDropzone } from './ImageDropzone';
 import { PageMeta } from '../ui/PageMeta';
 import styles from '../../styles/admin.module.css';
 
@@ -27,19 +28,6 @@ export function PostEditor({ post, onSave, onCancel }: PostEditorProps) {
   const handleTitleChange = (v: string) => {
     setTitle(v);
     if (autoSlug) setSlug(slugify(v));
-  };
-
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    try {
-      const url = await uploadMedia(file, 'posts');
-      setImageUrl(url);
-    } catch {
-      const reader = new FileReader();
-      reader.onload = () => setImageUrl(reader.result as string);
-      reader.readAsDataURL(file);
-    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -105,11 +93,12 @@ export function PostEditor({ post, onSave, onCancel }: PostEditorProps) {
           <label className={styles.label}>Body</label>
           <textarea className={styles.textarea} value={body} onChange={(e) => setBody(e.target.value)} rows={10} />
         </div>
-        <div className={styles.field}>
-          <label className={styles.label}>Hero Image</label>
-          <input type="file" accept="image/*" onChange={handleImageUpload} />
-          <div className={styles.heroPreview}><img src={imageUrl} alt="" /></div>
-        </div>
+        <ImageDropzone
+          label="Hero Image"
+          folder="posts"
+          value={imageUrl}
+          onChange={setImageUrl}
+        />
         <div className={styles.field}>
           <label className={styles.label}>Meta Title ({metaTitle.length}/60)</label>
           <input className={styles.input} value={metaTitle} onChange={(e) => setMetaTitle(e.target.value)} />

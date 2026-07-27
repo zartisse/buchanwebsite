@@ -67,6 +67,7 @@ export interface HomePageContent {
   hero: HeroSection & {
     subtitle: string;
     image_url: string;
+    video_url?: string;
     marquee: string;
     cta_primary_url: string;
     cta_primary_label: string;

@@ -15,6 +15,10 @@
   animation: jbh-ken 24s ease-in-out infinite alternate;
 }
 
+.heroVideo {
+  animation: none;
+}
+
 .heroOverlay {
   position: absolute;
   inset: 0;

@@ -53,7 +53,20 @@ export function Home() {
       <PageMeta title={page?.meta_title ?? "Bellevue's Custom Home Builder"} description={page?.meta_description} />
 
       <section className={homeStyles.hero}>
-        <img src={hero.image_url} alt="" className={homeStyles.heroImg} />
+        {hero.video_url ? (
+          <video
+            className={`${homeStyles.heroImg} ${homeStyles.heroVideo}`}
+            src={hero.video_url}
+            poster={hero.image_url}
+            autoPlay
+            muted
+            loop
+            playsInline
+            aria-hidden
+          />
+        ) : (
+          <img src={hero.image_url} alt="" className={homeStyles.heroImg} />
+        )}
         <div className={homeStyles.heroOverlay} />
         <div className={homeStyles.heroContent}>
           <div className={homeStyles.heroEyebrow}>{hero.eyebrow}</div>
