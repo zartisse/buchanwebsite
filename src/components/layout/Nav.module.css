@@ -45,6 +45,22 @@
   opacity: 0.85;
 }
 
+.ctaBtn {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  text-decoration: none;
+  border: 1px solid rgba(245, 240, 232, 0.35);
+  padding: 10px 16px;
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.ctaBtn:hover {
+  background: rgba(176, 130, 76, 0.14);
+  border-color: var(--color-accent);
+}
+
 .burger {
   display: flex;
   flex-direction: column;
@@ -199,6 +215,12 @@
   color: rgba(245, 240, 232, 0.5);
   position: relative;
   z-index: 2;
+}
+
+@media (max-width: 900px) {
+  .ctaBtn {
+    display: none;
+  }
 }
 
 @media (max-width: 640px) {

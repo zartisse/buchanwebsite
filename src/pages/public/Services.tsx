@@ -6,6 +6,15 @@ import { HeroTitle } from '../../components/ui/HeroTitle';
 import { getDemoPageContent } from '../../data/sitePagesDemo';
 import ps from '../../styles/pages.module.css';
 
+function servicePath(slug: string) {
+  const serviceRoutes: Record<string, string> = {
+    adus: '/services/adus',
+    'real-estate': '/services/real-estate',
+    'home-care': '/services/home-care',
+  };
+  return serviceRoutes[slug] ?? `/${slug}`;
+}
+
 export function Services() {
   const { page } = useSitePage('services');
   const content = page?.content ?? getDemoPageContent('services');
@@ -29,7 +38,7 @@ export function Services() {
                 <span className={ps.eyebrow}>Service</span>
                 <h2 className={ps.sectionTitle} style={{ marginTop: 18 }}>{s.title}</h2>
                 <p className={ps.bodyText} style={{ marginTop: 24 }}>{s.description}</p>
-                <Link to={`/${s.slug}`} data-cursor className={ps.btnLink} style={{ marginTop: 24, display: 'inline-flex' }}>Explore {s.title} →</Link>
+                <Link to={servicePath(s.slug)} data-cursor className={ps.btnLink} style={{ marginTop: 24, display: 'inline-flex' }}>Explore {s.title} →</Link>
               </div>
             </div>
           </RevealOnScroll>

@@ -1,6 +1,6 @@
 export type PostCategory = 'Company Updates' | 'Industry News';
 export type PostStatus = 'Draft' | 'Published';
-export type PropertyStatus = 'Available' | 'Sold' | 'Draft';
+export type PropertyStatus = 'Available' | 'Coming Soon' | 'Sold' | 'Draft';
 export type SubmissionStatus = 'New' | 'Read' | 'Archived';
 
 export interface Post {
@@ -95,6 +95,8 @@ export interface HomePageContent {
     cite: string;
     image_url: string;
   };
+  quality_gallery?: { image_url: string; caption?: string }[];
+  testimonials_strip?: { quote: string; cite: string }[];
 }
 
 export interface AboutPageContent {

@@ -119,9 +119,18 @@ function HomeEditor({ content, onChange }: { content: HomePageContent; onChange:
           label="Hero video"
           folder="pages/home/video"
           accept="video"
-          value={content.hero.video_url ?? ''}
-          onChange={(url) => onChange({ ...content, hero: { ...content.hero, video_url: url || undefined } })}
+          value={content.hero.video_url && !content.hero.video_url.includes('youtube') ? content.hero.video_url : ''}
+          onChange={(url) => onChange({ ...content, hero: { ...content.hero, video_url: url || content.hero.video_url } })}
         />
+        <div className={styles.field}>
+          <label className={styles.label}>Hero video URL (YouTube or direct MP4)</label>
+          <input
+            className={styles.input}
+            value={content.hero.video_url ?? ''}
+            placeholder="https://www.youtube.com/watch?v=..."
+            onChange={(e) => onChange({ ...content, hero: { ...content.hero, video_url: e.target.value || undefined } })}
+          />
+        </div>
         <ImageField label="Hero poster (fallback image)" value={content.hero.image_url} onChange={(url) => onChange({ ...content, hero: { ...content.hero, image_url: url } })} folder="pages/home" />
         <div className={styles.field}>
           <label className={styles.label}>Marquee text</label>
@@ -186,6 +195,51 @@ function HomeEditor({ content, onChange }: { content: HomePageContent; onChange:
           <input className={styles.input} value={content.concierge.cite} onChange={(e) => onChange({ ...content, concierge: { ...content.concierge, cite: e.target.value } })} />
         </div>
         <ImageField label="Portrait" value={content.concierge.image_url} onChange={(url) => onChange({ ...content, concierge: { ...content.concierge, image_url: url } })} folder="pages/home" />
+      </fieldset>
+      <fieldset className={styles.fieldset}>
+        <legend className={styles.legend}>Quality gallery (Behind the walls)</legend>
+        {(content.quality_gallery ?? []).map((item, i) => (
+          <div key={i} className={styles.repeatItem}>
+            <ImageField label={`Image ${i + 1}`} value={item.image_url} onChange={(url) => {
+              const quality_gallery = [...(content.quality_gallery ?? [])];
+              quality_gallery[i] = { ...quality_gallery[i], image_url: url };
+              onChange({ ...content, quality_gallery });
+            }} folder="pages/home/quality" />
+            <div className={styles.field}>
+              <label className={styles.label}>Caption</label>
+              <input className={styles.input} value={item.caption ?? ''} onChange={(e) => {
+                const quality_gallery = [...(content.quality_gallery ?? [])];
+                quality_gallery[i] = { ...quality_gallery[i], caption: e.target.value };
+                onChange({ ...content, quality_gallery });
+              }} />
+            </div>
+          </div>
+        ))}
+        <button type="button" className={styles.btn} onClick={() => onChange({ ...content, quality_gallery: [...(content.quality_gallery ?? []), { image_url: '/assets/ph-arch-1.svg', caption: '' }] })}>Add image</button>
+      </fieldset>
+      <fieldset className={styles.fieldset}>
+        <legend className={styles.legend}>Testimonials strip (homepage)</legend>
+        {(content.testimonials_strip ?? []).map((t, i) => (
+          <div key={i} className={styles.repeatItem}>
+            <div className={styles.field}>
+              <label className={styles.label}>Quote</label>
+              <textarea className={styles.textarea} value={t.quote} rows={2} onChange={(e) => {
+                const testimonials_strip = [...(content.testimonials_strip ?? [])];
+                testimonials_strip[i] = { ...testimonials_strip[i], quote: e.target.value };
+                onChange({ ...content, testimonials_strip });
+              }} />
+            </div>
+            <div className={styles.field}>
+              <label className={styles.label}>Citation (Name · City)</label>
+              <input className={styles.input} value={t.cite} onChange={(e) => {
+                const testimonials_strip = [...(content.testimonials_strip ?? [])];
+                testimonials_strip[i] = { ...testimonials_strip[i], cite: e.target.value };
+                onChange({ ...content, testimonials_strip });
+              }} />
+            </div>
+          </div>
+        ))}
+        <button type="button" className={styles.btn} onClick={() => onChange({ ...content, testimonials_strip: [...(content.testimonials_strip ?? []), { quote: '', cite: '' }] })}>Add testimonial</button>
       </fieldset>
     </>
   );

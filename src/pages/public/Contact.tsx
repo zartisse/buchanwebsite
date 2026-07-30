@@ -72,8 +72,10 @@ export function Contact() {
 
       <section className={ps.sectionAlt}>
         <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap', padding: '0 8vw' }}>
-          <Link to="/contact?service=I want to build a custom home#inquiry" data-cursor className={ps.btnPrimary}>Build a Home</Link>
-          <Link to="/contact?service=I am looking for a new home#inquiry" data-cursor className={ps.btnPrimary}>Buy a Home</Link>
+          <Link to="/contact?service=I want to build a custom home#inquiry" data-cursor className={ps.btnPrimary}>Custom Home</Link>
+          <Link to="/contact?service=I'm planning a major renovation#inquiry" data-cursor className={ps.btnPrimary}>Renovation</Link>
+          <Link to="/land-acquisition" data-cursor className={ps.btnPrimary}>Sell Land</Link>
+          <Link to="/second-opinion" data-cursor className={ps.btnPrimary}>Second Opinion</Link>
         </div>
       </section>
 
@@ -124,7 +126,7 @@ export function Contact() {
 
       <section className={ps.ctaSection}>
         <h2 className={ps.sectionTitle}>{content.cta_title}</h2>
-        <a href="https://estimator.buchan.com/" target="_blank" rel="noopener noreferrer" data-cursor className={ps.btnPrimary}>Get Your Build Estimate</a>
+        <Link to="/cost-estimator" data-cursor className={ps.btnPrimary}>How Much Will My Project Cost?</Link>
       </section>
     </main>
   );

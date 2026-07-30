@@ -8,7 +8,9 @@ export function StatusPill({ status }: StatusPillProps) {
   const cls =
     status === 'Published' || status === 'Available'
       ? adminStyles.pillGold
-      : status === 'Sold'
+      : status === 'Coming Soon'
+        ? adminStyles.pillNew
+        : status === 'Sold'
         ? adminStyles.pillMuted
         : adminStyles.pillGray;
   return <span className={`${adminStyles.pill} ${cls}`}>{status}</span>;

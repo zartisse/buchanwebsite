@@ -22,7 +22,7 @@ function ServicePageView({ slug }: { slug: ServiceSlug }) {
           <HeroTitle hero={content.hero} />
           <div className={ps.ctaButtons} style={{ justifyContent: 'flex-start', marginTop: 32 }}>
             <Link to="/contact" data-cursor className={ps.btnPrimary}>Start a Conversation</Link>
-            <a href="https://estimator.buchan.com/" target="_blank" rel="noopener noreferrer" data-cursor className={ps.btnLink}>Get Estimate →</a>
+            <Link to="/cost-estimator" data-cursor className={ps.btnLink}>Get Estimate →</Link>
           </div>
         </div>
       </section>

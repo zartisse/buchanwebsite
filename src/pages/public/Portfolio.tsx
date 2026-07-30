@@ -5,7 +5,7 @@ import { PageMeta } from '../../components/ui/PageMeta';
 import { RevealOnScroll } from '../../components/ui/RevealOnScroll';
 import ps from '../../styles/pages.module.css';
 
-type Filter = 'all' | 'Available' | 'Sold';
+type Filter = 'all' | 'Available' | 'Coming Soon' | 'Sold';
 
 export function Portfolio() {
   const { properties, loading, error } = useProperties({ publicOnly: true });
@@ -29,7 +29,7 @@ export function Portfolio() {
       <section className={ps.section}>
         <div className={ps.sectionInner}>
           <div style={{ display: 'flex', gap: 16, marginBottom: 48 }}>
-            {(['all', 'Available', 'Sold'] as Filter[]).map((f) => (
+            {(['all', 'Available', 'Coming Soon', 'Sold'] as Filter[]).map((f) => (
               <button
                 key={f}
                 type="button"
@@ -64,7 +64,7 @@ export function Portfolio() {
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
                     <span style={{ fontFamily: 'var(--font-serif)', fontSize: 26 }}>{h.name}</span>
-                    <span style={{ fontSize: 10, letterSpacing: '0.16em', textTransform: 'uppercase', color: h.status === 'Available' ? 'var(--color-accent-light)' : 'rgba(245,240,232,0.45)' }}>{h.status}</span>
+                    <span style={{ fontSize: 10, letterSpacing: '0.16em', textTransform: 'uppercase', color: h.status === 'Available' || h.status === 'Coming Soon' ? 'var(--color-accent-light)' : 'rgba(245,240,232,0.45)' }}>{h.status}</span>
                   </div>
                   <span style={{ fontSize: 12, color: 'rgba(245,240,232,0.5)' }}>{h.city}</span>
                 </Link>

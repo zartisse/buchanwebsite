@@ -5,9 +5,7 @@ import { ProtectedRoute } from '../components/layout/ProtectedRoute';
 import { Home } from '../pages/public/Home';
 import { About } from '../pages/public/About';
 import { Services } from '../pages/public/Services';
-import { Build, Design, Remodel } from '../pages/public/ServicePages';
 import { Process } from '../pages/public/Process';
-import { Neighborhoods } from '../pages/public/Neighborhoods';
 import { Testimonials } from '../pages/public/Testimonials';
 import { Portfolio } from '../pages/public/Portfolio';
 import { PortfolioDetail } from '../pages/public/PortfolioDetail';
@@ -17,6 +15,14 @@ import { Contact } from '../pages/public/Contact';
 import { Faq } from '../pages/public/Faq';
 import { Warranty } from '../pages/public/Warranty';
 import { Awards } from '../pages/public/Awards';
+import { CostEstimator } from '../pages/public/CostEstimator';
+import { AvailableHomes } from '../pages/public/AvailableHomes';
+import { BuilderTransitionCaseStudy } from '../pages/public/CaseStudies';
+import {
+  CustomHomes, Renovations, Preconstruction, WhyChooseBuchan, AreasWeServe,
+  Adus, FireRestoration, PlanningBudgeting, RealEstate, FindYourLot,
+  SellYourHome, SellToBuchan, HomeCare, LandAcquisition, SecondOpinion, PropertyFeasibility,
+} from '../pages/public/IaPages';
 import { AdminLogin } from '../pages/admin/Login';
 import { AdminDashboard } from '../pages/admin/Dashboard';
 import { AdminPosts } from '../pages/admin/Posts';
@@ -31,13 +37,28 @@ export function AppRouter() {
       <Routes>
         <Route element={<PublicLayout />}>
           <Route index element={<Home />} />
+          <Route path="custom-homes" element={<CustomHomes />} />
+          <Route path="renovations" element={<Renovations />} />
+          <Route path="preconstruction" element={<Preconstruction />} />
+          <Route path="available-homes" element={<AvailableHomes />} />
+          <Route path="cost-estimator" element={<CostEstimator />} />
+          <Route path="case-studies/builder-transition" element={<BuilderTransitionCaseStudy />} />
+          <Route path="why-choose-buchan" element={<WhyChooseBuchan />} />
+          <Route path="areas-we-serve" element={<AreasWeServe />} />
+          <Route path="land-acquisition" element={<LandAcquisition />} />
+          <Route path="second-opinion" element={<SecondOpinion />} />
+          <Route path="property-feasibility" element={<PropertyFeasibility />} />
+          <Route path="services/adus" element={<Adus />} />
+          <Route path="services/fire-restoration" element={<FireRestoration />} />
+          <Route path="services/planning-budgeting" element={<PlanningBudgeting />} />
+          <Route path="services/real-estate" element={<RealEstate />} />
+          <Route path="services/real-estate/find-your-lot" element={<FindYourLot />} />
+          <Route path="services/real-estate/sell-your-home" element={<SellYourHome />} />
+          <Route path="services/real-estate/sell-to-buchan" element={<SellToBuchan />} />
+          <Route path="services/home-care" element={<HomeCare />} />
           <Route path="about" element={<About />} />
           <Route path="services" element={<Services />} />
-          <Route path="build" element={<Build />} />
-          <Route path="design" element={<Design />} />
-          <Route path="remodel" element={<Remodel />} />
           <Route path="process" element={<Process />} />
-          <Route path="neighborhoods" element={<Neighborhoods />} />
           <Route path="testimonials" element={<Testimonials />} />
           <Route path="portfolio" element={<Portfolio />} />
           <Route path="portfolio/:slug" element={<PortfolioDetail />} />
@@ -47,6 +68,10 @@ export function AppRouter() {
           <Route path="faq" element={<Faq />} />
           <Route path="warranty" element={<Warranty />} />
           <Route path="awards" element={<Awards />} />
+          <Route path="build" element={<Navigate to="/custom-homes" replace />} />
+          <Route path="remodel" element={<Navigate to="/renovations" replace />} />
+          <Route path="design" element={<Navigate to="/services/planning-budgeting" replace />} />
+          <Route path="neighborhoods" element={<Navigate to="/areas-we-serve" replace />} />
         </Route>
 
         <Route path="admin/login" element={<AdminLogin />} />

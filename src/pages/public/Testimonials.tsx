@@ -61,7 +61,7 @@ export function Testimonials() {
         <h2 className={ps.sectionTitle}>{content.cta_title}</h2>
         <div className={ps.ctaButtons}>
           <Link to="/contact" data-cursor className={ps.btnPrimary}>Contact Us</Link>
-          <a href="https://estimator.buchan.com/" target="_blank" rel="noopener noreferrer" data-cursor className={ps.btnLink}>Build Estimator →</a>
+          <Link to="/cost-estimator" data-cursor className={ps.btnLink}>Cost Estimator →</Link>
         </div>
       </section>
     </main>

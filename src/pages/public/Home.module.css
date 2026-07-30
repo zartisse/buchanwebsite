@@ -19,6 +19,23 @@
   animation: none;
 }
 
+.heroYoutube {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.heroYoutube iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max(100vw, 177.78vh);
+  height: max(56.25vw, 100vh);
+  transform: translate(-50%, -50%);
+  border: 0;
+}
+
 .heroOverlay {
   position: absolute;
   inset: 0;
@@ -248,5 +265,226 @@
   }
   .conciergeImg {
     margin: 0 auto;
+  }
+}
+
+.credibility {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(16px, 3vw, 40px);
+  padding: 20px 8vw;
+  background: var(--color-bg-mid);
+  border-bottom: 1px solid rgba(245, 240, 232, 0.08);
+}
+
+.credItem {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(245, 240, 232, 0.65);
+}
+
+.tilesSection {
+  margin-top: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.tileGroupLabel {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  display: block;
+  margin-bottom: 16px;
+}
+
+.tileGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.tileGridLarge {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.tileGridSmall {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 24px;
+  border: 1px solid rgba(245, 240, 232, 0.12);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.25s, background 0.25s;
+}
+
+.tile:hover {
+  border-color: var(--color-accent);
+  background: rgba(176, 130, 76, 0.06);
+}
+
+.tile strong {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.tile span {
+  font-size: 14px;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+.splitBlock {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 40px;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 8vw;
+  align-items: start;
+}
+
+.bulletList {
+  margin: 20px 0 0;
+  padding-left: 18px;
+  color: var(--color-text-muted);
+  line-height: 1.8;
+}
+
+.processGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 20px;
+}
+
+.processStep {
+  border-top: 1px solid rgba(245, 240, 232, 0.12);
+  padding-top: 16px;
+}
+
+.processN {
+  font-family: var(--font-serif);
+  font-size: 28px;
+  color: var(--color-accent-light);
+  opacity: 0.6;
+  display: block;
+}
+
+.processTitle {
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  line-height: 1.4;
+  display: block;
+  margin-top: 8px;
+}
+
+.spotlightCard {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-top: 32px;
+  text-decoration: none;
+  color: inherit;
+  align-items: center;
+}
+
+.spotlightCard img {
+  width: 100%;
+  height: clamp(240px, 30vw, 360px);
+  object-fit: cover;
+}
+
+.spotlightStatus {
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.spotlightName {
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 3.5vw, 40px);
+  font-weight: 300;
+  margin: 8px 0;
+}
+
+.areaChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.areaChip {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 10px 16px;
+  border: 1px solid rgba(245, 240, 232, 0.18);
+  text-decoration: none;
+  color: var(--color-text);
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.areaChip:hover {
+  border-color: var(--color-accent);
+  background: rgba(176, 130, 76, 0.08);
+}
+
+.valuesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 32px;
+}
+
+.valueTitle {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 400;
+  margin: 0 0 10px;
+}
+
+.galleryCaption {
+  display: block;
+  margin-top: 10px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.testimonialGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+.testimonialCard {
+  margin: 0;
+  padding: 28px;
+  border: 1px solid rgba(245, 240, 232, 0.12);
+  background: rgba(245, 240, 232, 0.03);
+}
+
+.testimonialQuote {
+  font-family: var(--font-serif);
+  font-size: clamp(18px, 2vw, 22px);
+  font-weight: 300;
+  line-height: 1.45;
+  margin: 0 0 16px;
+  font-style: italic;
+}
+
+@media (max-width: 640px) {
+  .spotlightCard {
+    grid-template-columns: 1fr;
   }
 }

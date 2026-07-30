@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { PRIMARY_NAV } from '../../data/navigation';
 import styles from './Nav.module.css';
 
 export function Nav() {
@@ -32,6 +33,7 @@ export function Nav() {
           <img src="/assets/logo-reverse.svg" alt="John Buchan Homes" className={styles.logo} />
         </Link>
         <div className={styles.topRight}>
+          <Link to="/contact" data-cursor className={styles.ctaBtn}>Start a Conversation</Link>
           <a href="tel:4258272266" data-cursor className={styles.phone}>425.827.2266</a>
           <button
             type="button"
@@ -54,52 +56,23 @@ export function Nav() {
           </button>
         </div>
         <div className={styles.navLinks}>
-          <NavGroup
-            label="About"
-            to="/about"
-            links={[
-              { to: '/about#legacy', label: 'Our Legacy' },
-              { to: '/about#mission', label: 'Mission' },
-              { to: '/about#team', label: 'Team' },
-              { to: '/process', label: 'Process' },
-              { to: '/awards', label: 'Awards' },
-            ]}
-            open={open}
-            onClose={() => setOpen(false)}
-          />
-          <NavGroup
-            label="Services"
-            to="/services"
-            links={[
-              { to: '/build', label: 'Build' },
-              { to: '/design', label: 'Design' },
-              { to: '/remodel', label: 'Remodel' },
-            ]}
-            open={open}
-            onClose={() => setOpen(false)}
-          />
-          <NavGroup
-            label="Portfolio"
-            to="/portfolio"
-            links={[
-              { to: '/portfolio', label: 'All Homes' },
-              { to: '/neighborhoods', label: 'Neighborhoods' },
-              { to: '/testimonials', label: 'Testimonials' },
-            ]}
-            open={open}
-            onClose={() => setOpen(false)}
-          />
-          <div className={styles.navRow}>
-            <Link to="/faq" data-cursor className={styles.navMain} onClick={() => setOpen(false)}>FAQ</Link>
-          </div>
-          <div className={styles.navRow}>
-            <Link to="/blog" data-cursor className={styles.navMain} onClick={() => setOpen(false)}>Blog</Link>
-          </div>
+          {PRIMARY_NAV.map((group) => (
+            <NavGroup
+              key={group.label}
+              label={group.label}
+              to={group.to}
+              links={group.links}
+              open={open}
+              onClose={() => setOpen(false)}
+            />
+          ))}
           <div className={styles.navRow}>
             <Link to="/contact" data-cursor className={styles.navMain} onClick={() => setOpen(false)}>Contact</Link>
           </div>
         </div>
         <div className={styles.overlayFooter}>
+          <Link to="/cost-estimator" onClick={() => setOpen(false)} style={{ color: 'inherit', textDecoration: 'none' }}>Cost Estimator</Link>
+          <span> · </span>
           <span>425.827.2266 · Bellevue, WA</span>
         </div>
       </nav>
@@ -119,11 +92,13 @@ function NavGroup({
   return (
     <div className={`${styles.navRow} ${open ? styles.navRowVisible : ''}`}>
       <Link to={to} data-cursor className={styles.navMain} onClick={onClose}>{label}</Link>
-      <span className={styles.navSubs}>
-        {links.map((l) => (
-          <Link key={l.to} to={l.to} data-cursor className={styles.navSub} onClick={onClose}>{l.label}</Link>
-        ))}
-      </span>
+      {links.length > 0 && (
+        <span className={styles.navSubs}>
+          {links.map((l) => (
+            <Link key={l.to} to={l.to} data-cursor className={styles.navSub} onClick={onClose}>{l.label}</Link>
+          ))}
+        </span>
+      )}
     </div>
   );
 }
