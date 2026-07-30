@@ -1,14 +1,17 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { EstimatorLink } from '../../components/ui/EstimatorLink';
 import { PRIMARY_NAV } from '../../data/navigation';
 import styles from './Nav.module.css';
 
 export function Nav() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const lightTop = !scrolled && !open;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
+    onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
@@ -28,9 +31,9 @@ export function Nav() {
 
   return (
     <>
-      <header className={`${styles.topbar} ${scrolled ? styles.scrolled : ''}`}>
+      <header className={`${styles.topbar} ${scrolled ? styles.scrolled : ''} ${lightTop ? styles.lightTopbar : ''}`}>
         <Link to="/" data-cursor className={styles.logoLink}>
-          <img src="/assets/logo-reverse.svg" alt="John Buchan Homes" className={styles.logo} />
+          <img src={lightTop ? '/assets/logo.png' : '/assets/logo-reverse.png'} alt="John Buchan Homes" className={styles.logo} />
         </Link>
         <div className={styles.topRight}>
           <Link to="/contact" data-cursor className={styles.ctaBtn}>Start a Conversation</Link>
@@ -50,7 +53,7 @@ export function Nav() {
       <nav className={`${styles.overlay} ${open ? styles.overlayOpen : ''}`}>
         <div className={styles.ghost}>65</div>
         <div className={styles.overlayTop}>
-          <img src="/assets/logo-reverse.svg" alt="" className={styles.logo} />
+          <img src="/assets/logo-reverse.png" alt="" className={styles.logo} />
           <button type="button" data-cursor className={styles.close} onClick={() => setOpen(false)} aria-label="Close menu">
             <span /><span />
           </button>
@@ -71,7 +74,7 @@ export function Nav() {
           </div>
         </div>
         <div className={styles.overlayFooter}>
-          <Link to="/cost-estimator" onClick={() => setOpen(false)} style={{ color: 'inherit', textDecoration: 'none' }}>Cost Estimator</Link>
+          <EstimatorLink onClick={() => setOpen(false)} style={{ color: 'inherit', textDecoration: 'none' }}>Cost Estimator</EstimatorLink>
           <span> · </span>
           <span>425.827.2266 · Bellevue, WA</span>
         </div>

@@ -24,7 +24,7 @@ export function PropertyEditor({ property, onSave, onCancel }: PropertyEditorPro
   const [lot, setLot] = useState(property?.lot ?? '');
   const [year, setYear] = useState(property?.year ?? '');
   const [description, setDescription] = useState(property?.description ?? '');
-  const [imageUrl, setImageUrl] = useState(property?.image_url ?? '/assets/ph-arch-1.svg');
+  const [imageUrl, setImageUrl] = useState(property?.image_url ?? '/assets/ph-arch-1.png');
   const [galleryUrls, setGalleryUrls] = useState<string[]>(property?.gallery_urls ?? []);
   const [metaTitle, setMetaTitle] = useState(property?.meta_title ?? '');
   const [metaDescription, setMetaDescription] = useState(property?.meta_description ?? '');

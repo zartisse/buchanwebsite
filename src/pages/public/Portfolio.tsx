@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useProperties } from '../../hooks/useProperties';
 import { PageMeta } from '../../components/ui/PageMeta';
 import { RevealOnScroll } from '../../components/ui/RevealOnScroll';
+import { resolveImageUrl } from '../../lib/placeholders';
 import ps from '../../styles/pages.module.css';
 
 type Filter = 'all' | 'Available' | 'Coming Soon' | 'Sold';
@@ -37,8 +38,8 @@ export function Portfolio() {
                 onClick={() => setFilter(f)}
                 style={{
                   background: filter === f ? 'rgba(176,130,76,0.16)' : 'transparent',
-                  border: `1px solid ${filter === f ? '#B0824C' : 'rgba(245,240,232,0.2)'}`,
-                  color: '#F5F0E8',
+                  border: `1px solid ${filter === f ? 'var(--color-accent-dark)' : 'var(--color-hairline-light-3)'}`,
+                  color: 'var(--color-text-on-light)',
                   padding: '10px 20px',
                   fontSize: 11,
                   letterSpacing: '0.16em',
@@ -60,13 +61,13 @@ export function Portfolio() {
               <RevealOnScroll key={h.id}>
                 <Link to={`/portfolio/${h.slug}`} data-cursor style={{ textDecoration: 'none', color: 'inherit' }}>
                   <div style={{ overflow: 'hidden', height: 'clamp(280px, 30vw, 380px)', marginBottom: 20 }}>
-                    <img src={h.image_url || '/assets/ph-arch-1.svg'} alt={h.name} className={ps.imageCover} style={{ transition: 'transform 0.55s ease' }} />
+                    <img src={resolveImageUrl(h.image_url, h.slug)} alt={h.name} className={ps.imageCover} style={{ transition: 'transform 0.55s ease' }} />
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
                     <span style={{ fontFamily: 'var(--font-serif)', fontSize: 26 }}>{h.name}</span>
-                    <span style={{ fontSize: 10, letterSpacing: '0.16em', textTransform: 'uppercase', color: h.status === 'Available' || h.status === 'Coming Soon' ? 'var(--color-accent-light)' : 'rgba(245,240,232,0.45)' }}>{h.status}</span>
+                    <span style={{ fontSize: 10, letterSpacing: '0.16em', textTransform: 'uppercase', color: h.status === 'Available' || h.status === 'Coming Soon' ? 'var(--color-accent-dark)' : 'var(--color-text-muted-light)' }}>{h.status}</span>
                   </div>
-                  <span style={{ fontSize: 12, color: 'rgba(245,240,232,0.5)' }}>{h.city}</span>
+                  <span style={{ fontSize: 12, color: 'var(--color-text-muted-light)' }}>{h.city}</span>
                 </Link>
               </RevealOnScroll>
             ))}

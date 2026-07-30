@@ -4,6 +4,7 @@ import { PageMeta } from '../../components/ui/PageMeta';
 import { RevealOnScroll } from '../../components/ui/RevealOnScroll';
 import { HeroTitle, SectionTitleWithEmphasis } from '../../components/ui/HeroTitle';
 import { getDemoPageContent } from '../../data/sitePagesDemo';
+import { resolveImageUrl } from '../../lib/placeholders';
 import ps from '../../styles/pages.module.css';
 
 export function About() {
@@ -29,8 +30,8 @@ export function About() {
           <div style={{ display: 'grid', gap: 32 }}>
             {content.timeline.items.map((t) => (
               <RevealOnScroll key={`${t.year}-${t.title}`}>
-                <div style={{ display: 'grid', gridTemplateColumns: '120px 1fr', gap: 32, borderBottom: '1px solid rgba(245,240,232,0.08)', paddingBottom: 32 }}>
-                  <span style={{ fontFamily: 'var(--font-serif)', fontSize: 36, color: 'var(--color-accent-light)' }}>{t.year}</span>
+                <div style={{ display: 'grid', gridTemplateColumns: '120px 1fr', gap: 32, borderBottom: '1px solid var(--color-hairline-light-2)', paddingBottom: 32 }}>
+                  <span style={{ fontFamily: 'var(--font-serif)', fontSize: 36, color: 'var(--color-accent-dark)' }}>{t.year}</span>
                   <div>
                     <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: 24, margin: '0 0 8px' }}>{t.title}</h3>
                     <p className={ps.bodyText}>{t.body}</p>
@@ -45,7 +46,7 @@ export function About() {
       <section id="mission" className={ps.sectionAlt}>
         <RevealOnScroll>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 48, maxWidth: 'var(--max-width)', margin: '0 auto', alignItems: 'center' }}>
-            <img src={content.mission.image_url} alt="" style={{ width: '100%', height: 'clamp(300px, 40vw, 480px)', objectFit: 'cover' }} />
+            <img src={resolveImageUrl(content.mission.image_url, 'mission')} alt="" style={{ width: '100%', height: 'clamp(300px, 40vw, 480px)', objectFit: 'cover' }} />
             <div>
               <span className={ps.eyebrow}>{content.mission.eyebrow}</span>
               <SectionTitleWithEmphasis title={content.mission.title} title_emphasis={content.mission.title_emphasis} className={ps.sectionTitle} style={{ marginTop: 18 } as React.CSSProperties} />
@@ -64,7 +65,7 @@ export function About() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 32 }}>
             {content.team.members.map((m) => (
               <RevealOnScroll key={m.name}>
-                <img src={m.image_url} alt={m.name} style={{ width: '100%', aspectRatio: '3/4', objectFit: 'cover', marginBottom: 16 }} />
+                <img src={resolveImageUrl(m.image_url, m.name)} alt={m.name} style={{ width: '100%', aspectRatio: '3/4', objectFit: 'cover', marginBottom: 16 }} />
                 <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: 22, margin: '0 0 4px' }}>{m.name}</h3>
                 <span style={{ fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--color-accent)' }}>{m.role}</span>
               </RevealOnScroll>
@@ -74,7 +75,7 @@ export function About() {
       </section>
 
       <section id="giving-back" className={ps.sectionAlt} style={{ position: 'relative', minHeight: 400, display: 'flex', alignItems: 'center' }}>
-        <img src={content.giving_back.image_url} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.4 }} />
+        <img src={resolveImageUrl(content.giving_back.image_url, 'giving-back')} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.4 }} />
         <RevealOnScroll>
           <div style={{ position: 'relative', zIndex: 1, maxWidth: 600, padding: '0 8vw' }}>
             <span className={ps.eyebrow}>{content.giving_back.eyebrow}</span>

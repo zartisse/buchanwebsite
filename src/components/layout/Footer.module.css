@@ -1,7 +1,10 @@
 .footer {
-  background: var(--color-bg-mid);
-  color: var(--color-text);
+  background-color: var(--color-bg-cream);
+  background-image: var(--texture-mark-light);
+  background-size: var(--texture-size) var(--texture-size);
+  color: var(--color-text-on-light);
   padding: 0;
+  border-top: 1px solid var(--color-hairline-light);
 }
 
 .newsletter {
@@ -9,36 +12,43 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 32px;
-  padding: 56px 8vw;
-  border-bottom: 1px solid rgba(245, 240, 232, 0.1);
+  gap: var(--s-8);
+  padding: var(--s-12) var(--gutter);
+  border-bottom: 1px solid var(--color-hairline-light);
 }
 
 .newsletterText {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--s-2);
 }
 
 .eyebrow {
-  font-size: 11px;
-  letter-spacing: 0.24em;
+  font-size: var(--text-label);
+  letter-spacing: var(--tr-widest);
   text-transform: uppercase;
-  color: var(--color-accent-light);
+  color: var(--color-accent-on-light);
+  font-weight: var(--fw-medium);
 }
 
 .newsletterTitle {
   font-family: var(--font-serif);
-  font-size: 34px;
-  font-weight: 300;
-  line-height: 1.1;
+  font-size: var(--text-display-lg);
+  font-weight: var(--fw-light);
+  line-height: var(--lh-snug);
+  color: var(--color-text-on-light);
 }
 
 .newsletterForm {
   display: flex;
   align-items: center;
-  border-bottom: 1px solid rgba(245, 240, 232, 0.3);
+  border-bottom: 1px solid var(--color-hairline-light-3);
   min-width: min(320px, 100%);
+  transition: border-color var(--d-base) var(--ease-out);
+}
+
+.newsletterForm:focus-within {
+  border-color: var(--color-accent-dark);
 }
 
 .emailInput {
@@ -46,44 +56,53 @@
   background: transparent;
   border: none;
   outline: none;
-  color: var(--color-text);
+  color: var(--color-text-on-light);
   font-family: var(--font-sans);
-  font-size: 15px;
+  font-size: var(--text-body);
   padding: 12px 4px;
+}
+
+.emailInput::placeholder {
+  color: var(--color-text-muted-light);
 }
 
 .signUpBtn {
   background: none;
   border: none;
   cursor: pointer;
-  color: var(--color-accent-light);
-  font-size: 12px;
-  letter-spacing: 0.18em;
+  color: var(--color-accent-dark);
+  font-size: var(--text-body-sm);
+  letter-spacing: var(--tr-wider);
   text-transform: uppercase;
   padding: 12px 4px;
   white-space: nowrap;
+  transition: color var(--d-base) var(--ease-out);
+}
+
+.signUpBtn:hover {
+  color: var(--color-text-on-light);
 }
 
 .badges {
   display: flex;
   gap: 14px;
   overflow-x: auto;
-  padding: 36px 8vw;
-  border-bottom: 1px solid rgba(245, 240, 232, 0.1);
+  padding: var(--s-8) var(--gutter);
+  border-bottom: 1px solid var(--color-hairline-light);
 }
 
 .badgeRow {
-  padding: 24px 8vw 0;
-  border-bottom: 1px solid rgba(245, 240, 232, 0.1);
+  padding: var(--s-6) var(--gutter) 0;
+  border-bottom: 1px solid var(--color-hairline-light);
 }
 
 .badgeRowLabel {
   display: block;
-  font-size: 10px;
-  letter-spacing: 0.18em;
+  font-size: var(--text-micro);
+  letter-spacing: var(--tr-wider);
   text-transform: uppercase;
-  color: rgba(245, 240, 232, 0.45);
-  margin-bottom: 8px;
+  color: var(--color-text-muted-light);
+  margin-bottom: var(--s-2);
   text-align: center;
 }
 
@@ -93,18 +112,18 @@
   align-items: center;
   justify-content: center;
   gap: 25px;
-  padding: 24px 8vw 36px;
-  border-bottom: 1px solid rgba(245, 240, 232, 0.1);
+  padding: var(--s-6) var(--gutter) var(--s-8);
+  border-bottom: 1px solid var(--color-hairline-light);
 }
 
 .awardLogoLink {
   display: block;
   flex: 0 0 auto;
-  transition: opacity 0.3s, transform 0.3s;
+  transition: opacity var(--d-base) var(--ease-out), transform var(--d-base) var(--ease-out);
 }
 
 .awardLogoLink:hover {
-  opacity: 0.85;
+  opacity: 1;
   transform: translateY(-2px);
 }
 
@@ -113,55 +132,61 @@
   width: 63px;
   height: 63px;
   object-fit: contain;
+  filter: grayscale(1) opacity(0.7);
+  transition: filter var(--d-base) var(--ease-out);
+}
+
+.awardLogoLink:hover .awardLogo {
+  filter: grayscale(0) opacity(1);
 }
 
 .badge {
   flex: 0 0 auto;
   width: 96px;
   height: 112px;
-  border: 1px solid rgba(176, 130, 76, 0.45);
+  border: 1px solid var(--color-hairline-light-3);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 7px;
   text-align: center;
-  padding: 8px;
+  padding: var(--s-2);
 }
 
 .badgeLabel {
   font-size: 8px;
-  letter-spacing: 0.18em;
+  letter-spacing: var(--tr-wider);
   text-transform: uppercase;
-  color: rgba(245, 240, 232, 0.55);
+  color: var(--color-text-muted-light);
   line-height: 1.3;
 }
 
 .badgeYear {
   font-family: var(--font-serif);
   font-size: 26px;
-  color: var(--color-accent-light);
+  color: var(--color-accent-dark);
   line-height: 1;
 }
 
 .badgeCat {
   font-size: 8px;
-  letter-spacing: 0.18em;
+  letter-spacing: var(--tr-wider);
   text-transform: uppercase;
-  color: rgba(245, 240, 232, 0.55);
+  color: var(--color-text-muted-light);
 }
 
 .grid {
   display: grid;
   grid-template-columns: 1.4fr 1fr 1fr 1fr;
-  gap: 48px;
-  padding: 64px 8vw 48px;
+  gap: var(--s-12);
+  padding: var(--s-16) var(--gutter) var(--s-12);
 }
 
 .brandCol {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: var(--s-5);
 }
 
 .footerLogo {
@@ -171,10 +196,10 @@
 }
 
 .tagline {
-  font-size: 14px;
-  line-height: 1.7;
-  color: rgba(245, 240, 232, 0.6);
-  font-weight: 300;
+  font-size: var(--text-body-sm);
+  line-height: var(--lh-relaxed);
+  color: var(--color-text-body);
+  font-weight: var(--fw-light);
   max-width: 260px;
   margin: 0;
 }
@@ -182,42 +207,42 @@
 .linkCol {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: var(--s-4);
 }
 
 .linkCol a {
-  font-size: 14px;
-  color: rgba(245, 240, 232, 0.78);
+  font-size: var(--text-body-sm);
+  color: var(--color-text-body);
   text-decoration: none;
-  transition: color 0.3s;
+  transition: color var(--d-base) var(--ease-out);
 }
 
 .linkCol a:hover {
-  color: var(--color-text);
+  color: var(--color-text-on-light);
 }
 
 .colTitle {
-  font-size: 11px;
-  letter-spacing: 0.22em;
+  font-size: var(--text-label);
+  letter-spacing: var(--tr-widest);
   text-transform: uppercase;
-  color: var(--color-accent-light);
-  margin-bottom: 4px;
+  color: var(--color-accent-on-light);
+  margin-bottom: var(--s-1);
 }
 
 .copyright {
-  padding: 24px 8vw 40px;
-  border-top: 1px solid rgba(245, 240, 232, 0.08);
-  font-size: 12px;
-  color: rgba(245, 240, 232, 0.4);
-  letter-spacing: 0.04em;
+  padding: var(--s-6) var(--gutter) var(--s-10);
+  border-top: 1px solid var(--color-hairline-light);
+  font-size: var(--text-body-sm);
+  color: var(--color-text-muted-light);
+  letter-spacing: var(--tr-normal);
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--s-2);
 }
 
 .legal {
-  font-size: 11px;
-  color: rgba(245, 240, 232, 0.35);
+  font-size: var(--text-micro);
+  color: var(--color-text-muted-light);
 }
 
 .legal a {
@@ -227,21 +252,31 @@
 .socialRow {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
-  padding: 24px 8vw;
-  border-top: 1px solid rgba(245, 240, 232, 0.08);
+  gap: var(--s-5);
+  padding: var(--s-6) var(--gutter);
+  border-top: 1px solid var(--color-hairline-light);
 }
 
 .socialLink {
-  font-size: 11px;
-  letter-spacing: 0.14em;
+  font-size: var(--text-micro);
+  letter-spacing: var(--tr-wide);
   text-transform: uppercase;
-  color: rgba(245, 240, 232, 0.65);
+  color: var(--color-text-muted-light);
   text-decoration: none;
+  transition: color var(--d-base) var(--ease-out);
 }
 
 .socialLink:hover {
-  color: var(--color-text);
+  color: var(--color-text-on-light);
+}
+
+@media (min-width: 640px) {
+  .copyright {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
 }
 
 @media (max-width: 900px) {

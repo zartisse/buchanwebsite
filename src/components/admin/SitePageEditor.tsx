@@ -215,7 +215,7 @@ function HomeEditor({ content, onChange }: { content: HomePageContent; onChange:
             </div>
           </div>
         ))}
-        <button type="button" className={styles.btn} onClick={() => onChange({ ...content, quality_gallery: [...(content.quality_gallery ?? []), { image_url: '/assets/ph-arch-1.svg', caption: '' }] })}>Add image</button>
+        <button type="button" className={styles.btn} onClick={() => onChange({ ...content, quality_gallery: [...(content.quality_gallery ?? []), { image_url: '/assets/ph-arch-1.png', caption: '' }] })}>Add image</button>
       </fieldset>
       <fieldset className={styles.fieldset}>
         <legend className={styles.legend}>Testimonials strip (homepage)</legend>
@@ -566,7 +566,7 @@ function NeighborhoodsEditor({ content, onChange }: { content: NeighborhoodsPage
             </div>
           </div>
         ))}
-        <button type="button" className={styles.btn} onClick={() => onChange({ ...content, areas: [...content.areas, { name: '', body: '', image_url: '/assets/ph-arch-1.svg' }] })}>Add area</button>
+        <button type="button" className={styles.btn} onClick={() => onChange({ ...content, areas: [...content.areas, { name: '', body: '', image_url: '/assets/ph-arch-1.png' }] })}>Add area</button>
       </fieldset>
       <div className={styles.field}>
         <label className={styles.label}>CTA title</label>

@@ -30,7 +30,7 @@ export function CaseStudyPage({ data }: { data: CaseStudyData }) {
       <section className={ps.sectionAlt}>
         <RevealOnScroll>
           <p className={ps.bodyText} style={{ maxWidth: 760, margin: '0 auto', fontSize: 'clamp(17px, 1.6vw, 20px)' }}>
-            <strong style={{ color: 'var(--color-accent-light)', fontWeight: 500 }}>Objective. </strong>
+            <strong style={{ color: 'var(--color-accent-on-light)', fontWeight: 500 }}>Objective. </strong>
             {data.objective}
           </p>
         </RevealOnScroll>

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useSitePage } from '../../hooks/useSitePage';
 import { useSubmissions } from '../../hooks/useSubmissions';
+import { EstimatorLink } from '../../components/ui/EstimatorLink';
 import { PageMeta } from '../../components/ui/PageMeta';
 import { RevealOnScroll } from '../../components/ui/RevealOnScroll';
 import { HeroTitle } from '../../components/ui/HeroTitle';
@@ -9,9 +10,9 @@ import { getDemoPageContent } from '../../data/sitePagesDemo';
 import ps from '../../styles/pages.module.css';
 
 const inputStyle: React.CSSProperties = {
-  background: 'rgba(245,240,232,0.06)',
-  border: '1px solid rgba(245,240,232,0.15)',
-  color: '#F5F0E8',
+  background: 'var(--color-bg-cream)',
+  border: '1px solid var(--color-hairline-light-2)',
+  color: 'var(--color-text-on-light)',
   padding: '16px 18px',
   fontFamily: 'var(--font-sans)',
   fontSize: 15,
@@ -85,7 +86,7 @@ export function Contact() {
             <div>
               <h2 className={ps.sectionTitle}>{content.inquiry_title}</h2>
               {submitted ? (
-                <p style={{ color: 'var(--color-accent-light)', marginTop: 24, fontSize: 18 }}>
+                <p style={{ color: 'var(--color-accent-dark)', marginTop: 24, fontSize: 18 }}>
                   Thank you — we will be in touch within one business day.
                 </p>
               ) : (
@@ -126,7 +127,7 @@ export function Contact() {
 
       <section className={ps.ctaSection}>
         <h2 className={ps.sectionTitle}>{content.cta_title}</h2>
-        <Link to="/cost-estimator" data-cursor className={ps.btnPrimary}>How Much Will My Project Cost?</Link>
+        <EstimatorLink data-cursor className={ps.btnPrimary}>How Much Will My Project Cost?</EstimatorLink>
       </section>
     </main>
   );

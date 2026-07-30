@@ -51,7 +51,7 @@ export function Awards() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 24, marginTop: 48 }}>
             {content.awards.map((a) => (
               <RevealOnScroll key={`${a.title}-${a.year}`}>
-                <div style={{ borderBottom: '1px solid rgba(245,240,232,0.08)', paddingBottom: 24 }}>
+                <div style={{ borderBottom: '1px solid var(--color-hairline-light-2)', paddingBottom: 24 }}>
                   <span style={{ fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--color-accent)' }}>{a.year}</span>
                   <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: 22, margin: '8px 0' }}>{a.title}</h3>
                   <p className={ps.bodyText}>{a.description}</p>
@@ -71,13 +71,13 @@ export function Awards() {
           <div style={{ display: 'grid', gap: 32 }}>
             {content.press.map((p) => (
               <RevealOnScroll key={p.title}>
-                <div style={{ display: 'grid', gridTemplateColumns: '120px 1fr', gap: 32, borderBottom: '1px solid rgba(245,240,232,0.08)', paddingBottom: 32 }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '120px 1fr', gap: 32, borderBottom: '1px solid var(--color-hairline-light-2)', paddingBottom: 32 }}>
                   <span style={{ fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--color-accent)' }}>{p.date}</span>
                   <div>
                     <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: 24, margin: '0 0 8px' }}>
                       {p.url ? <Link to={p.url} data-cursor style={{ color: 'inherit', textDecoration: 'none' }}>{p.title}</Link> : p.title}
                     </h3>
-                    <span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'rgba(245,240,232,0.45)' }}>{p.source}</span>
+                    <span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--color-text-muted-light)' }}>{p.source}</span>
                     <p className={ps.bodyText} style={{ marginTop: 12 }}>{p.excerpt}</p>
                   </div>
                 </div>

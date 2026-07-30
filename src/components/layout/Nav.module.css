@@ -7,17 +7,35 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 24px 40px;
+  padding: var(--s-6) var(--s-10);
   border-bottom: 1px solid transparent;
-  transition: background 0.4s ease, padding 0.4s ease, border-color 0.4s ease;
+  transition: background var(--d-slow) var(--ease-out), padding var(--d-slow) var(--ease-out), border-color var(--d-slow) var(--ease-out);
 }
 
 .scrolled {
-  background: rgba(13, 21, 18, 0.82);
+  background: rgba(13, 21, 18, 0.86);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  padding: 15px 40px;
-  border-bottom-color: rgba(245, 240, 232, 0.12);
+  padding: 15px var(--s-10);
+  border-bottom-color: var(--color-hairline-strong);
+}
+
+.lightTopbar:not(.scrolled) .phone {
+  color: var(--color-text-on-light);
+}
+
+.lightTopbar:not(.scrolled) .burger span {
+  background: var(--color-text-on-light);
+}
+
+.lightTopbar:not(.scrolled) .ctaBtn {
+  color: var(--color-text-on-light);
+  border-color: var(--color-text-on-light);
+}
+
+.lightTopbar:not(.scrolled) .ctaBtn:hover {
+  background: var(--color-text-on-light);
+  color: var(--color-text);
 }
 
 .logoLink {
@@ -34,31 +52,37 @@
 .topRight {
   display: flex;
   align-items: center;
-  gap: 34px;
+  gap: var(--s-8);
 }
 
 .phone {
-  font-size: 12px;
-  letter-spacing: 0.16em;
+  font-size: var(--text-body-sm);
+  letter-spacing: var(--tr-wide);
   color: var(--color-text);
   text-decoration: none;
-  opacity: 0.85;
+  opacity: 0.8;
+  transition: opacity var(--d-base) var(--ease-out);
+}
+
+.phone:hover {
+  opacity: 1;
 }
 
 .ctaBtn {
-  font-size: 10px;
-  letter-spacing: 0.14em;
+  font-size: var(--text-micro);
+  letter-spacing: var(--tr-wider);
   text-transform: uppercase;
+  font-weight: var(--fw-medium);
   color: var(--color-text);
   text-decoration: none;
-  border: 1px solid rgba(245, 240, 232, 0.35);
-  padding: 10px 16px;
-  transition: background 0.25s ease, border-color 0.25s ease;
+  border: 1px solid var(--color-accent);
+  padding: 11px 18px;
+  transition: background var(--d-base) var(--ease-out), color var(--d-base) var(--ease-out);
 }
 
 .ctaBtn:hover {
-  background: rgba(176, 130, 76, 0.14);
-  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-bg-dark);
 }
 
 .burger {
@@ -77,20 +101,28 @@
   height: 1.5px;
   background: var(--color-text);
   display: block;
+  transition: width var(--d-base) var(--ease-out);
 }
 
 .burger span:last-child {
   width: 22px;
 }
 
+.burger:hover span:last-child {
+  width: 30px;
+}
+
 .overlay {
   position: fixed;
   inset: 0;
   z-index: 9000;
-  background: var(--color-bg-dark);
+  background-color: var(--color-bg-dark);
+  background-image: var(--texture-mark);
+  background-repeat: repeat;
+  background-size: var(--texture-size) var(--texture-size);
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.55s ease, visibility 0.55s ease;
+  transition: opacity var(--d-slow) var(--ease-out), visibility var(--d-slow) var(--ease-out);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -109,7 +141,7 @@
   font-size: 460px;
   line-height: 0.7;
   color: transparent;
-  -webkit-text-stroke: 1px rgba(176, 130, 76, 0.1);
+  -webkit-text-stroke: 1px rgba(176, 130, 76, 0.08);
   pointer-events: none;
   user-select: none;
 }
@@ -118,7 +150,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 24px 40px;
+  padding: var(--s-6) var(--s-10);
   position: relative;
   z-index: 2;
 }
@@ -154,20 +186,20 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 0 40px 0 8vw;
+  padding: 0 var(--s-10) 0 var(--gutter);
   position: relative;
   z-index: 2;
-  gap: 14px;
+  gap: var(--s-3);
 }
 
 .navRow {
   display: flex;
   align-items: baseline;
-  gap: 26px;
+  gap: var(--s-6);
   flex-wrap: wrap;
   opacity: 0;
-  transform: translateY(36px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transform: translateY(28px);
+  transition: opacity var(--d-slow) var(--ease-out), transform var(--d-slow) var(--ease-out);
 }
 
 .overlayOpen .navRowVisible,
@@ -176,14 +208,23 @@
   transform: none;
 }
 
+.navRow:nth-child(1) { transition-delay: 60ms; }
+.navRow:nth-child(2) { transition-delay: 120ms; }
+.navRow:nth-child(3) { transition-delay: 180ms; }
+.navRow:nth-child(4) { transition-delay: 240ms; }
+.navRow:nth-child(5) { transition-delay: 300ms; }
+.navRow:nth-child(6) { transition-delay: 360ms; }
+.navRow:nth-child(7) { transition-delay: 420ms; }
+
 .navMain {
   font-family: var(--font-serif);
-  font-weight: 300;
-  font-size: clamp(36px, 5vw, 52px);
-  line-height: 1.05;
+  font-weight: var(--fw-light);
+  font-size: clamp(34px, 4.8vw, 54px);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tr-tight);
   color: var(--color-text);
   text-decoration: none;
-  transition: color 0.3s ease;
+  transition: color var(--d-base) var(--ease-out);
 }
 
 .navMain:hover {
@@ -192,16 +233,17 @@
 
 .navSubs {
   display: inline-flex;
-  gap: 18px;
-  font-size: 11px;
-  letter-spacing: 0.2em;
+  flex-wrap: wrap;
+  gap: var(--s-5);
+  font-size: var(--text-micro);
+  letter-spacing: var(--tr-wider);
   text-transform: uppercase;
 }
 
 .navSub {
   color: var(--color-accent);
   text-decoration: none;
-  transition: opacity 0.3s;
+  transition: opacity var(--d-base) var(--ease-out);
 }
 
 .navSub:hover {
@@ -209,10 +251,10 @@
 }
 
 .overlayFooter {
-  padding: 24px 40px;
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  color: rgba(245, 240, 232, 0.5);
+  padding: var(--s-6) var(--s-10);
+  font-size: var(--text-micro);
+  letter-spacing: var(--tr-wide);
+  color: var(--color-text-mute-3);
   position: relative;
   z-index: 2;
 }
@@ -229,5 +271,8 @@
   }
   .phone {
     display: none;
+  }
+  .navLinks {
+    padding-left: 24px;
   }
 }

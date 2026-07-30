@@ -46,7 +46,7 @@ export function Warranty() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 32 }}>
             {content.coverage_items.map((item) => (
               <RevealOnScroll key={item.title}>
-                <div style={{ border: '1px solid rgba(245,240,232,0.1)', padding: 32, height: '100%' }}>
+                <div style={{ border: '1px solid var(--color-hairline-light-2)', padding: 32, height: '100%' }}>
                   <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: 22, margin: '0 0 12px' }}>{item.title}</h3>
                   <p className={ps.bodyText}>{item.description}</p>
                 </div>

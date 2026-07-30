@@ -1,16 +1,103 @@
 :root {
-  --color-bg-dark: #0d1512;
-  --color-bg-mid: #1a2420;
-  --color-bg-light: #efefe3;
+  /* ---- Color: surfaces ---- */
+  --color-bg-dark: #0d1512;      /* deepest ground, hero/CTA */
+  --color-bg-mid: #1a2420;       /* forest, alternating sections */
+  --color-bg-mid-2: #15201b;     /* tertiary surface for cards/rails on dark */
+  --color-bg-light: #efefe3;     /* admin / light surfaces only */
   --color-bg-admin: #efefe3;
+  --color-bg-cream: #f3efe6;     /* editorial light homepage */
+  --color-bg-white: #ffffff;
+
+  /* ---- Color: text on light surfaces ---- */
+  --color-text-on-light: #1a2420;
+  --color-text-body: #4a4a42;
+  --color-text-muted-light: #6b6258;
+  --color-accent-on-light: #a07a45;
+
+  /* ---- Color: hairlines on light surfaces ---- */
+  --color-hairline-light: #e0dacb;
+  --color-hairline-light-2: #ddd8cc;
+  --color-hairline-light-3: #c9c2ae;
+
+  /* ---- Color: text ---- */
   --color-text: #f5f0e8;
   --color-text-muted: rgba(245, 240, 232, 0.72);
+  --color-text-mute-2: rgba(245, 240, 232, 0.55);
+  --color-text-mute-3: rgba(245, 240, 232, 0.4);
   --color-text-dark: #1a2420;
+
+  /* ---- Color: accent (warm gold) ---- */
   --color-accent: #b0824c;
   --color-accent-light: #c79a60;
+  --color-accent-dark: #8a6334;
   --color-accent-muted: rgba(176, 130, 76, 0.16);
+  --color-accent-hairline: rgba(176, 130, 76, 0.35);
+
+  /* ---- Color: hairlines / dividers ---- */
+  --color-hairline: rgba(245, 240, 232, 0.1);
+  --color-hairline-strong: rgba(245, 240, 232, 0.18);
+
+  /* ---- Type families ---- */
   --font-serif: 'Cormorant Garamond', Georgia, serif;
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-  --section-padding: clamp(80px, 12vh, 140px) 8vw;
+
+  /* ---- Type scale (editorial, modular ~1.25) ---- */
+  --text-display-2xl: clamp(48px, 7.2vw, 104px);  /* hero H1 */
+  --text-display-xl: clamp(36px, 4.6vw, 64px);    /* section H2 */
+  --text-display-lg: clamp(28px, 3.2vw, 42px);    /* card / subsection titles */
+  --text-display-md: clamp(22px, 2.2vw, 28px);    /* pull quotes */
+  --text-body-lg: clamp(16px, 1.4vw, 19px);
+  --text-body: 15px;
+  --text-body-sm: 13px;
+  --text-label: 11px;   /* eyebrows, uppercase labels */
+  --text-micro: 10px;
+
+  /* ---- Line height ---- */
+  --lh-tight: 0.95;
+  --lh-snug: 1.05;
+  --lh-normal: 1.4;
+  --lh-relaxed: 1.8;
+
+  /* ---- Letter spacing ---- */
+  --tr-tight: -0.015em;
+  --tr-normal: 0em;
+  --tr-wide: 0.06em;
+  --tr-wider: 0.14em;
+  --tr-widest: 0.26em;
+
+  /* ---- Weight ---- */
+  --fw-light: 300;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+
+  /* ---- Spacing scale (4px base) ---- */
+  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 20px;
+  --s-6: 24px; --s-8: 32px; --s-10: 40px; --s-12: 48px;
+  --s-16: 64px; --s-20: 80px; --s-24: 96px; --s-32: 128px;
+
+  /* ---- Radius (kept sharp; brand is not a rounded-corner brand) ---- */
+  --r-0: 0px;
+  --r-sm: 2px;
+  --r-full: 999px;
+
+  /* ---- Motion ---- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --d-fast: 200ms;
+  --d-base: 350ms;
+  --d-slow: 600ms;
+  --d-slower: 900ms;
+
+  /* ---- Layout ---- */
+  --section-padding: clamp(100px, 16vh, 180px) 8vw;
+  --max-width-narrow: 720px;
   --max-width: 1280px;
+  --max-width-wide: 1440px;
+  --gutter: 8vw;
+
+  /* ---- Texture: abstract interlocking motif drawn from the logo's bracket monogram ---- */
+  --texture-mark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cpath d='M22 22 H62 V40 H40 V62 H22 Z' fill='rgba(176,130,76,0.09)'/%3E%3Cpath d='M118 118 H78 V100 H100 V78 H118 Z' fill='rgba(176,130,76,0.09)'/%3E%3C/svg%3E");
+  --texture-mark-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cpath d='M22 22 H62 V40 H40 V62 H22 Z' fill='rgba(176,130,76,0.055)'/%3E%3Cpath d='M118 118 H78 V100 H100 V78 H118 Z' fill='rgba(176,130,76,0.055)'/%3E%3C/svg%3E");
+  --texture-size: 140px;
 }

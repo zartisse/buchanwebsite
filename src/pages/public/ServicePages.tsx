@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { EstimatorLink } from '../../components/ui/EstimatorLink';
 import { useSitePage } from '../../hooks/useSitePage';
 import { PageMeta } from '../../components/ui/PageMeta';
 import { RevealOnScroll } from '../../components/ui/RevealOnScroll';
@@ -22,7 +23,7 @@ function ServicePageView({ slug }: { slug: ServiceSlug }) {
           <HeroTitle hero={content.hero} />
           <div className={ps.ctaButtons} style={{ justifyContent: 'flex-start', marginTop: 32 }}>
             <Link to="/contact" data-cursor className={ps.btnPrimary}>Start a Conversation</Link>
-            <Link to="/cost-estimator" data-cursor className={ps.btnLink}>Get Estimate →</Link>
+            <EstimatorLink data-cursor className={ps.btnLink}>Get Estimate →</EstimatorLink>
           </div>
         </div>
       </section>
@@ -36,7 +37,7 @@ function ServicePageView({ slug }: { slug: ServiceSlug }) {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 32 }}>
             {content.steps.map((s) => (
               <RevealOnScroll key={s.n}>
-                <span style={{ fontFamily: 'var(--font-serif)', fontSize: 48, color: 'var(--color-accent-light)', opacity: 0.5 }}>{s.n}</span>
+                <span style={{ fontFamily: 'var(--font-serif)', fontSize: 48, color: 'var(--color-accent-dark)', opacity: 0.5 }}>{s.n}</span>
                 <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: 24, margin: '8px 0' }}>{s.title}</h3>
                 <p className={ps.bodyText}>{s.body}</p>
               </RevealOnScroll>

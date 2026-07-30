@@ -24,14 +24,14 @@ export function Process() {
         <div className={ps.sectionInner}>
           {content.steps.map((s, i) => (
             <RevealOnScroll key={s.n}>
-              <div style={{ display: 'grid', gridTemplateColumns: '80px 1fr auto', gap: 32, padding: '32px 0', borderBottom: i < content.steps.length - 1 ? '1px solid rgba(245,240,232,0.08)' : 'none', alignItems: 'start' }}>
-                <span style={{ fontFamily: 'var(--font-serif)', fontSize: 36, color: 'var(--color-accent-light)' }}>{s.n}</span>
+              <div style={{ display: 'grid', gridTemplateColumns: '80px 1fr auto', gap: 32, padding: '32px 0', borderBottom: i < content.steps.length - 1 ? '1px solid var(--color-hairline-light-2)' : 'none', alignItems: 'start' }}>
+                <span style={{ fontFamily: 'var(--font-serif)', fontSize: 36, color: 'var(--color-accent-dark)' }}>{s.n}</span>
                 <div>
                   <span style={{ fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--color-accent)' }}>{s.tag}</span>
                   <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: 28, margin: '8px 0' }}>{s.title}</h3>
                   <p className={ps.bodyText}>{s.body}</p>
                 </div>
-                <span style={{ fontSize: 12, color: 'rgba(245,240,232,0.45)', whiteSpace: 'nowrap' }}>{s.duration}</span>
+                <span style={{ fontSize: 12, color: 'var(--color-text-muted-light)', whiteSpace: 'nowrap' }}>{s.duration}</span>
               </div>
             </RevealOnScroll>
           ))}
@@ -39,7 +39,7 @@ export function Process() {
       </section>
 
       <section className={ps.sectionAlt} style={{ position: 'relative', minHeight: 300 }}>
-        <img src="/assets/ph-arch-2.svg" alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.35 }} />
+        <img src="/assets/ph-arch-2.png" alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.35 }} />
         <RevealOnScroll>
           <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', padding: '80px 8vw' }}>
             <h2 className={ps.sectionTitle}>You&apos;re never building alone.</h2>

@@ -4,6 +4,7 @@ import { usePosts } from '../../hooks/usePosts';
 import { PageMeta } from '../../components/ui/PageMeta';
 import { RevealOnScroll } from '../../components/ui/RevealOnScroll';
 import { fmtDate } from '../../lib/utils';
+import { resolveImageUrl } from '../../lib/placeholders';
 import ps from '../../styles/pages.module.css';
 
 type CatFilter = 'All' | 'Company Updates' | 'Industry News';
@@ -29,7 +30,7 @@ export function Blog() {
         <section className={ps.sectionAlt}>
           <RevealOnScroll>
             <Link to={`/blog/${featured.slug}`} data-cursor style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 48, maxWidth: 'var(--max-width)', margin: '0 auto', textDecoration: 'none', color: 'inherit' }}>
-              <img src={featured.image_url || '/assets/ph-arch-1.svg'} alt="" style={{ width: '100%', height: 'clamp(280px, 35vw, 420px)', objectFit: 'cover' }} />
+              <img src={resolveImageUrl(featured.image_url, featured.slug)} alt="" style={{ width: '100%', height: 'clamp(280px, 35vw, 420px)', objectFit: 'cover' }} />
               <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                 <span className={ps.eyebrow}>Featured</span>
                 <h2 style={{ fontFamily: 'var(--font-serif)', fontWeight: 300, fontSize: 'clamp(28px, 4vw, 44px)', margin: '16px 0', lineHeight: 1.1 }}>{featured.title}</h2>
@@ -52,8 +53,8 @@ export function Blog() {
                 onClick={() => setCat(c)}
                 style={{
                   background: cat === c ? 'rgba(176,130,76,0.16)' : 'transparent',
-                  border: `1px solid ${cat === c ? '#B0824C' : 'rgba(245,240,232,0.2)'}`,
-                  color: '#F5F0E8',
+                  border: `1px solid ${cat === c ? 'var(--color-accent-dark)' : 'var(--color-hairline-light-3)'}`,
+                  color: 'var(--color-text-on-light)',
                   padding: '8px 18px',
                   fontSize: 11,
                   letterSpacing: '0.14em',
@@ -75,11 +76,11 @@ export function Blog() {
               <RevealOnScroll key={p.id}>
                 <Link to={`/blog/${p.slug}`} data-cursor style={{ textDecoration: 'none', color: 'inherit' }}>
                   <div style={{ overflow: 'hidden', height: 240, marginBottom: 20 }}>
-                    <img src={p.image_url || '/assets/ph-arch-1.svg'} alt="" className={ps.imageCover} />
+                    <img src={resolveImageUrl(p.image_url, p.slug)} alt="" className={ps.imageCover} />
                   </div>
                   <span style={{ fontSize: 10, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--color-accent)' }}>{p.category}</span>
                   <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: 22, margin: '8px 0', lineHeight: 1.2 }}>{p.title}</h3>
-                  <span style={{ fontSize: 12, color: 'rgba(245,240,232,0.45)' }}>{fmtDate(p.date)}</span>
+                  <span style={{ fontSize: 12, color: 'var(--color-text-muted-light)' }}>{fmtDate(p.date)}</span>
                 </Link>
               </RevealOnScroll>
             ))}

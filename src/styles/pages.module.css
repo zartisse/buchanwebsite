@@ -1,7 +1,12 @@
+/* Editorial Light — shared public page primitives */
+
 .hero {
   position: relative;
-  padding: clamp(150px, 22vh, 240px) 8vw clamp(40px, 6vh, 64px);
-  background: var(--color-bg-dark);
+  padding: clamp(140px, 20vh, 220px) var(--gutter) clamp(50px, 7vh, 72px);
+  background-color: var(--color-bg-cream);
+  background-image: var(--texture-mark-light);
+  background-size: var(--texture-size) var(--texture-size);
+  color: var(--color-text-on-light);
 }
 
 .heroInner {
@@ -9,39 +14,47 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: var(--s-6);
 }
 
 .eyebrow {
-  font-size: 11px;
-  letter-spacing: 0.28em;
+  font-size: var(--text-label);
+  letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--color-accent);
+  color: var(--color-accent-on-light);
+  font-weight: var(--fw-medium);
 }
 
 .heroTitle {
   font-family: var(--font-serif);
-  font-weight: 300;
-  font-size: clamp(52px, 8.5vw, 120px);
-  line-height: 0.92;
+  font-weight: var(--fw-light);
+  font-size: var(--text-display-2xl);
+  line-height: 0.94;
   margin: 0;
-  letter-spacing: -0.015em;
+  letter-spacing: var(--tr-tight);
+  color: var(--color-text-on-light);
 }
 
 .heroTitle em {
   font-style: italic;
-  color: var(--color-accent-light);
+  font-weight: var(--fw-regular);
+  color: var(--color-accent-dark);
 }
 
 .section {
-  padding: var(--section-padding);
-  background: var(--color-bg-dark);
+  padding: clamp(80px, 12vh, 140px) var(--gutter);
+  background-color: var(--color-bg-white);
+  background-image: var(--texture-mark-light);
+  background-size: var(--texture-size) var(--texture-size);
+  color: var(--color-text-on-light);
 }
 
 .sectionAlt {
   composes: section;
-  background: var(--color-bg-mid);
-  border-top: 1px solid rgba(245, 240, 232, 0.08);
+  background: var(--color-bg-cream);
+  background-image: var(--texture-mark-light);
+  background-size: var(--texture-size) var(--texture-size);
+  border-top: 1px solid var(--color-hairline-light);
 }
 
 .sectionInner {
@@ -51,61 +64,104 @@
 
 .sectionTitle {
   font-family: var(--font-serif);
-  font-weight: 300;
-  font-size: clamp(36px, 4.6vw, 60px);
-  line-height: 1;
+  font-weight: var(--fw-light);
+  font-size: var(--text-display-xl);
+  line-height: var(--lh-snug);
   margin: 0;
+  letter-spacing: var(--tr-tight);
+  color: var(--color-text-on-light);
+}
+
+.sectionTitle em {
+  font-style: italic;
+  font-weight: var(--fw-regular);
+  color: var(--color-accent-dark);
 }
 
 .bodyText {
-  font-weight: 300;
-  font-size: clamp(16px, 1.5vw, 19px);
-  line-height: 1.8;
-  color: var(--color-text-muted);
+  font-weight: var(--fw-light);
+  font-size: var(--text-body-lg);
+  line-height: var(--lh-relaxed);
+  color: var(--color-text-body);
   margin: 0;
 }
 
 .btnPrimary {
   text-decoration: none;
-  border: 1.5px solid var(--color-accent);
-  color: var(--color-text);
-  padding: 18px 34px;
-  font-size: 12px;
-  letter-spacing: 0.18em;
+  border: 1.5px solid var(--color-text-on-light);
+  background: transparent;
+  color: var(--color-text-on-light);
+  padding: 16px 32px;
+  font-size: var(--text-body-sm);
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  transition: background 0.35s ease;
+  font-weight: var(--fw-medium);
+  transition: background var(--d-base) var(--ease-out), color var(--d-base) var(--ease-out);
   display: inline-block;
 }
 
 .btnPrimary:hover {
-  background: rgba(176, 130, 76, 0.16);
+  background: var(--color-text-on-light);
+  color: var(--color-text);
 }
 
 .btnLink {
   text-decoration: none;
-  color: var(--color-accent-light);
-  font-size: 12px;
-  letter-spacing: 0.18em;
+  color: var(--color-accent-dark);
+  font-size: var(--text-body-sm);
+  letter-spacing: 0.16em;
   text-transform: uppercase;
+  font-weight: var(--fw-medium);
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--s-2);
+}
+
+.btnLink span {
+  display: inline-block;
+  transition: transform var(--d-base) var(--ease-out);
+}
+
+.btnLink:hover span {
+  transform: translateX(4px);
 }
 
 .ctaSection {
-  padding: clamp(80px, 12vh, 120px) 8vw;
+  padding: clamp(80px, 12vh, 120px) var(--gutter);
   text-align: center;
-  background: var(--color-bg-mid);
-  border-top: 1px solid rgba(245, 240, 232, 0.08);
+  background-color: var(--color-bg-mid);
+  color: var(--color-text);
+}
+
+.ctaSection .sectionTitle {
+  color: var(--color-text);
+}
+
+.ctaSection .sectionTitle em {
+  color: var(--color-accent-light);
+}
+
+.ctaSection .btnPrimary {
+  border-color: var(--color-accent);
+  color: var(--color-text);
+}
+
+.ctaSection .btnPrimary:hover {
+  background: var(--color-accent);
+  color: var(--color-bg-dark);
+}
+
+.ctaSection .btnLink {
+  color: var(--color-accent-light);
 }
 
 .ctaButtons {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 30px;
+  gap: var(--s-8);
   flex-wrap: wrap;
-  margin-top: 32px;
+  margin-top: var(--s-8);
 }
 
 .imageCover {
@@ -118,14 +174,14 @@
 .divider {
   width: 48px;
   height: 1px;
-  background: var(--color-accent);
-  margin: 28px 0 22px;
+  background: var(--color-accent-dark);
+  margin: var(--s-8) 0 var(--s-6);
 }
 
 .galleryGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 16px;
+  gap: var(--s-6);
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 0 8vw;
@@ -139,7 +195,7 @@
   cursor: pointer;
   overflow: hidden;
   aspect-ratio: 4 / 3;
-  background: rgba(245, 240, 232, 0.04);
+  background: var(--color-bg-cream);
   transition: opacity 0.25s ease;
 }
 

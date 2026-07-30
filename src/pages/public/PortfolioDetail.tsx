@@ -25,11 +25,11 @@ export function PortfolioDetail() {
   const { property, loading, error } = useProperty(slug);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
-  const heroUrl = property?.image_url || '/assets/ph-arch-1.svg';
+  const heroUrl = property?.image_url || '/assets/ph-arch-1.png';
   const fallbackGallery = [
     heroUrl,
-    '/assets/ph-arch-2.svg',
-    '/assets/ph-arch-3.svg',
+    '/assets/ph-arch-2.png',
+    '/assets/ph-arch-3.png',
   ];
   const galleryUrls = property?.gallery_urls?.length ? property.gallery_urls : fallbackGallery;
   const allImages = useMemo(
@@ -60,12 +60,12 @@ export function PortfolioDetail() {
         </button>
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, transparent 40%, rgba(13,21,18,0.85) 100%)', pointerEvents: 'none' }} />
         <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '48px 8vw', pointerEvents: 'none' }}>
-          <span style={{ fontSize: 11, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--color-accent-light)' }}>{property.city}</span>
+          <span style={{ fontSize: 11, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--color-accent-on-light)' }}>{property.city}</span>
           <h1 style={{ fontFamily: 'var(--font-serif)', fontWeight: 300, fontSize: 'clamp(40px, 6vw, 72px)', margin: '12px 0 0' }}>{property.name}</h1>
         </div>
       </section>
 
-      <section style={{ display: 'flex', flexWrap: 'wrap', gap: 32, justifyContent: 'center', padding: '32px 8vw', borderBottom: '1px solid rgba(245,240,232,0.08)', background: 'var(--color-bg-mid)' }}>
+      <section style={{ display: 'flex', flexWrap: 'wrap', gap: 32, justifyContent: 'center', padding: '32px 8vw', borderBottom: '1px solid var(--color-hairline-light)', background: 'var(--color-bg-cream)' }}>
         {[
           { label: 'Beds', value: property.beds },
           { label: 'Baths', value: property.baths },

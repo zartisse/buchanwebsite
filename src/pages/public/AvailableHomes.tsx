@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useProperties } from '../../hooks/useProperties';
 import { PageMeta } from '../../components/ui/PageMeta';
 import { RevealOnScroll } from '../../components/ui/RevealOnScroll';
+import { resolveImageUrl } from '../../lib/placeholders';
 import ps from '../../styles/pages.module.css';
 
 export function AvailableHomes() {
@@ -32,7 +33,7 @@ export function AvailableHomes() {
               <Link to={`/portfolio/${spotlight.slug}`} style={{ textDecoration: 'none', color: 'inherit' }} data-cursor>
                 <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 32, marginTop: 24, alignItems: 'center' }}>
                   <div style={{ overflow: 'hidden', height: 'clamp(280px, 35vw, 420px)' }}>
-                    <img src={spotlight.image_url || '/assets/ph-arch-1.svg'} alt={spotlight.name} className={ps.imageCover} />
+                    <img src={resolveImageUrl(spotlight.image_url, spotlight.slug)} alt={spotlight.name} className={ps.imageCover} />
                   </div>
                   <div>
                     <span style={{ fontSize: 10, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--color-accent)' }}>{spotlight.status}</span>
@@ -80,11 +81,11 @@ function HomeSection({ title, items, empty }: { title: string; items: ReturnType
             <RevealOnScroll key={h.id}>
               <Link to={`/portfolio/${h.slug}`} data-cursor style={{ textDecoration: 'none', color: 'inherit' }}>
                 <div style={{ overflow: 'hidden', height: 280, marginBottom: 16 }}>
-                  <img src={h.image_url || '/assets/ph-arch-1.svg'} alt={h.name} className={ps.imageCover} />
+                  <img src={resolveImageUrl(h.image_url, h.slug)} alt={h.name} className={ps.imageCover} />
                 </div>
                 <span style={{ fontSize: 10, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--color-accent)' }}>{h.status}</span>
                 <div style={{ fontFamily: 'var(--font-serif)', fontSize: 24, marginTop: 4 }}>{h.name}</div>
-                <span style={{ fontSize: 12, color: 'rgba(245,240,232,0.5)' }}>{h.city}</span>
+                <span style={{ fontSize: 12, color: 'var(--color-text-muted-light)' }}>{h.city}</span>
               </Link>
             </RevealOnScroll>
           ))}

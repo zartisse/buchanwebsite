@@ -7,7 +7,7 @@
 }
 
 .faqItem {
-  border-bottom: 1px solid rgba(245, 240, 232, 0.1);
+  border-bottom: 1px solid var(--color-hairline-light-2);
 }
 
 .faqQuestion {
@@ -21,7 +21,7 @@
   border: none;
   cursor: pointer;
   text-align: left;
-  color: var(--color-text);
+  color: var(--color-text-on-light);
   font-family: var(--font-serif);
   font-size: clamp(20px, 2.5vw, 26px);
   font-weight: 300;
@@ -31,7 +31,7 @@
 .faqIcon {
   flex-shrink: 0;
   font-size: 24px;
-  color: var(--color-accent-light);
+  color: var(--color-accent-dark);
   line-height: 1;
   transition: transform 0.3s;
 }
@@ -50,6 +50,7 @@
   font-size: clamp(28px, 3.5vw, 36px);
   font-weight: 300;
   margin: 48px 0 8px;
+  color: var(--color-text-on-light);
 }
 
 .categoryTitle:first-child {

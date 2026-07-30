@@ -27,7 +27,7 @@ export const DEMO_SITE_PAGES: Record<SitePageSlug, SitePage> = {
         title: 'Build with',
         title_emphasis: 'Certainty.',
         subtitle: 'Bellevue\'s custom home builder — on your lot, to your standard.',
-        image_url: '/assets/ph-arch-1.svg',
+        image_url: '/assets/ph-arch-1.png',
         video_url: 'https://www.youtube.com/watch?v=PMeek4pvZOI',
         marquee: 'Since 1961 · Bellevue · Clyde Hill · Medina · Redmond · Custom Homes · Renovations ·',
         cta_primary_url: '/cost-estimator',
@@ -48,9 +48,9 @@ export const DEMO_SITE_PAGES: Record<SitePageSlug, SitePage> = {
         title: 'Three ways to build',
         title_emphasis: 'something lasting.',
         items: [
-          { title: 'Custom Homes', description: 'Ground-up on your lot.', image_url: '/assets/ph-arch-2.svg', link: '/custom-homes' },
-          { title: 'Renovations', description: 'Major whole-home transformations.', image_url: '/assets/ph-arch-3.svg', link: '/renovations' },
-          { title: 'Preconstruction', description: 'Know before you build.', image_url: '/assets/ph-arch-4.svg', link: '/preconstruction' },
+          { title: 'Custom Homes', description: 'Ground-up on your lot.', image_url: '/assets/ph-arch-2.png', link: '/custom-homes' },
+          { title: 'Renovations', description: 'Major whole-home transformations.', image_url: '/assets/ph-arch-3.png', link: '/renovations' },
+          { title: 'Preconstruction', description: 'Know before you build.', image_url: '/assets/ph-arch-4.png', link: '/preconstruction' },
         ],
       },
       recent_work: {
@@ -61,13 +61,13 @@ export const DEMO_SITE_PAGES: Record<SitePageSlug, SitePage> = {
         eyebrow: 'Client Testimonials',
         quote: "They stepped in when our project stalled — and finished it with a level of care we didn't think was still possible.",
         cite: 'The Harmon Family · Clyde Hill',
-        image_url: '/assets/ph-portrait.svg',
+        image_url: '/assets/ph-arch-1.png',
       },
       quality_gallery: [
-        { image_url: '/assets/ph-arch-1.svg', caption: 'Framing & structure' },
-        { image_url: '/assets/ph-arch-2.svg', caption: 'Mechanical rough-in' },
-        { image_url: '/assets/ph-arch-3.svg', caption: 'Envelope & waterproofing' },
-        { image_url: '/assets/ph-arch-4.svg', caption: 'Finish carpentry' },
+        { image_url: '/assets/ph-arch-1.png', caption: 'Hand-chosen framing' },
+        { image_url: '/assets/ph-arch-2.png', caption: 'Built for the rain' },
+        { image_url: '/assets/ph-arch-3.png', caption: 'Quieter by design' },
+        { image_url: '/assets/ph-arch-4.png', caption: 'The extra mile' },
       ],
       testimonials_strip: [
         { quote: 'The preconstruction phase saved us from at least three expensive surprises before we broke ground.', cite: 'James & Elena Park · Medina' },
@@ -98,24 +98,24 @@ export const DEMO_SITE_PAGES: Record<SitePageSlug, SitePage> = {
         title: 'Your standard is',
         title_emphasis: 'our standard.',
         body: "We don't build to impress other builders. We build to the standard you set — in every joint, every finish, every quiet detail.",
-        image_url: '/assets/ph-arch-2.svg',
+        image_url: '/assets/ph-arch-2.png',
       },
       team: {
         eyebrow: 'The Team',
         title: 'People who care',
         title_emphasis: 'deeply.',
         members: [
-          { name: 'Mischelle McCall', role: 'Client Concierge', image_url: '/assets/ph-portrait.svg' },
-          { name: 'David Buchan', role: 'President', image_url: '/assets/ph-portrait.svg' },
-          { name: 'Sarah Lindqvist', role: 'Design Director', image_url: '/assets/ph-portrait.svg' },
-          { name: 'Marcus Reyes', role: 'Construction Manager', image_url: '/assets/ph-portrait.svg' },
+          { name: 'Mischelle McCall', role: 'Client Concierge', image_url: '/assets/ph-arch-1.png' },
+          { name: 'David Buchan', role: 'President', image_url: '/assets/ph-arch-2.png' },
+          { name: 'Sarah Lindqvist', role: 'Design Director', image_url: '/assets/ph-arch-3.png' },
+          { name: 'Marcus Reyes', role: 'Construction Manager', image_url: '/assets/ph-arch-4.png' },
         ],
       },
       giving_back: {
         eyebrow: 'Giving Back',
         title: 'Building community,',
         title_emphasis: 'not just homes.',
-        image_url: '/assets/ph-arch-3.svg',
+        image_url: '/assets/ph-arch-3.png',
       },
       cta: {
         join_title: 'Join our team.',
@@ -133,12 +133,12 @@ export const DEMO_SITE_PAGES: Record<SitePageSlug, SitePage> = {
     content: {
       hero: { eyebrow: 'What We Do', title: 'Services that support', title_emphasis: 'every stage.' },
       items: [
-        { title: 'Custom Homes', slug: 'custom-homes', description: 'Ground-up custom homes on your lot — from foundation to final walkthrough.', image_url: '/assets/ph-arch-2.svg' },
-        { title: 'Renovations', slug: 'renovations', description: 'Major whole-home and room-scale renovations with the Buchan standard.', image_url: '/assets/ph-arch-4.svg' },
-        { title: 'Preconstruction', slug: 'preconstruction', description: 'Feasibility, progressive estimates, and design alignment before breaking ground.', image_url: '/assets/ph-arch-3.svg' },
-        { title: 'ADUs & DADUs', slug: 'adus', description: 'Accessory dwellings for family housing or rental income.', image_url: '/assets/ph-arch-1.svg' },
-        { title: 'Real Estate Services', slug: 'real-estate', description: 'Find your lot, sell your home, or explore selling directly to Buchan.', image_url: '/assets/ph-arch-2.svg' },
-        { title: 'Buchan Home Care', slug: 'home-care', description: 'Maintenance and smaller projects for existing homeowners.', image_url: '/assets/ph-arch-3.svg' },
+        { title: 'Custom Homes', slug: 'custom-homes', description: 'Ground-up custom homes on your lot — from foundation to final walkthrough.', image_url: '/assets/ph-arch-2.png' },
+        { title: 'Renovations', slug: 'renovations', description: 'Major whole-home and room-scale renovations with the Buchan standard.', image_url: '/assets/ph-arch-4.png' },
+        { title: 'Preconstruction', slug: 'preconstruction', description: 'Feasibility, progressive estimates, and design alignment before breaking ground.', image_url: '/assets/ph-arch-3.png' },
+        { title: 'ADUs & DADUs', slug: 'adus', description: 'Accessory dwellings for family housing or rental income.', image_url: '/assets/ph-arch-1.png' },
+        { title: 'Real Estate Services', slug: 'real-estate', description: 'Find your lot, sell your home, or explore selling directly to Buchan.', image_url: '/assets/ph-arch-2.png' },
+        { title: 'Buchan Home Care', slug: 'home-care', description: 'Maintenance and smaller projects for existing homeowners.', image_url: '/assets/ph-arch-3.png' },
       ],
       cta_title: 'Ready to begin?',
     } satisfies ServicesPageContent,
@@ -150,7 +150,7 @@ export const DEMO_SITE_PAGES: Record<SitePageSlug, SitePage> = {
     meta_description: 'Ground-up custom homes on your lot in Bellevue, Clyde Hill, Medina, and Redmond.',
     content: {
       hero: { eyebrow: 'Services', title: 'Custom', title_emphasis: 'Build' },
-      image_url: '/assets/ph-arch-1.svg',
+      image_url: '/assets/ph-arch-1.png',
       steps: [
         { n: '01', title: 'Lot & Vision', body: 'We evaluate your land and understand your goals.' },
         { n: '02', title: 'Design', body: 'Architecture and interiors developed together.' },
@@ -168,7 +168,7 @@ export const DEMO_SITE_PAGES: Record<SitePageSlug, SitePage> = {
     meta_description: 'Architecture and interior design unified under one roof.',
     content: {
       hero: { eyebrow: 'Services', title: 'Design &', title_emphasis: 'Architecture' },
-      image_url: '/assets/ph-arch-3.svg',
+      image_url: '/assets/ph-arch-3.png',
       steps: [
         { n: '01', title: 'Discovery', body: 'How you live, how you want to feel at home.' },
         { n: '02', title: 'Concept', body: 'Initial plans and material palettes.' },
@@ -185,7 +185,7 @@ export const DEMO_SITE_PAGES: Record<SitePageSlug, SitePage> = {
     meta_description: 'Whole-home and room-scale renovations on the Seattle Eastside.',
     content: {
       hero: { eyebrow: 'Services', title: 'Thoughtful', title_emphasis: 'Remodel' },
-      image_url: '/assets/ph-arch-4.svg',
+      image_url: '/assets/ph-arch-4.png',
       steps: [
         { n: '01', title: 'Assessment', body: 'Understanding your existing home and goals.' },
         { n: '02', title: 'Design', body: "Plans that respect what works and improve what doesn't." },
@@ -222,10 +222,10 @@ export const DEMO_SITE_PAGES: Record<SitePageSlug, SitePage> = {
     content: {
       hero: { eyebrow: 'Where We Build', title: 'Eastside', title_emphasis: 'Neighborhoods' },
       areas: [
-        { name: 'Bellevue', body: 'From Bridle Trails to downtown, we know every neighborhood.', image_url: '/assets/ph-arch-1.svg' },
-        { name: 'Clyde Hill', body: "Estate-scale homes on some of the Eastside's most coveted lots.", image_url: '/assets/ph-arch-2.svg' },
-        { name: 'Medina', body: 'Lake Washington views and quiet streets — built to match.', image_url: '/assets/ph-arch-3.svg' },
-        { name: 'Redmond', body: "Growing families and established neighborhoods we've served for decades.", image_url: '/assets/ph-arch-4.svg' },
+        { name: 'Bellevue', body: 'From Bridle Trails to downtown, we know every neighborhood.', image_url: '/assets/ph-arch-1.png' },
+        { name: 'Clyde Hill', body: "Estate-scale homes on some of the Eastside's most coveted lots.", image_url: '/assets/ph-arch-2.png' },
+        { name: 'Medina', body: 'Lake Washington views and quiet streets — built to match.', image_url: '/assets/ph-arch-3.png' },
+        { name: 'Redmond', body: "Growing families and established neighborhoods we've served for decades.", image_url: '/assets/ph-arch-4.png' },
       ],
       cta_title: 'Find your neighborhood.',
     } satisfies NeighborhoodsPageContent,
@@ -240,7 +240,7 @@ export const DEMO_SITE_PAGES: Record<SitePageSlug, SitePage> = {
       featured: {
         quote: 'They stepped in when our project stalled — and finished it with a level of care we didn\'t think was still possible.',
         cite: 'The Harmon Family · Clyde Hill',
-        image_url: '/assets/ph-arch-1.svg',
+        image_url: '/assets/ph-arch-1.png',
       },
       quotes: [
         { name: 'The Castellanos Family', city: 'Clyde Hill', quote: 'They treated our home like it was their own — every detail considered, every question answered.' },

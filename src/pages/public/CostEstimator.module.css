@@ -1,151 +1,37 @@
-.wrap {
-  max-width: 640px;
+.embedWrap {
+  max-width: var(--max-width-narrow);
   margin: 0 auto;
 }
 
-.stepTitle {
-  font-family: var(--font-serif);
-  font-weight: 300;
-  font-size: clamp(28px, 4vw, 40px);
-  margin: 0 0 24px;
+.launchPanel {
+  border: 1px solid var(--color-hairline-light-2);
+  background: var(--color-bg-white);
+  padding: clamp(32px, 6vw, 56px);
+  text-align: center;
 }
 
-.branchGrid {
-  display: grid;
-  gap: 16px;
+.launchLead {
+  margin: 0 auto var(--s-8);
+  max-width: 520px;
+  font-size: var(--text-body);
+  line-height: 1.7;
+  color: var(--color-text-body);
 }
 
-.branchCard {
-  appearance: none;
-  border: 1px solid rgba(245, 240, 232, 0.2);
-  background: rgba(245, 240, 232, 0.04);
-  padding: 24px;
-  text-align: left;
-  cursor: pointer;
-  color: var(--color-text);
-  font-family: var(--font-sans);
-  transition: border-color 0.2s, background 0.2s;
+.fallbackLink {
+  margin: var(--s-6) 0 0;
+  font-size: var(--text-body-sm);
+  color: var(--color-text-muted-light);
 }
 
-.branchCard:hover {
-  border-color: var(--color-accent);
-  background: rgba(176, 130, 76, 0.08);
-}
-
-.branchCard strong {
-  display: block;
-  font-family: var(--font-serif);
-  font-size: 22px;
-  font-weight: 400;
-  margin-bottom: 6px;
-}
-
-.branchCard span {
-  font-size: 14px;
-  color: var(--color-text-muted);
-}
-
-.progress {
-  margin-bottom: 32px;
-}
-
-.progress span {
-  font-size: 11px;
-  letter-spacing: 0.14em;
+.fallbackLink a {
+  color: var(--color-accent-dark);
+  text-decoration: none;
+  letter-spacing: var(--tr-wide);
   text-transform: uppercase;
-  color: var(--color-accent);
+  font-size: var(--text-label);
 }
 
-.progressBar {
-  height: 3px;
-  background: rgba(245, 240, 232, 0.12);
-  margin-top: 8px;
-}
-
-.progressBar div {
-  height: 100%;
-  background: var(--color-accent);
-  transition: width 0.25s ease;
-}
-
-.question {
-  margin-bottom: 24px;
-}
-
-.label {
-  display: block;
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-accent);
-  margin-bottom: 12px;
-}
-
-.input {
-  width: 100%;
-  box-sizing: border-box;
-  background: rgba(245, 240, 232, 0.06);
-  border: 1px solid rgba(245, 240, 232, 0.15);
-  color: var(--color-text);
-  padding: 16px 18px;
-  font-family: var(--font-sans);
-  font-size: 15px;
-  outline: none;
-}
-
-.optionGrid {
-  display: grid;
-  gap: 10px;
-}
-
-.option {
-  appearance: none;
-  border: 1px solid rgba(245, 240, 232, 0.18);
-  background: transparent;
-  color: var(--color-text);
-  padding: 14px 16px;
-  text-align: left;
-  cursor: pointer;
-  font-family: var(--font-sans);
-  font-size: 14px;
-}
-
-.optionActive {
-  border-color: var(--color-accent);
-  background: rgba(176, 130, 76, 0.12);
-}
-
-.navBtns {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 32px;
-  gap: 16px;
-}
-
-.backBtn {
-  appearance: none;
-  border: none;
-  background: none;
-  color: var(--color-accent-light);
-  font-size: 12px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  cursor: pointer;
-  font-family: var(--font-sans);
-  padding: 0;
-}
-
-.rangeBanner {
-  font-family: var(--font-serif);
-  font-size: clamp(32px, 5vw, 48px);
-  color: var(--color-accent-light);
-  margin: 0;
-}
-
-.gateForm {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 24px;
+.fallbackLink a:hover {
+  opacity: 0.75;
 }

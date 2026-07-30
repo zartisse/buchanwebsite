@@ -6,8 +6,10 @@ html {
 
 body {
   margin: 0;
-  background: var(--color-bg-dark);
-  color: var(--color-text);
+  background-color: var(--color-bg-cream);
+  background-image: var(--texture-mark-light);
+  background-size: var(--texture-size) var(--texture-size);
+  color: var(--color-text-on-light);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }
@@ -25,6 +27,11 @@ img {
   max-width: 100%;
   height: auto;
   display: block;
+}
+
+:focus-visible {
+  outline: 1.5px solid var(--color-accent-dark);
+  outline-offset: 3px;
 }
 
 @keyframes jbh-marquee {
@@ -51,12 +58,23 @@ img {
 .reveal {
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.9s ease, transform 0.9s ease;
+  transition: opacity var(--d-slower) var(--ease-out), transform var(--d-slower) var(--ease-out);
 }
 
 .reveal.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }
 
 .page-loading,
@@ -67,9 +85,9 @@ img {
   justify-content: center;
   padding: 4rem 2rem;
   text-align: center;
-  color: var(--color-text-muted);
+  color: var(--color-text-muted-light);
 }
 
 .page-error {
-  color: #e57373;
+  color: #c0562e;
 }

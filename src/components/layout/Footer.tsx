@@ -60,7 +60,7 @@ export function Footer() {
           ))}
         </div>
         <div className={styles.brandCol}>
-          <img src="/assets/logo-reverse.svg" alt="John Buchan Homes" className={styles.footerLogo} />
+          <img src="/assets/logo.png" alt="John Buchan Homes" className={styles.footerLogo} />
           <p className={styles.tagline}>
             Custom homes built on the Seattle Eastside since 1961. Built on your lot. Designed for your life.
           </p>

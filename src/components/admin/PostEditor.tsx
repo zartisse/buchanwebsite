@@ -20,7 +20,7 @@ export function PostEditor({ post, onSave, onCancel }: PostEditorProps) {
   const [date, setDate] = useState(post?.date ?? new Date().toISOString().slice(0, 10));
   const [excerpt, setExcerpt] = useState(post?.excerpt ?? '');
   const [body, setBody] = useState(post?.body ?? '');
-  const [imageUrl, setImageUrl] = useState(post?.image_url ?? '/assets/ph-arch-1.svg');
+  const [imageUrl, setImageUrl] = useState(post?.image_url ?? '/assets/ph-arch-1.png');
   const [metaTitle, setMetaTitle] = useState(post?.meta_title ?? '');
   const [metaDescription, setMetaDescription] = useState(post?.meta_description ?? '');
   const [saving, setSaving] = useState(false);

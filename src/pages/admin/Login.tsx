@@ -32,7 +32,7 @@ export function AdminLogin() {
     <div className={styles.loginPage}>
       <PageMeta title="Admin Login" />
       <div className={styles.loginBox}>
-        <img src="/assets/logo-reverse.svg" alt="" style={{ height: 38, filter: 'invert(1)', marginBottom: 24 }} />
+        <img src="/assets/logo-reverse.png" alt="" style={{ height: 38, marginBottom: 24 }} />
         <h1 className={styles.loginTitle}>Content Studio</h1>
         <p className={styles.pageSub}>Sign in to manage the Buchan Homes website.</p>
         {!isConfigured && (
