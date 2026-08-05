@@ -3,6 +3,7 @@ import { useSitePage } from '../../hooks/useSitePage';
 import { PageMeta } from '../../components/ui/PageMeta';
 import { RevealOnScroll } from '../../components/ui/RevealOnScroll';
 import { HeroTitle } from '../../components/ui/HeroTitle';
+import { EstimatorLink } from '../../components/ui/EstimatorLink';
 import { getDemoPageContent } from '../../data/sitePagesDemo';
 import ps from '../../styles/pages.module.css';
 
@@ -12,7 +13,7 @@ export function Process() {
 
   return (
     <main>
-      <PageMeta title={page?.meta_title ?? 'Our Process'} description={page?.meta_description} />
+      <PageMeta title={page?.meta_title ?? 'Custom Home Process'} description={page?.meta_description} />
       <section className={ps.hero}>
         <div className={ps.heroInner}>
           <span className={ps.eyebrow}>{content.hero.eyebrow}</span>
@@ -22,9 +23,18 @@ export function Process() {
 
       <section className={ps.section}>
         <div className={ps.sectionInner}>
+          <RevealOnScroll>
+            <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 24, marginBottom: 48, padding: '24px 28px', background: 'var(--color-bg-cream)', border: '1px solid var(--color-hairline-light-2)' }}>
+              <div style={{ flex: 1, minWidth: 240 }}>
+                <strong style={{ display: 'block', fontFamily: 'var(--font-serif)', fontSize: 22, marginBottom: 8 }}>Estimate My Project</strong>
+                <p className={ps.bodyText} style={{ margin: 0 }}>Get a personalized cost range before your first conversation.</p>
+              </div>
+              <EstimatorLink className={ps.btnPrimary}>Estimate My Project →</EstimatorLink>
+            </div>
+          </RevealOnScroll>
           {content.steps.map((s, i) => (
             <RevealOnScroll key={s.n}>
-              <div style={{ display: 'grid', gridTemplateColumns: '80px 1fr auto', gap: 32, padding: '32px 0', borderBottom: i < content.steps.length - 1 ? '1px solid var(--color-hairline-light-2)' : 'none', alignItems: 'start' }}>
+              <div id={i === 0 ? 'custom-homes' : undefined} style={{ display: 'grid', gridTemplateColumns: '80px 1fr auto', gap: 32, padding: '32px 0', borderBottom: i < content.steps.length - 1 ? '1px solid var(--color-hairline-light-2)' : 'none', alignItems: 'start' }}>
                 <span style={{ fontFamily: 'var(--font-serif)', fontSize: 36, color: 'var(--color-accent-dark)' }}>{s.n}</span>
                 <div>
                   <span style={{ fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--color-accent)' }}>{s.tag}</span>
@@ -38,19 +48,22 @@ export function Process() {
         </div>
       </section>
 
-      <section className={ps.sectionAlt} style={{ position: 'relative', minHeight: 300 }}>
+      <section id="renovations" className={ps.sectionAlt} style={{ position: 'relative', minHeight: 300 }}>
         <img src="/assets/ph-arch-2.png" alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.35 }} />
         <RevealOnScroll>
           <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', padding: '80px 8vw' }}>
-            <h2 className={ps.sectionTitle}>You&apos;re never building alone.</h2>
-            <p className={ps.bodyText} style={{ maxWidth: 520, margin: '20px auto 0' }}>A dedicated concierge stays with you from first call to final key.</p>
+            <h2 className={ps.sectionTitle}>One aligned team, chosen for your home.</h2>
+            <p className={ps.bodyText} style={{ maxWidth: 560, margin: '20px auto 0' }}>
+              We collaborate with independent architects on every project and interior designers on most.
+              Buchan provides estimating, constructability review, schedule planning, coordination, and construction leadership from the early stages.
+            </p>
           </div>
         </RevealOnScroll>
       </section>
 
       <section className={ps.ctaSection}>
         <h2 className={ps.sectionTitle}>{content.cta_title}</h2>
-        <Link to="/contact" data-cursor className={ps.btnPrimary}>Start the Conversation</Link>
+        <Link to="/contact" className={ps.btnPrimary}>Start the Conversation</Link>
       </section>
     </main>
   );

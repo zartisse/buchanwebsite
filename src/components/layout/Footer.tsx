@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FOOTER_AWARD_BADGES, HOUZZ_PROFILE_URL } from '../../data/awards';
 import {
-  FOOTER_CLIENT_SUPPORT, FOOTER_COMPANY, FOOTER_RESOURCES, SOCIAL_LINKS,
+  FOOTER_COMPANY, FOOTER_RESOURCES, FOOTER_SERVICES, FOOTER_UTILITY, SOCIAL_LINKS,
 } from '../../data/navigation';
 import styles from './Footer.module.css';
 
@@ -23,7 +23,7 @@ export function Footer() {
         </div>
         <form onSubmit={onSubscribe} className={styles.newsletterForm}>
           <input type="email" required placeholder="Your email" className={styles.emailInput} />
-          <button type="submit" data-cursor className={styles.signUpBtn}>
+          <button type="submit" className={styles.signUpBtn}>
             {subscribed ? 'Subscribed ✓' : 'Sign Up →'}
           </button>
         </form>
@@ -33,8 +33,12 @@ export function Footer() {
         <span className={styles.badgeRowLabel}>Credentials & Awards</span>
         <div className={styles.awardLogos}>
           {FOOTER_AWARD_BADGES.map((badge) => (
-            <a key={badge.alt} href={badge.href ?? HOUZZ_PROFILE_URL} target="_blank" rel="noopener noreferrer" data-cursor className={styles.awardLogoLink} title={badge.alt}>
-              <img src={badge.image} alt={badge.alt} className={styles.awardLogo} />
+            <a key={badge.alt} href={badge.href ?? HOUZZ_PROFILE_URL} target="_blank" rel="noopener noreferrer" className={styles.awardLogoLink} title={badge.alt}>
+              {badge.image ? (
+                <img src={badge.image} alt={badge.alt} className={styles.awardLogo} />
+              ) : (
+                <span className={styles.awardTextBadge}>{badge.alt}</span>
+              )}
             </a>
           ))}
         </div>
@@ -44,42 +48,47 @@ export function Footer() {
         <div className={styles.linkCol}>
           <span className={styles.colTitle}>Company</span>
           {FOOTER_COMPANY.map((l) => (
-            <Link key={l.to} to={l.to} data-cursor>{l.label}</Link>
+            <Link key={l.label + l.to} to={l.to}>{l.label}</Link>
+          ))}
+        </div>
+        <div className={styles.linkCol}>
+          <span className={styles.colTitle}>Services</span>
+          {FOOTER_SERVICES.map((l) => (
+            <Link key={l.label} to={l.to}>{l.label}</Link>
           ))}
         </div>
         <div className={styles.linkCol}>
           <span className={styles.colTitle}>Resources</span>
           {FOOTER_RESOURCES.map((l) => (
-            <Link key={l.label} to={l.to} data-cursor>{l.label}</Link>
+            <Link key={l.label} to={l.to}>{l.label}</Link>
           ))}
         </div>
         <div className={styles.linkCol}>
-          <span className={styles.colTitle}>Client Support</span>
-          {FOOTER_CLIENT_SUPPORT.map((l) => (
-            <Link key={l.label} to={l.to} data-cursor>{l.label}</Link>
+          <span className={styles.colTitle}>Utility</span>
+          {FOOTER_UTILITY.map((l) => (
+            'external' in l && l.external ? (
+              <a key={l.label} href={l.to} target="_blank" rel="noopener noreferrer">{l.label}</a>
+            ) : (
+              <Link key={l.label} to={l.to}>{l.label}</Link>
+            )
           ))}
-        </div>
-        <div className={styles.brandCol}>
-          <img src="/assets/logo.png" alt="John Buchan Homes" className={styles.footerLogo} />
-          <p className={styles.tagline}>
-            Build with certainty — custom homes on the Seattle Eastside since 1961. On your lot. To your standard.
-          </p>
         </div>
       </div>
 
       <div className={styles.socialRow}>
         {SOCIAL_LINKS.map((s) => (
-          <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" data-cursor className={styles.socialLink}>{s.label}</a>
+          <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" className={styles.socialLink}>{s.label}</a>
         ))}
-        <a href="tel:4258272266" data-cursor className={styles.socialLink}>425.827.2266</a>
-        <a href="mailto:info@buchan.com" data-cursor className={styles.socialLink}>info@buchan.com</a>
+        <a href="tel:4258272266" className={styles.socialLink}>425.827.2266</a>
+        <a href="mailto:info@buchan.com" className={styles.socialLink}>info@buchan.com</a>
+        <span className={styles.socialLink}>Bellevue, WA</span>
       </div>
 
       <div className={styles.copyright}>
         <span>© {new Date().getFullYear()} John Buchan Homes. All rights reserved.</span>
         <span className={styles.legal}>
           Licensed & bonded · WA Contractor License #[pending verification] ·{' '}
-          <Link to="/faq">Privacy</Link>
+          <Link to="/faq#privacy">Privacy</Link>
         </span>
       </div>
     </footer>

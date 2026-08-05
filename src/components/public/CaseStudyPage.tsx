@@ -60,7 +60,7 @@ export function CaseStudyPage({ data }: { data: CaseStudyData }) {
 
       <section className={ps.ctaSection}>
         <h2 className={ps.sectionTitle}>{data.ctaTitle}</h2>
-        <Link to={data.ctaLink} data-cursor className={ps.btnPrimary}>Start a Conversation</Link>
+        <Link to={data.ctaLink} className={ps.btnPrimary}>Start a Conversation</Link>
       </section>
     </main>
   );

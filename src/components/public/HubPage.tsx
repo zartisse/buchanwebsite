@@ -41,9 +41,12 @@ export function HubPage({ data }: { data: HubPageData }) {
       <section className={ps.section}>
         <div className={ps.sectionInner}>
           <div style={{ display: 'grid', gap: 48 }}>
-            {data.sections.map((section) => (
+            {data.sections.map((section, i) => (
               <RevealOnScroll key={section.title}>
-                <div className={`${hs.sectionRow} ${section.image_url ? hs.sectionRowHasImage : ''}`}>
+                <div
+                  id={data.slug === 'renovations' && i === 0 ? 'what-we-renovate' : undefined}
+                  className={`${hs.sectionRow} ${section.image_url ? hs.sectionRowHasImage : ''}`}
+                >
                   <div>
                     <h2 className={ps.sectionTitle} style={{ fontSize: 'var(--text-display-lg)', marginBottom: 16 }}>{section.title}</h2>
                     <p className={ps.bodyText}>{section.body}</p>
@@ -84,11 +87,11 @@ export function HubPage({ data }: { data: HubPageData }) {
         <h2 className={ps.sectionTitle}>{data.ctaTitle}</h2>
         <div className={ps.ctaButtons}>
           {isExternal ? (
-            <a href={ctaTo} target={ctaTo === ESTIMATOR_URL ? '_blank' : undefined} rel={ctaTo === ESTIMATOR_URL ? 'noopener noreferrer' : undefined} data-cursor className={ps.btnPrimary}>{data.ctaTitle}</a>
+            <a href={ctaTo} target={ctaTo === ESTIMATOR_URL ? '_blank' : undefined} rel={ctaTo === ESTIMATOR_URL ? 'noopener noreferrer' : undefined} className={ps.btnPrimary}>{data.ctaTitle}</a>
           ) : (
-            <Link to={ctaTo} data-cursor className={ps.btnPrimary}>Start a Conversation</Link>
+            <Link to={ctaTo} className={ps.btnPrimary}>Start a Conversation</Link>
           )}
-          <EstimatorLink data-cursor className={ps.btnLink}>Cost Estimator →</EstimatorLink>
+          <EstimatorLink className={ps.btnLink}>Cost Estimator →</EstimatorLink>
         </div>
       </section>
     </main>

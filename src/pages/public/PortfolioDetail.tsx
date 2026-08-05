@@ -107,8 +107,8 @@ export function PortfolioDetail() {
       <section className={ps.ctaSection}>
         <h2 className={ps.sectionTitle}>Interested in this home?</h2>
         <div className={ps.ctaButtons}>
-          <Link to="/contact" data-cursor className={ps.btnPrimary}>Contact Us</Link>
-          <Link to="/portfolio" data-cursor className={ps.btnLink}>← All Homes</Link>
+          <Link to="/contact" className={ps.btnPrimary}>Contact Us</Link>
+          <Link to="/portfolio" className={ps.btnLink}>← All Homes</Link>
         </div>
       </section>
 

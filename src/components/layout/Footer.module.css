@@ -138,6 +138,28 @@
   filter: grayscale(0) opacity(1);
 }
 
+.awardTextBadge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 72px;
+  height: 48px;
+  padding: 8px 12px;
+  border: 1px solid var(--color-hairline-light-3);
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--color-text-muted-light);
+  filter: grayscale(1) opacity(0.75);
+  transition: filter var(--d-base) var(--ease-out);
+}
+
+.awardLogoLink:hover .awardTextBadge {
+  filter: grayscale(0) opacity(1);
+  color: var(--color-text-on-light);
+}
+
 .badge {
   flex: 0 0 auto;
   width: 96px;
@@ -176,7 +198,7 @@
 
 .grid {
   display: grid;
-  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(4, 1fr);
   gap: var(--s-12);
   padding: var(--s-16) var(--gutter) var(--s-12);
 }

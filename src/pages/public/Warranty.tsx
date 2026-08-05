@@ -59,8 +59,8 @@ export function Warranty() {
       <section className={ps.ctaSection}>
         <h2 className={ps.sectionTitle}>{content.cta_title}</h2>
         <div className={ps.ctaButtons}>
-          <Link to="/contact" data-cursor className={ps.btnPrimary}>Get in Touch</Link>
-          <Link to="/faq" data-cursor className={ps.btnLink}>Read FAQ →</Link>
+          <Link to="/contact" className={ps.btnPrimary}>Get in Touch</Link>
+          <Link to="/faq" className={ps.btnLink}>Read FAQ →</Link>
         </div>
       </section>
     </main>

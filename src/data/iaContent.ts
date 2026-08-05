@@ -30,8 +30,8 @@ export const IA_PAGES: Record<string, HubPageData> = {
     sections: [
       {
         title: 'Our Process',
-        body: 'Discovery through continuing care — seven stages designed to reduce uncertainty at every decision point. You work with the same leadership team from first conversation through warranty.',
-        bullets: ['Property & feasibility review', 'Preconstruction agreement', 'Design alignment', 'Construction readiness', 'Build & completion', 'Continuing care'],
+        body: 'Discovery through continuing care — four stages designed to reduce uncertainty at every decision point. You work with the same leadership team from first conversation through warranty.',
+        bullets: ['Discover & evaluate', 'Plan & align', 'Build with discipline', 'Care beyond completion'],
         image_url: '/assets/ph-arch-2.png',
       },
       {
@@ -51,6 +51,37 @@ export const IA_PAGES: Record<string, HubPageData> = {
     ],
     ctaTitle: 'Ready to plan your custom home?',
     ctaLink: '/contact?service=I want to build a custom home#inquiry',
+  },
+  'land-and-site': {
+    slug: 'land-and-site',
+    metaTitle: 'Land & Site Considerations',
+    metaDescription: 'Evaluate your lot, zoning, and site conditions before building on the Seattle Eastside.',
+    hero: {
+      eyebrow: 'Custom Homes',
+      title: 'Land & site',
+      titleEmphasis: 'considerations.',
+      image_url: '/assets/ph-arch-3.png',
+    },
+    intro: 'Before design begins, we evaluate what your property can support — zoning, setbacks, slope, utilities, and buildability — so your investment aligns with what is actually possible on your lot.',
+    sections: [
+      {
+        title: 'Site Evaluation',
+        body: 'Topography, soil, drainage, and access are reviewed alongside jurisdictional requirements. We flag constraints early so they inform design — not surprise you mid-build.',
+        bullets: ['Zoning & setback review', 'Utility & easement mapping', 'Slope & drainage assessment'],
+        image_url: '/assets/ph-arch-2.png',
+      },
+      {
+        title: 'Feasibility & Budget Alignment',
+        body: 'Progressive estimates tied to real site conditions — not generic per-square-foot guesses. You know what your lot supports before committing to full design.',
+      },
+      {
+        title: 'Working With Your Team',
+        body: 'We collaborate with your architect or recommend trusted independent professionals. Buchan leads constructability review, estimating, and schedule planning from the early stages.',
+        image_url: '/assets/ph-arch-4.png',
+      },
+    ],
+    ctaTitle: 'Evaluate your property',
+    ctaLink: '/property-feasibility',
   },
   renovations: {
     slug: 'renovations',
@@ -504,7 +535,7 @@ export const IA_PAGES: Record<string, HubPageData> = {
     intro: 'Not sure where to start? Tell us about your property and goals — we will help you find the path that fits: build, renovate, add an ADU, or explore selling instead.',
     sections: [
       { title: 'Build Custom', body: 'Ground-up home on your lot — our core practice since 1961.', bullets: ['Feasibility & zoning review', 'Progressive cost estimating', '→ Custom Homes'], image_url: '/assets/ph-arch-1.png' },
-      { title: 'ADU or DADU', body: 'Additional dwelling on existing lot for family or rental income.', bullets: ['Setback & utility check', 'Design-build integration', '→ ADUs & DADUs'] },
+      { title: 'ADU or DADU', body: 'Additional dwelling on existing lot for family or rental income.', bullets: ['Setback & utility check', 'Coordinated design & construction', '→ ADUs & DADUs'] },
       { title: 'Renovate or Rebuild', body: 'Transform or replace an existing structure while staying on the land you love.', bullets: ['Condition assessment', 'Phasing for occupied homes', '→ Renovations'] },
       { title: 'Sell Instead', body: 'Explore selling your property or land directly or on the open market.', bullets: ['→ Land Acquisition', '→ Sell to Buchan', '→ Sell Your Home'] },
     ],
@@ -545,21 +576,108 @@ export const HOME_STARTING_POINTS = {
 };
 
 export const PROCESS_STAGES = [
-  { n: '01', title: 'Discovery', description: 'Understand your vision, timeline, and how you want to live.' },
-  { n: '02', title: 'Property & Feasibility', description: 'Evaluate your lot — zoning, slope, utilities, and buildability.' },
-  { n: '03', title: 'Preconstruction Agreement', description: 'Progressive estimates and scope alignment before design deepens.' },
-  { n: '04', title: 'Design Alignment', description: 'Architecture, interiors, and budget held in balance.' },
-  { n: '05', title: 'Construction Readiness', description: 'Permits, selections, and schedule locked before breaking ground.' },
-  { n: '06', title: 'Construction', description: 'Craftsmanship on site with clear milestones and communication.' },
-  { n: '07', title: 'Completion & Continuing Care', description: 'Walkthrough, warranty, and ongoing Home Care support.' },
+  { n: '01', title: 'Discover & Evaluate', description: 'Understand your vision, site, and investment goals before committing to a path forward.' },
+  { n: '02', title: 'Plan & Align', description: 'Progressive estimates, design coordination, and constructability review with your project team.' },
+  { n: '03', title: 'Build with Discipline', description: 'Craftsmanship on site with clear milestones, communication, and quality standards at every layer.' },
+  { n: '04', title: 'Care Beyond Completion', description: 'Walkthrough, warranty support, and ongoing Home Care — accountability that outlasts move-in day.' },
 ];
 
+export const CREDIBILITY_LINE =
+  'Family-owned since 1961 | 4,000+ homes built | Serving Bellevue and the Eastside';
+
+/** @deprecated Use CREDIBILITY_LINE */
 export const CREDIBILITY_ITEMS = [
   'Family-owned since 1961',
-  '65 years on the Eastside',
-  'Long-term care after completion',
-  'Best Custom Homebuilder — Silver 2026',
+  '4,000+ homes built',
+  'Serving Bellevue and the Eastside',
 ];
+
+export interface FeaturedWorkItem {
+  image_url: string;
+  title: string;
+  label?: string;
+  link?: string;
+  featured?: boolean;
+}
+
+export const FEATURED_WORK_ITEMS: FeaturedWorkItem[] = [
+  { image_url: '/assets/ph-arch-1.png', title: 'Eastside Custom Residence', label: 'Featured Residence', featured: true, link: '/portfolio' },
+  { image_url: '/assets/ph-arch-2.png', title: 'Clyde Hill Exterior', link: '/portfolio?type=custom-homes' },
+  { image_url: '/assets/ph-arch-3.png', title: 'Medina Interior', link: '/portfolio?type=interiors' },
+  { image_url: '/assets/ph-arch-4.png', title: 'Whole-Home Renovation', link: '/portfolio?type=renovations' },
+  { image_url: '/assets/ph-arch-1.png', title: 'Bellevue Custom Home', link: '/portfolio?type=custom-homes' },
+  { image_url: '/assets/ph-arch-2.png', title: 'Kitchen Transformation', link: '/portfolio?type=interiors' },
+  { image_url: '/assets/ph-arch-3.png', title: 'Available Now', label: 'Available Now', link: '/portfolio?type=available-homes' },
+];
+
+export const WHAT_WE_DO = {
+  primary: [
+    { title: 'Custom Homes', description: 'Ground-up homes on your lot — from feasibility through completion.', image_url: '/assets/ph-arch-1.png', link: '/custom-homes' },
+    { title: 'Renovations', description: 'Major whole-home transformations with the same Buchan standard.', image_url: '/assets/ph-arch-2.png', link: '/renovations' },
+  ],
+  secondary: [
+    { title: 'ADUs & DADUs', description: 'Additional dwelling units for family or rental income.', link: '/services/adus' },
+    { title: 'Real Estate Services', description: 'Lot finding, selling, and land acquisition support.', link: '/services/real-estate' },
+    { title: 'Fire Restoration', description: 'Rebuild and restore after fire or disaster.', link: '/services/fire-restoration' },
+    { title: 'Maintenance & Service', description: 'Ongoing care through Buchan Home Care.', link: '/services/home-care' },
+  ],
+};
+
+export const CLIENT_CONCERNS = [
+  { title: 'Investment alignment', body: 'Your budget and vision stay connected through progressive estimates — not a single number that shifts later.' },
+  { title: 'Team coordination', body: 'We align architects, interior designers, engineers, and specialty consultants around one shared plan.' },
+  { title: 'Communication & decisions', body: 'Clear milestones and a dedicated point of contact so you always know what is happening next.' },
+  { title: 'Schedule management', body: 'Realistic timelines mapped before construction begins, with honest updates when conditions change.' },
+  { title: 'Hidden construction quality', body: 'The details behind walls — water management, structure, comfort — are where we invest most.' },
+  { title: 'Accountability after move-in', body: 'Warranty coverage and continuing care so support does not end at the key handoff.' },
+];
+
+export const BETTER_PLANNED_PATH = {
+  eyebrow: 'A Better-Planned Path',
+  title: 'From vision',
+  titleEmphasis: 'to home.',
+  intro: 'Preconstruction, collaboration, and construction leadership — aligned around your vision, investment, constructability, and schedule.',
+  teamHeading: 'One Aligned Team, Chosen for Your Home',
+  teamBody: 'We collaborate with independent architects on every project and interior designers on most. Clients may bring their own trusted professionals. Buchan provides estimating, constructability review, schedule planning, coordination, detailed specifications, and construction leadership from the early stages.',
+  teamImage: '/assets/ph-arch-4.png',
+};
+
+export interface QualityLayerHotspot {
+  id: string;
+  label: string;
+  benefit: string;
+  x: number;
+  y: number;
+}
+
+export const QUALITY_LAYERS: QualityLayerHotspot[] = [
+  { id: 'durability', label: 'Long-term durability', benefit: 'Materials and methods chosen for how they perform over time, not just how they look on day one.', x: 24, y: 32 },
+  { id: 'structure', label: 'Structural planning', benefit: 'A frame designed for your site, your architecture, and decades of stable performance.', x: 84, y: 34 },
+  { id: 'windows', label: 'Window & door integration', benefit: 'Tight, weather-ready openings that keep drafts out and comfort in year-round.', x: 33, y: 50 },
+  { id: 'water', label: 'Water management', benefit: 'Homes built for Pacific Northwest rain — moisture managed before it reaches your living spaces.', x: 22, y: 66 },
+  { id: 'comfort', label: 'Indoor comfort', benefit: 'Even temperatures and healthy air — comfort engineered into the home, not added after.', x: 56, y: 62 },
+  { id: 'sound', label: 'Sound control', benefit: 'Quieter rooms through thoughtful assembly — less noise between spaces and from outside.', x: 90, y: 60 },
+];
+
+export interface PickPathTile {
+  title: string;
+  link: string;
+  external?: boolean;
+}
+
+export const PICK_YOUR_PATH_TILES: PickPathTile[] = [
+  { title: 'Estimate My Project', link: 'https://estimator.buchan.com/', external: true },
+  { title: 'I Already Have Plans', link: '/contact?service=I have plans and need a builder#inquiry' },
+  { title: 'Help me Evaluate a Property', link: '/property-feasibility' },
+  { title: 'I Have Land to Sell', link: '/land-acquisition' },
+  { title: 'I Want a Second Opinion', link: '/second-opinion' },
+  { title: 'I Want an ADU', link: '/services/adus' },
+  { title: 'My Home Needs Maintenance & Repair', link: '/services/home-care' },
+  { title: 'Just Browsing', link: '/portfolio' },
+];
+
+export const PICK_YOUR_PATH_INTRO =
+  'Wherever you are in the process, we can help you move forward.';
 
 export const WHY_CHOOSE_VALUES = [
   { title: 'Certainty', body: 'Progressive estimates and preconstruction discipline reduce surprises.' },

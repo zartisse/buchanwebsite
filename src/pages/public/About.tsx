@@ -88,12 +88,12 @@ export function About() {
         <div id="join-our-team" style={{ marginBottom: 48 }}>
           <h2 className={ps.sectionTitle}>{content.cta.join_title}</h2>
           <p className={ps.bodyText} style={{ maxWidth: 480, margin: '16px auto 24px' }}>{content.cta.join_body}</p>
-          <Link to="/contact" data-cursor className={ps.btnPrimary}>Get in Touch</Link>
+          <Link to="/contact" className={ps.btnPrimary}>Get in Touch</Link>
         </div>
         <div id="we-buy-land">
           <h2 className={ps.sectionTitle}>{content.cta.land_title}</h2>
           <p className={ps.bodyText} style={{ maxWidth: 480, margin: '16px auto 24px' }}>{content.cta.land_body}</p>
-          <Link to="/contact" data-cursor className={ps.btnPrimary}>Contact Us</Link>
+          <Link to="/contact" className={ps.btnPrimary}>Contact Us</Link>
         </div>
       </section>
     </main>

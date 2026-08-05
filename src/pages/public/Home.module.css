@@ -4,32 +4,24 @@
   color: var(--color-text-on-light);
 }
 
-/* ---- Hero: light, headline above contained media ---- */
+/* ---- Hero: light, video-dominant ---- */
 .heroLight {
   background: var(--color-bg-cream);
-  padding: clamp(140px, 20vh, 220px) var(--gutter) clamp(50px, 7vh, 72px);
+  padding: clamp(100px, 14vh, 160px) var(--gutter) clamp(40px, 5vh, 56px);
 }
 
-.heroInner {
+.heroCompact {
   max-width: var(--max-width);
-  margin: 0 auto;
-}
-
-.eyebrowLight {
-  font-size: var(--text-label);
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--color-accent-on-light);
-  font-weight: var(--fw-medium);
+  margin: 0 auto clamp(20px, 3vw, 28px);
 }
 
 .heroTitleLight {
   font-family: var(--font-serif);
   font-weight: var(--fw-light);
-  font-size: var(--text-display-2xl);
+  font-size: clamp(40px, 5.5vw, 64px);
   line-height: 0.94;
   letter-spacing: var(--tr-tight);
-  margin: var(--s-4) 0 0;
+  margin: 0;
   color: var(--color-text-on-light);
 }
 
@@ -39,21 +31,39 @@
   color: var(--color-accent-dark);
 }
 
-.heroMedia {
-  height: clamp(320px, 40vw, 560px);
+.heroMediaLarge {
+  max-width: 100%;
+  height: clamp(360px, 58vh, 720px);
   overflow: hidden;
   position: relative;
   background: var(--color-bg-mid);
-  margin-top: clamp(28px, 4vw, 44px);
 }
 
-.heroMedia img,
-.heroMedia video {
+.heroMediaLarge img,
+.heroMediaLarge video {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
-  filter: grayscale(0.12) sepia(0.06);
+  filter: grayscale(0.08) sepia(0.04);
+}
+
+@media (max-width: 768px) {
+  .heroMediaLarge {
+    height: clamp(280px, 50vw, 420px);
+  }
+
+  .heroMediaLarge video,
+  .heroMediaLarge .heroYoutube {
+    display: none;
+  }
+
+  .heroMediaLarge::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('/assets/ph-arch-1.png') center / cover no-repeat;
+  }
 }
 
 .heroYoutube {
@@ -218,7 +228,24 @@
   color: var(--color-text-muted);
 }
 
-/* ---- Credibility strip ---- */
+/* ---- Credibility line ---- */
+.credibilityLine {
+  padding: var(--s-5) var(--gutter);
+  border-top: 1px solid var(--color-hairline-light);
+  border-bottom: 1px solid var(--color-hairline-light);
+  text-align: center;
+  background: var(--color-bg-white);
+}
+
+.credibilityLine p {
+  margin: 0;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-muted-light);
+}
+
+/* ---- Credibility strip (legacy) ---- */
 .credibility {
   display: flex;
   flex-wrap: wrap;
@@ -625,6 +652,23 @@
 }
 
 /* ---- Testimonials (dark moment) ---- */
+.testimonialSingle {
+  margin: 0;
+  max-width: 720px;
+  position: relative;
+}
+
+.testimonialSingle::before {
+  content: '\201C';
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 64px;
+  line-height: 0.5;
+  height: 32px;
+  color: var(--color-accent);
+  margin-bottom: var(--s-6);
+}
+
 .testimonialGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));

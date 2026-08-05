@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { EstimatorLink } from '../../components/ui/EstimatorLink';
 import { PRIMARY_NAV } from '../../data/navigation';
 import styles from './Nav.module.css';
 
@@ -32,15 +31,21 @@ export function Nav() {
   return (
     <>
       <header className={`${styles.topbar} ${scrolled ? styles.scrolled : ''} ${lightTop ? styles.lightTopbar : ''}`}>
-        <Link to="/" data-cursor className={styles.logoLink}>
+        <Link to="/" className={styles.logoLink}>
           <img src={lightTop ? '/assets/logo.png' : '/assets/logo-reverse.png'} alt="John Buchan Homes" className={styles.logo} />
         </Link>
+
+        <nav className={styles.desktopNav} aria-label="Primary">
+          {PRIMARY_NAV.map((group) => (
+            <DesktopNavItem key={group.label} group={group} lightTop={lightTop} scrolled={scrolled} />
+          ))}
+        </nav>
+
         <div className={styles.topRight}>
-          <Link to="/contact" data-cursor className={styles.ctaBtn}>Start a Conversation</Link>
-          <a href="tel:4258272266" data-cursor className={styles.phone}>425.827.2266</a>
+          <Link to="/contact" className={styles.ctaBtn}>Start a Conversation</Link>
+          <a href="tel:4258272266" className={styles.phone}>425.827.2266</a>
           <button
             type="button"
-            data-cursor
             className={styles.burger}
             onClick={() => setOpen(true)}
             aria-label="Open menu"
@@ -50,17 +55,17 @@ export function Nav() {
         </div>
       </header>
 
-      <nav className={`${styles.overlay} ${open ? styles.overlayOpen : ''}`}>
+      <nav className={`${styles.overlay} ${open ? styles.overlayOpen : ''}`} aria-label="Mobile menu">
         <div className={styles.ghost}>65</div>
         <div className={styles.overlayTop}>
           <img src="/assets/logo-reverse.png" alt="" className={styles.logo} />
-          <button type="button" data-cursor className={styles.close} onClick={() => setOpen(false)} aria-label="Close menu">
+          <button type="button" className={styles.close} onClick={() => setOpen(false)} aria-label="Close menu">
             <span /><span />
           </button>
         </div>
         <div className={styles.navLinks}>
           {PRIMARY_NAV.map((group) => (
-            <NavGroup
+            <MobileNavGroup
               key={group.label}
               label={group.label}
               to={group.to}
@@ -69,13 +74,8 @@ export function Nav() {
               onClose={() => setOpen(false)}
             />
           ))}
-          <div className={styles.navRow}>
-            <Link to="/contact" data-cursor className={styles.navMain} onClick={() => setOpen(false)}>Contact</Link>
-          </div>
         </div>
         <div className={styles.overlayFooter}>
-          <EstimatorLink onClick={() => setOpen(false)} style={{ color: 'inherit', textDecoration: 'none' }}>Cost Estimator</EstimatorLink>
-          <span> · </span>
           <span>425.827.2266 · Bellevue, WA</span>
         </div>
       </nav>
@@ -83,7 +83,50 @@ export function Nav() {
   );
 }
 
-function NavGroup({
+function DesktopNavItem({
+  group,
+  lightTop,
+  scrolled,
+}: {
+  group: (typeof PRIMARY_NAV)[number];
+  lightTop: boolean;
+  scrolled: boolean;
+}) {
+  const [open, setOpen] = useState(false);
+  const hasDropdown = group.links.length > 0;
+
+  return (
+    <div
+      className={styles.desktopNavItem}
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+      onFocus={() => setOpen(true)}
+      onBlur={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget as Node)) setOpen(false);
+      }}
+    >
+      <Link
+        to={group.to}
+        className={`${styles.desktopNavLink} ${lightTop && !scrolled ? styles.desktopNavLinkLight : ''}`}
+        aria-haspopup={hasDropdown ? 'true' : undefined}
+        aria-expanded={hasDropdown ? open : undefined}
+      >
+        {group.label}
+      </Link>
+      {hasDropdown && (
+        <div className={`${styles.dropdown} ${open ? styles.dropdownOpen : ''}`}>
+          {group.links.map((link) => (
+            <Link key={link.to} to={link.to} className={styles.dropdownLink}>
+              {link.label}
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function MobileNavGroup({
   label, to, links, open, onClose,
 }: {
   label: string;
@@ -94,11 +137,11 @@ function NavGroup({
 }) {
   return (
     <div className={`${styles.navRow} ${open ? styles.navRowVisible : ''}`}>
-      <Link to={to} data-cursor className={styles.navMain} onClick={onClose}>{label}</Link>
+      <Link to={to} className={styles.navMain} onClick={onClose}>{label}</Link>
       {links.length > 0 && (
         <span className={styles.navSubs}>
           {links.map((l) => (
-            <Link key={l.to} to={l.to} data-cursor className={styles.navSub} onClick={onClose}>{l.label}</Link>
+            <Link key={l.to} to={l.to} className={styles.navSub} onClick={onClose}>{l.label}</Link>
           ))}
         </span>
       )}

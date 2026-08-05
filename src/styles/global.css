@@ -21,6 +21,22 @@ a {
   color: inherit;
 }
 
+.cardHover {
+  transition: transform var(--d-base) var(--ease-out), opacity var(--d-base) var(--ease-out);
+}
+
+.cardHover:hover {
+  transform: translateY(-2px);
+}
+
+.imageHover img {
+  transition: transform var(--d-slow) var(--ease-out);
+}
+
+.imageHover:hover img {
+  transform: scale(1.03);
+}
+
 img {
   max-width: 100%;
   height: auto;
@@ -55,13 +71,35 @@ img {
 
 .reveal {
   opacity: 0;
-  transform: translateY(30px);
   transition: opacity var(--d-slower) var(--ease-out), transform var(--d-slower) var(--ease-out);
 }
 
 .reveal.visible {
   opacity: 1;
+}
+
+.reveal-up {
+  transform: translateY(28px);
+}
+
+.reveal-up.visible {
   transform: translateY(0);
+}
+
+.reveal-scale {
+  transform: scale(0.94);
+}
+
+.reveal-scale.visible {
+  transform: scale(1);
+}
+
+.reveal-left {
+  transform: translateX(-32px);
+}
+
+.reveal-left.visible {
+  transform: translateX(0);
 }
 
 @media (prefers-reduced-motion: reduce) {

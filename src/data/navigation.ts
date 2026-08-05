@@ -10,32 +10,56 @@ export interface NavGroup {
 }
 
 export const PRIMARY_NAV: NavGroup[] = [
-  { label: 'Custom Homes', to: '/custom-homes', links: [] },
-  { label: 'Renovations', to: '/renovations', links: [] },
-  { label: 'Preconstruction', to: '/preconstruction', links: [] },
-  { label: 'Available Homes', to: '/available-homes', links: [] },
+  {
+    label: 'Custom Homes',
+    to: '/custom-homes',
+    links: [
+      { label: 'Custom Home Process', to: '/process' },
+      { label: 'Land & Site Considerations', to: '/custom-homes/land-and-site' },
+      { label: 'Preconstruction', to: '/preconstruction' },
+      { label: 'Custom Home FAQ', to: '/faq#custom-homes' },
+    ],
+  },
+  {
+    label: 'Renovations',
+    to: '/renovations',
+    links: [
+      { label: 'What We Renovate', to: '/renovations#what-we-renovate' },
+      { label: 'Renovation Process', to: '/process#renovations' },
+      { label: 'Preconstruction', to: '/preconstruction' },
+      { label: 'Renovation FAQ', to: '/faq#renovations' },
+    ],
+  },
   {
     label: 'Services',
     to: '/services',
     links: [
       { label: 'ADUs & DADUs', to: '/services/adus' },
-      { label: 'Fire Restoration', to: '/services/fire-restoration' },
-      { label: 'Planning & Budgeting', to: '/services/planning-budgeting' },
       { label: 'Real Estate Services', to: '/services/real-estate' },
-      { label: 'Buchan Home Care', to: '/services/home-care' },
-      { label: 'Warranty & Client Care', to: '/warranty' },
+      { label: 'Fire Restoration', to: '/services/fire-restoration' },
+      { label: 'Maintenance & Service', to: '/services/home-care' },
       { label: 'View All Services', to: '/services' },
     ],
   },
-  { label: 'Portfolio', to: '/portfolio', links: [] },
+  {
+    label: 'Portfolio',
+    to: '/portfolio',
+    links: [
+      { label: 'Custom Homes', to: '/portfolio?type=custom-homes' },
+      { label: 'Renovations', to: '/portfolio?type=renovations' },
+      { label: 'Interiors', to: '/portfolio?type=interiors' },
+      { label: 'Video Tours', to: '/portfolio?type=video-tours' },
+      { label: 'Available Homes', to: '/portfolio?type=available-homes' },
+    ],
+  },
   {
     label: 'About',
     to: '/about',
     links: [
-      { label: 'Why Choose Buchan', to: '/why-choose-buchan' },
+      { label: 'Why Buchan', to: '/why-choose-buchan' },
       { label: 'Our Story', to: '/about' },
       { label: 'Our Team', to: '/about#team' },
-      { label: 'Client Testimonials', to: '/testimonials' },
+      { label: 'Client Stories', to: '/testimonials' },
       { label: 'News & Recognition', to: '/awards' },
       { label: 'Areas We Serve', to: '/areas-we-serve' },
     ],
@@ -44,21 +68,38 @@ export const PRIMARY_NAV: NavGroup[] = [
 
 export const FOOTER_COMPANY = [
   { label: 'About', to: '/about' },
-  { label: 'Our Team', to: '/about#team' },
   { label: 'Our Story', to: '/about' },
+  { label: 'Our Team', to: '/about#team' },
   { label: 'Careers', to: '/about#join-our-team' },
-  { label: 'News & Awards', to: '/awards' },
-  { label: 'Landowners / Sell Your Land', to: '/land-acquisition' },
+  { label: 'News & Recognition', to: '/awards' },
+  { label: 'Contact', to: '/contact' },
+];
+
+export const FOOTER_SERVICES = [
+  { label: 'Custom Homes', to: '/custom-homes' },
+  { label: 'Renovations', to: '/renovations' },
+  { label: 'Preconstruction', to: '/preconstruction' },
+  { label: 'ADUs & DADUs', to: '/services/adus' },
+  { label: 'Real Estate Services', to: '/services/real-estate' },
+  { label: 'Fire Restoration', to: '/services/fire-restoration' },
+  { label: 'Maintenance & Service', to: '/services/home-care' },
 ];
 
 export const FOOTER_RESOURCES = [
-  { label: 'Frequently Asked Questions', to: '/faq' },
-  { label: 'Articles & Insights', to: '/blog' },
+  { label: 'The Buchan Process', to: '/process' },
   { label: 'Planning Guides', to: '/faq' },
-  { label: 'Video Tours', to: '/portfolio' },
-  { label: 'Homeowner Resources', to: '/faq' },
+  { label: 'Client Stories', to: '/testimonials' },
+  { label: 'Areas We Serve', to: '/areas-we-serve' },
+  { label: 'FAQs', to: '/faq' },
 ];
 
+export const FOOTER_UTILITY: { label: string; to: string; external?: boolean }[] = [
+  { label: 'Homeowner Portal', to: 'https://portal.buchan.com', external: true },
+  { label: 'Privacy Policy', to: '/faq#privacy' },
+  { label: 'Contractor License', to: '/faq' },
+];
+
+/** @deprecated Use FOOTER_RESOURCES */
 export const FOOTER_CLIENT_SUPPORT = [
   { label: 'Warranty & Client Care', to: '/warranty' },
   { label: 'Request Service', to: '/contact?service=Request service / warranty#inquiry' },

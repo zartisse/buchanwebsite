@@ -6,7 +6,6 @@ type EstimatorLinkProps = {
   className?: string;
   onClick?: () => void;
   style?: React.CSSProperties;
-  'data-cursor'?: boolean;
 };
 
 export function EstimatorLink({ children, className, onClick, style, ...rest }: EstimatorLinkProps) {

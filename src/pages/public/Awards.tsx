@@ -41,7 +41,7 @@ export function Awards() {
                 href={badge.href ?? HOUZZ_PROFILE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                data-cursor
+               
                 className={footerStyles.awardLogoLink}
               >
                 <img src={badge.image} alt={badge.alt} className={footerStyles.awardLogo} />
@@ -75,7 +75,7 @@ export function Awards() {
                   <span style={{ fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--color-accent)' }}>{p.date}</span>
                   <div>
                     <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: 24, margin: '0 0 8px' }}>
-                      {p.url ? <Link to={p.url} data-cursor style={{ color: 'inherit', textDecoration: 'none' }}>{p.title}</Link> : p.title}
+                      {p.url ? <Link to={p.url} style={{ color: 'inherit', textDecoration: 'none' }}>{p.title}</Link> : p.title}
                     </h3>
                     <span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--color-text-muted-light)' }}>{p.source}</span>
                     <p className={ps.bodyText} style={{ marginTop: 12 }}>{p.excerpt}</p>
@@ -107,8 +107,8 @@ export function Awards() {
       <section className={ps.ctaSection}>
         <h2 className={ps.sectionTitle}>{content.cta_title}</h2>
         <div className={ps.ctaButtons}>
-          <Link to="/contact" data-cursor className={ps.btnPrimary}>Contact Us</Link>
-          <Link to="/portfolio" data-cursor className={ps.btnLink}>View Portfolio →</Link>
+          <Link to="/contact" className={ps.btnPrimary}>Contact Us</Link>
+          <Link to="/portfolio" className={ps.btnLink}>View Portfolio →</Link>
         </div>
       </section>
     </main>

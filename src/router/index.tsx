@@ -22,6 +22,7 @@ import {
   CustomHomes, Renovations, Preconstruction, WhyChooseBuchan, AreasWeServe,
   Adus, FireRestoration, PlanningBudgeting, RealEstate, FindYourLot,
   SellYourHome, SellToBuchan, HomeCare, LandAcquisition, SecondOpinion, PropertyFeasibility,
+  LandAndSite,
 } from '../pages/public/IaPages';
 import { AdminLogin } from '../pages/admin/Login';
 import { AdminDashboard } from '../pages/admin/Dashboard';
@@ -38,6 +39,7 @@ export function AppRouter() {
         <Route element={<PublicLayout />}>
           <Route index element={<Home />} />
           <Route path="custom-homes" element={<CustomHomes />} />
+          <Route path="custom-homes/land-and-site" element={<LandAndSite />} />
           <Route path="renovations" element={<Renovations />} />
           <Route path="preconstruction" element={<Preconstruction />} />
           <Route path="available-homes" element={<AvailableHomes />} />

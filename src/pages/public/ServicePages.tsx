@@ -22,8 +22,8 @@ function ServicePageView({ slug }: { slug: ServiceSlug }) {
           <span className={ps.eyebrow}>{content.hero.eyebrow}</span>
           <HeroTitle hero={content.hero} />
           <div className={ps.ctaButtons} style={{ justifyContent: 'flex-start', marginTop: 32 }}>
-            <Link to="/contact" data-cursor className={ps.btnPrimary}>Start a Conversation</Link>
-            <EstimatorLink data-cursor className={ps.btnLink}>Get Estimate →</EstimatorLink>
+            <Link to="/contact" className={ps.btnPrimary}>Start a Conversation</Link>
+            <EstimatorLink className={ps.btnLink}>Get Estimate →</EstimatorLink>
           </div>
         </div>
       </section>
@@ -47,7 +47,7 @@ function ServicePageView({ slug }: { slug: ServiceSlug }) {
       </section>
       <section className={ps.ctaSection}>
         <h2 className={ps.sectionTitle}>{content.cta_title}</h2>
-        <Link to="/contact" data-cursor className={ps.btnPrimary}>Contact Us</Link>
+        <Link to="/contact" className={ps.btnPrimary}>Contact Us</Link>
       </section>
     </main>
   );

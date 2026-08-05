@@ -24,7 +24,7 @@ export function BlogPost() {
       />
       <article>
         <header style={{ padding: 'clamp(140px, 20vh, 200px) 8vw 48px', maxWidth: 800, margin: '0 auto' }}>
-          <Link to="/blog" data-cursor style={{ fontSize: 12, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--color-accent)', textDecoration: 'none' }}>← Journal</Link>
+          <Link to="/blog" style={{ fontSize: 12, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--color-accent)', textDecoration: 'none' }}>← Journal</Link>
           <span style={{ display: 'block', marginTop: 24, fontSize: 11, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--color-accent-on-light)' }}>{post.category}</span>
           <h1 style={{ fontFamily: 'var(--font-serif)', fontWeight: 300, fontSize: 'clamp(36px, 5vw, 56px)', lineHeight: 1.1, margin: '16px 0' }}>{post.title}</h1>
           <time style={{ fontSize: 13, color: 'var(--color-text-muted-light)' }}>{fmtDate(post.date)}</time>
@@ -45,7 +45,7 @@ export function BlogPost() {
             <h2 className={ps.sectionTitle} style={{ marginBottom: 32 }}>Keep Reading</h2>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 24 }}>
               {related.map((r) => (
-                <Link key={r.id} to={`/blog/${r.slug}`} data-cursor style={{ textDecoration: 'none', color: 'inherit' }}>
+                <Link key={r.id} to={`/blog/${r.slug}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                   <img src={r.image_url || '/assets/ph-arch-1.png'} alt="" style={{ width: '100%', height: 180, objectFit: 'cover', marginBottom: 12 }} />
                   <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: 18, margin: 0, lineHeight: 1.2 }}>{r.title}</h3>
                 </Link>

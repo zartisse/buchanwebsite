@@ -29,7 +29,7 @@ export function Neighborhoods() {
                 <span className={ps.eyebrow}>Neighborhood</span>
                 <h2 className={ps.sectionTitle} style={{ marginTop: 18 }}>{a.name}</h2>
                 <p className={ps.bodyText} style={{ marginTop: 24 }}>{a.body}</p>
-                <Link to="/portfolio" data-cursor className={ps.btnLink} style={{ marginTop: 24, display: 'inline-flex' }}>View Homes →</Link>
+                <Link to="/portfolio" className={ps.btnLink} style={{ marginTop: 24, display: 'inline-flex' }}>View Homes →</Link>
               </div>
             </div>
           </RevealOnScroll>
@@ -38,7 +38,7 @@ export function Neighborhoods() {
 
       <section className={ps.ctaSection}>
         <h2 className={ps.sectionTitle}>{content.cta_title}</h2>
-        <Link to="/contact" data-cursor className={ps.btnPrimary}>Contact Us</Link>
+        <Link to="/contact" className={ps.btnPrimary}>Contact Us</Link>
       </section>
     </main>
   );

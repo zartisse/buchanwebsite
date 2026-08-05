@@ -62,8 +62,8 @@ export function Testimonials() {
       <section className={ps.ctaSection}>
         <h2 className={ps.sectionTitle}>{content.cta_title}</h2>
         <div className={ps.ctaButtons}>
-          <Link to="/contact" data-cursor className={ps.btnPrimary}>Contact Us</Link>
-          <EstimatorLink data-cursor className={ps.btnLink}>Cost Estimator →</EstimatorLink>
+          <Link to="/contact" className={ps.btnPrimary}>Contact Us</Link>
+          <EstimatorLink className={ps.btnLink}>Cost Estimator →</EstimatorLink>
         </div>
       </section>
     </main>

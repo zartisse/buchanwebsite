@@ -1,21 +1,66 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { useProperties } from '../../hooks/useProperties';
 import { PageMeta } from '../../components/ui/PageMeta';
 import { RevealOnScroll } from '../../components/ui/RevealOnScroll';
 import { resolveImageUrl } from '../../lib/placeholders';
 import ps from '../../styles/pages.module.css';
 
-type Filter = 'all' | 'Available' | 'Coming Soon' | 'Sold';
+type PortfolioType = 'all' | 'custom-homes' | 'renovations' | 'interiors' | 'video-tours' | 'available-homes';
+type StatusFilter = 'all' | 'Available' | 'Coming Soon' | 'Sold';
+
+const TYPE_LABELS: Record<PortfolioType, string> = {
+  all: 'All Work',
+  'custom-homes': 'Custom Homes',
+  renovations: 'Renovations',
+  interiors: 'Interiors',
+  'video-tours': 'Video Tours',
+  'available-homes': 'Available Homes',
+};
+
+function inferCategory(slug: string, status: string): PortfolioType[] {
+  const cats: PortfolioType[] = ['custom-homes'];
+  if (status === 'Available' || status === 'Coming Soon') cats.push('available-homes');
+  if (slug.includes('renov') || slug.includes('remodel')) cats.push('renovations');
+  if (slug.includes('interior') || slug.includes('kitchen')) cats.push('interiors');
+  return cats;
+}
 
 export function Portfolio() {
   const { properties, loading, error } = useProperties({ publicOnly: true });
-  const [filter, setFilter] = useState<Filter>('all');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const typeParam = (searchParams.get('type') as PortfolioType) ?? 'all';
+  const [statusFilter, setStatusFilter] = useState<StatusFilter>('all');
+
+  const portfolioType: PortfolioType = TYPE_LABELS[typeParam] ? typeParam : 'all';
+
+  useEffect(() => {
+    if (portfolioType === 'available-homes') {
+      setStatusFilter('Available');
+    }
+  }, [portfolioType]);
 
   const filtered = properties.filter((p) => {
-    if (filter === 'all') return true;
-    return p.status === filter;
+    if (portfolioType === 'video-tours') return false;
+    if (portfolioType === 'available-homes') {
+      return p.status === 'Available' || p.status === 'Coming Soon';
+    }
+    if (portfolioType !== 'all') {
+      const cats = inferCategory(p.slug, p.status);
+      if (!cats.includes(portfolioType)) return false;
+    }
+    if (statusFilter === 'all') return true;
+    return p.status === statusFilter;
   });
+
+  const setType = (type: PortfolioType) => {
+    if (type === 'all') {
+      searchParams.delete('type');
+    } else {
+      searchParams.set('type', type);
+    }
+    setSearchParams(searchParams);
+  };
 
   return (
     <main>
@@ -29,16 +74,15 @@ export function Portfolio() {
 
       <section className={ps.section}>
         <div className={ps.sectionInner}>
-          <div style={{ display: 'flex', gap: 16, marginBottom: 48 }}>
-            {(['all', 'Available', 'Coming Soon', 'Sold'] as Filter[]).map((f) => (
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginBottom: 32 }}>
+            {(Object.keys(TYPE_LABELS) as PortfolioType[]).map((t) => (
               <button
-                key={f}
+                key={t}
                 type="button"
-                data-cursor
-                onClick={() => setFilter(f)}
+                onClick={() => setType(t)}
                 style={{
-                  background: filter === f ? 'rgba(176,130,76,0.16)' : 'transparent',
-                  border: `1px solid ${filter === f ? 'var(--color-accent-dark)' : 'var(--color-hairline-light-3)'}`,
+                  background: portfolioType === t ? 'rgba(176,130,76,0.16)' : 'transparent',
+                  border: `1px solid ${portfolioType === t ? 'var(--color-accent-dark)' : 'var(--color-hairline-light-3)'}`,
                   color: 'var(--color-text-on-light)',
                   padding: '10px 20px',
                   fontSize: 11,
@@ -48,10 +92,42 @@ export function Portfolio() {
                   fontFamily: 'var(--font-sans)',
                 }}
               >
-                {f === 'all' ? 'All Homes' : f}
+                {TYPE_LABELS[t]}
               </button>
             ))}
           </div>
+
+          {portfolioType !== 'available-homes' && portfolioType !== 'video-tours' && (
+            <div style={{ display: 'flex', gap: 16, marginBottom: 48 }}>
+              {(['all', 'Available', 'Coming Soon', 'Sold'] as StatusFilter[]).map((f) => (
+                <button
+                  key={f}
+                  type="button"
+                  onClick={() => setStatusFilter(f)}
+                  style={{
+                    background: statusFilter === f ? 'rgba(176,130,76,0.16)' : 'transparent',
+                    border: `1px solid ${statusFilter === f ? 'var(--color-accent-dark)' : 'var(--color-hairline-light-3)'}`,
+                    color: 'var(--color-text-on-light)',
+                    padding: '10px 20px',
+                    fontSize: 11,
+                    letterSpacing: '0.16em',
+                    textTransform: 'uppercase',
+                    cursor: 'pointer',
+                    fontFamily: 'var(--font-sans)',
+                  }}
+                >
+                  {f === 'all' ? 'All Status' : f}
+                </button>
+              ))}
+            </div>
+          )}
+
+          {portfolioType === 'video-tours' && (
+            <p className={ps.bodyText} style={{ marginBottom: 48 }}>
+              Video tours are coming soon. Explore our portfolio photography in the meantime, or{' '}
+              <Link to="/contact">contact us</Link> to schedule a private showing.
+            </p>
+          )}
 
           {loading && <div className="page-loading">Loading portfolio…</div>}
           {error && <div className="page-error">{error}</div>}
@@ -59,7 +135,7 @@ export function Portfolio() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 32 }}>
             {filtered.map((h) => (
               <RevealOnScroll key={h.id}>
-                <Link to={`/portfolio/${h.slug}`} data-cursor style={{ textDecoration: 'none', color: 'inherit' }}>
+                <Link to={`/portfolio/${h.slug}`} style={{ textDecoration: 'none', color: 'inherit' }} className="imageHover">
                   <div style={{ overflow: 'hidden', height: 'clamp(280px, 30vw, 380px)', marginBottom: 20 }}>
                     <img src={resolveImageUrl(h.image_url, h.slug)} alt={h.name} className={ps.imageCover} style={{ transition: 'transform 0.55s ease' }} />
                   </div>

@@ -8,6 +8,7 @@ function page(key: keyof typeof IA_PAGES) {
 }
 
 export const CustomHomes = page('custom-homes');
+export const LandAndSite = page('land-and-site');
 export const Renovations = page('renovations');
 export const Preconstruction = page('preconstruction');
 export const WhyChooseBuchan = page('why-choose-buchan');

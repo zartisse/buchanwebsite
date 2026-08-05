@@ -73,10 +73,10 @@ export function Contact() {
 
       <section className={ps.sectionAlt}>
         <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap', padding: '0 8vw' }}>
-          <Link to="/contact?service=I want to build a custom home#inquiry" data-cursor className={ps.btnPrimary}>Custom Home</Link>
-          <Link to="/contact?service=I'm planning a major renovation#inquiry" data-cursor className={ps.btnPrimary}>Renovation</Link>
-          <Link to="/land-acquisition" data-cursor className={ps.btnPrimary}>Sell Land</Link>
-          <Link to="/second-opinion" data-cursor className={ps.btnPrimary}>Second Opinion</Link>
+          <Link to="/contact?service=I want to build a custom home#inquiry" className={ps.btnPrimary}>Custom Home</Link>
+          <Link to="/contact?service=I'm planning a major renovation#inquiry" className={ps.btnPrimary}>Renovation</Link>
+          <Link to="/land-acquisition" className={ps.btnPrimary}>Sell Land</Link>
+          <Link to="/second-opinion" className={ps.btnPrimary}>Second Opinion</Link>
         </div>
       </section>
 
@@ -100,7 +100,7 @@ export function Contact() {
                   </select>
                   <textarea name="message" required placeholder="Tell us about your project" rows={5} style={inputStyle} />
                   {error && <p style={{ color: '#e57373', fontSize: 14 }}>{error}</p>}
-                  <button type="submit" data-cursor className={ps.btnPrimary} style={{ alignSelf: 'flex-start' }}>Send Message</button>
+                  <button type="submit" className={ps.btnPrimary} style={{ alignSelf: 'flex-start' }}>Send Message</button>
                 </form>
               )}
             </div>
@@ -109,7 +109,7 @@ export function Contact() {
               <div style={{ marginTop: 32, display: 'flex', flexDirection: 'column', gap: 20 }}>
                 <div>
                   <span style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--color-accent)' }}>Phone</span>
-                  <a href={content.phone_href} data-cursor style={{ display: 'block', marginTop: 8, fontSize: 20, fontFamily: 'var(--font-serif)', textDecoration: 'none' }}>{content.phone}</a>
+                  <a href={content.phone_href} style={{ display: 'block', marginTop: 8, fontSize: 20, fontFamily: 'var(--font-serif)', textDecoration: 'none' }}>{content.phone}</a>
                 </div>
                 <div>
                   <span style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--color-accent)' }}>Office</span>
@@ -127,7 +127,7 @@ export function Contact() {
 
       <section className={ps.ctaSection}>
         <h2 className={ps.sectionTitle}>{content.cta_title}</h2>
-        <EstimatorLink data-cursor className={ps.btnPrimary}>How Much Will My Project Cost?</EstimatorLink>
+        <EstimatorLink className={ps.btnPrimary}>How Much Will My Project Cost?</EstimatorLink>
       </section>
     </main>
   );

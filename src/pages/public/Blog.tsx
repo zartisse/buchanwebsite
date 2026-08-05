@@ -29,7 +29,7 @@ export function Blog() {
       {featured && (
         <section className={ps.sectionAlt}>
           <RevealOnScroll>
-            <Link to={`/blog/${featured.slug}`} data-cursor style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 48, maxWidth: 'var(--max-width)', margin: '0 auto', textDecoration: 'none', color: 'inherit' }}>
+            <Link to={`/blog/${featured.slug}`} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 48, maxWidth: 'var(--max-width)', margin: '0 auto', textDecoration: 'none', color: 'inherit' }}>
               <img src={resolveImageUrl(featured.image_url, featured.slug)} alt="" style={{ width: '100%', height: 'clamp(280px, 35vw, 420px)', objectFit: 'cover' }} />
               <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                 <span className={ps.eyebrow}>Featured</span>
@@ -49,7 +49,7 @@ export function Blog() {
               <button
                 key={c}
                 type="button"
-                data-cursor
+               
                 onClick={() => setCat(c)}
                 style={{
                   background: cat === c ? 'rgba(176,130,76,0.16)' : 'transparent',
@@ -74,7 +74,7 @@ export function Blog() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 32 }}>
             {filtered.slice(featured ? 1 : 0).map((p) => (
               <RevealOnScroll key={p.id}>
-                <Link to={`/blog/${p.slug}`} data-cursor style={{ textDecoration: 'none', color: 'inherit' }}>
+                <Link to={`/blog/${p.slug}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                   <div style={{ overflow: 'hidden', height: 240, marginBottom: 20 }}>
                     <img src={resolveImageUrl(p.image_url, p.slug)} alt="" className={ps.imageCover} />
                   </div>

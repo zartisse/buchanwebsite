@@ -30,7 +30,7 @@ export function AvailableHomes() {
           <RevealOnScroll>
             <div style={{ maxWidth: 'var(--max-width)', margin: '0 auto', padding: '0 8vw' }}>
               <span className={ps.eyebrow}>Featured</span>
-              <Link to={`/portfolio/${spotlight.slug}`} style={{ textDecoration: 'none', color: 'inherit' }} data-cursor>
+              <Link to={`/portfolio/${spotlight.slug}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                 <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 32, marginTop: 24, alignItems: 'center' }}>
                   <div style={{ overflow: 'hidden', height: 'clamp(280px, 35vw, 420px)' }}>
                     <img src={resolveImageUrl(spotlight.image_url, spotlight.slug)} alt={spotlight.name} className={ps.imageCover} />
@@ -60,8 +60,8 @@ export function AvailableHomes() {
       <section className={ps.ctaSection}>
         <h2 className={ps.sectionTitle}>Or, let&apos;s build yours.</h2>
         <div className={ps.ctaButtons}>
-          <Link to="/custom-homes" data-cursor className={ps.btnPrimary}>Plan My Custom Home</Link>
-          <Link to="/contact" data-cursor className={ps.btnLink}>Start a Conversation →</Link>
+          <Link to="/custom-homes" className={ps.btnPrimary}>Plan My Custom Home</Link>
+          <Link to="/contact" className={ps.btnLink}>Start a Conversation →</Link>
         </div>
       </section>
     </main>
@@ -79,7 +79,7 @@ function HomeSection({ title, items, empty }: { title: string; items: ReturnType
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 32 }}>
           {items.map((h) => (
             <RevealOnScroll key={h.id}>
-              <Link to={`/portfolio/${h.slug}`} data-cursor style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link to={`/portfolio/${h.slug}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                 <div style={{ overflow: 'hidden', height: 280, marginBottom: 16 }}>
                   <img src={resolveImageUrl(h.image_url, h.slug)} alt={h.name} className={ps.imageCover} />
                 </div>

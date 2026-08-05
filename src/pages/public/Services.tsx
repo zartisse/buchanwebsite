@@ -38,7 +38,7 @@ export function Services() {
                 <span className={ps.eyebrow}>Service</span>
                 <h2 className={ps.sectionTitle} style={{ marginTop: 18 }}>{s.title}</h2>
                 <p className={ps.bodyText} style={{ marginTop: 24 }}>{s.description}</p>
-                <Link to={servicePath(s.slug)} data-cursor className={ps.btnLink} style={{ marginTop: 24, display: 'inline-flex' }}>Explore {s.title} →</Link>
+                <Link to={servicePath(s.slug)} className={ps.btnLink} style={{ marginTop: 24, display: 'inline-flex' }}>Explore {s.title} →</Link>
               </div>
             </div>
           </RevealOnScroll>
@@ -47,7 +47,7 @@ export function Services() {
 
       <section className={ps.ctaSection}>
         <h2 className={ps.sectionTitle}>{content.cta_title}</h2>
-        <Link to="/contact" data-cursor className={ps.btnPrimary}>Start a Conversation</Link>
+        <Link to="/contact" className={ps.btnPrimary}>Start a Conversation</Link>
       </section>
     </main>
   );

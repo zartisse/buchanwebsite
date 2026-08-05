@@ -26,12 +26,12 @@ export const DEMO_SITE_PAGES: Record<SitePageSlug, SitePage> = {
         eyebrow: 'Building since 1961 · Seattle Eastside',
         title: 'Build with',
         title_emphasis: 'Certainty.',
-        subtitle: 'On your lot. To your standard.',
+        subtitle: 'Thoughtful planning, experienced guidance, and exceptional construction for custom homes and remodels.',
         image_url: '/assets/ph-arch-1.png',
         video_url: 'https://www.youtube.com/watch?v=PMeek4pvZOI',
         marquee: 'Since 1961 · Bellevue · Clyde Hill · Medina · Redmond · Custom Homes · Renovations ·',
-        cta_primary_url: '/cost-estimator',
-        cta_primary_label: 'How Much Will My Project Cost?',
+        cta_primary_url: '/contact',
+        cta_primary_label: 'Start a Conversation',
       },
       legacy: {
         title: '65 years.',
@@ -201,15 +201,12 @@ export const DEMO_SITE_PAGES: Record<SitePageSlug, SitePage> = {
     meta_title: 'Our Process',
     meta_description: 'From first conversation to final walkthrough — how we build custom homes on the Eastside.',
     content: {
-      hero: { eyebrow: 'How We Work', title: 'The Buchan', title_emphasis: 'Process' },
+      hero: { eyebrow: 'Custom Home Process', title: 'The Buchan', title_emphasis: 'Process' },
       steps: [
-        { n: '01', title: 'Discovery', duration: 'Weeks 1–2', body: 'Your vision, goals, and timeline — we listen first.', tag: 'Discovery' },
-        { n: '02', title: 'Property & Feasibility', duration: 'Weeks 2–4', body: 'Lot evaluation, zoning, setbacks, and buildability.', tag: 'Feasibility' },
-        { n: '03', title: 'Preconstruction Agreement', duration: 'Weeks 4–8', body: 'Progressive estimates and aligned scope before design deepens.', tag: 'Preconstruction' },
-        { n: '04', title: 'Design Alignment', duration: 'Weeks 8–16', body: 'Plans, selections, and specifications developed together.', tag: 'Design' },
-        { n: '05', title: 'Construction Readiness', duration: 'Weeks 16–20', body: 'Permits, scheduling, and final budget before breaking ground.', tag: 'Readiness' },
-        { n: '06', title: 'Construction', duration: 'Months 6–18', body: 'Craftsmanship at every stage with regular site visits.', tag: 'Build' },
-        { n: '07', title: 'Completion & Continuing Care', duration: 'Ongoing', body: 'Walkthrough, warranty, and access to your project-specific client portal when live.', tag: 'Care' },
+        { n: '01', title: 'Discover & Evaluate', duration: 'Weeks 1–4', body: 'Your vision, site conditions, and investment goals — understood before design deepens.', tag: 'Discover' },
+        { n: '02', title: 'Plan & Align', duration: 'Weeks 4–12', body: 'Progressive estimates, design coordination, and constructability review with your project team.', tag: 'Plan' },
+        { n: '03', title: 'Build with Discipline', duration: 'Months 6–18', body: 'Craftsmanship on site with clear milestones, communication, and quality at every layer.', tag: 'Build' },
+        { n: '04', title: 'Care Beyond Completion', duration: 'Ongoing', body: 'Walkthrough, warranty support, and continuing Home Care after move-in day.', tag: 'Care' },
       ],
       cta_title: 'Ready to begin?',
     } satisfies ProcessPageContent,
@@ -296,11 +293,21 @@ export const DEMO_SITE_PAGES: Record<SitePageSlug, SitePage> = {
       intro: 'Building a custom home is a significant investment of time and trust. Here are answers to the questions we hear most often from Eastside homeowners.',
       categories: [
         {
-          title: 'Getting Started',
+          title: 'Custom Home FAQ',
           items: [
-            { question: 'Do you only build on my lot?', answer: 'Yes. We specialize in ground-up custom homes and major remodels on the Seattle Eastside — Bellevue, Clyde Hill, Medina, Redmond, and surrounding communities. We do not build spec homes on our own land.' },
-            { question: 'How do I know if my lot is buildable?', answer: 'We evaluate your lot early in the process — zoning, setbacks, slope, utilities, and access. Our team helps you understand what is possible before design begins in earnest.' },
-            { question: 'Can I bring my own architect?', answer: 'Absolutely. We also offer in-house design and architecture if you prefer a single team from concept through construction. Either way, we coordinate the full build.' },
+            { question: 'Do you only build on my lot?', answer: 'Yes. We specialize in ground-up custom homes on the Seattle Eastside — Bellevue, Clyde Hill, Medina, Redmond, and surrounding communities.' },
+            { question: 'How do I know if my lot is buildable?', answer: 'We evaluate your lot early — zoning, setbacks, slope, utilities, and access. Our preconstruction team helps you understand what is possible before design begins in earnest.' },
+            { question: 'Can I bring my own architect?', answer: 'Absolutely. We collaborate with independent architects on every project. Clients may also bring interior designers and other trusted professionals. Buchan provides estimating, constructability review, schedule planning, coordination, and construction leadership from the early stages.' },
+            { question: 'How is pricing structured?', answer: 'We provide transparent progressive estimates through preconstruction. You understand scope, allowances, and selections before breaking ground.' },
+            { question: 'Do you offer a cost estimator?', answer: 'Yes. Use our Estimate My Project tool for a preliminary range, then contact us to refine numbers based on your lot and vision.' },
+          ],
+        },
+        {
+          title: 'Renovation FAQ',
+          items: [
+            { question: 'How long does a major renovation take?', answer: 'Timelines vary by scope — from several months for focused remodels to a year or more for whole-home transformations. We map phasing and permits before demolition begins.' },
+            { question: 'Can we live in the home during construction?', answer: 'Often yes, with planned phasing, dust control, and weekly walkthroughs. We discuss livability constraints honestly during preconstruction.' },
+            { question: 'Do renovations use the same process as custom builds?', answer: 'Yes. Renovations benefit from the same progressive estimating, design coordination, and quality standards as our custom home work.' },
           ],
         },
         {
@@ -308,16 +315,7 @@ export const DEMO_SITE_PAGES: Record<SitePageSlug, SitePage> = {
           items: [
             { question: 'How long does a custom build take?', answer: 'Most custom homes on the Eastside take 12–18 months from breaking ground to final walkthrough, depending on size, complexity, and permitting. Design and permitting typically add several months before construction begins.' },
             { question: 'What happens during permitting?', answer: 'We navigate city and county codes, submit plans, and manage revisions on your behalf. Permitting timelines vary by jurisdiction — we keep you informed at every stage.' },
-            { question: 'Will I have a single point of contact?', answer: 'Yes. Our Client Concierge stays with you from first conversation through aftercare — one person who knows your project inside and out.' },
-          ],
-        },
-        {
-          title: 'Budget & Pricing',
-          items: [
-            { question: 'How is pricing structured?', answer: 'We provide transparent estimates before breaking ground. You will understand scope, allowances, and selections so there are no surprises when construction begins.' },
-            { question: 'Do you offer a cost estimator?', answer: 'Yes. Use our How Much Will My Project Cost? tool for a preliminary range, then contact us to refine numbers based on your lot and vision.' },
-            { question: 'Do you offer financing?', answer: 'John Buchan Homes does not provide in-house financing or act as a mortgage lender. We refer clients to independent mortgage broker partners who specialize in construction and jumbo loans. JBH may receive a referral fee from some partners — this does not increase your loan cost. We disclose any referral relationship before you engage a referred partner. Ask your concierge for current partner options.' },
-            { question: 'What is included in a custom build?', answer: 'Every project is tailored to you. We guide you through structure, finishes, and fixtures — with the same Buchan standard in places you see and places you never will.' },
+            { question: 'Will I have a single point of contact?', answer: 'Yes. A dedicated concierge stays with you from first conversation through aftercare — one person who knows your project inside and out.' },
           ],
         },
         {
@@ -325,6 +323,12 @@ export const DEMO_SITE_PAGES: Record<SitePageSlug, SitePage> = {
           items: [
             { question: 'What warranty do you provide?', answer: 'We stand behind our work with a structured warranty and responsive aftercare. See our Warranty & Aftercare page for full details.' },
             { question: 'Who do I call after we move in?', answer: 'Your concierge remains your first call. We coordinate punch-list items, warranty questions, and any follow-up needs promptly.' },
+          ],
+        },
+        {
+          title: 'Privacy Policy',
+          items: [
+            { question: 'How do you use my contact information?', answer: 'We use your information only to respond to inquiries and provide project-related communication. We do not sell personal data to third parties.' },
           ],
         },
       ],
@@ -385,7 +389,7 @@ export const DEMO_SITE_PAGES: Record<SitePageSlug, SitePage> = {
       credentials: [
         { title: 'Licensed & insured', body: 'John Buchan Homes is a licensed general contractor serving Bellevue and the greater Seattle Eastside, fully insured for your protection.' },
         { title: '65 years in business', body: 'Three generations of Buchan craftsmen — building on the Eastside since 1960.' },
-        { title: 'Design-build expertise', body: 'In-house architecture and interiors, unified under one roof from first sketch to final walkthrough.' },
+        { title: 'Collaborative project leadership', body: 'We align independent architects, interior designers, and specialty consultants around your vision — with Buchan leading construction from the early stages.' },
         { title: 'Client concierge', body: 'Dedicated single point of contact throughout your project and beyond.' },
       ],
       cta_title: 'Experience the Buchan standard.',
