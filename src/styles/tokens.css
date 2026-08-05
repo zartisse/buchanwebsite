@@ -96,8 +96,10 @@
   --max-width-wide: 1440px;
   --gutter: 8vw;
 
-  /* ---- Texture: abstract interlocking motif drawn from the logo's bracket monogram ---- */
-  --texture-mark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cpath d='M22 22 H62 V40 H40 V62 H22 Z' fill='rgba(176,130,76,0.09)'/%3E%3Cpath d='M118 118 H78 V100 H100 V78 H118 Z' fill='rgba(176,130,76,0.09)'/%3E%3C/svg%3E");
-  --texture-mark-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cpath d='M22 22 H62 V40 H40 V62 H22 Z' fill='rgba(176,130,76,0.055)'/%3E%3Cpath d='M118 118 H78 V100 H100 V78 H118 Z' fill='rgba(176,130,76,0.055)'/%3E%3C/svg%3E");
-  --texture-size: 140px;
+  /* ---- Texture: full logo square mark (used in selective bands only) ---- */
+  --texture-mark-square: url('/assets/logo-mark-square.svg');
+  --texture-mark-square-size: 240px;
+  --texture-mark: url('/assets/logo-mark-square.svg');
+  --texture-mark-light: url('/assets/logo-mark-square.svg');
+  --texture-size: 240px;
 }

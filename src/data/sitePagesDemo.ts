@@ -19,14 +19,14 @@ export const DEMO_SITE_PAGES: Record<SitePageSlug, SitePage> = {
   home: {
     id: 'demo-home',
     slug: 'home',
-    meta_title: "Bellevue's Custom Home Builder",
-    meta_description: 'Built on your lot. Designed for your life. Custom homes on the Seattle Eastside since 1960.',
+    meta_title: 'Build with Certainty | John Buchan Homes',
+    meta_description: 'On your lot. To your standard. Custom homes on the Seattle Eastside since 1961.',
     content: {
       hero: {
-        eyebrow: 'Celebrating 65 Years · Est. 1961',
+        eyebrow: 'Building since 1961 · Seattle Eastside',
         title: 'Build with',
         title_emphasis: 'Certainty.',
-        subtitle: 'Bellevue\'s custom home builder — on your lot, to your standard.',
+        subtitle: 'On your lot. To your standard.',
         image_url: '/assets/ph-arch-1.png',
         video_url: 'https://www.youtube.com/watch?v=PMeek4pvZOI',
         marquee: 'Since 1961 · Bellevue · Clyde Hill · Medina · Redmond · Custom Homes · Renovations ·',

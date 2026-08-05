@@ -7,8 +7,6 @@
 /* ---- Hero: light, headline above contained media ---- */
 .heroLight {
   background: var(--color-bg-cream);
-  background-image: var(--texture-mark-light);
-  background-size: var(--texture-size) var(--texture-size);
   padding: clamp(140px, 20vh, 220px) var(--gutter) clamp(50px, 7vh, 72px);
 }
 
@@ -143,16 +141,19 @@
 .sectionCream {
   composes: sectionLight;
   background: var(--color-bg-cream);
-  background-image: var(--texture-mark-light);
-  background-size: var(--texture-size) var(--texture-size);
   border-top: 1px solid var(--color-hairline-light);
 }
 
 .sectionWhite {
   composes: sectionLight;
   background: var(--color-bg-white);
-  background-image: var(--texture-mark-light);
-  background-size: var(--texture-size) var(--texture-size);
+}
+
+.textureBand {
+  background-color: var(--color-bg-cream);
+  background-image: var(--texture-mark-square);
+  background-size: var(--texture-mark-square-size) var(--texture-mark-square-size);
+  background-repeat: repeat;
 }
 
 .sectionDark {
@@ -224,9 +225,6 @@
   justify-content: center;
   gap: clamp(20px, 3vw, 40px);
   padding: var(--s-6) var(--gutter);
-  background: var(--color-bg-cream);
-  background-image: var(--texture-mark-light);
-  background-size: var(--texture-size) var(--texture-size);
   border-top: 1px solid var(--color-hairline-light);
   border-bottom: 1px solid var(--color-hairline-light);
 }
@@ -299,6 +297,118 @@
   height: 64px;
   object-fit: cover;
   display: block;
+}
+
+.pathThumbLarge {
+  width: 120px;
+  height: 80px;
+  object-fit: cover;
+  display: block;
+}
+
+.pathExpandBtn {
+  appearance: none;
+  border: 1px solid var(--color-hairline-light-3);
+  background: var(--color-bg-white);
+  color: var(--color-text-on-light);
+  padding: 12px 22px;
+  font-family: var(--font-sans);
+  font-size: var(--text-label);
+  letter-spacing: var(--tr-wide);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color var(--d-base) var(--ease-out), background var(--d-base) var(--ease-out);
+}
+
+.pathExpandBtn:hover {
+  border-color: var(--color-accent-dark);
+  background: rgba(160, 122, 69, 0.06);
+}
+
+/* ---- Services photo row ---- */
+.servicesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: clamp(20px, 3vw, 32px);
+}
+
+.serviceCard {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.serviceImgWrap {
+  overflow: hidden;
+  height: clamp(220px, 28vw, 320px);
+  margin-bottom: var(--s-4);
+}
+
+.serviceImgWrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform var(--d-slow) var(--ease-out);
+}
+
+.serviceCard:hover .serviceImgWrap img {
+  transform: scale(1.04);
+}
+
+.serviceCard strong {
+  font-family: var(--font-serif);
+  font-size: var(--text-display-md);
+  font-weight: var(--fw-regular);
+  display: block;
+  margin-bottom: var(--s-2);
+}
+
+.serviceCard span {
+  font-size: var(--text-body-sm);
+  color: var(--color-text-muted-light);
+}
+
+/* ---- Split blocks with photography ---- */
+.splitBlockWithImage {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--s-10);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  align-items: center;
+  padding: 0 var(--gutter);
+}
+
+.splitBlockPhoto {
+  width: 100%;
+  height: clamp(280px, 35vw, 420px);
+  object-fit: cover;
+  display: block;
+}
+
+.whyChooseSplit {
+  display: grid;
+  grid-template-columns: minmax(280px, 1fr) minmax(300px, 1.2fr);
+  gap: var(--s-10);
+  align-items: start;
+}
+
+.whyChoosePhoto {
+  width: 100%;
+  height: clamp(320px, 40vw, 480px);
+  object-fit: cover;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .whyChooseSplit {
+    grid-template-columns: 1fr;
+  }
+
+  .splitBlockWithImage {
+    grid-template-columns: 1fr;
+  }
 }
 
 .pathCopy strong {

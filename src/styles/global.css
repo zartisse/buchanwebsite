@@ -7,8 +7,6 @@ html {
 body {
   margin: 0;
   background-color: var(--color-bg-cream);
-  background-image: var(--texture-mark-light);
-  background-size: var(--texture-size) var(--texture-size);
   color: var(--color-text-on-light);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;

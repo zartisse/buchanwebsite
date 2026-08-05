@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ProcessTimeline } from '../../components/public/ProcessTimeline';
 import { useProperties } from '../../hooks/useProperties';
@@ -60,7 +61,9 @@ export function Home() {
     });
   };
 
-  const { hero, concierge, quality_gallery, testimonials_strip } = content;
+  const [showAllPaths, setShowAllPaths] = useState(false);
+
+  const { hero, concierge, quality_gallery, testimonials_strip, services } = content;
   const galleryImages = quality_gallery?.length ? quality_gallery : [
     { image_url: '/assets/ph-arch-1.png', caption: 'Hand-chosen framing' },
     { image_url: '/assets/ph-arch-2.png', caption: 'Built for the rain' },
@@ -77,9 +80,41 @@ export function Home() {
     index: String(i + 1).padStart(2, '0'),
   }));
 
+  const visibleGroups = JOURNEY_GROUPS.filter(({ group }) => showAllPaths || group !== 'secondary');
+
+  const renderPathRow = (item: typeof numberedPaths[number], featured?: boolean) => {
+    const rowClass = `${homeStyles.pathRow} ${featured ? homeStyles.pathRowFeatured : ''}`;
+    const rowContent = (
+      <>
+        <span className={homeStyles.pathIndex}>{item.index}</span>
+        {item.image_url && (
+          <img
+            src={resolveImageUrl(item.image_url, item.title)}
+            alt=""
+            className={featured ? homeStyles.pathThumbLarge : homeStyles.pathThumb}
+          />
+        )}
+        <div className={homeStyles.pathCopy}>
+          <strong>{item.title}</strong>
+          <span>{item.description}</span>
+        </div>
+        <span className={homeStyles.pathArrow} aria-hidden>→</span>
+      </>
+    );
+    return item.external ? (
+      <a key={item.title} href={item.link} target="_blank" rel="noopener noreferrer" className={rowClass} data-cursor>
+        {rowContent}
+      </a>
+    ) : (
+      <Link key={item.title} to={item.link} className={rowClass} data-cursor>
+        {rowContent}
+      </Link>
+    );
+  };
+
   return (
     <main className={homeStyles.homePage}>
-      <PageMeta title={page?.meta_title ?? "Bellevue's Custom Home Builder"} description={page?.meta_description} />
+      <PageMeta title={page?.meta_title ?? 'Build with Certainty | John Buchan Homes'} description={page?.meta_description} />
 
       {/* Hero — editorial light */}
       <section className={homeStyles.heroLight}>
@@ -113,92 +148,41 @@ export function Home() {
       </section>
 
       {/* Credibility strip */}
-      <section className={homeStyles.credibility}>
+      <section className={`${homeStyles.credibility} ${homeStyles.textureBand}`}>
         {CREDIBILITY_ITEMS.map((item) => (
           <span key={item} className={homeStyles.credItem}>{item}</span>
         ))}
       </section>
 
-      {/* Choose Your Starting Point */}
-      <section className={homeStyles.sectionWhite}>
-        <div className={homeStyles.sectionInner}>
-          <RevealOnScroll>
-            <span className={homeStyles.eyebrow}>Choose Your Starting Point</span>
-            <h2 className={homeStyles.sectionTitle} style={{ marginTop: 18 }}>Where are you<br /><em>in the journey?</em></h2>
-          </RevealOnScroll>
-          <div className={homeStyles.pathList}>
-            {JOURNEY_GROUPS.map(({ label, group }) => {
-              const items = numberedPaths.filter((p) => p.group === group);
-              if (!items.length) return null;
-              return (
-                <div key={group} className={homeStyles.pathGroup}>
-                  <h3 className={homeStyles.pathGroupLabel}>{label}</h3>
-                  {items.map((item) => {
-                    const rowClass = `${homeStyles.pathRow} ${group === 'anchor' ? homeStyles.pathRowFeatured : ''}`;
-                    const content = (
-                      <>
-                        <span className={homeStyles.pathIndex}>{item.index}</span>
-                        {item.image_url && (
-                          <img
-                            src={resolveImageUrl(item.image_url, item.title)}
-                            alt=""
-                            className={homeStyles.pathThumb}
-                          />
-                        )}
-                        <div className={homeStyles.pathCopy}>
-                          <strong>{item.title}</strong>
-                          <span>{item.description}</span>
-                        </div>
-                        <span className={homeStyles.pathArrow} aria-hidden>→</span>
-                      </>
-                    );
-                    return item.external ? (
-                      <a
-                        key={item.title}
-                        href={item.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={rowClass}
-                        data-cursor
-                      >
-                        {content}
-                      </a>
-                    ) : (
-                      <Link key={item.title} to={item.link} className={rowClass} data-cursor>
-                        {content}
-                      </Link>
-                    );
-                  })}
-                </div>
-              );
-            })}
+      {/* Three ways to build — photo row */}
+      {services && (
+        <section className={homeStyles.sectionWhite}>
+          <div className={homeStyles.sectionInner}>
+            <RevealOnScroll>
+              <span className={homeStyles.eyebrow}>{services.eyebrow}</span>
+              <h2 className={homeStyles.sectionTitle} style={{ marginTop: 18, marginBottom: 40 }}>
+                {services.title}<br /><em>{services.title_emphasis}</em>
+              </h2>
+            </RevealOnScroll>
+            <div className={homeStyles.servicesGrid}>
+              {services.items.map((s) => (
+                <RevealOnScroll key={s.title}>
+                  <Link to={s.link ?? '#'} className={homeStyles.serviceCard} data-cursor>
+                    <div className={homeStyles.serviceImgWrap}>
+                      <img src={resolveImageUrl(s.image_url, s.title)} alt="" />
+                    </div>
+                    <strong>{s.title}</strong>
+                    <span>{s.description}</span>
+                  </Link>
+                </RevealOnScroll>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
-      {/* Know Before You Build */}
+      {/* Quality in Every Layer — moved up for photo rhythm */}
       <section className={homeStyles.sectionCream}>
-        <RevealOnScroll>
-          <div className={homeStyles.splitBlock}>
-            <div>
-              <span className={homeStyles.eyebrow}>Know Before You Build</span>
-              <h2 className={homeStyles.sectionTitle} style={{ marginTop: 18 }}>Preconstruction<br /><em>first.</em></h2>
-            </div>
-            <div>
-              <p className={homeStyles.bodyText}>Progressive estimates, feasibility, and design alignment — for custom homes and major renovations alike.</p>
-              <ul className={homeStyles.bulletList}>
-                <li>Feasibility & constructability review</li>
-                <li>Progressive budget ranges</li>
-                <li>Design coordination before breaking ground</li>
-              </ul>
-              <Link to="/preconstruction" className={homeStyles.btnLinkLight} style={{ marginTop: 20, display: 'inline-flex' }}>Explore Preconstruction <span>→</span></Link>
-            </div>
-          </div>
-        </RevealOnScroll>
-      </section>
-
-      {/* Quality in Every Layer */}
-      <section className={homeStyles.sectionWhite}>
         <div className={homeStyles.sectionInner}>
           <RevealOnScroll>
             <span className={homeStyles.eyebrow}>Quality in Every Layer</span>
@@ -216,6 +200,58 @@ export function Home() {
           </div>
           <Link to="/portfolio" className={homeStyles.btnLinkLight} style={{ marginTop: 32, display: 'inline-flex' }}>See finished work <span>→</span></Link>
         </div>
+      </section>
+
+      {/* Choose Your Starting Point — condensed */}
+      <section className={`${homeStyles.sectionWhite} ${homeStyles.textureBand}`}>
+        <div className={homeStyles.sectionInner}>
+          <RevealOnScroll>
+            <span className={homeStyles.eyebrow}>Choose Your Starting Point</span>
+            <h2 className={homeStyles.sectionTitle} style={{ marginTop: 18 }}>Where are you<br /><em>in the journey?</em></h2>
+          </RevealOnScroll>
+          <div className={homeStyles.pathList}>
+            {visibleGroups.map(({ label, group }) => {
+              const items = numberedPaths.filter((p) => p.group === group);
+              if (!items.length) return null;
+              return (
+                <div key={group} className={homeStyles.pathGroup}>
+                  <h3 className={homeStyles.pathGroupLabel}>{label}</h3>
+                  {items.map((item, i) => renderPathRow(item, group === 'anchor' && i === 0))}
+                </div>
+              );
+            })}
+          </div>
+          {!showAllPaths && (
+            <div style={{ marginTop: 24 }}>
+              <button type="button" className={homeStyles.pathExpandBtn} onClick={() => setShowAllPaths(true)}>
+                View all paths
+              </button>
+              <Link to="/property-feasibility" className={homeStyles.btnLinkLight} style={{ marginLeft: 24, display: 'inline-flex' }}>
+                Explore property options <span>→</span>
+              </Link>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Know Before You Build */}
+      <section className={homeStyles.sectionCream}>
+        <RevealOnScroll>
+          <div className={homeStyles.splitBlockWithImage}>
+            <div>
+              <span className={homeStyles.eyebrow}>Know Before You Build</span>
+              <h2 className={homeStyles.sectionTitle} style={{ marginTop: 18 }}>Preconstruction<br /><em>first.</em></h2>
+              <p className={homeStyles.bodyText} style={{ marginTop: 20 }}>Progressive estimates, feasibility, and design alignment — for custom homes and major renovations alike.</p>
+              <ul className={homeStyles.bulletList}>
+                <li>Feasibility & constructability review</li>
+                <li>Progressive budget ranges</li>
+                <li>Design coordination before breaking ground</li>
+              </ul>
+              <Link to="/preconstruction" className={homeStyles.btnLinkLight} style={{ marginTop: 20, display: 'inline-flex' }}>Explore Preconstruction <span>→</span></Link>
+            </div>
+            <img src="/assets/ph-arch-2.png" alt="" className={homeStyles.splitBlockPhoto} />
+          </div>
+        </RevealOnScroll>
       </section>
 
       {/* The Buchan Process */}
@@ -281,13 +317,16 @@ export function Home() {
             <span className={homeStyles.eyebrow}>Why Choose Buchan</span>
             <h2 className={homeStyles.sectionTitle} style={{ marginTop: 18, marginBottom: 40 }}>Build with<br /><em>certainty.</em></h2>
           </RevealOnScroll>
-          <div className={homeStyles.valuesGrid}>
-            {WHY_CHOOSE_VALUES.map((v) => (
-              <RevealOnScroll key={v.title}>
-                <h3 className={homeStyles.valueTitle}>{v.title}</h3>
-                <p className={homeStyles.bodyText}>{v.body}</p>
-              </RevealOnScroll>
-            ))}
+          <div className={homeStyles.whyChooseSplit}>
+            <img src="/assets/ph-arch-1.png" alt="" className={homeStyles.whyChoosePhoto} />
+            <div className={homeStyles.valuesGrid}>
+              {WHY_CHOOSE_VALUES.slice(0, 4).map((v) => (
+                <RevealOnScroll key={v.title}>
+                  <h3 className={homeStyles.valueTitle}>{v.title}</h3>
+                  <p className={homeStyles.bodyText}>{v.body}</p>
+                </RevealOnScroll>
+              ))}
+            </div>
           </div>
           <p className={homeStyles.bodyText} style={{ marginTop: 40, maxWidth: 640 }}>
             65 years on the Eastside means your project benefits from relationships, jurisdiction knowledge, and a reputation we protect on every job.
@@ -296,15 +335,14 @@ export function Home() {
       </section>
 
       {/* After the Keys */}
-      <section className={homeStyles.sectionCream}>
+      <section className={`${homeStyles.sectionCream} ${homeStyles.textureBand}`}>
         <RevealOnScroll>
-          <div className={homeStyles.splitBlock}>
+          <div className={homeStyles.splitBlockWithImage}>
+            <img src="/assets/ph-arch-3.png" alt="" className={homeStyles.splitBlockPhoto} />
             <div>
               <span className={homeStyles.eyebrow}>After the Keys</span>
               <h2 className={homeStyles.sectionTitle} style={{ marginTop: 18 }}>Continuing<br /><em>care.</em></h2>
-            </div>
-            <div>
-              <p className={homeStyles.bodyText}>Warranty coverage, homeowner education, and Buchan Home Care — support that outlasts move-in day.</p>
+              <p className={homeStyles.bodyText} style={{ marginTop: 20 }}>Warranty coverage, homeowner education, and Buchan Home Care — support that outlasts move-in day.</p>
               <div className={homeStyles.heroCtas} style={{ marginTop: 24 }}>
                 <Link to="/warranty" className={homeStyles.btnPrimaryLight}>Warranty & Client Care</Link>
                 <Link to="/services/home-care" className={homeStyles.btnLinkLight}>Home Care <span>→</span></Link>

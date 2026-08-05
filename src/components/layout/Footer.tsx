@@ -62,7 +62,7 @@ export function Footer() {
         <div className={styles.brandCol}>
           <img src="/assets/logo.png" alt="John Buchan Homes" className={styles.footerLogo} />
           <p className={styles.tagline}>
-            Custom homes built on the Seattle Eastside since 1961. Built on your lot. Designed for your life.
+            Build with certainty — custom homes on the Seattle Eastside since 1961. On your lot. To your standard.
           </p>
         </div>
       </div>

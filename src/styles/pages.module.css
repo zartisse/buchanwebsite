@@ -4,8 +4,6 @@
   position: relative;
   padding: clamp(140px, 20vh, 220px) var(--gutter) clamp(50px, 7vh, 72px);
   background-color: var(--color-bg-cream);
-  background-image: var(--texture-mark-light);
-  background-size: var(--texture-size) var(--texture-size);
   color: var(--color-text-on-light);
 }
 
@@ -44,16 +42,12 @@
 .section {
   padding: clamp(80px, 12vh, 140px) var(--gutter);
   background-color: var(--color-bg-white);
-  background-image: var(--texture-mark-light);
-  background-size: var(--texture-size) var(--texture-size);
   color: var(--color-text-on-light);
 }
 
 .sectionAlt {
   composes: section;
   background: var(--color-bg-cream);
-  background-image: var(--texture-mark-light);
-  background-size: var(--texture-size) var(--texture-size);
   border-top: 1px solid var(--color-hairline-light);
 }
 
