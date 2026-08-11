@@ -4,6 +4,9 @@ import { HUB_PAGE_SLUGS } from '../types';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { getDemoHubPage } from '../data/hubContentDefaults';
 
+/** Hub pages share the site_pages table (same schema; slugs do not overlap). */
+const HUB_TABLE = 'site_pages';
+
 export function useHubPages() {
   const [pages, setPages] = useState<HubPage[]>([]);
   const [loading, setLoading] = useState(true);
@@ -18,7 +21,11 @@ export function useHubPages() {
       return;
     }
     try {
-      const { data, error: err } = await supabase.from('hub_pages').select('*').order('slug');
+      const { data, error: err } = await supabase
+        .from(HUB_TABLE)
+        .select('*')
+        .in('slug', [...HUB_PAGE_SLUGS])
+        .order('slug');
       if (err) throw err;
       setPages((data as HubPage[]) ?? []);
     } catch (e) {
@@ -40,10 +47,10 @@ export function useHubPages() {
       content: page.content,
     };
     if (page.id) {
-      const { error: err } = await supabase.from('hub_pages').update(payload).eq('id', page.id);
+      const { error: err } = await supabase.from(HUB_TABLE).update(payload).eq('id', page.id);
       if (err) throw err;
     } else {
-      const { error: err } = await supabase.from('hub_pages').upsert(payload, { onConflict: 'slug' });
+      const { error: err } = await supabase.from(HUB_TABLE).upsert(payload, { onConflict: 'slug' });
       if (err) throw err;
     }
     await fetchPages();
@@ -67,7 +74,7 @@ export function useHubPage(slug: HubPageSlug) {
         return;
       }
       try {
-        const { data, error: err } = await supabase.from('hub_pages').select('*').eq('slug', slug).single();
+        const { data, error: err } = await supabase.from(HUB_TABLE).select('*').eq('slug', slug).single();
         if (err) throw err;
         setPage(data as HubPage);
       } catch {

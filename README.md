@@ -60,7 +60,19 @@ Regenerate hub seed after IA changes: `npx tsx scripts/generate-hub-seed.ts`
 - Or use **Authentication → Users → Add user** in the Supabase dashboard  
 - Ensure the user's `profiles.role` is `admin`
 
-### 5. Verify
+### 5. Bootstrap (recommended)
+
+```bash
+npx tsx scripts/bootstrap-cms.ts
+```
+
+This signs in as admin, seeds all 17 hub pages into `site_pages`, and verifies connectivity. Hub pages use the existing `site_pages` table (same schema; no separate `hub_pages` migration required).
+
+Optional in `.env.local`:
+- `SUPABASE_ADMIN_EMAIL` / `SUPABASE_ADMIN_PASSWORD` — defaults to `admin@buchan.com`
+- `SUPABASE_DB_PASSWORD` — auto-applies SQL migrations if set (from Supabase → Settings → Database)
+
+### 6. Verify
 
 ```bash
 npx tsx scripts/verify-supabase.ts
@@ -112,6 +124,7 @@ After deploy, confirm `/admin/login` loads and saves persist (check Supabase tab
 npm run dev                              # Development server
 npm run build                            # Production build
 npm run preview                          # Preview production build
+npx tsx scripts/bootstrap-cms.ts           # Seed hub pages + verify (recommended)
 npx tsx scripts/verify-supabase.ts       # Check DB tables & storage
 npx tsx scripts/generate-hub-seed.ts     # Regenerate hub_pages seed SQL
 ```

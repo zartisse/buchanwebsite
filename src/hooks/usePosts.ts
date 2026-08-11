@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import type { Post } from '../types';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
+import { getSchemaCapabilities } from '../lib/schemaCapabilities';
 import { DEMO_POSTS } from '../data/demo';
 
 export function usePosts(options?: { publishedOnly?: boolean; admin?: boolean }) {
@@ -44,7 +45,8 @@ export function usePosts(options?: { publishedOnly?: boolean; admin?: boolean })
 
   const savePost = async (post: Partial<Post> & { title: string }) => {
     if (!isSupabaseConfigured) throw new Error('Supabase not configured');
-    const payload = {
+    const caps = await getSchemaCapabilities();
+    const payload: Record<string, unknown> = {
       title: post.title,
       slug: post.slug,
       category: post.category,
@@ -55,15 +57,20 @@ export function usePosts(options?: { publishedOnly?: boolean; admin?: boolean })
       image_url: post.image_url ?? '',
       meta_title: post.meta_title ?? '',
       meta_description: post.meta_description ?? '',
-      featured: post.featured ?? false,
     };
-    if (post.id) {
-      const { error: err } = await supabase.from('posts').update(payload).eq('id', post.id);
-      if (err) throw err;
-    } else {
-      const { error: err } = await supabase.from('posts').insert(payload);
-      if (err) throw err;
+    if (caps.postsFeatured) payload.featured = post.featured ?? false;
+
+    const run = (data: Record<string, unknown>) =>
+      post.id
+        ? supabase.from('posts').update(data).eq('id', post.id)
+        : supabase.from('posts').insert(data);
+
+    let { error: err } = await run(payload);
+    if (err?.message.includes('featured') && 'featured' in payload) {
+      const { featured: _, ...rest } = payload;
+      ({ error: err } = await run(rest));
     }
+    if (err) throw err;
     await fetchPosts();
   };
 

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import type { Property } from '../types';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
+import { getSchemaCapabilities } from '../lib/schemaCapabilities';
 import { DEMO_PROPERTIES } from '../data/demo';
 
 export function useProperties(options?: { publicOnly?: boolean; admin?: boolean }) {
@@ -44,7 +45,8 @@ export function useProperties(options?: { publicOnly?: boolean; admin?: boolean 
 
   const saveProperty = async (property: Partial<Property> & { name: string }) => {
     if (!isSupabaseConfigured) throw new Error('Supabase not configured');
-    const payload = {
+    const caps = await getSchemaCapabilities();
+    const payload: Record<string, unknown> = {
       name: property.name,
       slug: property.slug,
       status: property.status,
@@ -62,15 +64,20 @@ export function useProperties(options?: { publicOnly?: boolean; admin?: boolean 
       meta_description: property.meta_description ?? '',
       featured: property.featured ?? false,
       featured_order: property.featured_order ?? 0,
-      portfolio_type: property.portfolio_type ?? 'custom-homes',
     };
-    if (property.id) {
-      const { error: err } = await supabase.from('properties').update(payload).eq('id', property.id);
-      if (err) throw err;
-    } else {
-      const { error: err } = await supabase.from('properties').insert(payload);
-      if (err) throw err;
+    if (caps.portfolioType) payload.portfolio_type = property.portfolio_type ?? 'custom-homes';
+
+    const run = (data: Record<string, unknown>) =>
+      property.id
+        ? supabase.from('properties').update(data).eq('id', property.id)
+        : supabase.from('properties').insert(data);
+
+    let { error: err } = await run(payload);
+    if (err?.message.includes('portfolio_type') && 'portfolio_type' in payload) {
+      const { portfolio_type: _, ...rest } = payload;
+      ({ error: err } = await run(rest));
     }
+    if (err) throw err;
     await fetchProperties();
   };
 

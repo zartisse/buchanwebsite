@@ -12,8 +12,8 @@ function sqlEscape(value: string): string {
 }
 
 const lines = [
-  '-- Seed all hub pages from default IA content',
-  '-- Run after 004_hub_pages.sql',
+  '-- Seed all hub pages into site_pages (same schema as marketing pages)',
+  '-- Run in Supabase SQL Editor, or use: npx tsx scripts/bootstrap-cms.ts',
   '-- Regenerate: npx tsx scripts/generate-hub-seed.ts',
   '',
 ];
@@ -22,7 +22,7 @@ for (const slug of HUB_PAGE_SLUGS) {
   const page = getDemoHubPage(slug);
   const contentJson = sqlEscape(JSON.stringify(page.content));
 
-  lines.push('INSERT INTO hub_pages (slug, meta_title, meta_description, content)');
+  lines.push('INSERT INTO site_pages (slug, meta_title, meta_description, content)');
   lines.push('VALUES (');
   lines.push(`  '${slug}',`);
   lines.push(`  '${sqlEscape(page.meta_title)}',`);

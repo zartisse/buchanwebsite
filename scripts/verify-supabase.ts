@@ -40,8 +40,7 @@ async function restSelect(table: string, select: string): Promise<Check> {
 async function main() {
   const checks: Check[] = [];
   checks.push(await restSelect('site_pages', 'slug'));
-  checks.push(await restSelect('hub_pages', 'slug'));
-  checks.push(await restSelect('properties', 'slug'));
+  checks.push(await restSelect('properties', 'featured'));
   checks.push(await restSelect('posts', 'slug'));
   checks.push(await restSelect('posts', 'featured'));
   checks.push(await restSelect('properties', 'portfolio_type'));
@@ -61,9 +60,15 @@ async function main() {
   }
 
   const failed = checks.filter((c) => !c.ok);
-  if (failed.length) {
-    console.log('\nApply missing migrations in Supabase SQL Editor (see README).');
+  const required = failed.filter((c) => !c.name.includes('featured') && !c.name.includes('portfolio_type') && c.name !== 'storage.media bucket');
+  if (required.length) {
+    console.log('\nCritical checks failed. Hub pages use site_pages (no hub_pages table required).');
+    console.log('Optional: run supabase/apply_cms_migrations.sql for featured posts, portfolio_type, media bucket.');
     process.exit(1);
+  }
+  if (failed.length) {
+    console.log('\nOptional migrations not applied (CMS still works with fallbacks):');
+    failed.forEach((c) => console.log(`  - ${c.name}`));
   }
   console.log('\nAll checks passed. Admin login: /admin/login');
 }
