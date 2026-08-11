@@ -15,6 +15,7 @@ import type {
   WarrantyPageContent,
 } from '../../types';
 import { getDemoSitePage } from '../../data/sitePagesDemo';
+import { mergeHomeContent } from '../../data/homeContentDefaults';
 import { PageMeta } from '../ui/PageMeta';
 import { HeroFields, ImageField, MetaFields } from './AdminFormFields';
 import { MediaDropzone } from './MediaDropzone';
@@ -64,7 +65,7 @@ export function SitePageEditor({ slug, page, onSave, onCancel }: SitePageEditorP
           onMetaDescription={setMetaDescription}
         />
         {slug === 'home' && (
-          <HomeEditor content={content as HomePageContent} onChange={setContent} />
+          <HomeEditor content={mergeHomeContent(content as HomePageContent)} onChange={setContent} />
         )}
         {slug === 'about' && (
           <AboutEditor content={content as AboutPageContent} onChange={setContent} />
@@ -106,6 +107,8 @@ export function SitePageEditor({ slug, page, onSave, onCancel }: SitePageEditorP
 }
 
 function HomeEditor({ content, onChange }: { content: HomePageContent; onChange: (c: HomePageContent) => void }) {
+  const set = (patch: Partial<HomePageContent>) => onChange({ ...content, ...patch });
+
   return (
     <>
       <fieldset className={styles.fieldset}>
@@ -115,27 +118,12 @@ function HomeEditor({ content, onChange }: { content: HomePageContent; onChange:
           <label className={styles.label}>Subtitle</label>
           <input className={styles.input} value={content.hero.subtitle} onChange={(e) => onChange({ ...content, hero: { ...content.hero, subtitle: e.target.value } })} />
         </div>
-        <MediaDropzone
-          label="Hero video"
-          folder="pages/home/video"
-          accept="video"
-          value={content.hero.video_url && !content.hero.video_url.includes('youtube') ? content.hero.video_url : ''}
-          onChange={(url) => onChange({ ...content, hero: { ...content.hero, video_url: url || content.hero.video_url } })}
-        />
+        <MediaDropzone label="Hero video" folder="pages/home/video" accept="video" value={content.hero.video_url && !content.hero.video_url.includes('youtube') ? content.hero.video_url : ''} onChange={(url) => onChange({ ...content, hero: { ...content.hero, video_url: url || content.hero.video_url } })} />
         <div className={styles.field}>
           <label className={styles.label}>Hero video URL (YouTube or direct MP4)</label>
-          <input
-            className={styles.input}
-            value={content.hero.video_url ?? ''}
-            placeholder="https://www.youtube.com/watch?v=..."
-            onChange={(e) => onChange({ ...content, hero: { ...content.hero, video_url: e.target.value || undefined } })}
-          />
+          <input className={styles.input} value={content.hero.video_url ?? ''} placeholder="https://www.youtube.com/watch?v=..." onChange={(e) => onChange({ ...content, hero: { ...content.hero, video_url: e.target.value || undefined } })} />
         </div>
         <ImageField label="Hero poster (fallback image)" value={content.hero.image_url} onChange={(url) => onChange({ ...content, hero: { ...content.hero, image_url: url } })} folder="pages/home" />
-        <div className={styles.field}>
-          <label className={styles.label}>Marquee text</label>
-          <input className={styles.input} value={content.hero.marquee} onChange={(e) => onChange({ ...content, hero: { ...content.hero, marquee: e.target.value } })} />
-        </div>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
           <div className={styles.field}>
             <label className={styles.label}>Primary CTA label</label>
@@ -145,147 +133,143 @@ function HomeEditor({ content, onChange }: { content: HomePageContent; onChange:
             <label className={styles.label}>Primary CTA URL</label>
             <input className={styles.input} value={content.hero.cta_primary_url} onChange={(e) => onChange({ ...content, hero: { ...content.hero, cta_primary_url: e.target.value } })} />
           </div>
+          <div className={styles.field}>
+            <label className={styles.label}>Secondary CTA label</label>
+            <input className={styles.input} value={content.hero.cta_secondary_label ?? ''} onChange={(e) => onChange({ ...content, hero: { ...content.hero, cta_secondary_label: e.target.value } })} />
+          </div>
+          <div className={styles.field}>
+            <label className={styles.label}>Secondary CTA URL</label>
+            <input className={styles.input} value={content.hero.cta_secondary_url ?? ''} onChange={(e) => onChange({ ...content, hero: { ...content.hero, cta_secondary_url: e.target.value } })} />
+          </div>
         </div>
       </fieldset>
+
       <fieldset className={styles.fieldset}>
-        <legend className={styles.legend}>Legacy section</legend>
-        <div className={styles.field}>
-          <label className={styles.label}>Eyebrow</label>
-          <input className={styles.input} value={content.legacy.eyebrow} onChange={(e) => onChange({ ...content, legacy: { ...content.legacy, eyebrow: e.target.value } })} />
-        </div>
-        <div className={styles.field}>
-          <label className={styles.label}>Title lines</label>
-          <input className={styles.input} value={content.legacy.title} placeholder="Line 1" onChange={(e) => onChange({ ...content, legacy: { ...content.legacy, title: e.target.value } })} />
-          <input className={styles.input} style={{ marginTop: 8 }} value={content.legacy.title_line2 ?? ''} placeholder="Line 2" onChange={(e) => onChange({ ...content, legacy: { ...content.legacy, title_line2: e.target.value } })} />
-          <input className={styles.input} style={{ marginTop: 8 }} value={content.legacy.title_emphasis ?? ''} placeholder="Emphasis (italic)" onChange={(e) => onChange({ ...content, legacy: { ...content.legacy, title_emphasis: e.target.value } })} />
-        </div>
-        <div className={styles.field}>
-          <label className={styles.label}>Paragraphs (one per line block)</label>
-          <textarea className={styles.textarea} value={content.legacy.paragraphs.join('\n\n')} onChange={(e) => onChange({ ...content, legacy: { ...content.legacy, paragraphs: e.target.value.split('\n\n').filter(Boolean) } })} rows={6} />
-        </div>
+        <legend className={styles.legend}>Credibility line</legend>
+        <input className={styles.input} value={content.credibility_line} onChange={(e) => set({ credibility_line: e.target.value })} />
       </fieldset>
-      <RepeatableServiceCards
-        section={content.services}
-        onChange={(services) => onChange({ ...content, services })}
-      />
+
       <fieldset className={styles.fieldset}>
-        <legend className={styles.legend}>Recent Work section labels</legend>
+        <legend className={styles.legend}>Featured Work labels</legend>
+        <p style={{ fontSize: 13, color: 'rgba(26,36,32,0.5)', marginBottom: 12 }}>Images come from Properties marked as Featured.</p>
         <div className={styles.field}>
           <label className={styles.label}>Eyebrow</label>
-          <input className={styles.input} value={content.recent_work.eyebrow} onChange={(e) => onChange({ ...content, recent_work: { ...content.recent_work, eyebrow: e.target.value } })} />
+          <input className={styles.input} value={content.featured_work.eyebrow} onChange={(e) => set({ featured_work: { ...content.featured_work, eyebrow: e.target.value } })} />
         </div>
         <div className={styles.field}>
           <label className={styles.label}>Title</label>
-          <input className={styles.input} value={content.recent_work.title} onChange={(e) => onChange({ ...content, recent_work: { ...content.recent_work, title: e.target.value } })} />
+          <input className={styles.input} value={content.featured_work.title} onChange={(e) => set({ featured_work: { ...content.featured_work, title: e.target.value } })} />
         </div>
-        <p style={{ fontSize: 13, color: 'rgba(26,36,32,0.5)' }}>Properties shown here are managed under Properties → Feature on homepage.</p>
       </fieldset>
+
       <fieldset className={styles.fieldset}>
-        <legend className={styles.legend}>Concierge</legend>
+        <legend className={styles.legend}>What We Do</legend>
         <div className={styles.field}>
           <label className={styles.label}>Eyebrow</label>
-          <input className={styles.input} value={content.concierge.eyebrow} onChange={(e) => onChange({ ...content, concierge: { ...content.concierge, eyebrow: e.target.value } })} />
+          <input className={styles.input} value={content.what_we_do.eyebrow} onChange={(e) => set({ what_we_do: { ...content.what_we_do, eyebrow: e.target.value } })} />
         </div>
         <div className={styles.field}>
-          <label className={styles.label}>Quote</label>
-          <textarea className={styles.textarea} value={content.concierge.quote} onChange={(e) => onChange({ ...content, concierge: { ...content.concierge, quote: e.target.value } })} rows={3} />
+          <label className={styles.label}>Title / emphasis</label>
+          <input className={styles.input} value={content.what_we_do.title} onChange={(e) => set({ what_we_do: { ...content.what_we_do, title: e.target.value } })} />
+          <input className={styles.input} style={{ marginTop: 8 }} value={content.what_we_do.title_emphasis ?? ''} onChange={(e) => set({ what_we_do: { ...content.what_we_do, title_emphasis: e.target.value } })} />
         </div>
-        <div className={styles.field}>
-          <label className={styles.label}>Citation</label>
-          <input className={styles.input} value={content.concierge.cite} onChange={(e) => onChange({ ...content, concierge: { ...content.concierge, cite: e.target.value } })} />
-        </div>
-        <ImageField label="Portrait" value={content.concierge.image_url} onChange={(url) => onChange({ ...content, concierge: { ...content.concierge, image_url: url } })} folder="pages/home" />
-      </fieldset>
-      <fieldset className={styles.fieldset}>
-        <legend className={styles.legend}>Quality gallery (Behind the walls)</legend>
-        {(content.quality_gallery ?? []).map((item, i) => (
+        {content.what_we_do.primary.map((item, i) => (
           <div key={i} className={styles.repeatItem}>
-            <ImageField label={`Image ${i + 1}`} value={item.image_url} onChange={(url) => {
-              const quality_gallery = [...(content.quality_gallery ?? [])];
-              quality_gallery[i] = { ...quality_gallery[i], image_url: url };
-              onChange({ ...content, quality_gallery });
-            }} folder="pages/home/quality" />
-            <div className={styles.field}>
-              <label className={styles.label}>Caption</label>
-              <input className={styles.input} value={item.caption ?? ''} onChange={(e) => {
-                const quality_gallery = [...(content.quality_gallery ?? [])];
-                quality_gallery[i] = { ...quality_gallery[i], caption: e.target.value };
-                onChange({ ...content, quality_gallery });
-              }} />
+            <div className={styles.field}><label className={styles.label}>Primary card {i + 1} title</label><input className={styles.input} value={item.title} onChange={(e) => { const primary = [...content.what_we_do.primary]; primary[i] = { ...primary[i], title: e.target.value }; set({ what_we_do: { ...content.what_we_do, primary } }); }} /></div>
+            <div className={styles.field}><label className={styles.label}>Description</label><textarea className={styles.textarea} value={item.description} rows={2} onChange={(e) => { const primary = [...content.what_we_do.primary]; primary[i] = { ...primary[i], description: e.target.value }; set({ what_we_do: { ...content.what_we_do, primary } }); }} /></div>
+            <ImageField label="Image" value={item.image_url} onChange={(url) => { const primary = [...content.what_we_do.primary]; primary[i] = { ...primary[i], image_url: url }; set({ what_we_do: { ...content.what_we_do, primary } }); }} folder="pages/home/what-we-do" />
+            <div className={styles.field}><label className={styles.label}>Link</label><input className={styles.input} value={item.link} onChange={(e) => { const primary = [...content.what_we_do.primary]; primary[i] = { ...primary[i], link: e.target.value }; set({ what_we_do: { ...content.what_we_do, primary } }); }} /></div>
+          </div>
+        ))}
+        {content.what_we_do.secondary.map((item, i) => (
+          <div key={i} className={styles.repeatItem}>
+            <div className={styles.field}><label className={styles.label}>Secondary card {i + 1}</label><input className={styles.input} value={item.title} onChange={(e) => { const secondary = [...content.what_we_do.secondary]; secondary[i] = { ...secondary[i], title: e.target.value }; set({ what_we_do: { ...content.what_we_do, secondary } }); }} /></div>
+            <div className={styles.field}><textarea className={styles.textarea} value={item.description} rows={2} onChange={(e) => { const secondary = [...content.what_we_do.secondary]; secondary[i] = { ...secondary[i], description: e.target.value }; set({ what_we_do: { ...content.what_we_do, secondary } }); }} /></div>
+            <div className={styles.field}><input className={styles.input} value={item.link} placeholder="Link" onChange={(e) => { const secondary = [...content.what_we_do.secondary]; secondary[i] = { ...secondary[i], link: e.target.value }; set({ what_we_do: { ...content.what_we_do, secondary } }); }} /></div>
+          </div>
+        ))}
+        <div className={styles.field}><label className={styles.label}>Preconstruction band title</label><input className={styles.input} value={content.what_we_do.preconstruction.title} onChange={(e) => set({ what_we_do: { ...content.what_we_do, preconstruction: { ...content.what_we_do.preconstruction, title: e.target.value } } })} /></div>
+        <div className={styles.field}><label className={styles.label}>Preconstruction body</label><textarea className={styles.textarea} value={content.what_we_do.preconstruction.body} rows={2} onChange={(e) => set({ what_we_do: { ...content.what_we_do, preconstruction: { ...content.what_we_do.preconstruction, body: e.target.value } } })} /></div>
+      </fieldset>
+
+      <fieldset className={styles.fieldset}>
+        <legend className={styles.legend}>Client concerns</legend>
+        <div className={styles.field}><label className={styles.label}>Eyebrow</label><input className={styles.input} value={content.client_concerns.eyebrow} onChange={(e) => set({ client_concerns: { ...content.client_concerns, eyebrow: e.target.value } })} /></div>
+        <div className={styles.field}><label className={styles.label}>Title / emphasis</label><input className={styles.input} value={content.client_concerns.title} onChange={(e) => set({ client_concerns: { ...content.client_concerns, title: e.target.value } })} /><input className={styles.input} style={{ marginTop: 8 }} value={content.client_concerns.title_emphasis ?? ''} onChange={(e) => set({ client_concerns: { ...content.client_concerns, title_emphasis: e.target.value } })} /></div>
+        {content.client_concerns.items.map((item, i) => (
+          <div key={i} className={styles.repeatItem}>
+            <div className={styles.field}><input className={styles.input} value={item.title} placeholder="Title" onChange={(e) => { const items = [...content.client_concerns.items]; items[i] = { ...items[i], title: e.target.value }; set({ client_concerns: { ...content.client_concerns, items } }); }} /></div>
+            <div className={styles.field}><textarea className={styles.textarea} value={item.body} rows={2} onChange={(e) => { const items = [...content.client_concerns.items]; items[i] = { ...items[i], body: e.target.value }; set({ client_concerns: { ...content.client_concerns, items } }); }} /></div>
+          </div>
+        ))}
+      </fieldset>
+
+      <fieldset className={styles.fieldset}>
+        <legend className={styles.legend}>Better-Planned Path</legend>
+        <div className={styles.field}><label className={styles.label}>Eyebrow</label><input className={styles.input} value={content.better_planned_path.eyebrow} onChange={(e) => set({ better_planned_path: { ...content.better_planned_path, eyebrow: e.target.value } })} /></div>
+        <div className={styles.field}><label className={styles.label}>Title / emphasis</label><input className={styles.input} value={content.better_planned_path.title} onChange={(e) => set({ better_planned_path: { ...content.better_planned_path, title: e.target.value } })} /><input className={styles.input} style={{ marginTop: 8 }} value={content.better_planned_path.title_emphasis ?? ''} onChange={(e) => set({ better_planned_path: { ...content.better_planned_path, title_emphasis: e.target.value } })} /></div>
+        <div className={styles.field}><label className={styles.label}>Intro</label><textarea className={styles.textarea} value={content.better_planned_path.intro} rows={3} onChange={(e) => set({ better_planned_path: { ...content.better_planned_path, intro: e.target.value } })} /></div>
+        <ImageField label="Team image" value={content.better_planned_path.team_image_url} onChange={(url) => set({ better_planned_path: { ...content.better_planned_path, team_image_url: url } })} folder="pages/home/path" />
+        {content.process_stages.map((stage, i) => (
+          <div key={i} className={styles.repeatItem}>
+            <div style={{ display: 'grid', gridTemplateColumns: '80px 1fr', gap: 8 }}>
+              <input className={styles.input} value={stage.n} onChange={(e) => { const process_stages = [...content.process_stages]; process_stages[i] = { ...process_stages[i], n: e.target.value }; set({ process_stages }); }} />
+              <input className={styles.input} value={stage.title} onChange={(e) => { const process_stages = [...content.process_stages]; process_stages[i] = { ...process_stages[i], title: e.target.value }; set({ process_stages }); }} />
+            </div>
+            <textarea className={styles.textarea} value={stage.body} rows={2} onChange={(e) => { const process_stages = [...content.process_stages]; process_stages[i] = { ...process_stages[i], body: e.target.value }; set({ process_stages }); }} />
+          </div>
+        ))}
+      </fieldset>
+
+      <fieldset className={styles.fieldset}>
+        <legend className={styles.legend}>Quality in Every Layer</legend>
+        <ImageField label="Elevation cutaway photo" value={content.quality_layers.elevation_image_url} onChange={(url) => set({ quality_layers: { ...content.quality_layers, elevation_image_url: url } })} folder="pages/home/quality" />
+        {content.quality_layers.layers.map((layer, i) => (
+          <div key={layer.id} className={styles.repeatItem}>
+            <div className={styles.field}><label className={styles.label}>Hotspot {i + 1}: {layer.label}</label><input className={styles.input} value={layer.label} onChange={(e) => { const layers = [...content.quality_layers.layers]; layers[i] = { ...layers[i], label: e.target.value }; set({ quality_layers: { ...content.quality_layers, layers } }); }} /></div>
+            <textarea className={styles.textarea} value={layer.benefit} rows={2} onChange={(e) => { const layers = [...content.quality_layers.layers]; layers[i] = { ...layers[i], benefit: e.target.value }; set({ quality_layers: { ...content.quality_layers, layers } }); }} />
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+              <div className={styles.field}><label className={styles.label}>X %</label><input className={styles.input} type="number" value={layer.x} onChange={(e) => { const layers = [...content.quality_layers.layers]; layers[i] = { ...layers[i], x: Number(e.target.value) }; set({ quality_layers: { ...content.quality_layers, layers } }); }} /></div>
+              <div className={styles.field}><label className={styles.label}>Y %</label><input className={styles.input} type="number" value={layer.y} onChange={(e) => { const layers = [...content.quality_layers.layers]; layers[i] = { ...layers[i], y: Number(e.target.value) }; set({ quality_layers: { ...content.quality_layers, layers } }); }} /></div>
             </div>
           </div>
         ))}
-        <button type="button" className={styles.btn} onClick={() => onChange({ ...content, quality_gallery: [...(content.quality_gallery ?? []), { image_url: '/assets/ph-arch-1.png', caption: '' }] })}>Add image</button>
       </fieldset>
+
       <fieldset className={styles.fieldset}>
-        <legend className={styles.legend}>Testimonials strip (homepage)</legend>
-        {(content.testimonials_strip ?? []).map((t, i) => (
+        <legend className={styles.legend}>Testimonial</legend>
+        <div className={styles.field}><label className={styles.label}>Eyebrow</label><input className={styles.input} value={content.testimonial_section.eyebrow} onChange={(e) => set({ testimonial_section: { ...content.testimonial_section, eyebrow: e.target.value } })} /></div>
+        <div className={styles.field}><label className={styles.label}>Title</label><input className={styles.input} value={content.testimonial_section.title} onChange={(e) => set({ testimonial_section: { ...content.testimonial_section, title: e.target.value } })} /></div>
+        <div className={styles.field}><label className={styles.label}>Quote</label><textarea className={styles.textarea} value={content.testimonial_section.quote} rows={3} onChange={(e) => set({ testimonial_section: { ...content.testimonial_section, quote: e.target.value } })} /></div>
+        <div className={styles.field}><label className={styles.label}>Citation</label><input className={styles.input} value={content.testimonial_section.cite} onChange={(e) => set({ testimonial_section: { ...content.testimonial_section, cite: e.target.value } })} /></div>
+      </fieldset>
+
+      <fieldset className={styles.fieldset}>
+        <legend className={styles.legend}>Pick Your Path</legend>
+        <div className={styles.field}><label className={styles.label}>Intro</label><input className={styles.input} value={content.pick_your_path.intro} onChange={(e) => set({ pick_your_path: { ...content.pick_your_path, intro: e.target.value } })} /></div>
+        {content.pick_your_path.tiles.map((tile, i) => (
           <div key={i} className={styles.repeatItem}>
-            <div className={styles.field}>
-              <label className={styles.label}>Quote</label>
-              <textarea className={styles.textarea} value={t.quote} rows={2} onChange={(e) => {
-                const testimonials_strip = [...(content.testimonials_strip ?? [])];
-                testimonials_strip[i] = { ...testimonials_strip[i], quote: e.target.value };
-                onChange({ ...content, testimonials_strip });
-              }} />
-            </div>
-            <div className={styles.field}>
-              <label className={styles.label}>Citation (Name · City)</label>
-              <input className={styles.input} value={t.cite} onChange={(e) => {
-                const testimonials_strip = [...(content.testimonials_strip ?? [])];
-                testimonials_strip[i] = { ...testimonials_strip[i], cite: e.target.value };
-                onChange({ ...content, testimonials_strip });
-              }} />
-            </div>
+            <input className={styles.input} value={tile.title} placeholder="Title" onChange={(e) => { const tiles = [...content.pick_your_path.tiles]; tiles[i] = { ...tiles[i], title: e.target.value }; set({ pick_your_path: { ...content.pick_your_path, tiles } }); }} />
+            <input className={styles.input} style={{ marginTop: 8 }} value={tile.link} placeholder="Link" onChange={(e) => { const tiles = [...content.pick_your_path.tiles]; tiles[i] = { ...tiles[i], link: e.target.value }; set({ pick_your_path: { ...content.pick_your_path, tiles } }); }} />
+            <label style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 8, fontSize: 13 }}>
+              <input type="checkbox" checked={!!tile.external} onChange={(e) => { const tiles = [...content.pick_your_path.tiles]; tiles[i] = { ...tiles[i], external: e.target.checked }; set({ pick_your_path: { ...content.pick_your_path, tiles } }); }} />
+              External link
+            </label>
           </div>
         ))}
-        <button type="button" className={styles.btn} onClick={() => onChange({ ...content, testimonials_strip: [...(content.testimonials_strip ?? []), { quote: '', cite: '' }] })}>Add testimonial</button>
+      </fieldset>
+
+      <fieldset className={styles.fieldset}>
+        <legend className={styles.legend}>Closing CTA</legend>
+        <div className={styles.field}><label className={styles.label}>Title</label><input className={styles.input} value={content.closing_cta.title} onChange={(e) => set({ closing_cta: { ...content.closing_cta, title: e.target.value } })} /></div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+          <div className={styles.field}><label className={styles.label}>Primary label</label><input className={styles.input} value={content.closing_cta.primary_label} onChange={(e) => set({ closing_cta: { ...content.closing_cta, primary_label: e.target.value } })} /></div>
+          <div className={styles.field}><label className={styles.label}>Primary URL</label><input className={styles.input} value={content.closing_cta.primary_url} onChange={(e) => set({ closing_cta: { ...content.closing_cta, primary_url: e.target.value } })} /></div>
+          <div className={styles.field}><label className={styles.label}>Phone display</label><input className={styles.input} value={content.closing_cta.phone} onChange={(e) => set({ closing_cta: { ...content.closing_cta, phone: e.target.value } })} /></div>
+          <div className={styles.field}><label className={styles.label}>Phone href</label><input className={styles.input} value={content.closing_cta.phone_href} onChange={(e) => set({ closing_cta: { ...content.closing_cta, phone_href: e.target.value } })} /></div>
+        </div>
       </fieldset>
     </>
-  );
-}
-
-function RepeatableServiceCards({
-  section,
-  onChange,
-}: {
-  section: HomePageContent['services'];
-  onChange: (s: HomePageContent['services']) => void;
-}) {
-  const updateItem = (i: number, patch: Partial<(typeof section.items)[0]>) => {
-    const items = section.items.map((item, j) => (j === i ? { ...item, ...patch } : item));
-    onChange({ ...section, items });
-  };
-  return (
-    <fieldset className={styles.fieldset}>
-      <legend className={styles.legend}>Services cards</legend>
-      <div className={styles.field}>
-        <label className={styles.label}>Section eyebrow</label>
-        <input className={styles.input} value={section.eyebrow} onChange={(e) => onChange({ ...section, eyebrow: e.target.value })} />
-      </div>
-      <div className={styles.field}>
-        <label className={styles.label}>Section title / emphasis</label>
-        <input className={styles.input} value={section.title} onChange={(e) => onChange({ ...section, title: e.target.value })} />
-        <input className={styles.input} style={{ marginTop: 8 }} value={section.title_emphasis ?? ''} onChange={(e) => onChange({ ...section, title_emphasis: e.target.value })} />
-      </div>
-      {section.items.map((item, i) => (
-        <div key={i} className={styles.repeatItem}>
-          <div className={styles.field}>
-            <label className={styles.label}>Title</label>
-            <input className={styles.input} value={item.title} onChange={(e) => updateItem(i, { title: e.target.value })} />
-          </div>
-          <div className={styles.field}>
-            <label className={styles.label}>Description</label>
-            <input className={styles.input} value={item.description} onChange={(e) => updateItem(i, { description: e.target.value })} />
-          </div>
-          <div className={styles.field}>
-            <label className={styles.label}>Link</label>
-            <input className={styles.input} value={item.link} onChange={(e) => updateItem(i, { link: e.target.value })} />
-          </div>
-          <ImageField label="Image" value={item.image_url} onChange={(url) => updateItem(i, { image_url: url })} folder="pages/services" />
-        </div>
-      ))}
-    </fieldset>
   );
 }
 
@@ -534,6 +518,7 @@ function ProcessEditor({ content, onChange }: { content: ProcessPageContent; onC
         <label className={styles.label}>CTA title</label>
         <input className={styles.input} value={content.cta_title} onChange={(e) => onChange({ ...content, cta_title: e.target.value })} />
       </div>
+      <ImageField label="Mid-page band image" value={content.band_image_url ?? '/assets/ph-arch-2.png'} onChange={(url) => onChange({ ...content, band_image_url: url })} folder="pages/process" />
     </>
   );
 }
@@ -775,7 +760,21 @@ function AwardsEditor({ content, onChange }: { content: AwardsPageContent; onCha
         <label className={styles.label}>Intro</label>
         <textarea className={styles.textarea} value={content.intro} onChange={(e) => onChange({ ...content, intro: e.target.value })} rows={3} />
       </div>
-      <p style={{ fontSize: 13, color: 'rgba(26,36,32,0.5)', marginBottom: 16 }}>Houzz badge logos are managed in code (src/data/awards.ts) and appear in the footer automatically.</p>
+      <fieldset className={styles.fieldset}>
+        <legend className={styles.legend}>Footer badge logos</legend>
+        {(content.badges ?? []).map((badge, i) => (
+          <div key={i} className={styles.repeatItem}>
+            <ImageField label="Logo image (optional)" value={badge.image_url ?? ''} onChange={(url) => {
+              const badges = [...(content.badges ?? [])];
+              badges[i] = { ...badges[i], image_url: url || undefined };
+              onChange({ ...content, badges });
+            }} folder="pages/awards/badges" />
+            <div className={styles.field}><label className={styles.label}>Alt text</label><input className={styles.input} value={badge.alt} onChange={(e) => { const badges = [...(content.badges ?? [])]; badges[i] = { ...badges[i], alt: e.target.value }; onChange({ ...content, badges }); }} /></div>
+            <div className={styles.field}><label className={styles.label}>Link URL</label><input className={styles.input} value={badge.href ?? ''} onChange={(e) => { const badges = [...(content.badges ?? [])]; badges[i] = { ...badges[i], href: e.target.value || undefined }; onChange({ ...content, badges }); }} /></div>
+          </div>
+        ))}
+        <button type="button" className={styles.btn} onClick={() => onChange({ ...content, badges: [...(content.badges ?? []), { alt: '', href: '' }] })}>Add badge</button>
+      </fieldset>
       {content.awards.map((a, i) => (
         <div key={i} className={styles.repeatItem}>
           <input className={styles.input} value={a.title} placeholder="Award title" onChange={(e) => {

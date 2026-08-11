@@ -14,7 +14,8 @@ export function Blog() {
   const [cat, setCat] = useState<CatFilter>('All');
 
   const filtered = posts.filter((p) => cat === 'All' || p.category === cat);
-  const featured = filtered[0];
+  const featured = filtered.find((p) => p.featured) ?? filtered[0];
+  const gridPosts = filtered.filter((p) => p !== featured);
 
   return (
     <main>
@@ -72,7 +73,7 @@ export function Blog() {
           {error && <div className="page-error">{error}</div>}
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 32 }}>
-            {filtered.slice(featured ? 1 : 0).map((p) => (
+            {gridPosts.map((p) => (
               <RevealOnScroll key={p.id}>
                 <Link to={`/blog/${p.slug}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                   <div style={{ overflow: 'hidden', height: 240, marginBottom: 20 }}>

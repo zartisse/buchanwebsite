@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FOOTER_AWARD_BADGES, HOUZZ_PROFILE_URL } from '../../data/awards';
+import { useSitePage } from '../../hooks/useSitePage';
+import { getDemoPageContent } from '../../data/sitePagesDemo';
 import {
   FOOTER_COMPANY, FOOTER_RESOURCES, FOOTER_SERVICES, FOOTER_UTILITY, SOCIAL_LINKS,
 } from '../../data/navigation';
@@ -8,6 +10,11 @@ import styles from './Footer.module.css';
 
 export function Footer() {
   const [subscribed, setSubscribed] = useState(false);
+  const { page } = useSitePage('awards');
+  const awardsContent = page?.content ?? getDemoPageContent('awards');
+  const badges = awardsContent.badges?.length
+    ? awardsContent.badges
+    : FOOTER_AWARD_BADGES.map((b) => ({ image_url: b.image, alt: b.alt, href: b.href }));
 
   const onSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,10 +39,10 @@ export function Footer() {
       <div className={styles.badgeRow}>
         <span className={styles.badgeRowLabel}>Credentials & Awards</span>
         <div className={styles.awardLogos}>
-          {FOOTER_AWARD_BADGES.map((badge) => (
+          {badges.map((badge) => (
             <a key={badge.alt} href={badge.href ?? HOUZZ_PROFILE_URL} target="_blank" rel="noopener noreferrer" className={styles.awardLogoLink} title={badge.alt}>
-              {badge.image ? (
-                <img src={badge.image} alt={badge.alt} className={styles.awardLogo} />
+              {badge.image_url ? (
+                <img src={badge.image_url} alt={badge.alt} className={styles.awardLogo} />
               ) : (
                 <span className={styles.awardTextBadge}>{badge.alt}</span>
               )}

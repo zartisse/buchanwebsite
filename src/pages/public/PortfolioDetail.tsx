@@ -47,7 +47,10 @@ export function PortfolioDetail() {
 
   return (
     <main>
-      <PageMeta title={property.name} description={property.description || `${property.name} — custom home in ${property.city}.`} />
+      <PageMeta
+        title={property.meta_title || property.name}
+        description={property.meta_description || property.description || `${property.name} — custom home in ${property.city}.`}
+      />
       <section style={{ position: 'relative', height: 'clamp(400px, 60vh, 700px)', overflow: 'hidden' }}>
         <button
           type="button"

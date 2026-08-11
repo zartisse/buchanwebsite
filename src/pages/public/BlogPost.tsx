@@ -2,6 +2,7 @@ import { Link, useParams } from 'react-router-dom';
 import { usePost, usePosts } from '../../hooks/usePosts';
 import { PageMeta } from '../../components/ui/PageMeta';
 import { fmtDate } from '../../lib/utils';
+import { resolveImageUrl } from '../../lib/placeholders';
 import ps from '../../styles/pages.module.css';
 
 export function BlogPost() {
@@ -30,7 +31,7 @@ export function BlogPost() {
           <time style={{ fontSize: 13, color: 'var(--color-text-muted-light)' }}>{fmtDate(post.date)}</time>
         </header>
 
-        <img src={post.image_url || '/assets/ph-arch-1.png'} alt="" style={{ width: '100%', maxHeight: 520, objectFit: 'cover' }} />
+        <img src={resolveImageUrl(post.image_url, post.slug)} alt="" style={{ width: '100%', maxHeight: 520, objectFit: 'cover' }} />
 
         <div style={{ maxWidth: 680, margin: '0 auto', padding: '48px 8vw 80px' }}>
           {paragraphs.map((p, i) => (
@@ -46,7 +47,7 @@ export function BlogPost() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 24 }}>
               {related.map((r) => (
                 <Link key={r.id} to={`/blog/${r.slug}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                  <img src={r.image_url || '/assets/ph-arch-1.png'} alt="" style={{ width: '100%', height: 180, objectFit: 'cover', marginBottom: 12 }} />
+                  <img src={resolveImageUrl(r.image_url, r.slug)} alt="" style={{ width: '100%', height: 180, objectFit: 'cover', marginBottom: 12 }} />
                   <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: 18, margin: 0, lineHeight: 1.2 }}>{r.title}</h3>
                 </Link>
               ))}

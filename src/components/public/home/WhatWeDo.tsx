@@ -1,20 +1,31 @@
 import { Link } from 'react-router-dom';
-import { WHAT_WE_DO } from '../../../data/iaContent';
 import { resolveImageUrl } from '../../../lib/placeholders';
+import type { HomePageContent } from '../../../types';
 import { RevealOnScroll } from '../../ui/RevealOnScroll';
 import styles from './WhatWeDo.module.css';
 
-export function WhatWeDo() {
+type WhatWeDoProps = {
+  section: HomePageContent['what_we_do'];
+};
+
+export function WhatWeDo({ section }: WhatWeDoProps) {
   return (
     <section className={styles.section}>
       <div className={styles.inner}>
         <RevealOnScroll>
-          <span className={styles.eyebrow}>What We Do</span>
-          <h2 className={styles.title}>Custom homes, renovations,<br /><em>and more.</em></h2>
+          <span className={styles.eyebrow}>{section.eyebrow}</span>
+          <h2 className={styles.title}>
+            {section.title}
+            {section.title_emphasis && (
+              <>
+                <br /><em>{section.title_emphasis}</em>
+              </>
+            )}
+          </h2>
         </RevealOnScroll>
 
         <div className={styles.primaryGrid}>
-          {WHAT_WE_DO.primary.map((item, i) => (
+          {section.primary.map((item, i) => (
             <RevealOnScroll key={item.title} variant="left" index={i}>
               <Link to={item.link} className={`${styles.primaryCard} cardHover imageHover`}>
                 <div className={styles.primaryImgWrap}>
@@ -31,7 +42,7 @@ export function WhatWeDo() {
         </div>
 
         <div className={styles.secondaryGrid}>
-          {WHAT_WE_DO.secondary.map((item) => (
+          {section.secondary.map((item) => (
             <RevealOnScroll key={item.title}>
               <Link to={item.link} className={`${styles.secondaryCard} cardHover`}>
                 <h4>{item.title}</h4>
@@ -43,10 +54,10 @@ export function WhatWeDo() {
 
         <div className={styles.preconBand}>
           <div>
-            <h3 className={styles.preconTitle}>Plan Before You Build</h3>
-            <p className={styles.preconBody}>Progressive estimates, feasibility, and design alignment — for custom homes and major renovations alike.</p>
+            <h3 className={styles.preconTitle}>{section.preconstruction.title}</h3>
+            <p className={styles.preconBody}>{section.preconstruction.body}</p>
           </div>
-          <Link to="/preconstruction" className={styles.preconCta}>Explore Preconstruction →</Link>
+          <Link to={section.preconstruction.cta_link} className={styles.preconCta}>{section.preconstruction.cta_label}</Link>
         </div>
       </div>
     </section>

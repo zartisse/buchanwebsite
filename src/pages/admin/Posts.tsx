@@ -9,17 +9,26 @@ import type { Post } from '../../types';
 import styles from '../../styles/admin.module.css';
 
 export function AdminPosts() {
-  const { posts, loading, savePost, deletePost } = usePosts({ admin: true });
+  const { posts, loading, error, savePost, deletePost } = usePosts({ admin: true });
   const [editing, setEditing] = useState<Post | null | 'new'>(null);
+
+  const existingSlugs = posts
+    .filter((p) => (editing !== null && editing !== 'new' ? p.id !== editing.id : true))
+    .map((p) => p.slug);
 
   if (editing !== null) {
     return (
       <PostEditor
         post={editing === 'new' ? undefined : editing}
+        existingSlugs={existingSlugs}
         onSave={async (data) => {
-          await savePost(data);
-          toast('Saved ✓');
-          setEditing(null);
+          try {
+            await savePost(data);
+            toast('Saved ✓');
+            setEditing(null);
+          } catch (e) {
+            toast(e instanceof Error ? e.message : 'Failed to save post');
+          }
         }}
         onCancel={() => setEditing(null)}
       />
@@ -37,6 +46,7 @@ export function AdminPosts() {
         <button type="button" className={styles.btnPrimary} onClick={() => setEditing('new')}>New Post</button>
       </div>
 
+      {error && <p className={styles.error}>{error}</p>}
       {loading ? (
         <p>Loading…</p>
       ) : (
@@ -63,9 +73,12 @@ export function AdminPosts() {
                     type="button"
                     className={styles.btnDanger}
                     onClick={async () => {
-                      if (window.confirm(`Delete "${p.title}"?`)) {
+                      if (!window.confirm(`Delete "${p.title}"?`)) return;
+                      try {
                         await deletePost(p.id);
                         toast('Post deleted');
+                      } catch (e) {
+                        toast(e instanceof Error ? e.message : 'Failed to delete post');
                       }
                     }}
                   >

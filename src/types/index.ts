@@ -3,6 +3,8 @@ export type PostStatus = 'Draft' | 'Published';
 export type PropertyStatus = 'Available' | 'Coming Soon' | 'Sold' | 'Draft';
 export type SubmissionStatus = 'New' | 'Read' | 'Archived';
 
+export type PortfolioType = 'custom-homes' | 'renovations' | 'interiors' | 'available-homes' | 'video-tours';
+
 export interface Post {
   id: string;
   title: string;
@@ -15,6 +17,7 @@ export interface Post {
   image_url: string;
   meta_title: string;
   meta_description: string;
+  featured?: boolean;
   created_at?: string;
   updated_at?: string;
 }
@@ -38,6 +41,7 @@ export interface Property {
   meta_description: string;
   featured?: boolean;
   featured_order?: number;
+  portfolio_type?: PortfolioType;
   created_at?: string;
   updated_at?: string;
 }
@@ -71,32 +75,66 @@ export interface HomePageContent {
     marquee: string;
     cta_primary_url: string;
     cta_primary_label: string;
+    cta_secondary_url?: string;
+    cta_secondary_label?: string;
   };
-  legacy: {
+  credibility_line: string;
+  featured_work: {
+    eyebrow: string;
     title: string;
-    title_line2?: string;
+  };
+  what_we_do: {
+    eyebrow: string;
+    title: string;
     title_emphasis?: string;
-    eyebrow: string;
-    paragraphs: string[];
+    primary: { title: string; description: string; image_url: string; link: string }[];
+    secondary: { title: string; description: string; link: string }[];
+    preconstruction: { title: string; body: string; cta_label: string; cta_link: string };
   };
-  services: {
+  client_concerns: {
     eyebrow: string;
     title: string;
     title_emphasis?: string;
-    items: { title: string; description: string; image_url: string; link: string }[];
+    items: { title: string; body: string }[];
   };
-  recent_work: {
+  better_planned_path: {
     eyebrow: string;
     title: string;
+    title_emphasis?: string;
+    intro: string;
+    team_heading: string;
+    team_body: string;
+    team_image_url: string;
+    cta_label: string;
+    cta_link: string;
   };
-  concierge: {
+  process_stages: { n: string; title: string; body: string }[];
+  quality_layers: {
     eyebrow: string;
+    title: string;
+    title_emphasis?: string;
+    elevation_image_url: string;
+    layers: { id: string; label: string; benefit: string; x: number; y: number }[];
+  };
+  testimonial_section: {
+    eyebrow: string;
+    title: string;
     quote: string;
     cite: string;
-    image_url: string;
+    cta_label: string;
+    cta_link: string;
   };
-  quality_gallery?: { image_url: string; caption?: string }[];
-  testimonials_strip?: { quote: string; cite: string }[];
+  pick_your_path: {
+    intro: string;
+    tiles: { title: string; link: string; external?: boolean }[];
+  };
+  closing_cta: {
+    title: string;
+    primary_label: string;
+    primary_url: string;
+    phone: string;
+    phone_href: string;
+  };
 }
 
 export interface AboutPageContent {
@@ -149,6 +187,7 @@ export interface ServiceDetailPageContent {
 export interface ProcessPageContent {
   hero: HeroSection;
   steps: { n: string; title: string; duration: string; body: string; tag: string }[];
+  band_image_url?: string;
   cta_title: string;
 }
 
@@ -197,8 +236,75 @@ export interface AwardsPageContent {
   awards: { title: string; year: string; description: string }[];
   press: { title: string; source: string; date: string; excerpt: string; url?: string }[];
   credentials: { title: string; body: string }[];
+  badges?: { image_url?: string; alt: string; href?: string }[];
   cta_title: string;
 }
+
+export interface HubPageContent {
+  hero: {
+    eyebrow: string;
+    title: string;
+    titleEmphasis?: string;
+    subtitle?: string;
+    image_url?: string;
+  };
+  intro?: string;
+  sections: { title: string; body: string; bullets?: string[]; image_url?: string }[];
+  ctaTitle: string;
+  ctaLink?: string;
+  service_areas?: string[];
+}
+
+export interface HubPage {
+  id: string;
+  slug: string;
+  meta_title: string;
+  meta_description: string;
+  content: HubPageContent;
+  updated_at?: string;
+}
+
+export const HUB_PAGE_SLUGS = [
+  'custom-homes',
+  'land-and-site',
+  'renovations',
+  'preconstruction',
+  'why-choose-buchan',
+  'areas-we-serve',
+  'adus',
+  'fire-restoration',
+  'planning-budgeting',
+  'real-estate',
+  'find-your-lot',
+  'sell-your-home',
+  'sell-to-buchan',
+  'home-care',
+  'land-acquisition',
+  'second-opinion',
+  'property-feasibility',
+] as const;
+
+export type HubPageSlug = (typeof HUB_PAGE_SLUGS)[number];
+
+export const HUB_PAGE_LABELS: Record<HubPageSlug, string> = {
+  'custom-homes': 'Custom Homes',
+  'land-and-site': 'Land & Site',
+  renovations: 'Renovations',
+  preconstruction: 'Preconstruction',
+  'why-choose-buchan': 'Why Choose Buchan',
+  'areas-we-serve': 'Areas We Serve',
+  adus: 'ADUs & DADUs',
+  'fire-restoration': 'Fire Restoration',
+  'planning-budgeting': 'Planning & Budgeting',
+  'real-estate': 'Real Estate Services',
+  'find-your-lot': 'Find Your Lot',
+  'sell-your-home': 'Sell Your Home',
+  'sell-to-buchan': 'Sell to Buchan',
+  'home-care': 'Buchan Home Care',
+  'land-acquisition': 'Land Acquisition',
+  'second-opinion': 'Second Opinion',
+  'property-feasibility': 'Property Feasibility',
+};
 
 export type SitePageContentMap = {
   home: HomePageContent;
@@ -229,11 +335,7 @@ export const SITE_PAGE_SLUGS: SitePageSlug[] = [
   'home',
   'about',
   'services',
-  'build',
-  'design',
-  'remodel',
   'process',
-  'neighborhoods',
   'testimonials',
   'contact',
   'faq',
@@ -245,11 +347,11 @@ export const SITE_PAGE_LABELS: Record<SitePageSlug, string> = {
   home: 'Home',
   about: 'About',
   services: 'Services',
-  build: 'Build',
-  design: 'Design',
-  remodel: 'Remodel',
+  build: 'Build (legacy)',
+  design: 'Design (legacy)',
+  remodel: 'Remodel (legacy)',
   process: 'Process',
-  neighborhoods: 'Neighborhoods',
+  neighborhoods: 'Neighborhoods (legacy)',
   testimonials: 'Testimonials',
   contact: 'Contact',
   faq: 'FAQ',

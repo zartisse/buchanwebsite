@@ -7,11 +7,12 @@ import styles from '../../styles/admin.module.css';
 
 interface PostEditorProps {
   post?: Post;
+  existingSlugs?: string[];
   onSave: (data: Partial<Post> & { title: string }) => Promise<void>;
   onCancel: () => void;
 }
 
-export function PostEditor({ post, onSave, onCancel }: PostEditorProps) {
+export function PostEditor({ post, existingSlugs = [], onSave, onCancel }: PostEditorProps) {
   const [title, setTitle] = useState(post?.title ?? '');
   const [slug, setSlug] = useState(post?.slug ?? '');
   const [autoSlug, setAutoSlug] = useState(!post);
@@ -23,15 +24,23 @@ export function PostEditor({ post, onSave, onCancel }: PostEditorProps) {
   const [imageUrl, setImageUrl] = useState(post?.image_url ?? '/assets/ph-arch-1.png');
   const [metaTitle, setMetaTitle] = useState(post?.meta_title ?? '');
   const [metaDescription, setMetaDescription] = useState(post?.meta_description ?? '');
+  const [featured, setFeatured] = useState(post?.featured ?? false);
   const [saving, setSaving] = useState(false);
+  const [slugError, setSlugError] = useState('');
 
   const handleTitleChange = (v: string) => {
     setTitle(v);
     if (autoSlug) setSlug(slugify(v));
+    setSlugError('');
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const finalSlug = slug || slugify(title);
+    if (existingSlugs.includes(finalSlug)) {
+      setSlugError('This slug is already in use. Choose a different one.');
+      return;
+    }
     setSaving(true);
     try {
       await onSave({
@@ -46,6 +55,7 @@ export function PostEditor({ post, onSave, onCancel }: PostEditorProps) {
         image_url: imageUrl,
         meta_title: metaTitle,
         meta_description: metaDescription,
+        featured,
       });
     } finally {
       setSaving(false);
@@ -63,7 +73,8 @@ export function PostEditor({ post, onSave, onCancel }: PostEditorProps) {
         </div>
         <div className={styles.field}>
           <label className={styles.label}>Slug</label>
-          <input className={styles.input} value={slug} onChange={(e) => { setAutoSlug(false); setSlug(e.target.value); }} />
+          <input className={styles.input} value={slug} onChange={(e) => { setAutoSlug(false); setSlug(e.target.value); setSlugError(''); }} />
+          {slugError && <p className={styles.error}>{slugError}</p>}
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 16 }}>
           <div className={styles.field}>
@@ -106,6 +117,12 @@ export function PostEditor({ post, onSave, onCancel }: PostEditorProps) {
         <div className={styles.field}>
           <label className={styles.label}>Meta Description ({metaDescription.length}/160)</label>
           <textarea className={styles.textarea} value={metaDescription} onChange={(e) => setMetaDescription(e.target.value)} rows={2} />
+        </div>
+        <div className={styles.field}>
+          <label className={styles.label}>
+            <input type="checkbox" checked={featured} onChange={(e) => setFeatured(e.target.checked)} style={{ marginRight: 8 }} />
+            Feature on blog hero
+          </label>
         </div>
         <div className={styles.formActions}>
           <button type="submit" className={styles.btnPrimary} disabled={saving}>{saving ? 'Saving…' : 'Save'}</button>

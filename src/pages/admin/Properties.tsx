@@ -8,17 +8,26 @@ import type { Property } from '../../types';
 import styles from '../../styles/admin.module.css';
 
 export function AdminProperties() {
-  const { properties, loading, saveProperty, deleteProperty } = useProperties({ admin: true });
+  const { properties, loading, error, saveProperty, deleteProperty } = useProperties({ admin: true });
   const [editing, setEditing] = useState<Property | null | 'new'>(null);
+
+  const existingSlugs = properties
+    .filter((p) => (editing !== null && editing !== 'new' ? p.id !== editing.id : true))
+    .map((p) => p.slug);
 
   if (editing !== null) {
     return (
       <PropertyEditor
         property={editing === 'new' ? undefined : editing}
+        existingSlugs={existingSlugs}
         onSave={async (data) => {
-          await saveProperty(data);
-          toast('Saved ✓');
-          setEditing(null);
+          try {
+            await saveProperty(data);
+            toast('Saved ✓');
+            setEditing(null);
+          } catch (e) {
+            toast(e instanceof Error ? e.message : 'Failed to save property');
+          }
         }}
         onCancel={() => setEditing(null)}
       />
@@ -36,6 +45,7 @@ export function AdminProperties() {
         <button type="button" className={styles.btnPrimary} onClick={() => setEditing('new')}>New Property</button>
       </div>
 
+      {error && <p className={styles.error}>{error}</p>}
       {loading ? (
         <p>Loading…</p>
       ) : (
@@ -64,9 +74,12 @@ export function AdminProperties() {
                     type="button"
                     className={styles.btnDanger}
                     onClick={async () => {
-                      if (window.confirm(`Delete "${p.name}"?`)) {
+                      if (!window.confirm(`Delete "${p.name}"?`)) return;
+                      try {
                         await deleteProperty(p.id);
                         toast('Property deleted');
+                      } catch (e) {
+                        toast(e instanceof Error ? e.message : 'Failed to delete property');
                       }
                     }}
                   >

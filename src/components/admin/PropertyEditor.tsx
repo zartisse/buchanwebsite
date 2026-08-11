@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { Property, PropertyStatus } from '../../types';
+import type { Property, PropertyStatus, PortfolioType } from '../../types';
 import { slugify } from '../../lib/utils';
 import { ImageDropzone } from './ImageDropzone';
 import { PageMeta } from '../ui/PageMeta';
@@ -7,11 +7,12 @@ import styles from '../../styles/admin.module.css';
 
 interface PropertyEditorProps {
   property?: Property;
+  existingSlugs?: string[];
   onSave: (data: Partial<Property> & { name: string }) => Promise<void>;
   onCancel: () => void;
 }
 
-export function PropertyEditor({ property, onSave, onCancel }: PropertyEditorProps) {
+export function PropertyEditor({ property, existingSlugs = [], onSave, onCancel }: PropertyEditorProps) {
   const [name, setName] = useState(property?.name ?? '');
   const [slug, setSlug] = useState(property?.slug ?? '');
   const [autoSlug, setAutoSlug] = useState(!property);
@@ -30,15 +31,23 @@ export function PropertyEditor({ property, onSave, onCancel }: PropertyEditorPro
   const [metaDescription, setMetaDescription] = useState(property?.meta_description ?? '');
   const [featured, setFeatured] = useState(property?.featured ?? false);
   const [featuredOrder, setFeaturedOrder] = useState(property?.featured_order ?? 0);
+  const [portfolioType, setPortfolioType] = useState<PortfolioType>(property?.portfolio_type ?? 'custom-homes');
   const [saving, setSaving] = useState(false);
+  const [slugError, setSlugError] = useState('');
 
   const handleNameChange = (v: string) => {
     setName(v);
     if (autoSlug) setSlug(slugify(v));
+    setSlugError('');
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const finalSlug = slug || slugify(name);
+    if (existingSlugs.includes(finalSlug)) {
+      setSlugError('This slug is already in use. Choose a different one.');
+      return;
+    }
     setSaving(true);
     try {
       await onSave({
@@ -60,6 +69,7 @@ export function PropertyEditor({ property, onSave, onCancel }: PropertyEditorPro
         meta_description: metaDescription,
         featured,
         featured_order: featuredOrder,
+        portfolio_type: portfolioType,
       });
     } finally {
       setSaving(false);
@@ -77,7 +87,8 @@ export function PropertyEditor({ property, onSave, onCancel }: PropertyEditorPro
         </div>
         <div className={styles.field}>
           <label className={styles.label}>Slug</label>
-          <input className={styles.input} value={slug} onChange={(e) => { setAutoSlug(false); setSlug(e.target.value); }} />
+          <input className={styles.input} value={slug} onChange={(e) => { setAutoSlug(false); setSlug(e.target.value); setSlugError(''); }} />
+          {slugError && <p className={styles.error}>{slugError}</p>}
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
           <div className={styles.field}>
@@ -132,6 +143,16 @@ export function PropertyEditor({ property, onSave, onCancel }: PropertyEditorPro
           <div className={styles.field}>
             <label className={styles.label}>Homepage order</label>
             <input className={styles.input} type="number" min={0} value={featuredOrder} onChange={(e) => setFeaturedOrder(Number(e.target.value))} />
+          </div>
+          <div className={styles.field}>
+            <label className={styles.label}>Portfolio type</label>
+            <select className={styles.select} value={portfolioType} onChange={(e) => setPortfolioType(e.target.value as PortfolioType)}>
+              <option value="custom-homes">Custom Homes</option>
+              <option value="renovations">Renovations</option>
+              <option value="interiors">Interiors</option>
+              <option value="available-homes">Available Homes</option>
+              <option value="video-tours">Video Tours</option>
+            </select>
           </div>
         </div>
         <div className={styles.field}>

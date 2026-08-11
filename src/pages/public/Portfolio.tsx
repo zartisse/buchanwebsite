@@ -4,12 +4,13 @@ import { useProperties } from '../../hooks/useProperties';
 import { PageMeta } from '../../components/ui/PageMeta';
 import { RevealOnScroll } from '../../components/ui/RevealOnScroll';
 import { resolveImageUrl } from '../../lib/placeholders';
+import type { PortfolioType as PropertyPortfolioType } from '../../types';
 import ps from '../../styles/pages.module.css';
 
-type PortfolioType = 'all' | 'custom-homes' | 'renovations' | 'interiors' | 'video-tours' | 'available-homes';
+type PortfolioFilter = 'all' | PropertyPortfolioType;
 type StatusFilter = 'all' | 'Available' | 'Coming Soon' | 'Sold';
 
-const TYPE_LABELS: Record<PortfolioType, string> = {
+const TYPE_LABELS: Record<PortfolioFilter, string> = {
   all: 'All Work',
   'custom-homes': 'Custom Homes',
   renovations: 'Renovations',
@@ -18,21 +19,23 @@ const TYPE_LABELS: Record<PortfolioType, string> = {
   'available-homes': 'Available Homes',
 };
 
-function inferCategory(slug: string, status: string): PortfolioType[] {
-  const cats: PortfolioType[] = ['custom-homes'];
-  if (status === 'Available' || status === 'Coming Soon') cats.push('available-homes');
-  if (slug.includes('renov') || slug.includes('remodel')) cats.push('renovations');
-  if (slug.includes('interior') || slug.includes('kitchen')) cats.push('interiors');
-  return cats;
+function propertyCategories(p: { slug: string; status: string; portfolio_type?: PropertyPortfolioType }): PortfolioFilter[] {
+  const cats: PortfolioFilter[] = [p.portfolio_type ?? 'custom-homes'];
+  if (p.status === 'Available' || p.status === 'Coming Soon') cats.push('available-homes');
+  if (!p.portfolio_type) {
+    if (p.slug.includes('renov') || p.slug.includes('remodel')) cats.push('renovations');
+    if (p.slug.includes('interior') || p.slug.includes('kitchen')) cats.push('interiors');
+  }
+  return [...new Set(cats)];
 }
 
 export function Portfolio() {
   const { properties, loading, error } = useProperties({ publicOnly: true });
   const [searchParams, setSearchParams] = useSearchParams();
-  const typeParam = (searchParams.get('type') as PortfolioType) ?? 'all';
+  const typeParam = (searchParams.get('type') as PortfolioFilter) ?? 'all';
   const [statusFilter, setStatusFilter] = useState<StatusFilter>('all');
 
-  const portfolioType: PortfolioType = TYPE_LABELS[typeParam] ? typeParam : 'all';
+  const portfolioType: PortfolioFilter = TYPE_LABELS[typeParam] ? typeParam : 'all';
 
   useEffect(() => {
     if (portfolioType === 'available-homes') {
@@ -46,14 +49,14 @@ export function Portfolio() {
       return p.status === 'Available' || p.status === 'Coming Soon';
     }
     if (portfolioType !== 'all') {
-      const cats = inferCategory(p.slug, p.status);
+      const cats = propertyCategories(p);
       if (!cats.includes(portfolioType)) return false;
     }
     if (statusFilter === 'all') return true;
     return p.status === statusFilter;
   });
 
-  const setType = (type: PortfolioType) => {
+  const setType = (type: PortfolioFilter) => {
     if (type === 'all') {
       searchParams.delete('type');
     } else {
@@ -75,7 +78,7 @@ export function Portfolio() {
       <section className={ps.section}>
         <div className={ps.sectionInner}>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginBottom: 32 }}>
-            {(Object.keys(TYPE_LABELS) as PortfolioType[]).map((t) => (
+            {(Object.keys(TYPE_LABELS) as PortfolioFilter[]).map((t) => (
               <button
                 key={t}
                 type="button"

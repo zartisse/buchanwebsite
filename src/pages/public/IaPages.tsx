@@ -1,9 +1,15 @@
-import { IA_PAGES } from '../../data/iaContent';
+import type { HubPageSlug } from '../../types';
+import { useHubPage } from '../../hooks/useHubPage';
 import { HubPage } from '../../components/public/HubPage';
+import { getDemoHubPage, mergeHubContent } from '../../data/hubContentDefaults';
 
-function page(key: keyof typeof IA_PAGES) {
+function page(slug: HubPageSlug) {
   return function IaPageRoute() {
-    return <HubPage data={IA_PAGES[key]} />;
+    const { page: hubPage, loading } = useHubPage(slug);
+    if (loading) return <div className="page-loading">Loading…</div>;
+    const demo = getDemoHubPage(slug);
+    const resolved = hubPage ?? demo;
+    return <HubPage page={{ ...resolved, content: mergeHubContent(resolved.content, slug) }} />;
   };
 }
 

@@ -28,9 +28,13 @@ export function usePosts(options?: { publishedOnly?: boolean; admin?: boolean })
       setPosts((data as Post[]) ?? []);
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Failed to load posts');
-      let data = DEMO_POSTS;
-      if (options?.publishedOnly) data = data.filter((p) => p.status === 'Published');
-      setPosts(data);
+      if (options?.admin) {
+        setPosts([]);
+      } else {
+        let data = DEMO_POSTS;
+        if (options?.publishedOnly) data = data.filter((p) => p.status === 'Published');
+        setPosts(data);
+      }
     } finally {
       setLoading(false);
     }
@@ -51,6 +55,7 @@ export function usePosts(options?: { publishedOnly?: boolean; admin?: boolean })
       image_url: post.image_url ?? '',
       meta_title: post.meta_title ?? '',
       meta_description: post.meta_description ?? '',
+      featured: post.featured ?? false,
     };
     if (post.id) {
       const { error: err } = await supabase.from('posts').update(payload).eq('id', post.id);

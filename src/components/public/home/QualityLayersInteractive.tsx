@@ -1,27 +1,36 @@
 import { useState } from 'react';
-import { QUALITY_LAYERS } from '../../../data/iaContent';
+import type { HomePageContent } from '../../../types';
 import { RevealOnScroll } from '../../ui/RevealOnScroll';
 import styles from './QualityLayersInteractive.module.css';
 
-const ELEVATION_IMAGE = '/assets/quality-layers-house.jpg';
+type QualityLayersInteractiveProps = {
+  section: HomePageContent['quality_layers'];
+};
 
-export function QualityLayersInteractive() {
-  const [activeId, setActiveId] = useState<string | null>(QUALITY_LAYERS[0]?.id ?? null);
-  const active = QUALITY_LAYERS.find((l) => l.id === activeId) ?? QUALITY_LAYERS[0];
+export function QualityLayersInteractive({ section }: QualityLayersInteractiveProps) {
+  const [activeId, setActiveId] = useState<string | null>(section.layers[0]?.id ?? null);
+  const active = section.layers.find((l) => l.id === activeId) ?? section.layers[0];
 
   return (
     <section className={styles.section}>
       <div className={styles.inner}>
         <RevealOnScroll>
-          <span className={styles.eyebrow}>Quality in Every Layer</span>
-          <h2 className={styles.title}>Built for how<br /><em>you live.</em></h2>
+          <span className={styles.eyebrow}>{section.eyebrow}</span>
+          <h2 className={styles.title}>
+            {section.title}
+            {section.title_emphasis && (
+              <>
+                <br /><em>{section.title_emphasis}</em>
+              </>
+            )}
+          </h2>
         </RevealOnScroll>
 
         <div className={styles.interactiveWrap}>
           <div className={styles.elevationPanel}>
-            <img src={ELEVATION_IMAGE} alt="" className={styles.elevationPhoto} />
+            <img src={section.elevation_image_url} alt="" className={styles.elevationPhoto} />
             <div className={styles.elevationGradient} aria-hidden />
-            {QUALITY_LAYERS.map((layer) => (
+            {section.layers.map((layer) => (
               <button
                 key={layer.id}
                 type="button"
@@ -45,7 +54,7 @@ export function QualityLayersInteractive() {
               </>
             )}
             <ul className={styles.layerList}>
-              {QUALITY_LAYERS.map((layer) => (
+              {section.layers.map((layer) => (
                 <li key={layer.id}>
                   <button
                     type="button"

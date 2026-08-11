@@ -1,9 +1,10 @@
+import { getDefaultHomeContent } from './homeContentDefaults';
+import { FOOTER_AWARD_BADGES } from './awards';
 import type {
   AboutPageContent,
   AwardsPageContent,
   ContactPageContent,
   FaqPageContent,
-  HomePageContent,
   NeighborhoodsPageContent,
   ProcessPageContent,
   ServiceDetailPageContent,
@@ -21,60 +22,7 @@ export const DEMO_SITE_PAGES: Record<SitePageSlug, SitePage> = {
     slug: 'home',
     meta_title: 'Build with Certainty | John Buchan Homes',
     meta_description: 'On your lot. To your standard. Custom homes on the Seattle Eastside since 1961.',
-    content: {
-      hero: {
-        eyebrow: 'Building since 1961 · Seattle Eastside',
-        title: 'Build with',
-        title_emphasis: 'Certainty.',
-        subtitle: 'Thoughtful planning, experienced guidance, and exceptional construction for custom homes and remodels.',
-        image_url: '/assets/ph-arch-1.png',
-        video_url: 'https://www.youtube.com/watch?v=PMeek4pvZOI',
-        marquee: 'Since 1961 · Bellevue · Clyde Hill · Medina · Redmond · Custom Homes · Renovations ·',
-        cta_primary_url: '/contact',
-        cta_primary_label: 'Start a Conversation',
-      },
-      legacy: {
-        title: '65 years.',
-        title_line2: 'One standard.',
-        title_emphasis: 'Yours.',
-        eyebrow: 'The Buchan Legacy',
-        paragraphs: [
-          "Since 1960, three generations of Buchan craftsmen have built on the Seattle Eastside — in Bellevue, Clyde Hill, Medina, and Redmond. We don't build to a spec sheet. We build to a standard, and that standard is yours.",
-          'Every joint, every grain, every quiet wall is a decision made by hand. The result is a home that feels inevitable — as if it could have stood nowhere else.',
-        ],
-      },
-      services: {
-        eyebrow: 'What We Do',
-        title: 'Three ways to build',
-        title_emphasis: 'something lasting.',
-        items: [
-          { title: 'Custom Homes', description: 'Ground-up on your lot.', image_url: '/assets/ph-arch-2.png', link: '/custom-homes' },
-          { title: 'Renovations', description: 'Major whole-home transformations.', image_url: '/assets/ph-arch-3.png', link: '/renovations' },
-          { title: 'Preconstruction', description: 'Know before you build.', image_url: '/assets/ph-arch-4.png', link: '/preconstruction' },
-        ],
-      },
-      recent_work: {
-        eyebrow: 'Recent Work',
-        title: "Homes we're proud of.",
-      },
-      concierge: {
-        eyebrow: 'Client Testimonials',
-        quote: "They stepped in when our project stalled — and finished it with a level of care we didn't think was still possible.",
-        cite: 'The Harmon Family · Clyde Hill',
-        image_url: '/assets/ph-arch-1.png',
-      },
-      quality_gallery: [
-        { image_url: '/assets/ph-arch-1.png', caption: 'Hand-chosen framing' },
-        { image_url: '/assets/ph-arch-2.png', caption: 'Built for the rain' },
-        { image_url: '/assets/ph-arch-3.png', caption: 'Quieter by design' },
-        { image_url: '/assets/ph-arch-4.png', caption: 'The extra mile' },
-      ],
-      testimonials_strip: [
-        { quote: 'The preconstruction phase saved us from at least three expensive surprises before we broke ground.', cite: 'James & Elena Park · Medina' },
-        { quote: 'Our whole-home renovation felt as organized as a new build — clear milestones, clear communication.', cite: 'Sarah Lindqvist · Hunts Point' },
-        { quote: 'They stepped in mid-project and earned our trust within the first month on site.', cite: 'The Harmon Family · Clyde Hill' },
-      ],
-    } satisfies HomePageContent,
+    content: getDefaultHomeContent(),
   },
   about: {
     id: 'demo-about',
@@ -392,6 +340,7 @@ export const DEMO_SITE_PAGES: Record<SitePageSlug, SitePage> = {
         { title: 'Collaborative project leadership', body: 'We align independent architects, interior designers, and specialty consultants around your vision — with Buchan leading construction from the early stages.' },
         { title: 'Client concierge', body: 'Dedicated single point of contact throughout your project and beyond.' },
       ],
+      badges: FOOTER_AWARD_BADGES.map((b) => ({ image_url: b.image, alt: b.alt, href: b.href })),
       cta_title: 'Experience the Buchan standard.',
     } satisfies AwardsPageContent,
   },

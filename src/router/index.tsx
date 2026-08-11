@@ -31,6 +31,8 @@ import { AdminProperties } from '../pages/admin/Properties';
 import { AdminSubmissions } from '../pages/admin/Submissions';
 import { AdminPages } from '../pages/admin/Pages';
 import { AdminPageEdit } from '../pages/admin/PageEdit';
+import { AdminHubPages } from '../pages/admin/HubPages';
+import { AdminHubPageEdit } from '../pages/admin/HubPageEdit';
 
 export function AppRouter() {
   return (
@@ -90,6 +92,8 @@ export function AppRouter() {
           <Route path="properties" element={<AdminProperties />} />
           <Route path="pages" element={<AdminPages />} />
           <Route path="pages/:slug" element={<AdminPageEdit />} />
+          <Route path="hub-pages" element={<AdminHubPages />} />
+          <Route path="hub-pages/:slug" element={<AdminHubPageEdit />} />
           <Route path="submissions" element={<AdminSubmissions />} />
         </Route>
 

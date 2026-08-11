@@ -6,6 +6,7 @@ import styles from './AdminLayout.module.css';
 const NAV_ITEMS = [
   { path: '/admin', label: 'Dashboard', icon: '■' },
   { path: '/admin/pages', label: 'Pages', icon: '◻' },
+  { path: '/admin/hub-pages', label: 'Hub Pages', icon: '◎' },
   { path: '/admin/posts', label: 'Blog Posts', icon: '¶' },
   { path: '/admin/properties', label: 'Properties', icon: '□' },
   { path: '/admin/submissions', label: 'Submissions', icon: '✉' },

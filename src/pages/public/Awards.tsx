@@ -11,6 +11,9 @@ import footerStyles from '../../components/layout/Footer.module.css';
 export function Awards() {
   const { page } = useSitePage('awards');
   const content = page?.content ?? getDemoPageContent('awards');
+  const badges = content.badges?.length
+    ? content.badges
+    : FOOTER_AWARD_BADGES.map((b) => ({ image_url: b.image, alt: b.alt, href: b.href }));
 
   return (
     <main>
@@ -35,16 +38,20 @@ export function Awards() {
             <h2 className={ps.sectionTitle} style={{ marginTop: 18, marginBottom: 32 }}>Best of Houzz & community recognition.</h2>
           </RevealOnScroll>
           <div className={footerStyles.awardLogos}>
-            {FOOTER_AWARD_BADGES.map((badge) => (
+            {badges.map((badge) => (
               <a
                 key={badge.alt}
                 href={badge.href ?? HOUZZ_PROFILE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-               
                 className={footerStyles.awardLogoLink}
+                title={badge.alt}
               >
-                <img src={badge.image} alt={badge.alt} className={footerStyles.awardLogo} />
+                {badge.image_url ? (
+                  <img src={badge.image_url} alt={badge.alt} className={footerStyles.awardLogo} />
+                ) : (
+                  <span className={footerStyles.awardTextBadge}>{badge.alt}</span>
+                )}
               </a>
             ))}
           </div>

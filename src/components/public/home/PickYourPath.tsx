@@ -1,15 +1,19 @@
 import { Link } from 'react-router-dom';
 import { EstimatorLink } from '../../ui/EstimatorLink';
-import { PICK_YOUR_PATH_INTRO, PICK_YOUR_PATH_TILES } from '../../../data/iaContent';
+import type { HomePageContent } from '../../../types';
 import styles from './PickYourPath.module.css';
 
-export function PickYourPath() {
+type PickYourPathProps = {
+  section: HomePageContent['pick_your_path'];
+};
+
+export function PickYourPath({ section }: PickYourPathProps) {
   return (
     <section className={styles.section}>
       <div className={styles.inner}>
-        <p className={styles.intro}>{PICK_YOUR_PATH_INTRO}</p>
+        <p className={styles.intro}>{section.intro}</p>
         <div className={styles.grid}>
-          {PICK_YOUR_PATH_TILES.map((tile) => {
+          {section.tiles.map((tile) => {
             const className = `${styles.tile} cardHover`;
             if (tile.external) {
               return (

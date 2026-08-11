@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
-import type { HubPageData } from '../../data/iaContent';
-import { SERVICE_AREAS } from '../../data/navigation';
+import type { HubPage } from '../../types';
 import { EstimatorLink } from '../ui/EstimatorLink';
 import { PageMeta } from '../ui/PageMeta';
 import { RevealOnScroll } from '../ui/RevealOnScroll';
@@ -10,13 +9,14 @@ import { resolveImageUrl } from '../../lib/placeholders';
 import ps from '../../styles/pages.module.css';
 import hs from './HubPage.module.css';
 
-export function HubPage({ data }: { data: HubPageData }) {
+export function HubPage({ page }: { page: HubPage }) {
+  const data = page.content;
   const ctaTo = data.ctaLink ?? '/contact';
   const isExternal = ctaTo.startsWith('tel:') || ctaTo.startsWith('http');
 
   return (
     <main>
-      <PageMeta title={data.metaTitle} description={data.metaDescription} />
+      <PageMeta title={page.meta_title} description={page.meta_description} />
       <section className={ps.hero}>
         <div className={ps.heroInner}>
           <span className={ps.eyebrow}>{data.hero.eyebrow}</span>
@@ -24,7 +24,7 @@ export function HubPage({ data }: { data: HubPageData }) {
           {data.hero.subtitle && <p className={ps.bodyText} style={{ marginTop: 24, maxWidth: 640 }}>{data.hero.subtitle}</p>}
           {data.hero.image_url && (
             <div className={hs.heroMedia}>
-              <img src={resolveImageUrl(data.hero.image_url, data.slug)} alt="" />
+              <img src={resolveImageUrl(data.hero.image_url, page.slug)} alt="" />
             </div>
           )}
         </div>
@@ -42,9 +42,9 @@ export function HubPage({ data }: { data: HubPageData }) {
         <div className={ps.sectionInner}>
           <div style={{ display: 'grid', gap: 48 }}>
             {data.sections.map((section, i) => (
-              <RevealOnScroll key={section.title}>
+              <RevealOnScroll key={section.title + i}>
                 <div
-                  id={data.slug === 'renovations' && i === 0 ? 'what-we-renovate' : undefined}
+                  id={page.slug === 'renovations' && i === 0 ? 'what-we-renovate' : undefined}
                   className={`${hs.sectionRow} ${section.image_url ? hs.sectionRowHasImage : ''}`}
                 >
                   <div>
@@ -70,15 +70,14 @@ export function HubPage({ data }: { data: HubPageData }) {
         </div>
       </section>
 
-      {data.slug === 'areas-we-serve' && (
+      {page.slug === 'areas-we-serve' && data.service_areas && data.service_areas.length > 0 && (
         <section className={ps.sectionAlt}>
           <div className={ps.sectionInner}>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
-              {SERVICE_AREAS.map((area) => (
+              {data.service_areas.map((area) => (
                 <span key={area} style={{ fontSize: 11, letterSpacing: 'var(--tr-wide)', textTransform: 'uppercase', padding: '10px 16px', border: '1px solid var(--color-hairline-light-3)', color: 'var(--color-text-on-light)' }}>{area}</span>
               ))}
             </div>
-            <p className={ps.bodyText} style={{ marginTop: 24 }}>Interactive service-area map and jurisdiction-specific guides coming soon.</p>
           </div>
         </section>
       )}

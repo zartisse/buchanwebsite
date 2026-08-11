@@ -1,39 +1,84 @@
 import { Link } from 'react-router-dom';
-import { FEATURED_WORK_ITEMS } from '../../../data/iaContent';
+import { useProperties } from '../../../hooks/useProperties';
 import { resolveImageUrl } from '../../../lib/placeholders';
+import type { HomePageContent, Property } from '../../../types';
 import { RevealOnScroll } from '../../ui/RevealOnScroll';
 import styles from './FeaturedWorkGrid.module.css';
 
-export function FeaturedWorkGrid() {
-  const featured = FEATURED_WORK_ITEMS.find((item) => item.featured) ?? FEATURED_WORK_ITEMS[0];
-  const gridItems = FEATURED_WORK_ITEMS.filter((item) => item !== featured).slice(0, 6);
+function statusLabel(status: Property['status']): string | undefined {
+  if (status === 'Available') return 'Available Now';
+  if (status === 'Coming Soon') return 'Coming Soon';
+  return undefined;
+}
+
+type FeaturedWorkGridProps = {
+  labels: HomePageContent['featured_work'];
+};
+
+export function FeaturedWorkGrid({ labels }: FeaturedWorkGridProps) {
+  const { properties, loading } = useProperties({ publicOnly: true });
+  const featured = properties
+    .filter((p) => p.featured)
+    .sort((a, b) => (a.featured_order ?? 0) - (b.featured_order ?? 0));
+
+  if (loading) {
+    return (
+      <section id="featured-work" className={styles.section}>
+        <div className={styles.inner}>
+          <p>Loading featured work…</p>
+        </div>
+      </section>
+    );
+  }
+
+  if (featured.length === 0) {
+    return (
+      <section id="featured-work" className={styles.section}>
+        <div className={styles.inner}>
+          <RevealOnScroll>
+            <span className={styles.eyebrow}>{labels.eyebrow}</span>
+            <h2 className={styles.title}>{labels.title}</h2>
+          </RevealOnScroll>
+          <p style={{ marginTop: 24, color: 'var(--color-text-muted-light)' }}>
+            Mark properties as featured in the admin to display them here.
+          </p>
+          <Link to="/portfolio" className={styles.ctaLink}>
+            Explore Our Portfolio <span>→</span>
+          </Link>
+        </div>
+      </section>
+    );
+  }
+
+  const hero = featured[0];
+  const gridItems = featured.slice(1, 7);
 
   return (
     <section id="featured-work" className={styles.section}>
       <div className={styles.inner}>
         <RevealOnScroll>
-          <span className={styles.eyebrow}>Featured Work</span>
-          <h2 className={styles.title}>Homes we&apos;re proud of.</h2>
+          <span className={styles.eyebrow}>{labels.eyebrow}</span>
+          <h2 className={styles.title}>{labels.title}</h2>
         </RevealOnScroll>
         <div className={styles.grid}>
           <RevealOnScroll>
-            <Link to={featured.link ?? '/portfolio'} className={`${styles.featuredCard} imageHover`}>
+            <Link to={`/portfolio/${hero.slug}`} className={`${styles.featuredCard} imageHover`}>
               <div className={styles.featuredImgWrap}>
-                <img src={resolveImageUrl(featured.image_url, featured.title)} alt={featured.title} />
-                {featured.label && <span className={styles.label}>{featured.label}</span>}
+                <img src={resolveImageUrl(hero.image_url, hero.slug)} alt={hero.name} />
+                {statusLabel(hero.status) && <span className={styles.label}>{statusLabel(hero.status)}</span>}
               </div>
-              <span className={styles.cardTitle}>{featured.title}</span>
+              <span className={styles.cardTitle}>{hero.name}</span>
             </Link>
           </RevealOnScroll>
           <div className={styles.smallGrid}>
             {gridItems.map((item, i) => (
-              <RevealOnScroll key={item.title + item.image_url} variant="scale" index={i}>
-                <Link to={item.link ?? '/portfolio'} className={`${styles.smallCard} imageHover`}>
+              <RevealOnScroll key={item.id} variant="scale" index={i}>
+                <Link to={`/portfolio/${item.slug}`} className={`${styles.smallCard} imageHover`}>
                   <div className={styles.smallImgWrap}>
-                    <img src={resolveImageUrl(item.image_url, item.title)} alt={item.title} />
-                    {item.label && <span className={styles.labelSmall}>{item.label}</span>}
+                    <img src={resolveImageUrl(item.image_url, item.slug)} alt={item.name} />
+                    {statusLabel(item.status) && <span className={styles.labelSmall}>{statusLabel(item.status)}</span>}
                   </div>
-                  <span className={styles.smallTitle}>{item.title}</span>
+                  <span className={styles.smallTitle}>{item.name}</span>
                 </Link>
               </RevealOnScroll>
             ))}

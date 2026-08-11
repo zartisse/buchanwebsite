@@ -28,9 +28,13 @@ export function useProperties(options?: { publicOnly?: boolean; admin?: boolean 
       setProperties((data as Property[]) ?? []);
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Failed to load properties');
-      let data = DEMO_PROPERTIES;
-      if (options?.publicOnly) data = data.filter((p) => p.status !== 'Draft');
-      setProperties(data);
+      if (options?.admin) {
+        setProperties([]);
+      } else {
+        let data = DEMO_PROPERTIES;
+        if (options?.publicOnly) data = data.filter((p) => p.status !== 'Draft');
+        setProperties(data);
+      }
     } finally {
       setLoading(false);
     }
@@ -58,6 +62,7 @@ export function useProperties(options?: { publicOnly?: boolean; admin?: boolean 
       meta_description: property.meta_description ?? '',
       featured: property.featured ?? false,
       featured_order: property.featured_order ?? 0,
+      portfolio_type: property.portfolio_type ?? 'custom-homes',
     };
     if (property.id) {
       const { error: err } = await supabase.from('properties').update(payload).eq('id', property.id);

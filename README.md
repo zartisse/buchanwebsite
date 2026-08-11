@@ -4,75 +4,121 @@ React + Vite + TypeScript marketing site with a Supabase-backed CMS.
 
 ## Structure
 
-- **Front office** — public site at `/` (14 pages)
+- **Front office** — public site at `/`
 - **Back office** — authenticated admin at `/admin/*`
 
-## Quick Start
+## Quick Start (local)
 
 ```bash
 cd "dynamic website"
 npm install
 cp .env.example .env.local
+# Add your Supabase URL and anon key to .env.local
 npm run dev
 ```
 
-Open [http://localhost:5173](http://localhost:5173) for the public site.
+Open [http://localhost:5173](http://localhost:5173). Without Supabase credentials, the app runs in **demo mode** with seeded sample data.
 
-Without Supabase credentials, the app runs in **demo mode** with seeded sample data.
+## Supabase Setup (required for admin CMS)
 
-## Supabase Setup
+### 1. Create project & env vars
 
 1. Create a project at [supabase.com](https://supabase.com)
-2. Copy your project URL and anon key into `.env.local`:
+2. Copy project URL and anon key into `.env.local`:
 
 ```
 VITE_SUPABASE_URL=https://your-project.supabase.co
 VITE_SUPABASE_ANON_KEY=your-anon-key
 ```
 
-3. Run the schema migrations in the Supabase SQL editor:
-   - [`supabase/migrations/001_schema.sql`](supabase/migrations/001_schema.sql)
-   - [`supabase/migrations/002_site_pages.sql`](supabase/migrations/002_site_pages.sql)
-4. Optionally seed sample content:
-   - [`supabase/seed.sql`](supabase/seed.sql)
-   - [`supabase/seed_site_pages.sql`](supabase/seed_site_pages.sql)
-   - [`supabase/seed_new_pages.sql`](supabase/seed_new_pages.sql) (FAQ, Warranty, Awards)
-5. Create an admin user (SQL — if the Auth dashboard is unavailable):
-   - Open [`supabase/seed_admin.sql`](supabase/seed_admin.sql), set `admin_email` and `admin_password`, then run it in the SQL editor
-   - Or use **Authentication → Users → Add user** in the Supabase dashboard
-6. Sign in at `/admin/login`
+### 2. Run migrations (SQL Editor)
 
-## Routes
+Run in order in **Supabase → SQL Editor**:
 
-| Route | Description |
-|-------|-------------|
-| `/` | Home |
-| `/about`, `/services`, `/build`, `/design`, `/remodel` | Company & services |
-| `/process`, `/neighborhoods`, `/testimonials` | Process & social proof |
-| `/portfolio`, `/portfolio/:slug` | Portfolio (dynamic) |
-| `/blog`, `/blog/:slug` | Blog (dynamic) |
-| `/contact` | Contact form |
-| `/faq` | Frequently asked questions |
-| `/warranty` | Warranty & aftercare |
-| `/awards` | Awards, press & credentials |
-| `/admin` | Dashboard |
-| `/admin/posts` | Blog CRUD |
-| `/admin/properties` | Portfolio CRUD |
-| `/admin/pages` | Marketing pages CRUD |
-| `/admin/pages/:slug` | Edit individual page |
-| `/admin/submissions` | Inquiry inbox |
+| File | Purpose |
+|------|---------|
+| [`supabase/migrations/001_schema.sql`](supabase/migrations/001_schema.sql) | Core tables, RLS, media bucket |
+| [`supabase/migrations/002_site_pages.sql`](supabase/migrations/002_site_pages.sql) | Marketing pages CMS |
+| [`supabase/apply_cms_migrations.sql`](supabase/apply_cms_migrations.sql) | Hub pages, Coming Soon, featured posts, portfolio type (003–006) |
+
+If you already applied 001–002, run only `apply_cms_migrations.sql`.
+
+### 3. Seed content (optional)
+
+| File | Purpose |
+|------|---------|
+| [`supabase/seed.sql`](supabase/seed.sql) | Sample properties & blog posts |
+| [`supabase/seed_site_pages.sql`](supabase/seed_site_pages.sql) | Marketing page content |
+| [`supabase/seed_hub_pages.sql`](supabase/seed_hub_pages.sql) | All 17 hub/IA pages |
+| [`supabase/seed_new_pages.sql`](supabase/seed_new_pages.sql) | FAQ, Warranty, Awards |
+
+Regenerate hub seed after IA changes: `npx tsx scripts/generate-hub-seed.ts`
+
+### 4. Create admin user
+
+- Open [`supabase/seed_admin.sql`](supabase/seed_admin.sql), set `admin_email` and `admin_password`, run in SQL Editor  
+- Or use **Authentication → Users → Add user** in the Supabase dashboard  
+- Ensure the user's `profiles.role` is `admin`
+
+### 5. Verify
+
+```bash
+npx tsx scripts/verify-supabase.ts
+```
+
+Sign in at `/admin/login`.
+
+## Deployment (Vercel or Netlify)
+
+Both platforms work with this Vite SPA.
+
+### Vercel
+
+1. Import [github.com/zartisse/buchanwebsite](https://github.com/zartisse/buchanwebsite)
+2. Framework preset: **Vite**
+3. Build command: `npm run build`
+4. Output directory: `dist`
+5. Environment variables (Production + Preview):
+   - `VITE_SUPABASE_URL`
+   - `VITE_SUPABASE_ANON_KEY`
+6. Deploy — [`vercel.json`](vercel.json) handles client-side routing
+
+### Netlify
+
+1. Connect the GitHub repo
+2. Build command: `npm run build`
+3. Publish directory: `dist`
+4. Same env vars as above
+5. [`public/_redirects`](public/_redirects) handles legacy URL redirects + SPA fallback
+
+After deploy, confirm `/admin/login` loads and saves persist (check Supabase tables).
+
+## Admin — what you can edit
+
+| Area | Path |
+|------|------|
+| Homepage (all sections) | `/admin/pages/home` |
+| Hub pages (17 IA routes) | `/admin/hub-pages` |
+| Properties + Featured Work | `/admin/properties` |
+| Blog posts | `/admin/posts` |
+| About, Services, Process, Awards, etc. | `/admin/pages` |
+| Contact submissions | `/admin/submissions` |
+
+**Featured Work on homepage** comes from Properties marked **Featured** (with featured order), not from the home page editor.
 
 ## Scripts
 
 ```bash
-npm run dev      # Development server
-npm run build    # Production build
-npm run preview  # Preview production build
+npm run dev                              # Development server
+npm run build                            # Production build
+npm run preview                          # Preview production build
+npx tsx scripts/verify-supabase.ts       # Check DB tables & storage
+npx tsx scripts/generate-hub-seed.ts     # Regenerate hub_pages seed SQL
 ```
 
 ## Tech Stack
 
-- Vite + React 18 + TypeScript
+- Vite + React 19 + TypeScript
 - React Router v7
 - Supabase (Auth, PostgreSQL, Storage)
 - CSS Modules + design tokens
