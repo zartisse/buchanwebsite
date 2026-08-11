@@ -10,6 +10,8 @@
     "cms:bootstrap": "tsx scripts/bootstrap-cms.ts",
     "cms:verify": "tsx scripts/verify-supabase.ts",
     "cms:smoke": "tsx scripts/smoke-test-cms.ts",
+    "cms:check-live": "tsx scripts/check-live.ts",
+    "deploy:gh-pages": "bash scripts/deploy-gh-pages.sh",
     "lint": "oxlint",
     "preview": "vite preview"
   },

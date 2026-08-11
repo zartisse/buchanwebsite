@@ -47,6 +47,11 @@ export function AdminLogin() {
             Supabase is not configured. Copy .env.example to .env.local and add your credentials.
           </p>
         )}
+        {import.meta.env.DEV && isConfigured && (
+          <p className={styles.pageSub} style={{ marginBottom: 16, opacity: 0.7 }}>
+            Local dev login: admin@buchan.com — password in supabase/seed_admin.sql
+          </p>
+        )}
         {error && <p className={styles.error}>{error}</p>}
         <form onSubmit={handleSubmit}>
           <div className={styles.field}>
