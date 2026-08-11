@@ -20,9 +20,16 @@ export function AdminLogin() {
     setLoading(true);
     try {
       await signIn(email, password);
+      // #region agent log
+      fetch('http://127.0.0.1:7673/ingest/96b34018-b8d2-464d-a26d-868e5a862d9d',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'787a69'},body:JSON.stringify({sessionId:'787a69',location:'Login.tsx:handleSubmit',message:'login success',data:{configured:isConfigured},timestamp:Date.now(),runId:'browser',hypothesisId:'H12'})}).catch(()=>{});
+      // #endregion
       navigate(from, { replace: true });
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Sign in failed');
+      const msg = err instanceof Error ? err.message : 'Sign in failed';
+      // #region agent log
+      fetch('http://127.0.0.1:7673/ingest/96b34018-b8d2-464d-a26d-868e5a862d9d',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'787a69'},body:JSON.stringify({sessionId:'787a69',location:'Login.tsx:handleSubmit',message:'login failed',data:{error:msg,configured:isConfigured},timestamp:Date.now(),runId:'browser',hypothesisId:'H12'})}).catch(()=>{});
+      // #endregion
+      setError(msg);
     } finally {
       setLoading(false);
     }

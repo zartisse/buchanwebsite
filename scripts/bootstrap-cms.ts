@@ -73,6 +73,30 @@ async function applyMigrationsIfPossible() {
   }
 }
 
+async function ensureMediaBucket(token: string) {
+  const check = await fetch(`${url}/storage/v1/bucket/media`, {
+    headers: { apikey: anonKey, Authorization: `Bearer ${token}` },
+  });
+  if (check.ok) {
+    debugLog('bootstrap-cms.ts:mediaBucket', 'exists', {}, 'H11');
+    console.log('✓ Media storage bucket ready');
+    return true;
+  }
+  const create = await fetch(`${url}/storage/v1/bucket`, {
+    method: 'POST',
+    headers: {
+      apikey: anonKey,
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ name: 'media', public: true }),
+  });
+  const ok = create.ok || create.status === 409;
+  debugLog('bootstrap-cms.ts:mediaBucket', 'create', { ok, status: create.status }, 'H11');
+  console.log(ok ? '✓ Media storage bucket ready' : `⚠ Could not create media bucket (${create.status})`);
+  return ok;
+}
+
 async function signIn(): Promise<string | null> {
   const res = await fetch(`${url}/auth/v1/token?grant_type=password`, {
     method: 'POST',
@@ -156,8 +180,10 @@ async function main() {
   await applyMigrationsIfPossible();
 
   const token = await signIn();
-  if (token) await seedHubPages(token);
-  else console.log('→ Skipping hub page seed (create admin via supabase/seed_admin.sql first)');
+  if (token) {
+    await ensureMediaBucket(token);
+    await seedHubPages(token);
+  } else console.log('→ Skipping hub page seed (create admin via supabase/seed_admin.sql first)');
 
   await verify();
   console.log('\nDone. Sign in at /admin/login');

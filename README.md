@@ -80,7 +80,20 @@ npx tsx scripts/verify-supabase.ts
 
 Sign in at `/admin/login`.
 
-## Deployment (Vercel or Netlify)
+## Deployment
+
+### GitHub Pages (auto-deploy from `main`)
+
+1. In GitHub repo **Settings → Secrets and variables → Actions**, add:
+   - `VITE_SUPABASE_URL`
+   - `VITE_SUPABASE_ANON_KEY`
+2. **Settings → Pages → Build and deployment → Source:** GitHub Actions
+3. Push to `main` — workflow [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) builds and deploys to  
+   `https://zartisse.github.io/buchanwebsite/`
+
+Local dev uses `/` base path (`npm run dev`). Production build uses `/buchanwebsite/`.
+
+### Vercel or Netlify
 
 Both platforms work with this Vite SPA.
 
