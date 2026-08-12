@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
 import { EstimatorLink } from '../../components/ui/EstimatorLink';
+import { PageCta } from '../../components/ui/PageCta';
 import { useSitePage } from '../../hooks/useSitePage';
 import { PageMeta } from '../../components/ui/PageMeta';
 import { RevealOnScroll } from '../../components/ui/RevealOnScroll';
 import { HeroTitle } from '../../components/ui/HeroTitle';
 import { getDemoPageContent } from '../../data/sitePagesDemo';
+import { resolveImageUrl } from '../../lib/placeholders';
 import type { ServiceDetailPageContent, SitePageSlug } from '../../types';
 import ps from '../../styles/pages.module.css';
 
@@ -29,7 +31,7 @@ function ServicePageView({ slug }: { slug: ServiceSlug }) {
       </section>
       <section className={ps.sectionAlt}>
         <RevealOnScroll>
-          <img src={content.image_url} alt="" style={{ width: '100%', maxWidth: 'var(--max-width)', margin: '0 auto', display: 'block', height: 'clamp(300px, 45vw, 520px)', objectFit: 'cover' }} />
+          <img src={resolveImageUrl(content.image_url, slug)} alt="" style={{ width: '100%', maxWidth: 'var(--max-width)', margin: '0 auto', display: 'block', height: 'clamp(300px, 45vw, 520px)', objectFit: 'cover' }} />
         </RevealOnScroll>
       </section>
       <section className={ps.section}>
@@ -37,7 +39,7 @@ function ServicePageView({ slug }: { slug: ServiceSlug }) {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 32 }}>
             {content.steps.map((s) => (
               <RevealOnScroll key={s.n}>
-                <span style={{ fontFamily: 'var(--font-serif)', fontSize: 48, color: 'var(--color-accent-dark)', opacity: 0.5 }}>{s.n}</span>
+                <span className={ps.stepNum}>{s.n}</span>
                 <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: 24, margin: '8px 0' }}>{s.title}</h3>
                 <p className={ps.bodyText}>{s.body}</p>
               </RevealOnScroll>
@@ -45,10 +47,7 @@ function ServicePageView({ slug }: { slug: ServiceSlug }) {
           </div>
         </div>
       </section>
-      <section className={ps.ctaSection}>
-        <h2 className={ps.sectionTitle}>{content.cta_title}</h2>
-        <Link to="/contact" className={ps.btnPrimary}>Contact Us</Link>
-      </section>
+      <PageCta title={content.cta_title} backgroundImage={resolveImageUrl(content.cta_background_image_url ?? '/assets/ph-arch-2.png', `${slug}-cta`)} />
     </main>
   );
 }

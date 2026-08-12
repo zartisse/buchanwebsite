@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useSitePage } from '../../hooks/useSitePage';
 import { PageMeta } from '../../components/ui/PageMeta';
 import { RevealOnScroll } from '../../components/ui/RevealOnScroll';
 import { HeroTitle } from '../../components/ui/HeroTitle';
 import { EstimatorLink } from '../../components/ui/EstimatorLink';
+import { PageCta } from '../../components/ui/PageCta';
 import { getDemoPageContent } from '../../data/sitePagesDemo';
+import { resolveImageUrl } from '../../lib/placeholders';
 import faqStyles from './Faq.module.css';
 import ps from '../../styles/pages.module.css';
 
@@ -57,7 +58,7 @@ export function Faq() {
                 </RevealOnScroll>
                 {catId === 'custom-homes' && (
                   <RevealOnScroll>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 20, marginBottom: 24, padding: '20px 24px', background: 'var(--color-bg-cream)', border: '1px solid var(--color-hairline-light-2)' }}>
+                    <div className={ps.calloutBand}>
                       <p className={ps.bodyText} style={{ margin: 0, flex: 1 }}>Wondering about cost? Start with a personalized range.</p>
                       <EstimatorLink className={ps.btnPrimary}>Estimate My Project →</EstimatorLink>
                     </div>
@@ -93,13 +94,9 @@ export function Faq() {
         </div>
       </section>
 
-      <section className={ps.ctaSection}>
-        <h2 className={ps.sectionTitle}>{content.cta_title}</h2>
-        <div className={ps.ctaButtons}>
-          <Link to="/contact" className={ps.btnPrimary}>Contact Us</Link>
-          <EstimatorLink className={ps.btnLink}>Estimate My Project →</EstimatorLink>
-        </div>
-      </section>
+      <PageCta title={content.cta_title} backgroundImage={resolveImageUrl(content.cta_background_image_url ?? '/assets/ph-arch-3.png', 'faq-cta')}>
+        <EstimatorLink className="btnGhostLight">Estimate My Project</EstimatorLink>
+      </PageCta>
     </main>
   );
 }

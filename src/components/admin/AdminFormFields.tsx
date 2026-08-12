@@ -22,6 +22,25 @@ export function ImageField({
   );
 }
 
+export function CtaBackgroundField({
+  value,
+  onChange,
+  folder,
+}: {
+  value?: string;
+  onChange: (url: string) => void;
+  folder: string;
+}) {
+  return (
+    <ImageField
+      label="Closing CTA background photo"
+      value={value ?? ''}
+      onChange={onChange}
+      folder={folder}
+    />
+  );
+}
+
 export function HeroFields({
   hero,
   onChange,

@@ -3,7 +3,9 @@ import { Link, useParams } from 'react-router-dom';
 import { useProperty } from '../../hooks/useProperties';
 import { ImageLightbox } from '../../components/ui/ImageLightbox';
 import { PageMeta } from '../../components/ui/PageMeta';
+import { PageCta } from '../../components/ui/PageCta';
 import { RevealOnScroll } from '../../components/ui/RevealOnScroll';
+import { resolveImageUrl } from '../../lib/placeholders';
 import ps from '../../styles/pages.module.css';
 
 function buildImageList(heroUrl: string, galleryUrls: string[]) {
@@ -26,16 +28,13 @@ export function PortfolioDetail() {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   const heroUrl = property?.image_url || '/assets/ph-arch-1.png';
-  const fallbackGallery = [
-    heroUrl,
-    '/assets/ph-arch-2.png',
-    '/assets/ph-arch-3.png',
-  ];
+  const fallbackGallery = [heroUrl, '/assets/ph-arch-2.png', '/assets/ph-arch-3.png'];
   const galleryUrls = property?.gallery_urls?.length ? property.gallery_urls : fallbackGallery;
   const allImages = useMemo(
-    () => (property ? buildImageList(heroUrl, galleryUrls) : []),
-    [property, heroUrl, galleryUrls],
+    () => (property ? buildImageList(heroUrl, galleryUrls).map((url, i) => resolveImageUrl(url, `${slug}-${i}`)) : []),
+    [property, heroUrl, galleryUrls, slug],
   );
+  const resolvedHero = allImages[0] ?? resolveImageUrl(heroUrl, slug);
 
   if (loading) return <div className="page-loading">Loading…</div>;
   if (!property) return <div className="page-error">{error || 'Property not found.'}</div>;
@@ -45,43 +44,47 @@ export function PortfolioDetail() {
     if (index >= 0) setLightboxIndex(index);
   };
 
+  const stats = [
+    { label: 'Beds', value: property.beds },
+    { label: 'Baths', value: property.baths },
+    { label: 'Sq Ft', value: property.sqft },
+    { label: 'Lot', value: property.lot ? `${property.lot} ac` : '' },
+    { label: 'Year', value: property.year },
+  ].filter((s) => s.value);
+
   return (
     <main>
       <PageMeta
         title={property.meta_title || property.name}
         description={property.meta_description || property.description || `${property.name} — custom home in ${property.city}.`}
       />
-      <section style={{ position: 'relative', height: 'clamp(400px, 60vh, 700px)', overflow: 'hidden' }}>
+      <section className={ps.detailHero}>
         <button
           type="button"
           className={ps.heroClickable}
-          onClick={() => openLightbox(heroUrl)}
+          onClick={() => openLightbox(resolvedHero)}
           aria-label="View hero image fullscreen"
           style={{ width: '100%', height: '100%', padding: 0, border: 'none', background: 'none', display: 'block' }}
         >
-          <img src={heroUrl} alt={property.name} className={ps.imageCover} />
+          <img src={resolvedHero} alt={property.name} className={ps.imageCover} />
         </button>
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, transparent 40%, rgba(13,21,18,0.85) 100%)', pointerEvents: 'none' }} />
-        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '48px 8vw', pointerEvents: 'none' }}>
-          <span style={{ fontSize: 11, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--color-accent-on-light)' }}>{property.city}</span>
-          <h1 style={{ fontFamily: 'var(--font-serif)', fontWeight: 300, fontSize: 'clamp(40px, 6vw, 72px)', margin: '12px 0 0' }}>{property.name}</h1>
+        <div className={ps.detailHeroOverlay} aria-hidden />
+        <div className={ps.detailHeroContent}>
+          <span className={ps.eyebrow}>{property.city}</span>
+          <h1 className={ps.detailHeroTitle}>{property.name}</h1>
         </div>
       </section>
 
-      <section style={{ display: 'flex', flexWrap: 'wrap', gap: 32, justifyContent: 'center', padding: '32px 8vw', borderBottom: '1px solid var(--color-hairline-light)', background: 'var(--color-bg-cream)' }}>
-        {[
-          { label: 'Beds', value: property.beds },
-          { label: 'Baths', value: property.baths },
-          { label: 'Sq Ft', value: property.sqft },
-          { label: 'Lot', value: property.lot ? `${property.lot} ac` : '' },
-          { label: 'Year', value: property.year },
-        ].filter((s) => s.value).map((s) => (
-          <div key={s.label} style={{ textAlign: 'center' }}>
-            <div style={{ fontFamily: 'var(--font-serif)', fontSize: 32 }}>{s.value}</div>
-            <div style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--color-accent)', marginTop: 4 }}>{s.label}</div>
-          </div>
-        ))}
-      </section>
+      {stats.length > 0 && (
+        <section className={ps.statBar}>
+          {stats.map((s) => (
+            <div key={s.label} className={ps.statItem}>
+              <div className={ps.statValue}>{s.value}</div>
+              <div className={ps.statLabel}>{s.label}</div>
+            </div>
+          ))}
+        </section>
+      )}
 
       <section className={ps.section}>
         <RevealOnScroll>
@@ -107,13 +110,14 @@ export function PortfolioDetail() {
         </div>
       </section>
 
-      <section className={ps.ctaSection}>
-        <h2 className={ps.sectionTitle}>Interested in this home?</h2>
-        <div className={ps.ctaButtons}>
-          <Link to="/contact" className={ps.btnPrimary}>Contact Us</Link>
-          <Link to="/portfolio" className={ps.btnLink}>← All Homes</Link>
-        </div>
-      </section>
+      <PageCta
+        title="Interested in this home?"
+        primaryLabel="Contact Us"
+        primaryUrl="/contact"
+        backgroundImage={heroUrl}
+      >
+        <Link to="/portfolio" className="btnGhostLight">All Homes</Link>
+      </PageCta>
 
       {lightboxIndex !== null && (
         <ImageLightbox

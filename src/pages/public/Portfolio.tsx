@@ -72,28 +72,21 @@ export function Portfolio() {
         <div className={ps.heroInner}>
           <span className={ps.eyebrow}>Our Work</span>
           <h1 className={ps.heroTitle}>Portfolio</h1>
+          <p className={ps.bodyText} style={{ maxWidth: 560, marginTop: 8 }}>
+            Custom homes, renovations, and interiors across Bellevue and the Eastside.
+          </p>
         </div>
       </section>
 
       <section className={ps.section}>
         <div className={ps.sectionInner}>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginBottom: 32 }}>
+          <div className={ps.filterRow}>
             {(Object.keys(TYPE_LABELS) as PortfolioFilter[]).map((t) => (
               <button
                 key={t}
                 type="button"
                 onClick={() => setType(t)}
-                style={{
-                  background: portfolioType === t ? 'rgba(176,130,76,0.16)' : 'transparent',
-                  border: `1px solid ${portfolioType === t ? 'var(--color-accent-dark)' : 'var(--color-hairline-light-3)'}`,
-                  color: 'var(--color-text-on-light)',
-                  padding: '10px 20px',
-                  fontSize: 11,
-                  letterSpacing: '0.16em',
-                  textTransform: 'uppercase',
-                  cursor: 'pointer',
-                  fontFamily: 'var(--font-sans)',
-                }}
+                className={portfolioType === t ? ps.filterChipActive : ps.filterChip}
               >
                 {TYPE_LABELS[t]}
               </button>
@@ -101,23 +94,13 @@ export function Portfolio() {
           </div>
 
           {portfolioType !== 'available-homes' && portfolioType !== 'video-tours' && (
-            <div style={{ display: 'flex', gap: 16, marginBottom: 48 }}>
+            <div className={ps.filterRow}>
               {(['all', 'Available', 'Coming Soon', 'Sold'] as StatusFilter[]).map((f) => (
                 <button
                   key={f}
                   type="button"
                   onClick={() => setStatusFilter(f)}
-                  style={{
-                    background: statusFilter === f ? 'rgba(176,130,76,0.16)' : 'transparent',
-                    border: `1px solid ${statusFilter === f ? 'var(--color-accent-dark)' : 'var(--color-hairline-light-3)'}`,
-                    color: 'var(--color-text-on-light)',
-                    padding: '10px 20px',
-                    fontSize: 11,
-                    letterSpacing: '0.16em',
-                    textTransform: 'uppercase',
-                    cursor: 'pointer',
-                    fontFamily: 'var(--font-sans)',
-                  }}
+                  className={statusFilter === f ? ps.filterChipActive : ps.filterChip}
                 >
                   {f === 'all' ? 'All Status' : f}
                 </button>
@@ -128,25 +111,25 @@ export function Portfolio() {
           {portfolioType === 'video-tours' && (
             <p className={ps.bodyText} style={{ marginBottom: 48 }}>
               Video tours are coming soon. Explore our portfolio photography in the meantime, or{' '}
-              <Link to="/contact">contact us</Link> to schedule a private showing.
+              <Link to="/contact" className={ps.btnLink}>contact us<span>→</span></Link> to schedule a private showing.
             </p>
           )}
 
           {loading && <div className="page-loading">Loading portfolio…</div>}
           {error && <div className="page-error">{error}</div>}
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 32 }}>
+          <div className={ps.cardGrid}>
             {filtered.map((h) => (
               <RevealOnScroll key={h.id}>
-                <Link to={`/portfolio/${h.slug}`} style={{ textDecoration: 'none', color: 'inherit' }} className="imageHover">
-                  <div style={{ overflow: 'hidden', height: 'clamp(280px, 30vw, 380px)', marginBottom: 20 }}>
+                <Link to={`/portfolio/${h.slug}`} className={`${ps.cardLink} imageHover`}>
+                  <div className={ps.cardImageWrap}>
                     <img src={resolveImageUrl(h.image_url, h.slug)} alt={h.name} className={ps.imageCover} style={{ transition: 'transform 0.55s ease' }} />
                   </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-                    <span style={{ fontFamily: 'var(--font-serif)', fontSize: 26 }}>{h.name}</span>
-                    <span style={{ fontSize: 10, letterSpacing: '0.16em', textTransform: 'uppercase', color: h.status === 'Available' || h.status === 'Coming Soon' ? 'var(--color-accent-dark)' : 'var(--color-text-muted-light)' }}>{h.status}</span>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 16 }}>
+                    <span className={ps.cardTitle}>{h.name}</span>
+                    <span className={h.status === 'Available' || h.status === 'Coming Soon' ? ps.cardMetaAccent : ps.cardMeta}>{h.status}</span>
                   </div>
-                  <span style={{ fontSize: 12, color: 'var(--color-text-muted-light)' }}>{h.city}</span>
+                  <span className={ps.cardMeta}>{h.city}</span>
                 </Link>
               </RevealOnScroll>
             ))}

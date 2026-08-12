@@ -1,11 +1,17 @@
 import { Link } from 'react-router-dom';
 import { useProperties } from '../../hooks/useProperties';
+import { useSitePage } from '../../hooks/useSitePage';
+import { PageCta } from '../../components/ui/PageCta';
 import { PageMeta } from '../../components/ui/PageMeta';
 import { RevealOnScroll } from '../../components/ui/RevealOnScroll';
+import { HeroTitle } from '../../components/ui/HeroTitle';
+import { getDemoPageContent } from '../../data/sitePagesDemo';
 import { resolveImageUrl } from '../../lib/placeholders';
 import ps from '../../styles/pages.module.css';
 
 export function AvailableHomes() {
+  const { page } = useSitePage('available-homes');
+  const content = page?.content ?? getDemoPageContent('available-homes');
   const { properties, loading } = useProperties({ publicOnly: true });
   const available = properties.filter((p) => p.status === 'Available');
   const comingSoon = properties.filter((p) => p.status === 'Coming Soon');
@@ -14,14 +20,12 @@ export function AvailableHomes() {
 
   return (
     <main>
-      <PageMeta title="Available Homes" description="Move-in-ready and coming-soon homes by John Buchan Homes on the Seattle Eastside." />
+      <PageMeta title={page?.meta_title ?? 'Available Homes'} description={page?.meta_description} />
       <section className={ps.hero}>
         <div className={ps.heroInner}>
-          <span className={ps.eyebrow}>Available Homes</span>
-          <h1 className={ps.heroTitle}>For sale, coming soon,<br /><em>or recently sold.</em></h1>
-          <p className={ps.bodyText} style={{ marginTop: 24, maxWidth: 560 }}>
-            Always something to explore — with a path to build yours if nothing fits today.
-          </p>
+          <span className={ps.eyebrow}>{content.hero.eyebrow}</span>
+          <HeroTitle hero={content.hero} />
+          <p className={ps.bodyText} style={{ marginTop: 24, maxWidth: 560 }}>{content.hero.intro}</p>
         </div>
       </section>
 
@@ -29,7 +33,7 @@ export function AvailableHomes() {
         <section className={ps.sectionAlt}>
           <RevealOnScroll>
             <div style={{ maxWidth: 'var(--max-width)', margin: '0 auto', padding: '0 8vw' }}>
-              <span className={ps.eyebrow}>Featured</span>
+              <span className={ps.eyebrow}>{content.featured_eyebrow}</span>
               <Link to={`/portfolio/${spotlight.slug}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                 <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 32, marginTop: 24, alignItems: 'center' }}>
                   <div style={{ overflow: 'hidden', height: 'clamp(280px, 35vw, 420px)' }}>
@@ -51,19 +55,20 @@ export function AvailableHomes() {
       <section className={ps.section}>
         <div className={ps.sectionInner}>
           {loading && <p className={ps.bodyText}>Loading…</p>}
-          <HomeSection title="Currently for sale" items={available} empty="No homes for sale right now — let's build yours." />
-          <HomeSection title="Coming soon" items={comingSoon} empty="Nothing coming soon — contact us about custom build opportunities." />
-          <HomeSection title="Recently completed" items={recentlySold} empty="" />
+          <HomeSection title={content.sections.for_sale_title} items={available} empty={content.sections.empty_for_sale} />
+          <HomeSection title={content.sections.coming_soon_title} items={comingSoon} empty={content.sections.empty_coming_soon} />
+          <HomeSection title={content.sections.recently_completed_title} items={recentlySold} empty="" />
         </div>
       </section>
 
-      <section className={ps.ctaSection}>
-        <h2 className={ps.sectionTitle}>Or, let&apos;s build yours.</h2>
-        <div className={ps.ctaButtons}>
-          <Link to="/custom-homes" className={ps.btnPrimary}>Plan My Custom Home</Link>
-          <Link to="/contact" className={ps.btnLink}>Start a Conversation →</Link>
-        </div>
-      </section>
+      <PageCta
+        title={content.cta.title}
+        primaryLabel={content.cta.primary_label}
+        primaryUrl={content.cta.primary_url}
+        backgroundImage={resolveImageUrl(content.cta.background_image_url ?? '/assets/ph-arch-1.png', 'available-homes-cta')}
+      >
+        <Link to={content.cta.secondary_url} className="btnGhostLight">{content.cta.secondary_label}</Link>
+      </PageCta>
     </main>
   );
 }

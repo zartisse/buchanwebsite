@@ -1,6 +1,7 @@
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { useSubmissions } from '../../hooks/useSubmissions';
+import { assetUrl } from '../../lib/assets';
 import styles from './AdminLayout.module.css';
 
 const NAV_ITEMS = [
@@ -28,7 +29,7 @@ export function AdminLayout() {
     <div className={styles.shell}>
       <aside className={styles.sidebar}>
         <div className={styles.sidebarHeader}>
-          <img src="/assets/logo-reverse.png" alt="John Buchan Homes" className={styles.logo} />
+          <img src={assetUrl('/assets/logo-reverse.png')} alt="John Buchan Homes" className={styles.logo} />
           <div className={styles.studioLabel}>Content Studio</div>
         </div>
         <nav className={styles.nav}>

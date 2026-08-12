@@ -7,26 +7,23 @@ type ClientConcernsProps = {
 };
 
 export function ClientConcerns({ section }: ClientConcernsProps) {
+  const items = section.items.slice(0, 3);
+
   return (
     <section className={styles.section}>
       <div className={styles.inner}>
         <RevealOnScroll>
-          <span className={styles.eyebrow}>{section.eyebrow}</span>
-          <h2 className={styles.title}>
-            {section.title}
-            {section.title_emphasis && (
-              <>
-                <br /><em>{section.title_emphasis}</em>
-              </>
-            )}
-          </h2>
+          <div className={styles.header}>
+            <span className="eyebrowRule eyebrowRuleCenter">{section.eyebrow}</span>
+          </div>
         </RevealOnScroll>
         <div className={styles.grid}>
-          {section.items.map((concern) => (
-            <RevealOnScroll key={concern.title}>
+          {items.map((item, i) => (
+            <RevealOnScroll key={item.title} index={i}>
               <article className={styles.card}>
-                <h3>{concern.title}</h3>
-                <p>{concern.body}</p>
+                <span className={styles.bgNum} aria-hidden>{String(i + 1).padStart(2, '0')}</span>
+                <h3 className={styles.question}>{item.title}</h3>
+                <p className={styles.answer}>{item.body}</p>
               </article>
             </RevealOnScroll>
           ))}

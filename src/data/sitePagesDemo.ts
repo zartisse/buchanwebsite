@@ -2,6 +2,7 @@ import { getDefaultHomeContent } from './homeContentDefaults';
 import { FOOTER_AWARD_BADGES } from './awards';
 import type {
   AboutPageContent,
+  AvailableHomesPageContent,
   AwardsPageContent,
   ContactPageContent,
   FaqPageContent,
@@ -89,6 +90,7 @@ export const DEMO_SITE_PAGES: Record<SitePageSlug, SitePage> = {
         { title: 'Buchan Home Care', slug: 'home-care', description: 'Maintenance and smaller projects for existing homeowners.', image_url: '/assets/ph-arch-3.png' },
       ],
       cta_title: 'Ready to begin?',
+      cta_background_image_url: '/assets/ph-arch-1.png',
     } satisfies ServicesPageContent,
   },
   build: {
@@ -156,7 +158,11 @@ export const DEMO_SITE_PAGES: Record<SitePageSlug, SitePage> = {
         { n: '03', title: 'Build with Discipline', duration: 'Months 6–18', body: 'Craftsmanship on site with clear milestones, communication, and quality at every layer.', tag: 'Build' },
         { n: '04', title: 'Care Beyond Completion', duration: 'Ongoing', body: 'Walkthrough, warranty support, and continuing Home Care after move-in day.', tag: 'Care' },
       ],
+      band_title: 'One aligned team, chosen for your home.',
+      band_body: 'We collaborate with independent architects on every project and interior designers on most. Buchan provides estimating, constructability review, schedule planning, coordination, and construction leadership from the early stages.',
+      band_image_url: '/assets/ph-arch-2.png',
       cta_title: 'Ready to begin?',
+      cta_background_image_url: '/assets/ph-arch-2.png',
     } satisfies ProcessPageContent,
   },
   neighborhoods: {
@@ -198,6 +204,7 @@ export const DEMO_SITE_PAGES: Record<SitePageSlug, SitePage> = {
         { name: 'Greg & Amanda Foster', city: 'Mercer Island', quote: 'We needed a second opinion on a project underway. Buchan gave us honesty, not a sales pitch.' },
       ],
       cta_title: 'Ready to write your story?',
+      cta_background_image_url: '/assets/ph-arch-4.png',
     } satisfies TestimonialsPageContent,
   },
   contact: {
@@ -229,6 +236,7 @@ export const DEMO_SITE_PAGES: Record<SitePageSlug, SitePage> = {
       phone_href: 'tel:4258272266',
       office: 'Bellevue, Washington\nServing the Seattle Eastside',
       cta_title: 'Know your numbers?',
+      cta_background_image_url: '/assets/ph-arch-2.png',
     } satisfies ContactPageContent,
   },
   faq: {
@@ -281,6 +289,7 @@ export const DEMO_SITE_PAGES: Record<SitePageSlug, SitePage> = {
         },
       ],
       cta_title: 'Still have questions?',
+      cta_background_image_url: '/assets/ph-arch-3.png',
     } satisfies FaqPageContent,
   },
   warranty: {
@@ -309,6 +318,7 @@ export const DEMO_SITE_PAGES: Record<SitePageSlug, SitePage> = {
         { title: 'Ongoing support', description: 'Questions after warranty? We are still here. Buchan clients are part of a community we have served for over 65 years.' },
       ],
       cta_title: 'Questions about coverage?',
+      cta_background_image_url: '/assets/ph-arch-3.png',
     } satisfies WarrantyPageContent,
   },
   awards: {
@@ -342,7 +352,38 @@ export const DEMO_SITE_PAGES: Record<SitePageSlug, SitePage> = {
       ],
       badges: FOOTER_AWARD_BADGES.map((b) => ({ image_url: b.image, alt: b.alt, href: b.href })),
       cta_title: 'Experience the Buchan standard.',
+      cta_background_image_url: '/assets/ph-arch-2.png',
     } satisfies AwardsPageContent,
+  },
+  'available-homes': {
+    id: 'demo-available-homes',
+    slug: 'available-homes',
+    meta_title: 'Available Homes',
+    meta_description: 'Move-in-ready and coming-soon homes by John Buchan Homes on the Seattle Eastside.',
+    content: {
+      hero: {
+        eyebrow: 'Available Homes',
+        title: 'For sale, coming soon,',
+        title_emphasis: 'or recently sold.',
+        intro: 'Always something to explore — with a path to build yours if nothing fits today.',
+      },
+      featured_eyebrow: 'Featured',
+      sections: {
+        for_sale_title: 'Currently for sale',
+        coming_soon_title: 'Coming soon',
+        recently_completed_title: 'Recently completed',
+        empty_for_sale: "No homes for sale right now — let's build yours.",
+        empty_coming_soon: 'Nothing coming soon — contact us about custom build opportunities.',
+      },
+      cta: {
+        title: "Or, let's build yours.",
+        primary_label: 'Plan My Custom Home',
+        primary_url: '/custom-homes',
+        secondary_label: 'Start a Conversation',
+        secondary_url: '/contact',
+        background_image_url: '/assets/ph-arch-1.png',
+      },
+    } satisfies AvailableHomesPageContent,
   },
 };
 

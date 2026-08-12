@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom';
 import { useSitePage } from '../../hooks/useSitePage';
 import { EstimatorLink } from '../../components/ui/EstimatorLink';
 import { PageMeta } from '../../components/ui/PageMeta';
+import { PageCta } from '../../components/ui/PageCta';
 import { RevealOnScroll } from '../../components/ui/RevealOnScroll';
 import { HeroTitle } from '../../components/ui/HeroTitle';
 import { getDemoPageContent } from '../../data/sitePagesDemo';
@@ -59,13 +59,9 @@ export function Testimonials() {
         </div>
       </section>
 
-      <section className={ps.ctaSection}>
-        <h2 className={ps.sectionTitle}>{content.cta_title}</h2>
-        <div className={ps.ctaButtons}>
-          <Link to="/contact" className={ps.btnPrimary}>Contact Us</Link>
-          <EstimatorLink className={ps.btnLink}>Cost Estimator →</EstimatorLink>
-        </div>
-      </section>
+      <PageCta title={content.cta_title} backgroundImage={resolveImageUrl(content.cta_background_image_url ?? '/assets/ph-arch-4.png', 'testimonials-cta')}>
+        <EstimatorLink className="btnGhostLight">Cost Estimator</EstimatorLink>
+      </PageCta>
     </main>
   );
 }

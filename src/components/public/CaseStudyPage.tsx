@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
 import { PageMeta } from '../ui/PageMeta';
+import { PageCta } from '../ui/PageCta';
 import { RevealOnScroll } from '../ui/RevealOnScroll';
 import { HeroTitle } from '../ui/HeroTitle';
 import ps from '../../styles/pages.module.css';
@@ -58,10 +58,7 @@ export function CaseStudyPage({ data }: { data: CaseStudyData }) {
         </RevealOnScroll>
       </section>
 
-      <section className={ps.ctaSection}>
-        <h2 className={ps.sectionTitle}>{data.ctaTitle}</h2>
-        <Link to={data.ctaLink} className={ps.btnPrimary}>Start a Conversation</Link>
-      </section>
+      <PageCta title={data.ctaTitle} primaryUrl={data.ctaLink} backgroundImage="/assets/ph-arch-2.png" />
     </main>
   );
 }

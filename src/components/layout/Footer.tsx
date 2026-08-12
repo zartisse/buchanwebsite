@@ -1,57 +1,30 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FOOTER_AWARD_BADGES, HOUZZ_PROFILE_URL } from '../../data/awards';
 import { useSitePage } from '../../hooks/useSitePage';
+import { assetUrl } from '../../lib/assets';
 import { getDemoPageContent } from '../../data/sitePagesDemo';
 import {
-  FOOTER_COMPANY, FOOTER_RESOURCES, FOOTER_SERVICES, FOOTER_UTILITY, SOCIAL_LINKS,
+  FOOTER_COMPANY, FOOTER_RESOURCES, FOOTER_SERVICES, SOCIAL_LINKS,
 } from '../../data/navigation';
 import styles from './Footer.module.css';
 
+const FOOTER_MISSION =
+  'Building exceptional homes on the Seattle Eastside since 1961 — with integrity, craftsmanship, and care that lasts beyond move-in day.';
+
 export function Footer() {
-  const [subscribed, setSubscribed] = useState(false);
   const { page } = useSitePage('awards');
   const awardsContent = page?.content ?? getDemoPageContent('awards');
   const badges = awardsContent.badges?.length
     ? awardsContent.badges
     : FOOTER_AWARD_BADGES.map((b) => ({ image_url: b.image, alt: b.alt, href: b.href }));
 
-  const onSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubscribed(true);
-  };
-
   return (
     <footer className={styles.footer}>
-      <div className={styles.newsletter}>
-        <div className={styles.newsletterText}>
-          <span className={styles.eyebrow}>Stay Connected</span>
-          <span className={styles.newsletterTitle}>News from the Eastside.</span>
-        </div>
-        <form onSubmit={onSubscribe} className={styles.newsletterForm}>
-          <input type="email" required placeholder="Your email" className={styles.emailInput} />
-          <button type="submit" className={styles.signUpBtn}>
-            {subscribed ? 'Subscribed ✓' : 'Sign Up →'}
-          </button>
-        </form>
-      </div>
-
-      <div className={styles.badgeRow}>
-        <span className={styles.badgeRowLabel}>Credentials & Awards</span>
-        <div className={styles.awardLogos}>
-          {badges.map((badge) => (
-            <a key={badge.alt} href={badge.href ?? HOUZZ_PROFILE_URL} target="_blank" rel="noopener noreferrer" className={styles.awardLogoLink} title={badge.alt}>
-              {badge.image_url ? (
-                <img src={badge.image_url} alt={badge.alt} className={styles.awardLogo} />
-              ) : (
-                <span className={styles.awardTextBadge}>{badge.alt}</span>
-              )}
-            </a>
-          ))}
-        </div>
-      </div>
-
       <div className={styles.grid}>
+        <div className={styles.brandCol}>
+          <img src={assetUrl('/assets/logo.png')} alt="John Buchan Homes" className={styles.footerLogo} />
+          <p className={styles.tagline}>{FOOTER_MISSION}</p>
+        </div>
         <div className={styles.linkCol}>
           <span className={styles.colTitle}>Company</span>
           {FOOTER_COMPANY.map((l) => (
@@ -70,32 +43,39 @@ export function Footer() {
             <Link key={l.label} to={l.to}>{l.label}</Link>
           ))}
         </div>
-        <div className={styles.linkCol}>
-          <span className={styles.colTitle}>Utility</span>
-          {FOOTER_UTILITY.map((l) => (
-            'external' in l && l.external ? (
-              <a key={l.label} href={l.to} target="_blank" rel="noopener noreferrer">{l.label}</a>
-            ) : (
-              <Link key={l.label} to={l.to}>{l.label}</Link>
-            )
-          ))}
+        <div className={styles.contactCol}>
+          <span className={styles.colTitle}>Contact</span>
+          <p className={styles.contactLine}>1200 112th Ave NE, Suite 200<br />Bellevue, WA 98004</p>
+          <a href="tel:4258272266" className={styles.contactLine}>425.827.2266</a>
+          <a href="mailto:info@buchan.com" className={styles.contactLine}>info@buchan.com</a>
+          <Link to="/contact" className="btnGhostDark">Let&apos;s Talk</Link>
         </div>
+      </div>
+
+      <div className={styles.awardRow}>
+        {badges.map((badge) => (
+          <a key={badge.alt} href={badge.href ?? HOUZZ_PROFILE_URL} target="_blank" rel="noopener noreferrer" className={styles.awardLogoLink} title={badge.alt}>
+            {badge.image_url ? (
+              <img src={assetUrl(badge.image_url)} alt={badge.alt} className={styles.awardLogo} />
+            ) : (
+              <span className={styles.awardTextBadge}>{badge.alt}</span>
+            )}
+          </a>
+        ))}
       </div>
 
       <div className={styles.socialRow}>
         {SOCIAL_LINKS.map((s) => (
           <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" className={styles.socialLink}>{s.label}</a>
         ))}
-        <a href="tel:4258272266" className={styles.socialLink}>425.827.2266</a>
-        <a href="mailto:info@buchan.com" className={styles.socialLink}>info@buchan.com</a>
-        <span className={styles.socialLink}>Bellevue, WA</span>
       </div>
 
       <div className={styles.copyright}>
         <span>© {new Date().getFullYear()} John Buchan Homes. All rights reserved.</span>
         <span className={styles.legal}>
-          Licensed & bonded · WA Contractor License #[pending verification] ·{' '}
-          <Link to="/faq#privacy">Privacy</Link>
+          <Link to="/faq#privacy">Privacy Policy</Link>
+          {' · '}
+          <Link to="/faq#terms">Terms of Use</Link>
         </span>
       </div>
     </footer>

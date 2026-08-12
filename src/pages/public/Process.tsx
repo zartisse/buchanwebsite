@@ -1,10 +1,11 @@
-import { Link } from 'react-router-dom';
 import { useSitePage } from '../../hooks/useSitePage';
 import { PageMeta } from '../../components/ui/PageMeta';
 import { RevealOnScroll } from '../../components/ui/RevealOnScroll';
 import { HeroTitle } from '../../components/ui/HeroTitle';
 import { EstimatorLink } from '../../components/ui/EstimatorLink';
+import { PageCta } from '../../components/ui/PageCta';
 import { getDemoPageContent } from '../../data/sitePagesDemo';
+import { resolveImageUrl } from '../../lib/placeholders';
 import ps from '../../styles/pages.module.css';
 
 export function Process() {
@@ -24,9 +25,9 @@ export function Process() {
       <section className={ps.section}>
         <div className={ps.sectionInner}>
           <RevealOnScroll>
-            <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 24, marginBottom: 48, padding: '24px 28px', background: 'var(--color-bg-cream)', border: '1px solid var(--color-hairline-light-2)' }}>
+            <div className={ps.calloutBand}>
               <div style={{ flex: 1, minWidth: 240 }}>
-                <strong style={{ display: 'block', fontFamily: 'var(--font-serif)', fontSize: 22, marginBottom: 8 }}>Estimate My Project</strong>
+                <strong className={ps.calloutBandTitle}>Estimate My Project</strong>
                 <p className={ps.bodyText} style={{ margin: 0 }}>Get a personalized cost range before your first conversation.</p>
               </div>
               <EstimatorLink className={ps.btnPrimary}>Estimate My Project →</EstimatorLink>
@@ -49,22 +50,21 @@ export function Process() {
       </section>
 
       <section id="renovations" className={ps.sectionAlt} style={{ position: 'relative', minHeight: 300 }}>
-        <img src={content.band_image_url ?? '/assets/ph-arch-2.png'} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.35 }} />
+        <img src={resolveImageUrl(content.band_image_url ?? '/assets/ph-arch-2.png', 'process-band')} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.35 }} />
         <RevealOnScroll>
           <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', padding: '80px 8vw' }}>
-            <h2 className={ps.sectionTitle}>One aligned team, chosen for your home.</h2>
+            <h2 className={ps.sectionTitle}>{content.band_title ?? 'One aligned team, chosen for your home.'}</h2>
             <p className={ps.bodyText} style={{ maxWidth: 560, margin: '20px auto 0' }}>
-              We collaborate with independent architects on every project and interior designers on most.
-              Buchan provides estimating, constructability review, schedule planning, coordination, and construction leadership from the early stages.
+              {content.band_body ?? 'We collaborate with independent architects on every project and interior designers on most. Buchan provides estimating, constructability review, schedule planning, coordination, and construction leadership from the early stages.'}
             </p>
           </div>
         </RevealOnScroll>
       </section>
 
-      <section className={ps.ctaSection}>
-        <h2 className={ps.sectionTitle}>{content.cta_title}</h2>
-        <Link to="/contact" className={ps.btnPrimary}>Start the Conversation</Link>
-      </section>
+      <PageCta
+        title={content.cta_title}
+        backgroundImage={resolveImageUrl(content.cta_background_image_url ?? content.band_image_url ?? '/assets/ph-arch-2.png', 'process-cta')}
+      />
     </main>
   );
 }

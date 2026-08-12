@@ -5,8 +5,9 @@
   --color-bg-mid-2: #15201b;     /* tertiary surface for cards/rails on dark */
   --color-bg-light: #efefe3;     /* admin / light surfaces only */
   --color-bg-admin: #efefe3;
-  --color-bg-cream: #f3efe6;     /* editorial light homepage */
+  --color-bg-cream: #faf9f6;     /* editorial light homepage */
   --color-bg-white: #ffffff;
+  --color-bg-trust: #f0eeea;     /* trust bar / subtle bands */
 
   /* ---- Color: text on light surfaces ---- */
   --color-text-on-light: #1a2420;
@@ -32,6 +33,23 @@
   --color-accent-dark: #8a6334;
   --color-accent-muted: rgba(176, 130, 76, 0.16);
   --color-accent-hairline: rgba(176, 130, 76, 0.35);
+  --color-accent-fill: #c5a07d;
+  --color-accent-fill-hover: #b8926f;
+  --color-accent-fill-text: #ffffff;
+
+  /* ---- Button semantics ---- */
+  --btn-primary-bg: var(--color-accent-fill);
+  --btn-primary-bg-hover: var(--color-accent-fill-hover);
+  --btn-primary-text: var(--color-accent-fill-text);
+  --btn-primary-padding: 14px 28px;
+  --btn-ghost-border: rgba(255, 255, 255, 0.85);
+  --btn-ghost-text: #ffffff;
+  --btn-ghost-border-dark: var(--color-text-on-light);
+  --btn-ghost-text-dark: var(--color-text-on-light);
+
+  /* ---- Eyebrow rule ---- */
+  --eyebrow-rule-width: 32px;
+  --eyebrow-rule-height: 1px;
 
   /* ---- Color: hairlines / dividers ---- */
   --color-hairline: rgba(245, 240, 232, 0.1);

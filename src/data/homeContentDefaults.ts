@@ -2,6 +2,7 @@ import type { HomePageContent } from '../types';
 import {
   BETTER_PLANNED_PATH,
   CLIENT_CONCERNS,
+  CREDIBILITY_ITEMS,
   CREDIBILITY_LINE,
   PICK_YOUR_PATH_INTRO,
   PICK_YOUR_PATH_TILES,
@@ -14,9 +15,9 @@ export function getDefaultHomeContent(): HomePageContent {
   return {
     hero: {
       eyebrow: 'Building since 1961 · Seattle Eastside',
-      title: 'Build with',
-      title_emphasis: 'Certainty.',
-      subtitle: 'Thoughtful planning, experienced guidance, and exceptional construction for custom homes and remodels.',
+      title: 'Build with certainty.',
+      title_emphasis: 'Live exceptionally.',
+      subtitle: 'Thoughtful planning, experienced guidance, and exceptional construction for custom homes and major renovations across Bellevue and the Eastside.',
       image_url: '/assets/ph-arch-1.png',
       video_url: 'https://www.youtube.com/watch?v=PMeek4pvZOI',
       marquee: '',
@@ -26,25 +27,38 @@ export function getDefaultHomeContent(): HomePageContent {
       cta_secondary_label: 'Explore Our Work',
     },
     credibility_line: CREDIBILITY_LINE,
+    credibility_stats: CREDIBILITY_ITEMS.map((label) => ({ label })),
     featured_work: {
       eyebrow: 'Featured Work',
-      title: "Homes we're proud of.",
+      title: 'Homes as unique as the people who live in them.',
+      body: 'Every Buchan home reflects the people who live in it — thoughtfully planned, carefully built, and finished to a standard you can feel in every room.',
+      cta_label: 'View Our Work',
+      cta_link: '/portfolio',
+    },
+    difference_section: {
+      eyebrow: 'The John Buchan Difference',
+      title: "What you can't see makes all the difference.",
+      body: 'For more than six decades, Buchan has built on the Eastside with a family-owned commitment to integrity, craftsmanship, and the details behind every wall. The quality you feel — and the confidence you carry — comes from decisions made long before move-in day.',
+      image_url: '/assets/ph-arch-3.png',
+      cta_label: 'Learn More',
+      cta_link: '/why-choose-buchan',
     },
     what_we_do: {
-      eyebrow: 'What We Do',
-      title: 'Custom homes, renovations,',
-      title_emphasis: 'and more.',
+      eyebrow: 'Our Services',
+      title: 'A full-service experience.',
+      title_emphasis: 'Thoughtfully delivered.',
       primary: WHAT_WE_DO.primary,
       secondary: WHAT_WE_DO.secondary,
       preconstruction: {
         title: 'Plan Before You Build',
         body: 'Progressive estimates, feasibility, and design alignment — for custom homes and major renovations alike.',
-        cta_label: 'Explore Preconstruction →',
+        cta_label: 'Explore Preconstruction',
         cta_link: '/preconstruction',
+        image_url: '/assets/ph-arch-2.png',
       },
     },
     client_concerns: {
-      eyebrow: 'Your Concerns Shape How We Build',
+      eyebrow: 'Questions Prospective Clients Are Asking',
       title: 'Confidence at',
       title_emphasis: 'every stage.',
       items: CLIENT_CONCERNS,
@@ -76,37 +90,49 @@ export function getDefaultHomeContent(): HomePageContent {
         benefit: l.benefit,
         x: l.x,
         y: l.y,
+        icon: l.icon,
       })),
     },
     testimonial_section: {
       eyebrow: 'Client Testimonials',
       title: 'In their words.',
-      quote: 'They stepped in when our project stalled — and finished it with a level of care we didn\'t think was still possible.',
-      cite: 'The Harmon Family · Clyde Hill',
+      quote: 'From the first conversation to move-in and beyond, Buchan made us feel like our home was the only project that mattered.',
+      cite: 'The Anderson Family · Bellevue, Washington',
       cta_label: 'All client stories',
       cta_link: '/testimonials',
+      left_image_url: '/assets/ph-arch-1.png',
+      right_image_url: '/assets/ph-arch-4.png',
     },
     pick_your_path: {
       intro: PICK_YOUR_PATH_INTRO,
+      title: 'Choose Your Starting Point',
       tiles: PICK_YOUR_PATH_TILES,
     },
     closing_cta: {
-      title: 'Ready to Build with Certainty?',
+      title: 'The right home begins with the right conversation.',
+      subtitle: 'Tell us about your project — we will guide you to the right next step.',
       primary_label: 'Start a Conversation',
       primary_url: '/contact',
       phone: '425.827.2266',
       phone_href: 'tel:4258272266',
+      background_image_url: '/assets/ph-arch-1.png',
     },
   };
 }
 
 export function mergeHomeContent(partial: Partial<HomePageContent> | HomePageContent): HomePageContent {
   const defaults = getDefaultHomeContent();
+  const credibilityStats = partial.credibility_stats?.length
+    ? partial.credibility_stats
+    : defaults.credibility_stats;
+
   return {
     ...defaults,
     ...partial,
     hero: { ...defaults.hero, ...partial.hero },
+    credibility_stats: credibilityStats,
     featured_work: { ...defaults.featured_work, ...partial.featured_work },
+    difference_section: { ...defaults.difference_section, ...partial.difference_section },
     what_we_do: {
       ...defaults.what_we_do,
       ...partial.what_we_do,

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type {
   AboutPageContent,
+  AvailableHomesPageContent,
   AwardsPageContent,
   ContactPageContent,
   FaqPageContent,
@@ -17,7 +18,7 @@ import type {
 import { getDemoSitePage } from '../../data/sitePagesDemo';
 import { mergeHomeContent } from '../../data/homeContentDefaults';
 import { PageMeta } from '../ui/PageMeta';
-import { HeroFields, ImageField, MetaFields } from './AdminFormFields';
+import { HeroFields, ImageField, MetaFields, CtaBackgroundField } from './AdminFormFields';
 import { MediaDropzone } from './MediaDropzone';
 import styles from '../../styles/admin.module.css';
 
@@ -97,6 +98,9 @@ export function SitePageEditor({ slug, page, onSave, onCancel }: SitePageEditorP
         {slug === 'awards' && (
           <AwardsEditor content={content as AwardsPageContent} onChange={setContent} />
         )}
+        {slug === 'available-homes' && (
+          <AvailableHomesEditor content={content as AvailableHomesPageContent} onChange={setContent} />
+        )}
         <div className={styles.formActions}>
           <button type="submit" className={styles.btnPrimary} disabled={saving}>{saving ? 'Saving…' : 'Save'}</button>
           <button type="button" className={styles.btn} onClick={onCancel}>Cancel</button>
@@ -145,13 +149,27 @@ function HomeEditor({ content, onChange }: { content: HomePageContent; onChange:
       </fieldset>
 
       <fieldset className={styles.fieldset}>
-        <legend className={styles.legend}>Credibility line</legend>
-        <input className={styles.input} value={content.credibility_line} onChange={(e) => set({ credibility_line: e.target.value })} />
+        <legend className={styles.legend}>Trust bar</legend>
+        <p style={{ fontSize: 13, color: 'rgba(26,36,32,0.5)', marginBottom: 12 }}>Three stats shown below the hero. Legacy single-line field kept for older saved content.</p>
+        <div className={styles.field}>
+          <label className={styles.label}>Legacy credibility line</label>
+          <input className={styles.input} value={content.credibility_line} onChange={(e) => set({ credibility_line: e.target.value })} />
+        </div>
+        {(content.credibility_stats ?? []).map((stat, i) => (
+          <div key={i} className={styles.field}>
+            <label className={styles.label}>Stat {i + 1}</label>
+            <input className={styles.input} value={stat.label} onChange={(e) => {
+              const credibility_stats = [...(content.credibility_stats ?? [])];
+              credibility_stats[i] = { label: e.target.value };
+              set({ credibility_stats });
+            }} />
+          </div>
+        ))}
       </fieldset>
 
       <fieldset className={styles.fieldset}>
         <legend className={styles.legend}>Featured Work labels</legend>
-        <p style={{ fontSize: 13, color: 'rgba(26,36,32,0.5)', marginBottom: 12 }}>Images come from Properties marked as Featured.</p>
+        <p style={{ fontSize: 13, color: 'rgba(26,36,32,0.5)', marginBottom: 12 }}>Images come from Properties marked as Featured (shows up to 3).</p>
         <div className={styles.field}>
           <label className={styles.label}>Eyebrow</label>
           <input className={styles.input} value={content.featured_work.eyebrow} onChange={(e) => set({ featured_work: { ...content.featured_work, eyebrow: e.target.value } })} />
@@ -159,6 +177,32 @@ function HomeEditor({ content, onChange }: { content: HomePageContent; onChange:
         <div className={styles.field}>
           <label className={styles.label}>Title</label>
           <input className={styles.input} value={content.featured_work.title} onChange={(e) => set({ featured_work: { ...content.featured_work, title: e.target.value } })} />
+        </div>
+        <div className={styles.field}>
+          <label className={styles.label}>Body copy</label>
+          <textarea className={styles.textarea} value={content.featured_work.body ?? ''} rows={3} onChange={(e) => set({ featured_work: { ...content.featured_work, body: e.target.value } })} />
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+          <div className={styles.field}>
+            <label className={styles.label}>CTA label</label>
+            <input className={styles.input} value={content.featured_work.cta_label ?? ''} onChange={(e) => set({ featured_work: { ...content.featured_work, cta_label: e.target.value } })} />
+          </div>
+          <div className={styles.field}>
+            <label className={styles.label}>CTA link</label>
+            <input className={styles.input} value={content.featured_work.cta_link ?? ''} onChange={(e) => set({ featured_work: { ...content.featured_work, cta_link: e.target.value } })} />
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset className={styles.fieldset}>
+        <legend className={styles.legend}>John Buchan Difference</legend>
+        <div className={styles.field}><label className={styles.label}>Eyebrow</label><input className={styles.input} value={content.difference_section.eyebrow} onChange={(e) => set({ difference_section: { ...content.difference_section, eyebrow: e.target.value } })} /></div>
+        <div className={styles.field}><label className={styles.label}>Title</label><input className={styles.input} value={content.difference_section.title} onChange={(e) => set({ difference_section: { ...content.difference_section, title: e.target.value } })} /></div>
+        <div className={styles.field}><label className={styles.label}>Body</label><textarea className={styles.textarea} value={content.difference_section.body} rows={4} onChange={(e) => set({ difference_section: { ...content.difference_section, body: e.target.value } })} /></div>
+        <ImageField label="Interior photo" value={content.difference_section.image_url} onChange={(url) => set({ difference_section: { ...content.difference_section, image_url: url } })} folder="pages/home/difference" />
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+          <div className={styles.field}><label className={styles.label}>CTA label</label><input className={styles.input} value={content.difference_section.cta_label} onChange={(e) => set({ difference_section: { ...content.difference_section, cta_label: e.target.value } })} /></div>
+          <div className={styles.field}><label className={styles.label}>CTA link</label><input className={styles.input} value={content.difference_section.cta_link} onChange={(e) => set({ difference_section: { ...content.difference_section, cta_link: e.target.value } })} /></div>
         </div>
       </fieldset>
 
@@ -177,7 +221,7 @@ function HomeEditor({ content, onChange }: { content: HomePageContent; onChange:
           <div key={i} className={styles.repeatItem}>
             <div className={styles.field}><label className={styles.label}>Primary card {i + 1} title</label><input className={styles.input} value={item.title} onChange={(e) => { const primary = [...content.what_we_do.primary]; primary[i] = { ...primary[i], title: e.target.value }; set({ what_we_do: { ...content.what_we_do, primary } }); }} /></div>
             <div className={styles.field}><label className={styles.label}>Description</label><textarea className={styles.textarea} value={item.description} rows={2} onChange={(e) => { const primary = [...content.what_we_do.primary]; primary[i] = { ...primary[i], description: e.target.value }; set({ what_we_do: { ...content.what_we_do, primary } }); }} /></div>
-            <ImageField label="Image" value={item.image_url} onChange={(url) => { const primary = [...content.what_we_do.primary]; primary[i] = { ...primary[i], image_url: url }; set({ what_we_do: { ...content.what_we_do, primary } }); }} folder="pages/home/what-we-do" />
+            <ImageField label="Image (optional legacy)" value={item.image_url ?? ''} onChange={(url) => { const primary = [...content.what_we_do.primary]; primary[i] = { ...primary[i], image_url: url }; set({ what_we_do: { ...content.what_we_do, primary } }); }} folder="pages/home/what-we-do" />
             <div className={styles.field}><label className={styles.label}>Link</label><input className={styles.input} value={item.link} onChange={(e) => { const primary = [...content.what_we_do.primary]; primary[i] = { ...primary[i], link: e.target.value }; set({ what_we_do: { ...content.what_we_do, primary } }); }} /></div>
           </div>
         ))}
@@ -190,6 +234,7 @@ function HomeEditor({ content, onChange }: { content: HomePageContent; onChange:
         ))}
         <div className={styles.field}><label className={styles.label}>Preconstruction band title</label><input className={styles.input} value={content.what_we_do.preconstruction.title} onChange={(e) => set({ what_we_do: { ...content.what_we_do, preconstruction: { ...content.what_we_do.preconstruction, title: e.target.value } } })} /></div>
         <div className={styles.field}><label className={styles.label}>Preconstruction body</label><textarea className={styles.textarea} value={content.what_we_do.preconstruction.body} rows={2} onChange={(e) => set({ what_we_do: { ...content.what_we_do, preconstruction: { ...content.what_we_do.preconstruction, body: e.target.value } } })} /></div>
+        <ImageField label="Preconstruction band image" value={content.what_we_do.preconstruction.image_url ?? ''} onChange={(url) => set({ what_we_do: { ...content.what_we_do, preconstruction: { ...content.what_we_do.preconstruction, image_url: url } } })} folder="pages/home/preconstruction" />
       </fieldset>
 
       <fieldset className={styles.fieldset}>
@@ -209,7 +254,6 @@ function HomeEditor({ content, onChange }: { content: HomePageContent; onChange:
         <div className={styles.field}><label className={styles.label}>Eyebrow</label><input className={styles.input} value={content.better_planned_path.eyebrow} onChange={(e) => set({ better_planned_path: { ...content.better_planned_path, eyebrow: e.target.value } })} /></div>
         <div className={styles.field}><label className={styles.label}>Title / emphasis</label><input className={styles.input} value={content.better_planned_path.title} onChange={(e) => set({ better_planned_path: { ...content.better_planned_path, title: e.target.value } })} /><input className={styles.input} style={{ marginTop: 8 }} value={content.better_planned_path.title_emphasis ?? ''} onChange={(e) => set({ better_planned_path: { ...content.better_planned_path, title_emphasis: e.target.value } })} /></div>
         <div className={styles.field}><label className={styles.label}>Intro</label><textarea className={styles.textarea} value={content.better_planned_path.intro} rows={3} onChange={(e) => set({ better_planned_path: { ...content.better_planned_path, intro: e.target.value } })} /></div>
-        <ImageField label="Team image" value={content.better_planned_path.team_image_url} onChange={(url) => set({ better_planned_path: { ...content.better_planned_path, team_image_url: url } })} folder="pages/home/path" />
         {content.process_stages.map((stage, i) => (
           <div key={i} className={styles.repeatItem}>
             <div style={{ display: 'grid', gridTemplateColumns: '80px 1fr', gap: 8 }}>
@@ -223,6 +267,8 @@ function HomeEditor({ content, onChange }: { content: HomePageContent; onChange:
 
       <fieldset className={styles.fieldset}>
         <legend className={styles.legend}>Quality in Every Layer</legend>
+        <div className={styles.field}><label className={styles.label}>Eyebrow</label><input className={styles.input} value={content.quality_layers.eyebrow} onChange={(e) => set({ quality_layers: { ...content.quality_layers, eyebrow: e.target.value } })} /></div>
+        <div className={styles.field}><label className={styles.label}>Title / emphasis</label><input className={styles.input} value={content.quality_layers.title} onChange={(e) => set({ quality_layers: { ...content.quality_layers, title: e.target.value } })} /><input className={styles.input} style={{ marginTop: 8 }} value={content.quality_layers.title_emphasis ?? ''} onChange={(e) => set({ quality_layers: { ...content.quality_layers, title_emphasis: e.target.value } })} /></div>
         <ImageField label="Elevation cutaway photo" value={content.quality_layers.elevation_image_url} onChange={(url) => set({ quality_layers: { ...content.quality_layers, elevation_image_url: url } })} folder="pages/home/quality" />
         {content.quality_layers.layers.map((layer, i) => (
           <div key={layer.id} className={styles.repeatItem}>
@@ -242,15 +288,24 @@ function HomeEditor({ content, onChange }: { content: HomePageContent; onChange:
         <div className={styles.field}><label className={styles.label}>Title</label><input className={styles.input} value={content.testimonial_section.title} onChange={(e) => set({ testimonial_section: { ...content.testimonial_section, title: e.target.value } })} /></div>
         <div className={styles.field}><label className={styles.label}>Quote</label><textarea className={styles.textarea} value={content.testimonial_section.quote} rows={3} onChange={(e) => set({ testimonial_section: { ...content.testimonial_section, quote: e.target.value } })} /></div>
         <div className={styles.field}><label className={styles.label}>Citation</label><input className={styles.input} value={content.testimonial_section.cite} onChange={(e) => set({ testimonial_section: { ...content.testimonial_section, cite: e.target.value } })} /></div>
+        <ImageField label="Left photo" value={content.testimonial_section.left_image_url ?? ''} onChange={(url) => set({ testimonial_section: { ...content.testimonial_section, left_image_url: url } })} folder="pages/home/testimonials" />
+        <ImageField label="Right photo" value={content.testimonial_section.right_image_url ?? ''} onChange={(url) => set({ testimonial_section: { ...content.testimonial_section, right_image_url: url } })} folder="pages/home/testimonials" />
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+          <div className={styles.field}><label className={styles.label}>CTA label</label><input className={styles.input} value={content.testimonial_section.cta_label} onChange={(e) => set({ testimonial_section: { ...content.testimonial_section, cta_label: e.target.value } })} /></div>
+          <div className={styles.field}><label className={styles.label}>CTA link</label><input className={styles.input} value={content.testimonial_section.cta_link} onChange={(e) => set({ testimonial_section: { ...content.testimonial_section, cta_link: e.target.value } })} /></div>
+        </div>
       </fieldset>
 
       <fieldset className={styles.fieldset}>
         <legend className={styles.legend}>Pick Your Path</legend>
-        <div className={styles.field}><label className={styles.label}>Intro</label><input className={styles.input} value={content.pick_your_path.intro} onChange={(e) => set({ pick_your_path: { ...content.pick_your_path, intro: e.target.value } })} /></div>
+        <div className={styles.field}><label className={styles.label}>Intro / eyebrow</label><input className={styles.input} value={content.pick_your_path.intro} onChange={(e) => set({ pick_your_path: { ...content.pick_your_path, intro: e.target.value } })} /></div>
+        <div className={styles.field}><label className={styles.label}>Section title</label><input className={styles.input} value={content.pick_your_path.title ?? ''} onChange={(e) => set({ pick_your_path: { ...content.pick_your_path, title: e.target.value } })} /></div>
         {content.pick_your_path.tiles.map((tile, i) => (
           <div key={i} className={styles.repeatItem}>
             <input className={styles.input} value={tile.title} placeholder="Title" onChange={(e) => { const tiles = [...content.pick_your_path.tiles]; tiles[i] = { ...tiles[i], title: e.target.value }; set({ pick_your_path: { ...content.pick_your_path, tiles } }); }} />
+            <textarea className={styles.textarea} style={{ marginTop: 8 }} value={tile.description ?? ''} placeholder="Description" rows={2} onChange={(e) => { const tiles = [...content.pick_your_path.tiles]; tiles[i] = { ...tiles[i], description: e.target.value }; set({ pick_your_path: { ...content.pick_your_path, tiles } }); }} />
             <input className={styles.input} style={{ marginTop: 8 }} value={tile.link} placeholder="Link" onChange={(e) => { const tiles = [...content.pick_your_path.tiles]; tiles[i] = { ...tiles[i], link: e.target.value }; set({ pick_your_path: { ...content.pick_your_path, tiles } }); }} />
+            <input className={styles.input} style={{ marginTop: 8 }} value={tile.cta_label ?? ''} placeholder="Link label" onChange={(e) => { const tiles = [...content.pick_your_path.tiles]; tiles[i] = { ...tiles[i], cta_label: e.target.value }; set({ pick_your_path: { ...content.pick_your_path, tiles } }); }} />
             <label style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 8, fontSize: 13 }}>
               <input type="checkbox" checked={!!tile.external} onChange={(e) => { const tiles = [...content.pick_your_path.tiles]; tiles[i] = { ...tiles[i], external: e.target.checked }; set({ pick_your_path: { ...content.pick_your_path, tiles } }); }} />
               External link
@@ -262,6 +317,8 @@ function HomeEditor({ content, onChange }: { content: HomePageContent; onChange:
       <fieldset className={styles.fieldset}>
         <legend className={styles.legend}>Closing CTA</legend>
         <div className={styles.field}><label className={styles.label}>Title</label><input className={styles.input} value={content.closing_cta.title} onChange={(e) => set({ closing_cta: { ...content.closing_cta, title: e.target.value } })} /></div>
+        <div className={styles.field}><label className={styles.label}>Subtitle</label><input className={styles.input} value={content.closing_cta.subtitle ?? ''} onChange={(e) => set({ closing_cta: { ...content.closing_cta, subtitle: e.target.value } })} /></div>
+        <ImageField label="Background photo" value={content.closing_cta.background_image_url ?? ''} onChange={(url) => set({ closing_cta: { ...content.closing_cta, background_image_url: url } })} folder="pages/home/closing-cta" />
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
           <div className={styles.field}><label className={styles.label}>Primary label</label><input className={styles.input} value={content.closing_cta.primary_label} onChange={(e) => set({ closing_cta: { ...content.closing_cta, primary_label: e.target.value } })} /></div>
           <div className={styles.field}><label className={styles.label}>Primary URL</label><input className={styles.input} value={content.closing_cta.primary_url} onChange={(e) => set({ closing_cta: { ...content.closing_cta, primary_url: e.target.value } })} /></div>
@@ -419,6 +476,7 @@ function ServicesEditor({ content, onChange }: { content: ServicesPageContent; o
         <label className={styles.label}>CTA title</label>
         <input className={styles.input} value={content.cta_title} onChange={(e) => onChange({ ...content, cta_title: e.target.value })} />
       </div>
+      <CtaBackgroundField value={content.cta_background_image_url} onChange={(url) => onChange({ ...content, cta_background_image_url: url })} folder="pages/services" />
     </>
   );
 }
@@ -433,6 +491,7 @@ function ServiceDetailEditor({ content, onChange }: { content: ServiceDetailPage
         <label className={styles.label}>CTA title</label>
         <input className={styles.input} value={content.cta_title} onChange={(e) => onChange({ ...content, cta_title: e.target.value })} />
       </div>
+      <CtaBackgroundField value={content.cta_background_image_url} onChange={(url) => onChange({ ...content, cta_background_image_url: url })} folder="pages/services" />
     </>
   );
 }
@@ -514,11 +573,23 @@ function ProcessEditor({ content, onChange }: { content: ProcessPageContent; onC
         ))}
         <button type="button" className={styles.btn} onClick={() => onChange({ ...content, steps: [...content.steps, { n: '', tag: '', title: '', duration: '', body: '' }] })}>Add step</button>
       </fieldset>
+      <fieldset className={styles.fieldset}>
+        <legend className={styles.legend}>Mid-page photo band</legend>
+        <div className={styles.field}>
+          <label className={styles.label}>Title</label>
+          <input className={styles.input} value={content.band_title ?? ''} onChange={(e) => onChange({ ...content, band_title: e.target.value })} />
+        </div>
+        <div className={styles.field}>
+          <label className={styles.label}>Body</label>
+          <textarea className={styles.textarea} value={content.band_body ?? ''} rows={4} onChange={(e) => onChange({ ...content, band_body: e.target.value })} />
+        </div>
+        <ImageField label="Band background photo" value={content.band_image_url ?? ''} onChange={(url) => onChange({ ...content, band_image_url: url })} folder="pages/process" />
+      </fieldset>
       <div className={styles.field}>
         <label className={styles.label}>CTA title</label>
         <input className={styles.input} value={content.cta_title} onChange={(e) => onChange({ ...content, cta_title: e.target.value })} />
       </div>
-      <ImageField label="Mid-page band image" value={content.band_image_url ?? '/assets/ph-arch-2.png'} onChange={(url) => onChange({ ...content, band_image_url: url })} folder="pages/process" />
+      <CtaBackgroundField value={content.cta_background_image_url} onChange={(url) => onChange({ ...content, cta_background_image_url: url })} folder="pages/process" />
     </>
   );
 }
@@ -557,6 +628,7 @@ function NeighborhoodsEditor({ content, onChange }: { content: NeighborhoodsPage
         <label className={styles.label}>CTA title</label>
         <input className={styles.input} value={content.cta_title} onChange={(e) => onChange({ ...content, cta_title: e.target.value })} />
       </div>
+      <CtaBackgroundField value={content.cta_background_image_url} onChange={(url) => onChange({ ...content, cta_background_image_url: url })} folder="pages/neighborhoods" />
     </>
   );
 }
@@ -604,6 +676,7 @@ function TestimonialsEditor({ content, onChange }: { content: TestimonialsPageCo
         <label className={styles.label}>CTA title</label>
         <input className={styles.input} value={content.cta_title} onChange={(e) => onChange({ ...content, cta_title: e.target.value })} />
       </div>
+      <CtaBackgroundField value={content.cta_background_image_url} onChange={(url) => onChange({ ...content, cta_background_image_url: url })} folder="pages/testimonials" />
     </>
   );
 }
@@ -647,6 +720,7 @@ function ContactEditor({ content, onChange }: { content: ContactPageContent; onC
         <label className={styles.label}>CTA title</label>
         <input className={styles.input} value={content.cta_title} onChange={(e) => onChange({ ...content, cta_title: e.target.value })} />
       </div>
+      <CtaBackgroundField value={content.cta_background_image_url} onChange={(url) => onChange({ ...content, cta_background_image_url: url })} folder="pages/contact" />
     </>
   );
 }
@@ -704,6 +778,7 @@ function FaqEditor({ content, onChange }: { content: FaqPageContent; onChange: (
         <label className={styles.label}>CTA title</label>
         <input className={styles.input} value={content.cta_title} onChange={(e) => onChange({ ...content, cta_title: e.target.value })} />
       </div>
+      <CtaBackgroundField value={content.cta_background_image_url} onChange={(url) => onChange({ ...content, cta_background_image_url: url })} folder="pages/faq" />
     </>
   );
 }
@@ -748,6 +823,7 @@ function WarrantyEditor({ content, onChange }: { content: WarrantyPageContent; o
         <label className={styles.label}>CTA title</label>
         <input className={styles.input} value={content.cta_title} onChange={(e) => onChange({ ...content, cta_title: e.target.value })} />
       </div>
+      <CtaBackgroundField value={content.cta_background_image_url} onChange={(url) => onChange({ ...content, cta_background_image_url: url })} folder="pages/warranty" />
     </>
   );
 }
@@ -841,6 +917,46 @@ function AwardsEditor({ content, onChange }: { content: AwardsPageContent; onCha
         <label className={styles.label}>CTA title</label>
         <input className={styles.input} value={content.cta_title} onChange={(e) => onChange({ ...content, cta_title: e.target.value })} />
       </div>
+      <CtaBackgroundField value={content.cta_background_image_url} onChange={(url) => onChange({ ...content, cta_background_image_url: url })} folder="pages/awards" />
+    </>
+  );
+}
+
+function AvailableHomesEditor({ content, onChange }: { content: AvailableHomesPageContent; onChange: (c: AvailableHomesPageContent) => void }) {
+  return (
+    <>
+      <fieldset className={styles.fieldset}>
+        <legend className={styles.legend}>Hero</legend>
+        <HeroFields hero={content.hero} onChange={(hero) => onChange({ ...content, hero: { ...content.hero, ...hero } })} />
+        <div className={styles.field}>
+          <label className={styles.label}>Intro paragraph</label>
+          <textarea className={styles.textarea} value={content.hero.intro} rows={3} onChange={(e) => onChange({ ...content, hero: { ...content.hero, intro: e.target.value } })} />
+        </div>
+      </fieldset>
+      <div className={styles.field}>
+        <label className={styles.label}>Featured spotlight eyebrow</label>
+        <input className={styles.input} value={content.featured_eyebrow} onChange={(e) => onChange({ ...content, featured_eyebrow: e.target.value })} />
+      </div>
+      <fieldset className={styles.fieldset}>
+        <legend className={styles.legend}>Listing section labels</legend>
+        <div className={styles.field}><label className={styles.label}>For sale title</label><input className={styles.input} value={content.sections.for_sale_title} onChange={(e) => onChange({ ...content, sections: { ...content.sections, for_sale_title: e.target.value } })} /></div>
+        <div className={styles.field}><label className={styles.label}>Coming soon title</label><input className={styles.input} value={content.sections.coming_soon_title} onChange={(e) => onChange({ ...content, sections: { ...content.sections, coming_soon_title: e.target.value } })} /></div>
+        <div className={styles.field}><label className={styles.label}>Recently completed title</label><input className={styles.input} value={content.sections.recently_completed_title} onChange={(e) => onChange({ ...content, sections: { ...content.sections, recently_completed_title: e.target.value } })} /></div>
+        <div className={styles.field}><label className={styles.label}>Empty state — for sale</label><input className={styles.input} value={content.sections.empty_for_sale} onChange={(e) => onChange({ ...content, sections: { ...content.sections, empty_for_sale: e.target.value } })} /></div>
+        <div className={styles.field}><label className={styles.label}>Empty state — coming soon</label><input className={styles.input} value={content.sections.empty_coming_soon} onChange={(e) => onChange({ ...content, sections: { ...content.sections, empty_coming_soon: e.target.value } })} /></div>
+        <p style={{ fontSize: 13, color: 'rgba(26,36,32,0.5)' }}>Home cards pull from Properties with Available, Coming Soon, or Sold status.</p>
+      </fieldset>
+      <fieldset className={styles.fieldset}>
+        <legend className={styles.legend}>Closing CTA</legend>
+        <div className={styles.field}><label className={styles.label}>Title</label><input className={styles.input} value={content.cta.title} onChange={(e) => onChange({ ...content, cta: { ...content.cta, title: e.target.value } })} /></div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+          <div className={styles.field}><label className={styles.label}>Primary label</label><input className={styles.input} value={content.cta.primary_label} onChange={(e) => onChange({ ...content, cta: { ...content.cta, primary_label: e.target.value } })} /></div>
+          <div className={styles.field}><label className={styles.label}>Primary URL</label><input className={styles.input} value={content.cta.primary_url} onChange={(e) => onChange({ ...content, cta: { ...content.cta, primary_url: e.target.value } })} /></div>
+          <div className={styles.field}><label className={styles.label}>Secondary label</label><input className={styles.input} value={content.cta.secondary_label} onChange={(e) => onChange({ ...content, cta: { ...content.cta, secondary_label: e.target.value } })} /></div>
+          <div className={styles.field}><label className={styles.label}>Secondary URL</label><input className={styles.input} value={content.cta.secondary_url} onChange={(e) => onChange({ ...content, cta: { ...content.cta, secondary_url: e.target.value } })} /></div>
+        </div>
+        <ImageField label="Background photo" value={content.cta.background_image_url ?? ''} onChange={(url) => onChange({ ...content, cta: { ...content.cta, background_image_url: url } })} folder="pages/available-homes" />
+      </fieldset>
     </>
   );
 }

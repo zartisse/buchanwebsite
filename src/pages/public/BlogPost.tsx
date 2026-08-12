@@ -24,16 +24,16 @@ export function BlogPost() {
         description={post.meta_description || post.excerpt}
       />
       <article>
-        <header style={{ padding: 'clamp(140px, 20vh, 200px) 8vw 48px', maxWidth: 800, margin: '0 auto' }}>
-          <Link to="/blog" style={{ fontSize: 12, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--color-accent)', textDecoration: 'none' }}>← Journal</Link>
-          <span style={{ display: 'block', marginTop: 24, fontSize: 11, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--color-accent-on-light)' }}>{post.category}</span>
-          <h1 style={{ fontFamily: 'var(--font-serif)', fontWeight: 300, fontSize: 'clamp(36px, 5vw, 56px)', lineHeight: 1.1, margin: '16px 0' }}>{post.title}</h1>
-          <time style={{ fontSize: 13, color: 'var(--color-text-muted-light)' }}>{fmtDate(post.date)}</time>
+        <header className={ps.articleHeader}>
+          <Link to="/blog" className={ps.articleBack}>← Journal</Link>
+          <span className={ps.eyebrow} style={{ marginTop: 24 }}>{post.category}</span>
+          <h1 className={ps.articleTitle}>{post.title}</h1>
+          <time className={ps.articleDate}>{fmtDate(post.date)}</time>
         </header>
 
-        <img src={resolveImageUrl(post.image_url, post.slug)} alt="" style={{ width: '100%', maxHeight: 520, objectFit: 'cover' }} />
+        <img src={resolveImageUrl(post.image_url, post.slug)} alt="" className={ps.articleHeroImage} />
 
-        <div style={{ maxWidth: 680, margin: '0 auto', padding: '48px 8vw 80px' }}>
+        <div className={ps.articleBody}>
           {paragraphs.map((p, i) => (
             <p key={i} className={ps.bodyText} style={{ marginBottom: 24 }}>{p}</p>
           ))}
@@ -43,12 +43,13 @@ export function BlogPost() {
       {related.length > 0 && (
         <section className={ps.sectionAlt}>
           <div className={ps.sectionInner}>
-            <h2 className={ps.sectionTitle} style={{ marginBottom: 32 }}>Keep Reading</h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 24 }}>
+            <span className={ps.eyebrow}>Keep Reading</span>
+            <h2 className={ps.sectionTitle} style={{ marginTop: 16, marginBottom: 32 }}>More from the journal</h2>
+            <div className={ps.cardGrid}>
               {related.map((r) => (
-                <Link key={r.id} to={`/blog/${r.slug}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                <Link key={r.id} to={`/blog/${r.slug}`} className={ps.cardLink}>
                   <img src={resolveImageUrl(r.image_url, r.slug)} alt="" style={{ width: '100%', height: 180, objectFit: 'cover', marginBottom: 12 }} />
-                  <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: 18, margin: 0, lineHeight: 1.2 }}>{r.title}</h3>
+                  <h3 className={ps.cardTitle} style={{ fontSize: 20 }}>{r.title}</h3>
                 </Link>
               ))}
             </div>

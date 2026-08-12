@@ -36,9 +36,6 @@ import { AdminHubPageEdit } from '../pages/admin/HubPageEdit';
 
 export function AppRouter() {
   const basename = import.meta.env.BASE_URL.replace(/\/$/, '') || undefined;
-  // #region agent log
-  fetch('http://127.0.0.1:7673/ingest/96b34018-b8d2-464d-a26d-868e5a862d9d',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'787a69'},body:JSON.stringify({sessionId:'787a69',location:'router/index.tsx:AppRouter',message:'router init',data:{baseUrl:import.meta.env.BASE_URL,basename:basename??''},timestamp:Date.now(),runId:'post-fix',hypothesisId:'H13'})}).catch(()=>{});
-  // #endregion
 
   return (
     <BrowserRouter basename={basename}>

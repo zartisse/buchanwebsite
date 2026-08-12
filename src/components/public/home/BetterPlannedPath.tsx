@@ -9,46 +9,42 @@ type BetterPlannedPathProps = {
 };
 
 export function BetterPlannedPath({ section, stages }: BetterPlannedPathProps) {
-  return (
-    <section className={`${styles.section} ${styles.textureBand}`}>
-      <div className={styles.inner}>
-        <RevealOnScroll>
-          <span className={styles.eyebrow}>{section.eyebrow}</span>
-          <h2 className={styles.title}>
-            {section.title}
-            {section.title_emphasis && (
-              <>
-                <br /><em>{section.title_emphasis}</em>
-              </>
-            )}
-          </h2>
-          <p className={styles.intro}>{section.intro}</p>
-        </RevealOnScroll>
+  const title = section.title_emphasis
+    ? <>{section.title} <em>{section.title_emphasis}</em></>
+    : section.title;
 
-        <div className={styles.steps}>
+  return (
+    <section className={styles.section}>
+      <div className={styles.inner}>
+        <div className={styles.header}>
+          <RevealOnScroll variant="left">
+            <span className="eyebrowRule">{section.eyebrow}</span>
+            <h2 className={styles.title}>{title}</h2>
+          </RevealOnScroll>
+          <RevealOnScroll variant="left" index={1}>
+            <p className={styles.intro}>{section.intro}</p>
+          </RevealOnScroll>
+        </div>
+
+        <div className={styles.timeline}>
           {stages.map((stage, i) => (
-            <RevealOnScroll key={stage.n}>
-              <article className={styles.step}>
-                <span className={styles.stepNum}>{stage.n}</span>
-                <div>
-                  <h3>{stage.title}</h3>
-                  <p>{stage.body}</p>
+            <RevealOnScroll key={stage.n} index={i}>
+              <div className={styles.step}>
+                <div className={styles.stepTop}>
+                  <span className={styles.stepNum}>{stage.n}</span>
+                  {i < stages.length - 1 && <span className={styles.connector} aria-hidden />}
                 </div>
-                {i < stages.length - 1 && <span className={styles.connector} aria-hidden />}
-              </article>
+                <h3 className={styles.stepTitle}>{stage.title}</h3>
+                <p className={styles.stepBody}>{stage.body}</p>
+              </div>
             </RevealOnScroll>
           ))}
         </div>
 
         <RevealOnScroll>
-          <div className={styles.teamBlock}>
-            <div className={styles.teamCopy}>
-              <h3>{section.team_heading}</h3>
-              <p>{section.team_body}</p>
-              <Link to={section.cta_link} className={styles.processLink}>{section.cta_label}</Link>
-            </div>
-            <img src={section.team_image_url} alt="" className={styles.teamImage} />
-          </div>
+          <Link to={section.cta_link} className="linkAccent" style={{ marginTop: 40, display: 'inline-flex' }}>
+            {section.cta_label} <span>→</span>
+          </Link>
         </RevealOnScroll>
       </div>
     </section>

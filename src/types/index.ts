@@ -59,13 +59,29 @@ export type SitePageSlug =
   | 'contact'
   | 'faq'
   | 'warranty'
-  | 'awards';
+  | 'awards'
+  | 'available-homes';
 
 export interface HeroSection {
   eyebrow: string;
   title: string;
   title_emphasis?: string;
 }
+
+export type ServiceIconName =
+  | 'custom-home'
+  | 'renovation'
+  | 'adu'
+  | 'fire-restoration'
+  | 'real-estate'
+  | 'maintenance'
+  | 'building'
+  | 'blueprint'
+  | 'hammer'
+  | 'water'
+  | 'structure'
+  | 'comfort'
+  | 'craft';
 
 export interface HomePageContent {
   hero: HeroSection & {
@@ -79,17 +95,29 @@ export interface HomePageContent {
     cta_secondary_label?: string;
   };
   credibility_line: string;
+  credibility_stats: { label: string }[];
   featured_work: {
     eyebrow: string;
     title: string;
+    body?: string;
+    cta_label?: string;
+    cta_link?: string;
+  };
+  difference_section: {
+    eyebrow: string;
+    title: string;
+    body: string;
+    image_url: string;
+    cta_label: string;
+    cta_link: string;
   };
   what_we_do: {
     eyebrow: string;
     title: string;
     title_emphasis?: string;
-    primary: { title: string; description: string; image_url: string; link: string }[];
-    secondary: { title: string; description: string; link: string }[];
-    preconstruction: { title: string; body: string; cta_label: string; cta_link: string };
+    primary: { title: string; description: string; image_url?: string; link: string; icon?: ServiceIconName }[];
+    secondary: { title: string; description: string; link: string; icon?: ServiceIconName }[];
+    preconstruction: { title: string; body: string; cta_label: string; cta_link: string; image_url?: string };
   };
   client_concerns: {
     eyebrow: string;
@@ -114,7 +142,7 @@ export interface HomePageContent {
     title: string;
     title_emphasis?: string;
     elevation_image_url: string;
-    layers: { id: string; label: string; benefit: string; x: number; y: number }[];
+    layers: { id: string; label: string; benefit: string; x: number; y: number; icon?: ServiceIconName }[];
   };
   testimonial_section: {
     eyebrow: string;
@@ -123,17 +151,22 @@ export interface HomePageContent {
     cite: string;
     cta_label: string;
     cta_link: string;
+    left_image_url?: string;
+    right_image_url?: string;
   };
   pick_your_path: {
     intro: string;
-    tiles: { title: string; link: string; external?: boolean }[];
+    title?: string;
+    tiles: { title: string; link: string; external?: boolean; description?: string; icon?: ServiceIconName; cta_label?: string }[];
   };
   closing_cta: {
     title: string;
+    subtitle?: string;
     primary_label: string;
     primary_url: string;
     phone: string;
     phone_href: string;
+    background_image_url?: string;
   };
 }
 
@@ -175,6 +208,7 @@ export interface ServicesPageContent {
   hero: HeroSection;
   items: { title: string; slug: string; description: string; image_url: string }[];
   cta_title: string;
+  cta_background_image_url?: string;
 }
 
 export interface ServiceDetailPageContent {
@@ -182,19 +216,24 @@ export interface ServiceDetailPageContent {
   image_url: string;
   steps: { n: string; title: string; body: string }[];
   cta_title: string;
+  cta_background_image_url?: string;
 }
 
 export interface ProcessPageContent {
   hero: HeroSection;
   steps: { n: string; title: string; duration: string; body: string; tag: string }[];
+  band_title?: string;
+  band_body?: string;
   band_image_url?: string;
   cta_title: string;
+  cta_background_image_url?: string;
 }
 
 export interface NeighborhoodsPageContent {
   hero: HeroSection;
   areas: { name: string; body: string; image_url: string }[];
   cta_title: string;
+  cta_background_image_url?: string;
 }
 
 export interface TestimonialsPageContent {
@@ -202,6 +241,7 @@ export interface TestimonialsPageContent {
   featured: { quote: string; cite: string; image_url: string };
   quotes: { name: string; city: string; quote: string }[];
   cta_title: string;
+  cta_background_image_url?: string;
 }
 
 export interface ContactPageContent {
@@ -213,6 +253,7 @@ export interface ContactPageContent {
   phone_href: string;
   office: string;
   cta_title: string;
+  cta_background_image_url?: string;
 }
 
 export interface FaqPageContent {
@@ -220,6 +261,7 @@ export interface FaqPageContent {
   intro: string;
   categories: { title: string; items: { question: string; answer: string }[] }[];
   cta_title: string;
+  cta_background_image_url?: string;
 }
 
 export interface WarrantyPageContent {
@@ -228,6 +270,7 @@ export interface WarrantyPageContent {
   sections: { title: string; body: string }[];
   coverage_items: { title: string; description: string }[];
   cta_title: string;
+  cta_background_image_url?: string;
 }
 
 export interface AwardsPageContent {
@@ -238,6 +281,27 @@ export interface AwardsPageContent {
   credentials: { title: string; body: string }[];
   badges?: { image_url?: string; alt: string; href?: string }[];
   cta_title: string;
+  cta_background_image_url?: string;
+}
+
+export interface AvailableHomesPageContent {
+  hero: HeroSection & { intro: string };
+  featured_eyebrow: string;
+  sections: {
+    for_sale_title: string;
+    coming_soon_title: string;
+    recently_completed_title: string;
+    empty_for_sale: string;
+    empty_coming_soon: string;
+  };
+  cta: {
+    title: string;
+    primary_label: string;
+    primary_url: string;
+    secondary_label: string;
+    secondary_url: string;
+    background_image_url?: string;
+  };
 }
 
 export interface HubPageContent {
@@ -252,6 +316,7 @@ export interface HubPageContent {
   sections: { title: string; body: string; bullets?: string[]; image_url?: string }[];
   ctaTitle: string;
   ctaLink?: string;
+  cta_background_image_url?: string;
   service_areas?: string[];
 }
 
@@ -320,6 +385,7 @@ export type SitePageContentMap = {
   faq: FaqPageContent;
   warranty: WarrantyPageContent;
   awards: AwardsPageContent;
+  'available-homes': AvailableHomesPageContent;
 };
 
 export interface SitePage<S extends SitePageSlug = SitePageSlug> {
@@ -341,6 +407,7 @@ export const SITE_PAGE_SLUGS: SitePageSlug[] = [
   'faq',
   'warranty',
   'awards',
+  'available-homes',
 ];
 
 export const SITE_PAGE_LABELS: Record<SitePageSlug, string> = {
@@ -357,6 +424,7 @@ export const SITE_PAGE_LABELS: Record<SitePageSlug, string> = {
   faq: 'FAQ',
   warranty: 'Warranty & Aftercare',
   awards: 'Awards & Press',
+  'available-homes': 'Available Homes',
 };
 
 export interface Submission {

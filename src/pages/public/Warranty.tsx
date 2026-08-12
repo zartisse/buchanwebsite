@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
 import { useSitePage } from '../../hooks/useSitePage';
 import { PageMeta } from '../../components/ui/PageMeta';
+import { PageCta } from '../../components/ui/PageCta';
 import { RevealOnScroll } from '../../components/ui/RevealOnScroll';
 import { HeroTitle } from '../../components/ui/HeroTitle';
 import { getDemoPageContent } from '../../data/sitePagesDemo';
+import { resolveImageUrl } from '../../lib/placeholders';
 import ps from '../../styles/pages.module.css';
 
 export function Warranty() {
@@ -56,13 +58,9 @@ export function Warranty() {
         </div>
       </section>
 
-      <section className={ps.ctaSection}>
-        <h2 className={ps.sectionTitle}>{content.cta_title}</h2>
-        <div className={ps.ctaButtons}>
-          <Link to="/contact" className={ps.btnPrimary}>Get in Touch</Link>
-          <Link to="/faq" className={ps.btnLink}>Read FAQ →</Link>
-        </div>
-      </section>
+      <PageCta title={content.cta_title} backgroundImage={resolveImageUrl(content.cta_background_image_url ?? '/assets/ph-arch-3.png', 'warranty-cta')}>
+        <Link to="/faq" className="btnGhostLight">Read FAQ</Link>
+      </PageCta>
     </main>
   );
 }

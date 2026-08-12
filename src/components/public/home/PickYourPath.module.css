@@ -1,58 +1,76 @@
 .section {
-  padding: clamp(64px, 10vh, 96px) var(--gutter);
-  background-color: var(--color-bg-white);
-  background-image: radial-gradient(rgba(176, 130, 76, 0.09) 1.2px, transparent 1.2px);
-  background-size: 22px 22px;
+  padding: clamp(80px, 12vh, 120px) var(--gutter);
+  background: var(--color-bg-white);
   border-top: 1px solid var(--color-hairline-light);
 }
 
 .inner {
-  max-width: var(--max-width);
+  max-width: var(--max-width-wide);
   margin: 0 auto;
 }
 
-.intro {
+.header {
+  text-align: center;
+  margin-bottom: clamp(40px, 6vh, 56px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-4);
+}
+
+.title {
   font-family: var(--font-serif);
-  font-size: clamp(22px, 2.8vw, 28px);
   font-weight: var(--fw-light);
-  font-style: italic;
+  font-size: var(--text-display-xl);
+  line-height: var(--lh-snug);
+  margin: 0;
   color: var(--color-text-on-light);
-  margin: 0 0 32px;
-  max-width: 560px;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: clamp(12px, 1.5vw, 16px);
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s-6);
 }
 
-.tile {
+.card {
   display: flex;
-  align-items: center;
-  padding: clamp(18px, 2vw, 24px);
+  flex-direction: column;
+  gap: var(--s-4);
+  padding: clamp(28px, 4vw, 40px);
+  border: 1px solid var(--color-hairline-light);
   background: var(--color-bg-white);
-  border: 1px solid var(--color-hairline-light-2);
   text-decoration: none;
   color: inherit;
-  font-size: 13px;
-  line-height: 1.4;
-  min-height: 72px;
   transition: border-color var(--d-base) var(--ease-out), box-shadow var(--d-base) var(--ease-out);
 }
 
-.tile:hover {
-  border-color: var(--color-accent-dark);
-  box-shadow: 0 4px 20px rgba(13, 21, 18, 0.06);
+.card:hover {
+  border-color: var(--color-hairline-light-3);
+  box-shadow: 0 8px 28px rgba(26, 36, 32, 0.05);
 }
 
-@media (max-width: 900px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.icon {
+  color: var(--color-accent-fill);
 }
 
-@media (max-width: 540px) {
+.cardTitle {
+  font-family: var(--font-serif);
+  font-size: var(--text-display-md);
+  font-weight: var(--fw-regular);
+  margin: 0;
+  color: var(--color-text-on-light);
+}
+
+.cardDesc {
+  font-size: var(--text-body-sm);
+  line-height: var(--lh-relaxed);
+  color: var(--color-text-body);
+  margin: 0;
+  flex: 1;
+}
+
+@media (max-width: 768px) {
   .grid {
     grid-template-columns: 1fr;
   }

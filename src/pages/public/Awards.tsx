@@ -1,10 +1,13 @@
 import { Link } from 'react-router-dom';
 import { useSitePage } from '../../hooks/useSitePage';
+import { PageCta } from '../../components/ui/PageCta';
 import { FOOTER_AWARD_BADGES, HOUZZ_PROFILE_URL } from '../../data/awards';
 import { PageMeta } from '../../components/ui/PageMeta';
 import { RevealOnScroll } from '../../components/ui/RevealOnScroll';
 import { HeroTitle } from '../../components/ui/HeroTitle';
 import { getDemoPageContent } from '../../data/sitePagesDemo';
+import { assetUrl } from '../../lib/assets';
+import { resolveImageUrl } from '../../lib/placeholders';
 import ps from '../../styles/pages.module.css';
 import footerStyles from '../../components/layout/Footer.module.css';
 
@@ -48,7 +51,7 @@ export function Awards() {
                 title={badge.alt}
               >
                 {badge.image_url ? (
-                  <img src={badge.image_url} alt={badge.alt} className={footerStyles.awardLogo} />
+                  <img src={assetUrl(badge.image_url)} alt={badge.alt} className={footerStyles.awardLogo} />
                 ) : (
                   <span className={footerStyles.awardTextBadge}>{badge.alt}</span>
                 )}
@@ -111,13 +114,9 @@ export function Awards() {
         </div>
       </section>
 
-      <section className={ps.ctaSection}>
-        <h2 className={ps.sectionTitle}>{content.cta_title}</h2>
-        <div className={ps.ctaButtons}>
-          <Link to="/contact" className={ps.btnPrimary}>Contact Us</Link>
-          <Link to="/portfolio" className={ps.btnLink}>View Portfolio →</Link>
-        </div>
-      </section>
+      <PageCta title={content.cta_title} backgroundImage={resolveImageUrl(content.cta_background_image_url ?? '/assets/ph-arch-2.png', 'awards-cta')}>
+        <Link to="/portfolio" className="btnGhostLight">View Portfolio</Link>
+      </PageCta>
     </main>
   );
 }

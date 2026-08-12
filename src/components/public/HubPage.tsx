@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom';
 import type { HubPage } from '../../types';
 import { EstimatorLink } from '../ui/EstimatorLink';
 import { PageMeta } from '../ui/PageMeta';
+import { PageCta } from '../ui/PageCta';
 import { RevealOnScroll } from '../ui/RevealOnScroll';
 import { HeroTitle } from '../ui/HeroTitle';
 import { ESTIMATOR_URL } from '../../lib/estimator';
@@ -12,6 +12,7 @@ import hs from './HubPage.module.css';
 export function HubPage({ page }: { page: HubPage }) {
   const data = page.content;
   const ctaTo = data.ctaLink ?? '/contact';
+  const ctaBg = data.cta_background_image_url ?? data.hero.image_url ?? '/assets/ph-arch-1.png';
   const isExternal = ctaTo.startsWith('tel:') || ctaTo.startsWith('http');
 
   return (
@@ -21,7 +22,7 @@ export function HubPage({ page }: { page: HubPage }) {
         <div className={ps.heroInner}>
           <span className={ps.eyebrow}>{data.hero.eyebrow}</span>
           <HeroTitle hero={{ eyebrow: data.hero.eyebrow, title: data.hero.title, title_emphasis: data.hero.titleEmphasis }} />
-          {data.hero.subtitle && <p className={ps.bodyText} style={{ marginTop: 24, maxWidth: 640 }}>{data.hero.subtitle}</p>}
+          {data.hero.subtitle && <p className={ps.bodyText} style={{ marginTop: 8, maxWidth: 640 }}>{data.hero.subtitle}</p>}
           {data.hero.image_url && (
             <div className={hs.heroMedia}>
               <img src={resolveImageUrl(data.hero.image_url, page.slug)} alt="" />
@@ -40,7 +41,7 @@ export function HubPage({ page }: { page: HubPage }) {
 
       <section className={ps.section}>
         <div className={ps.sectionInner}>
-          <div style={{ display: 'grid', gap: 48 }}>
+          <div className={hs.sectionsStack}>
             {data.sections.map((section, i) => (
               <RevealOnScroll key={section.title + i}>
                 <div
@@ -48,12 +49,12 @@ export function HubPage({ page }: { page: HubPage }) {
                   className={`${hs.sectionRow} ${section.image_url ? hs.sectionRowHasImage : ''}`}
                 >
                   <div>
-                    <h2 className={ps.sectionTitle} style={{ fontSize: 'var(--text-display-lg)', marginBottom: 16 }}>{section.title}</h2>
+                    <h2 className={hs.sectionHeading}>{section.title}</h2>
                     <p className={ps.bodyText}>{section.body}</p>
                     {section.bullets && (
-                      <ul style={{ marginTop: 16, paddingLeft: 20, color: 'var(--color-text-body)' }}>
+                      <ul className={hs.bulletList}>
                         {section.bullets.map((b) => (
-                          <li key={b} style={{ marginBottom: 8, lineHeight: 1.6 }}>{b}</li>
+                          <li key={b}>{b}</li>
                         ))}
                       </ul>
                     )}
@@ -73,26 +74,47 @@ export function HubPage({ page }: { page: HubPage }) {
       {page.slug === 'areas-we-serve' && data.service_areas && data.service_areas.length > 0 && (
         <section className={ps.sectionAlt}>
           <div className={ps.sectionInner}>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
+            <div className={ps.areaChips}>
               {data.service_areas.map((area) => (
-                <span key={area} style={{ fontSize: 11, letterSpacing: 'var(--tr-wide)', textTransform: 'uppercase', padding: '10px 16px', border: '1px solid var(--color-hairline-light-3)', color: 'var(--color-text-on-light)' }}>{area}</span>
+                <span key={area} className={ps.areaChip}>{area}</span>
               ))}
             </div>
           </div>
         </section>
       )}
 
-      <section className={ps.ctaSection}>
-        <h2 className={ps.sectionTitle}>{data.ctaTitle}</h2>
-        <div className={ps.ctaButtons}>
-          {isExternal ? (
-            <a href={ctaTo} target={ctaTo === ESTIMATOR_URL ? '_blank' : undefined} rel={ctaTo === ESTIMATOR_URL ? 'noopener noreferrer' : undefined} className={ps.btnPrimary}>{data.ctaTitle}</a>
-          ) : (
-            <Link to={ctaTo} className={ps.btnPrimary}>Start a Conversation</Link>
-          )}
-          <EstimatorLink className={ps.btnLink}>Cost Estimator →</EstimatorLink>
-        </div>
-      </section>
+      {isExternal ? (
+        <section className={ps.ctaPhoto}>
+          <div className={ps.ctaPhotoBg} aria-hidden>
+            <img src={resolveImageUrl(ctaBg, `${page.slug}-cta`)} alt="" />
+          </div>
+          <div className={ps.ctaPhotoOverlay} aria-hidden />
+          <div className={ps.ctaPhotoInner}>
+            <h2 className={ps.sectionTitle}>{data.ctaTitle}</h2>
+            <div className={ps.ctaButtons}>
+              <a
+                href={ctaTo}
+                target={ctaTo === ESTIMATOR_URL ? '_blank' : undefined}
+                rel={ctaTo === ESTIMATOR_URL ? 'noopener noreferrer' : undefined}
+                className="btnPrimaryFill"
+              >
+                {ctaTo === ESTIMATOR_URL ? 'Open Cost Estimator' : 'Start a Conversation'}
+              </a>
+              {ctaTo !== ESTIMATOR_URL && (
+                <EstimatorLink className="btnGhostLight">Cost Estimator</EstimatorLink>
+              )}
+            </div>
+          </div>
+        </section>
+      ) : (
+        <PageCta
+          title={data.ctaTitle}
+          primaryUrl={ctaTo}
+          backgroundImage={ctaBg}
+        >
+          <EstimatorLink className="btnGhostLight">Cost Estimator</EstimatorLink>
+        </PageCta>
+      )}
     </main>
   );
 }

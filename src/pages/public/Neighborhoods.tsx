@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
 import { useSitePage } from '../../hooks/useSitePage';
+import { PageCta } from '../../components/ui/PageCta';
 import { PageMeta } from '../../components/ui/PageMeta';
 import { RevealOnScroll } from '../../components/ui/RevealOnScroll';
 import { HeroTitle } from '../../components/ui/HeroTitle';
 import { getDemoPageContent } from '../../data/sitePagesDemo';
+import { resolveImageUrl } from '../../lib/placeholders';
 import ps from '../../styles/pages.module.css';
 
 export function Neighborhoods() {
@@ -24,7 +26,7 @@ export function Neighborhoods() {
         <section key={a.name} className={i % 2 ? ps.sectionAlt : ps.section}>
           <RevealOnScroll>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 48, maxWidth: 'var(--max-width)', margin: '0 auto', alignItems: 'center' }}>
-              <img src={a.image_url} alt={a.name} style={{ width: '100%', height: 'clamp(280px, 35vw, 400px)', objectFit: 'cover', order: i % 2 ? 1 : 0 }} />
+              <img src={resolveImageUrl(a.image_url, a.name)} alt={a.name} style={{ width: '100%', height: 'clamp(280px, 35vw, 400px)', objectFit: 'cover', order: i % 2 ? 1 : 0 }} />
               <div style={{ order: i % 2 ? 0 : 1 }}>
                 <span className={ps.eyebrow}>Neighborhood</span>
                 <h2 className={ps.sectionTitle} style={{ marginTop: 18 }}>{a.name}</h2>
@@ -36,10 +38,7 @@ export function Neighborhoods() {
         </section>
       ))}
 
-      <section className={ps.ctaSection}>
-        <h2 className={ps.sectionTitle}>{content.cta_title}</h2>
-        <Link to="/contact" className={ps.btnPrimary}>Contact Us</Link>
-      </section>
+      <PageCta title={content.cta_title} backgroundImage={resolveImageUrl(content.cta_background_image_url ?? '/assets/ph-arch-3.png', 'neighborhoods-cta')} />
     </main>
   );
 }

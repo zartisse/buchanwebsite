@@ -1,3 +1,5 @@
+import { assetUrl } from './assets';
+
 const ARCH_PLACEHOLDERS = [
   '/assets/ph-arch-1.png',
   '/assets/ph-arch-2.png',
@@ -24,7 +26,7 @@ export function placeholderImage(seed?: string | number): string {
 
 export function resolveImageUrl(url: string | undefined | null, seed?: string | number): string {
   if (!url || url.trim() === '' || url === LEGACY_PORTRAIT) {
-    return placeholderImage(seed);
+    return assetUrl(placeholderImage(seed));
   }
-  return url;
+  return assetUrl(url);
 }

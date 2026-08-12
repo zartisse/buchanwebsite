@@ -30,13 +30,13 @@ export function Blog() {
       {featured && (
         <section className={ps.sectionAlt}>
           <RevealOnScroll>
-            <Link to={`/blog/${featured.slug}`} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 48, maxWidth: 'var(--max-width)', margin: '0 auto', textDecoration: 'none', color: 'inherit' }}>
+            <Link to={`/blog/${featured.slug}`} className={ps.cardLink} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 48, maxWidth: 'var(--max-width-wide)', margin: '0 auto' }}>
               <img src={resolveImageUrl(featured.image_url, featured.slug)} alt="" style={{ width: '100%', height: 'clamp(280px, 35vw, 420px)', objectFit: 'cover' }} />
               <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                <span className={ps.eyebrow}>Featured</span>
-                <h2 style={{ fontFamily: 'var(--font-serif)', fontWeight: 300, fontSize: 'clamp(28px, 4vw, 44px)', margin: '16px 0', lineHeight: 1.1 }}>{featured.title}</h2>
-                <p className={ps.bodyText}>{featured.excerpt}</p>
-                <span style={{ marginTop: 16, fontSize: 12, color: 'var(--color-accent)' }}>{fmtDate(featured.date)} · {featured.category}</span>
+                <span className={ps.cardLabel}>Featured</span>
+                <h2 className={ps.sectionTitle} style={{ fontSize: 'clamp(28px, 3.5vw, 44px)', marginTop: 16 }}>{featured.title}</h2>
+                <p className={ps.bodyText} style={{ marginTop: 16 }}>{featured.excerpt}</p>
+                <span className={ps.cardMeta} style={{ marginTop: 16 }}>{fmtDate(featured.date)} · {featured.category}</span>
               </div>
             </Link>
           </RevealOnScroll>
@@ -45,24 +45,13 @@ export function Blog() {
 
       <section className={ps.section}>
         <div className={ps.sectionInner}>
-          <div style={{ display: 'flex', gap: 12, marginBottom: 40, flexWrap: 'wrap' }}>
+          <div className={ps.filterRow}>
             {(['All', 'Company Updates', 'Industry News'] as CatFilter[]).map((c) => (
               <button
                 key={c}
                 type="button"
-               
                 onClick={() => setCat(c)}
-                style={{
-                  background: cat === c ? 'rgba(176,130,76,0.16)' : 'transparent',
-                  border: `1px solid ${cat === c ? 'var(--color-accent-dark)' : 'var(--color-hairline-light-3)'}`,
-                  color: 'var(--color-text-on-light)',
-                  padding: '8px 18px',
-                  fontSize: 11,
-                  letterSpacing: '0.14em',
-                  textTransform: 'uppercase',
-                  cursor: 'pointer',
-                  fontFamily: 'var(--font-sans)',
-                }}
+                className={cat === c ? ps.filterChipActive : ps.filterChip}
               >
                 {c}
               </button>
@@ -72,16 +61,16 @@ export function Blog() {
           {loading && <div className="page-loading">Loading posts…</div>}
           {error && <div className="page-error">{error}</div>}
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 32 }}>
+          <div className={ps.cardGrid}>
             {gridPosts.map((p) => (
               <RevealOnScroll key={p.id}>
-                <Link to={`/blog/${p.slug}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                  <div style={{ overflow: 'hidden', height: 240, marginBottom: 20 }}>
+                <Link to={`/blog/${p.slug}`} className={ps.cardLink}>
+                  <div className={ps.cardImageWrapSm}>
                     <img src={resolveImageUrl(p.image_url, p.slug)} alt="" className={ps.imageCover} />
                   </div>
-                  <span style={{ fontSize: 10, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--color-accent)' }}>{p.category}</span>
-                  <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: 22, margin: '8px 0', lineHeight: 1.2 }}>{p.title}</h3>
-                  <span style={{ fontSize: 12, color: 'var(--color-text-muted-light)' }}>{fmtDate(p.date)}</span>
+                  <span className={ps.cardLabel}>{p.category}</span>
+                  <h3 className={ps.cardTitle} style={{ fontSize: 22, marginTop: 8 }}>{p.title}</h3>
+                  <span className={ps.cardMeta}>{fmtDate(p.date)}</span>
                 </Link>
               </RevealOnScroll>
             ))}

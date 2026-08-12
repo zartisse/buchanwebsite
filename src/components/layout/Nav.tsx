@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { PRIMARY_NAV } from '../../data/navigation';
+import { assetUrl } from '../../lib/assets';
 import styles from './Nav.module.css';
 
 export function Nav() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const lightTop = !scrolled && !open;
+  const { pathname } = useLocation();
+  const onHomeHero = pathname === '/';
+  const lightTop = onHomeHero && !scrolled && !open;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -32,7 +35,7 @@ export function Nav() {
     <>
       <header className={`${styles.topbar} ${scrolled ? styles.scrolled : ''} ${lightTop ? styles.lightTopbar : ''}`}>
         <Link to="/" className={styles.logoLink}>
-          <img src={lightTop ? '/assets/logo.png' : '/assets/logo-reverse.png'} alt="John Buchan Homes" className={styles.logo} />
+          <img src={lightTop ? assetUrl('/assets/logo-reverse.png') : assetUrl('/assets/logo.png')} alt="John Buchan Homes" className={styles.logo} />
         </Link>
 
         <nav className={styles.desktopNav} aria-label="Primary">
@@ -42,8 +45,8 @@ export function Nav() {
         </nav>
 
         <div className={styles.topRight}>
-          <Link to="/contact" className={styles.ctaBtn}>Start a Conversation</Link>
-          <a href="tel:4258272266" className={styles.phone}>425.827.2266</a>
+          <Link to="/contact" className={styles.ctaBtn}>Let&apos;s Talk</Link>
+          <a href="tel:4258272266" className={`${styles.phone} ${!lightTop ? styles.phoneDark : ''}`}>425.827.2266</a>
           <button
             type="button"
             className={styles.burger}
@@ -58,7 +61,7 @@ export function Nav() {
       <nav className={`${styles.overlay} ${open ? styles.overlayOpen : ''}`} aria-label="Mobile menu">
         <div className={styles.ghost}>65</div>
         <div className={styles.overlayTop}>
-          <img src="/assets/logo-reverse.png" alt="" className={styles.logo} />
+          <img src={assetUrl('/assets/logo-reverse.png')} alt="" className={styles.logo} />
           <button type="button" className={styles.close} onClick={() => setOpen(false)} aria-label="Close menu">
             <span /><span />
           </button>

@@ -612,30 +612,30 @@ export const FEATURED_WORK_ITEMS: FeaturedWorkItem[] = [
 
 export const WHAT_WE_DO = {
   primary: [
-    { title: 'Custom Homes', description: 'Ground-up homes on your lot — from feasibility through completion.', image_url: '/assets/ph-arch-1.png', link: '/custom-homes' },
-    { title: 'Renovations', description: 'Major whole-home transformations with the same Buchan standard.', image_url: '/assets/ph-arch-2.png', link: '/renovations' },
+    { title: 'Custom Homes', description: 'Ground-up homes on your lot — from feasibility through completion.', image_url: '/assets/ph-arch-1.png', link: '/custom-homes', icon: 'custom-home' as const },
+    { title: 'Major Renovations', description: 'Major whole-home transformations with the same Buchan standard.', image_url: '/assets/ph-arch-2.png', link: '/renovations', icon: 'renovation' as const },
   ],
   secondary: [
-    { title: 'ADUs & DADUs', description: 'Additional dwelling units for family or rental income.', link: '/services/adus' },
-    { title: 'Real Estate Services', description: 'Lot finding, selling, and land acquisition support.', link: '/services/real-estate' },
-    { title: 'Fire Restoration', description: 'Rebuild and restore after fire or disaster.', link: '/services/fire-restoration' },
-    { title: 'Maintenance & Service', description: 'Ongoing care through Buchan Home Care.', link: '/services/home-care' },
+    { title: 'ADUs & DADUs', description: 'Additional dwelling units for family or rental income.', link: '/services/adus', icon: 'adu' as const },
+    { title: 'Fire Restoration', description: 'Rebuild and restore after fire or disaster.', link: '/services/fire-restoration', icon: 'fire-restoration' as const },
+    { title: 'Real Estate Services', description: 'Lot finding, selling, and land acquisition support.', link: '/services/real-estate', icon: 'real-estate' as const },
+    { title: 'Maintenance & Service', description: 'Ongoing care through Buchan Home Care.', link: '/services/home-care', icon: 'maintenance' as const },
   ],
 };
 
 export const CLIENT_CONCERNS = [
-  { title: 'Investment alignment', body: 'Your budget and vision stay connected through progressive estimates — not a single number that shifts later.' },
-  { title: 'Team coordination', body: 'We align architects, interior designers, engineers, and specialty consultants around one shared plan.' },
-  { title: 'Communication & decisions', body: 'Clear milestones and a dedicated point of contact so you always know what is happening next.' },
+  { title: 'How do we establish a realistic investment?', body: 'Your budget and vision stay connected through progressive estimates — not a single number that shifts later.' },
+  { title: 'Who will manage the team?', body: 'We align architects, interior designers, engineers, and specialty consultants around one shared plan.' },
+  { title: 'What happens after we move in?', body: 'Warranty coverage and continuing care so support does not end at the key handoff.' },
   { title: 'Schedule management', body: 'Realistic timelines mapped before construction begins, with honest updates when conditions change.' },
   { title: 'Hidden construction quality', body: 'The details behind walls — water management, structure, comfort — are where we invest most.' },
   { title: 'Accountability after move-in', body: 'Warranty coverage and continuing care so support does not end at the key handoff.' },
 ];
 
 export const BETTER_PLANNED_PATH = {
-  eyebrow: 'A Better-Planned Path',
-  title: 'From vision',
-  titleEmphasis: 'to home.',
+  eyebrow: 'Our Process',
+  title: 'A custom experience,',
+  titleEmphasis: 'thoughtfully managed.',
   intro: 'Preconstruction, collaboration, and construction leadership — aligned around your vision, investment, constructability, and schedule.',
   teamHeading: 'One Aligned Team, Chosen for Your Home',
   teamBody: 'We collaborate with independent architects on every project and interior designers on most. Clients may bring their own trusted professionals. Buchan provides estimating, constructability review, schedule planning, coordination, detailed specifications, and construction leadership from the early stages.',
@@ -648,36 +648,35 @@ export interface QualityLayerHotspot {
   benefit: string;
   x: number;
   y: number;
+  icon?: 'water' | 'structure' | 'comfort' | 'craft';
 }
 
 export const QUALITY_LAYERS: QualityLayerHotspot[] = [
-  { id: 'durability', label: 'Long-term durability', benefit: 'Materials and methods chosen for how they perform over time, not just how they look on day one.', x: 24, y: 32 },
-  { id: 'structure', label: 'Structural planning', benefit: 'A frame designed for your site, your architecture, and decades of stable performance.', x: 84, y: 34 },
-  { id: 'windows', label: 'Window & door integration', benefit: 'Tight, weather-ready openings that keep drafts out and comfort in year-round.', x: 33, y: 50 },
-  { id: 'water', label: 'Water management', benefit: 'Homes built for Pacific Northwest rain — moisture managed before it reaches your living spaces.', x: 22, y: 66 },
-  { id: 'comfort', label: 'Indoor comfort', benefit: 'Even temperatures and healthy air — comfort engineered into the home, not added after.', x: 56, y: 62 },
-  { id: 'sound', label: 'Sound control', benefit: 'Quieter rooms through thoughtful assembly — less noise between spaces and from outside.', x: 90, y: 60 },
+  { id: 'water', label: 'Water management', benefit: 'Homes built for Pacific Northwest rain — moisture managed before it reaches your living spaces.', x: 22, y: 66, icon: 'water' },
+  { id: 'structure', label: 'Structural planning', benefit: 'A frame designed for your site, your architecture, and decades of stable performance.', x: 84, y: 34, icon: 'structure' },
+  { id: 'comfort', label: 'Interior comfort', benefit: 'Even temperatures and healthy air — comfort engineered into the home, not added after.', x: 56, y: 62, icon: 'comfort' },
+  { id: 'craft', label: 'Enduring craftsmanship', benefit: 'Materials and methods chosen for how they perform over time, not just how they look on day one.', x: 24, y: 32, icon: 'craft' },
+  { id: 'windows', label: 'Window & door integration', benefit: 'Tight, weather-ready openings that keep drafts out and comfort in year-round.', x: 33, y: 50, icon: 'structure' },
+  { id: 'sound', label: 'Sound control', benefit: 'Quieter rooms through thoughtful assembly — less noise between spaces and from outside.', x: 90, y: 60, icon: 'craft' },
 ];
 
 export interface PickPathTile {
   title: string;
   link: string;
   external?: boolean;
+  description?: string;
+  icon?: 'building' | 'blueprint' | 'hammer';
+  cta_label?: string;
 }
 
 export const PICK_YOUR_PATH_TILES: PickPathTile[] = [
-  { title: 'Estimate My Project', link: 'https://estimator.buchan.com/', external: true },
-  { title: 'I Already Have Plans', link: '/contact?service=I have plans and need a builder#inquiry' },
-  { title: 'Help me Evaluate a Property', link: '/property-feasibility' },
-  { title: 'I Have Land to Sell', link: '/land-acquisition' },
-  { title: 'I Want a Second Opinion', link: '/second-opinion' },
-  { title: 'I Want an ADU', link: '/services/adus' },
-  { title: 'My Home Needs Maintenance & Repair', link: '/services/home-care' },
-  { title: 'Just Browsing', link: '/portfolio' },
+  { title: 'I am considering building', description: 'Explore custom homes, land considerations, and what to expect from preconstruction.', link: '/custom-homes', icon: 'building', cta_label: 'Explore Your Options →' },
+  { title: 'I already have plans', description: 'Upload plans, share your city and budget, and connect with our construction team.', link: '/contact?service=I have plans and need a builder#inquiry', icon: 'blueprint', cta_label: 'Share Your Plans →' },
+  { title: "I'm planning a major renovation", description: 'Whole-home and major remodel scope with the same Buchan planning discipline.', link: '/renovations', icon: 'hammer', cta_label: 'Explore Renovations →' },
 ];
 
 export const PICK_YOUR_PATH_INTRO =
-  'Wherever you are in the process, we can help you move forward.';
+  'Choose your starting point';
 
 export const WHY_CHOOSE_VALUES = [
   { title: 'Certainty', body: 'Progressive estimates and preconstruction discipline reduce surprises.' },

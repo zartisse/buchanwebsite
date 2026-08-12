@@ -31,7 +31,7 @@ export function About() {
             {content.timeline.items.map((t) => (
               <RevealOnScroll key={`${t.year}-${t.title}`}>
                 <div style={{ display: 'grid', gridTemplateColumns: '120px 1fr', gap: 32, borderBottom: '1px solid var(--color-hairline-light-2)', paddingBottom: 32 }}>
-                  <span style={{ fontFamily: 'var(--font-serif)', fontSize: 36, color: 'var(--color-accent-dark)' }}>{t.year}</span>
+                  <span className={ps.timelineYear}>{t.year}</span>
                   <div>
                     <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: 24, margin: '0 0 8px' }}>{t.title}</h3>
                     <p className={ps.bodyText}>{t.body}</p>

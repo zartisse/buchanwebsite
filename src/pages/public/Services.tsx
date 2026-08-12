@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
 import { useSitePage } from '../../hooks/useSitePage';
 import { PageMeta } from '../../components/ui/PageMeta';
+import { PageCta } from '../../components/ui/PageCta';
 import { RevealOnScroll } from '../../components/ui/RevealOnScroll';
 import { HeroTitle } from '../../components/ui/HeroTitle';
 import { getDemoPageContent } from '../../data/sitePagesDemo';
+import { resolveImageUrl } from '../../lib/placeholders';
 import ps from '../../styles/pages.module.css';
 
 function servicePath(slug: string) {
@@ -33,7 +35,7 @@ export function Services() {
         <section key={s.slug} className={i % 2 ? ps.sectionAlt : ps.section}>
           <RevealOnScroll>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 48, maxWidth: 'var(--max-width)', margin: '0 auto', alignItems: 'center' }}>
-              <img src={s.image_url} alt="" style={{ width: '100%', height: 'clamp(280px, 35vw, 420px)', objectFit: 'cover', order: i % 2 ? 1 : 0 }} />
+              <img src={resolveImageUrl(s.image_url, s.slug)} alt="" style={{ width: '100%', height: 'clamp(280px, 35vw, 420px)', objectFit: 'cover', order: i % 2 ? 1 : 0 }} />
               <div style={{ order: i % 2 ? 0 : 1 }}>
                 <span className={ps.eyebrow}>Service</span>
                 <h2 className={ps.sectionTitle} style={{ marginTop: 18 }}>{s.title}</h2>
@@ -45,10 +47,7 @@ export function Services() {
         </section>
       ))}
 
-      <section className={ps.ctaSection}>
-        <h2 className={ps.sectionTitle}>{content.cta_title}</h2>
-        <Link to="/contact" className={ps.btnPrimary}>Start a Conversation</Link>
-      </section>
+      <PageCta title={content.cta_title} backgroundImage={resolveImageUrl(content.cta_background_image_url ?? '/assets/ph-arch-1.png', 'services-cta')} />
     </main>
   );
 }

@@ -13,29 +13,53 @@
 }
 
 .scrolled {
-  background: rgba(13, 21, 18, 0.86);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   padding: 15px var(--s-10);
-  border-bottom-color: var(--color-hairline-strong);
+  border-bottom-color: var(--color-hairline-light);
+  box-shadow: 0 1px 0 rgba(26, 36, 32, 0.04);
 }
 
 .lightTopbar:not(.scrolled) .phone {
-  color: var(--color-text-on-light);
+  color: #ffffff;
 }
 
 .lightTopbar:not(.scrolled) .burger span {
-  background: var(--color-text-on-light);
+  background: #ffffff;
 }
 
 .lightTopbar:not(.scrolled) .ctaBtn {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.85);
+}
+
+.lightTopbar:not(.scrolled) .ctaBtn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+.desktopNavLink:hover,
+.desktopNavLink:focus-visible {
+  opacity: 1;
+}
+
+.scrolled .phone {
+  color: var(--color-text-on-light);
+}
+
+.scrolled .burger span {
+  background: var(--color-text-on-light);
+}
+
+.scrolled .ctaBtn {
   color: var(--color-text-on-light);
   border-color: var(--color-text-on-light);
 }
 
-.lightTopbar:not(.scrolled) .ctaBtn:hover {
+.scrolled .ctaBtn:hover {
   background: var(--color-text-on-light);
-  color: var(--color-text);
+  color: var(--color-bg-white);
 }
 
 .logoLink {
@@ -68,21 +92,20 @@
   opacity: 1;
 }
 
+.phoneDark {
+  color: var(--color-text-on-light);
+}
+
 .ctaBtn {
   font-size: var(--text-micro);
   letter-spacing: var(--tr-wider);
   text-transform: uppercase;
   font-weight: var(--fw-medium);
-  color: var(--color-text);
+  color: var(--color-text-on-light);
   text-decoration: none;
-  border: 1px solid var(--color-accent);
+  border: 1px solid var(--color-text-on-light);
   padding: 11px 18px;
   transition: background var(--d-base) var(--ease-out), color var(--d-base) var(--ease-out);
-}
-
-.ctaBtn:hover {
-  background: var(--color-accent);
-  color: var(--color-bg-dark);
 }
 
 .burger {
@@ -141,20 +164,15 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
   font-weight: var(--fw-medium);
-  color: var(--color-text);
+  color: var(--color-text-on-light);
   text-decoration: none;
   padding: 8px 0;
-  opacity: 0.85;
-  transition: opacity var(--d-base) var(--ease-out);
-}
-
-.desktopNavLink:hover,
-.desktopNavLink:focus-visible {
-  opacity: 1;
+  opacity: 0.9;
+  transition: opacity var(--d-base) var(--ease-out), color var(--d-base) var(--ease-out);
 }
 
 .desktopNavLinkLight {
-  color: var(--color-text-on-light);
+  color: #ffffff;
 }
 
 .dropdown {
@@ -163,8 +181,9 @@
   left: 50%;
   transform: translateX(-50%) translateY(8px);
   min-width: 220px;
-  background: rgba(13, 21, 18, 0.97);
-  border: 1px solid var(--color-hairline-strong);
+  background: var(--color-bg-white);
+  border: 1px solid var(--color-hairline-light);
+  box-shadow: 0 12px 40px rgba(26, 36, 32, 0.08);
   padding: 12px 0;
   opacity: 0;
   visibility: hidden;
@@ -184,16 +203,17 @@
   font-size: 11px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--color-text);
+  color: var(--color-text-on-light);
   text-decoration: none;
   opacity: 0.75;
-  transition: opacity var(--d-base) var(--ease-out), background var(--d-base) var(--ease-out);
+  transition: opacity var(--d-base) var(--ease-out), background var(--d-base) var(--ease-out), color var(--d-base) var(--ease-out);
 }
 
 .dropdownLink:hover,
 .dropdownLink:focus-visible {
   opacity: 1;
-  background: rgba(176, 130, 76, 0.08);
+  background: rgba(197, 160, 125, 0.1);
+  color: var(--color-accent-dark);
 }
 
 .overlay {
