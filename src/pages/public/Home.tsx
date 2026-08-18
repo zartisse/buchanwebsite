@@ -13,27 +13,27 @@ import { PageMeta } from '../../components/ui/PageMeta';
 import { mergeHomeContent } from '../../data/homeContentDefaults';
 import { getDemoPageContent } from '../../data/sitePagesDemo';
 import { assetUrl } from '../../lib/assets';
-import { isYouTubeUrl, parseYouTubeId, youTubeEmbedSrc } from '../../lib/youtube';
 import homeStyles from './Home.module.css';
 
-const DEFAULT_HERO_VIDEO = 'https://www.youtube.com/watch?v=PMeek4pvZOI';
-const HERO_POSTER = assetUrl('/assets/ph-arch-1.png');
+function HeroCta({ url, label, className }: { url: string; label: string; className: string }) {
+  if (url.startsWith('#')) {
+    return <a href={url} className={className}>{label}</a>;
+  }
+  if (url.startsWith('http')) {
+    return <a href={url} className={className} target="_blank" rel="noopener noreferrer">{label}</a>;
+  }
+  return <Link to={url} className={className}>{label}</Link>;
+}
 
 export function Home() {
   const { page } = useSitePage('home');
-  const content = mergeHomeContent(page?.content ?? getDemoPageContent('home'));
+  const rawContent = page?.content ?? getDemoPageContent('home');
+  const content = mergeHomeContent(rawContent);
   const { hero } = content;
-
-  const videoUrl = hero.video_url || DEFAULT_HERO_VIDEO;
-  const youtubeId = isYouTubeUrl(videoUrl) ? parseYouTubeId(videoUrl) : null;
-  const fileVideoSrc = !youtubeId && videoUrl.startsWith('/') ? assetUrl(videoUrl) : !youtubeId ? videoUrl : null;
 
   const heroTitle = hero.title_emphasis
     ? <>{hero.title} <em>{hero.title_emphasis}</em></>
     : hero.title;
-
-  const secondaryCtaUrl = hero.cta_secondary_url ?? '#featured-work';
-  const secondaryCtaIsHash = secondaryCtaUrl.startsWith('#');
 
   const stats = content.credibility_stats?.length
     ? content.credibility_stats
@@ -45,38 +45,20 @@ export function Home() {
 
       <section className={homeStyles.heroOverlay}>
         <div className={homeStyles.heroMedia} aria-hidden>
-          {youtubeId ? (
-            <div className={homeStyles.heroYoutube}>
-              <iframe
-                src={youTubeEmbedSrc(youtubeId)}
-                title="John Buchan Homes"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                referrerPolicy="strict-origin-when-cross-origin"
-              />
-            </div>
-          ) : fileVideoSrc ? (
-            <video
-              src={fileVideoSrc}
-              poster={hero.image_url ? assetUrl(hero.image_url) : HERO_POSTER}
-              autoPlay
-              muted
-              loop
-              playsInline
-            />
-          ) : (
-            <img src={assetUrl(hero.image_url ?? '/assets/ph-arch-1.png')} alt="" />
-          )}
+          <img src={assetUrl(hero.image_url ?? '/assets/ph-arch-1.png')} alt="" />
         </div>
         <div className={homeStyles.heroScrim} aria-hidden />
         <div className={homeStyles.heroContent}>
           <h1 className={homeStyles.heroTitle}>{heroTitle}</h1>
           <p className={homeStyles.heroSub}>{hero.subtitle}</p>
           <div className={homeStyles.heroCtas}>
-            <Link to={hero.cta_primary_url} className="btnPrimaryFill">{hero.cta_primary_label}</Link>
-            {secondaryCtaIsHash ? (
-              <a href={secondaryCtaUrl} className="btnGhostLight">{hero.cta_secondary_label ?? 'Explore Our Work'}</a>
-            ) : (
-              <Link to={secondaryCtaUrl} className="btnGhostLight">{hero.cta_secondary_label ?? 'Explore Our Work'}</Link>
+            <HeroCta url={hero.cta_primary_url} label={hero.cta_primary_label} className="btnPrimaryFill" />
+            {hero.cta_secondary_url && hero.cta_secondary_label && (
+              <HeroCta
+                url={hero.cta_secondary_url}
+                label={hero.cta_secondary_label}
+                className="btnGhostLight"
+              />
             )}
           </div>
         </div>

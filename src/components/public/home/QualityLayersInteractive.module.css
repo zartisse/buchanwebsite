@@ -32,6 +32,15 @@
   font-weight: var(--fw-regular);
 }
 
+.body {
+  font-size: var(--text-body-lg);
+  font-weight: var(--fw-light);
+  line-height: var(--lh-relaxed);
+  color: var(--color-text-body);
+  max-width: 560px;
+  margin: 0;
+}
+
 .interactiveWrap {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;

@@ -16,10 +16,9 @@ import type {
   WarrantyPageContent,
 } from '../../types';
 import { getDemoSitePage } from '../../data/sitePagesDemo';
-import { mergeHomeContent } from '../../data/homeContentDefaults';
+import { mergeHomeContent, isStaleHomeCms } from '../../data/homeContentDefaults';
 import { PageMeta } from '../ui/PageMeta';
 import { HeroFields, ImageField, MetaFields, CtaBackgroundField } from './AdminFormFields';
-import { MediaDropzone } from './MediaDropzone';
 import styles from '../../styles/admin.module.css';
 
 interface SitePageEditorProps {
@@ -32,10 +31,20 @@ interface SitePageEditorProps {
 export function SitePageEditor({ slug, page, onSave, onCancel }: SitePageEditorProps) {
   const demo = getDemoSitePage(slug);
   const initial = page ?? demo;
+  const initialHomeContent =
+    slug === 'home' ? mergeHomeContent(initial.content as HomePageContent) : initial.content;
 
-  const [metaTitle, setMetaTitle] = useState(initial.meta_title);
-  const [metaDescription, setMetaDescription] = useState(initial.meta_description);
-  const [content, setContent] = useState(initial.content);
+  const [metaTitle, setMetaTitle] = useState(
+    slug === 'home' && page && isStaleHomeCms(page.content as unknown as Record<string, unknown>)
+      ? 'Build with Certainty | John Buchan Homes'
+      : initial.meta_title,
+  );
+  const [metaDescription, setMetaDescription] = useState(
+    slug === 'home' && page && isStaleHomeCms(page.content as unknown as Record<string, unknown>)
+      ? 'Custom homes and major renovations on the Seattle Eastside since 1961.'
+      : initial.meta_description,
+  );
+  const [content, setContent] = useState(initialHomeContent);
   const [saving, setSaving] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -66,7 +75,7 @@ export function SitePageEditor({ slug, page, onSave, onCancel }: SitePageEditorP
           onMetaDescription={setMetaDescription}
         />
         {slug === 'home' && (
-          <HomeEditor content={mergeHomeContent(content as HomePageContent)} onChange={setContent} />
+          <HomeEditor content={content as HomePageContent} onChange={setContent} />
         )}
         {slug === 'about' && (
           <AboutEditor content={content as AboutPageContent} onChange={setContent} />
@@ -122,12 +131,7 @@ function HomeEditor({ content, onChange }: { content: HomePageContent; onChange:
           <label className={styles.label}>Subtitle</label>
           <input className={styles.input} value={content.hero.subtitle} onChange={(e) => onChange({ ...content, hero: { ...content.hero, subtitle: e.target.value } })} />
         </div>
-        <MediaDropzone label="Hero video" folder="pages/home/video" accept="video" value={content.hero.video_url && !content.hero.video_url.includes('youtube') ? content.hero.video_url : ''} onChange={(url) => onChange({ ...content, hero: { ...content.hero, video_url: url || content.hero.video_url } })} />
-        <div className={styles.field}>
-          <label className={styles.label}>Hero video URL (YouTube or direct MP4)</label>
-          <input className={styles.input} value={content.hero.video_url ?? ''} placeholder="https://www.youtube.com/watch?v=..." onChange={(e) => onChange({ ...content, hero: { ...content.hero, video_url: e.target.value || undefined } })} />
-        </div>
-        <ImageField label="Hero poster (fallback image)" value={content.hero.image_url} onChange={(url) => onChange({ ...content, hero: { ...content.hero, image_url: url } })} folder="pages/home" />
+        <ImageField label="Hero background photo" value={content.hero.image_url} onChange={(url) => onChange({ ...content, hero: { ...content.hero, image_url: url } })} folder="pages/home" />
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
           <div className={styles.field}>
             <label className={styles.label}>Primary CTA label</label>
@@ -221,6 +225,7 @@ function HomeEditor({ content, onChange }: { content: HomePageContent; onChange:
           <div key={i} className={styles.repeatItem}>
             <div className={styles.field}><label className={styles.label}>Primary card {i + 1} title</label><input className={styles.input} value={item.title} onChange={(e) => { const primary = [...content.what_we_do.primary]; primary[i] = { ...primary[i], title: e.target.value }; set({ what_we_do: { ...content.what_we_do, primary } }); }} /></div>
             <div className={styles.field}><label className={styles.label}>Description</label><textarea className={styles.textarea} value={item.description} rows={2} onChange={(e) => { const primary = [...content.what_we_do.primary]; primary[i] = { ...primary[i], description: e.target.value }; set({ what_we_do: { ...content.what_we_do, primary } }); }} /></div>
+            <div className={styles.field}><label className={styles.label}>CTA label</label><input className={styles.input} value={item.cta_label ?? ''} onChange={(e) => { const primary = [...content.what_we_do.primary]; primary[i] = { ...primary[i], cta_label: e.target.value }; set({ what_we_do: { ...content.what_we_do, primary } }); }} /></div>
             <ImageField label="Image (optional legacy)" value={item.image_url ?? ''} onChange={(url) => { const primary = [...content.what_we_do.primary]; primary[i] = { ...primary[i], image_url: url }; set({ what_we_do: { ...content.what_we_do, primary } }); }} folder="pages/home/what-we-do" />
             <div className={styles.field}><label className={styles.label}>Link</label><input className={styles.input} value={item.link} onChange={(e) => { const primary = [...content.what_we_do.primary]; primary[i] = { ...primary[i], link: e.target.value }; set({ what_we_do: { ...content.what_we_do, primary } }); }} /></div>
           </div>
@@ -269,6 +274,7 @@ function HomeEditor({ content, onChange }: { content: HomePageContent; onChange:
         <legend className={styles.legend}>Quality in Every Layer</legend>
         <div className={styles.field}><label className={styles.label}>Eyebrow</label><input className={styles.input} value={content.quality_layers.eyebrow} onChange={(e) => set({ quality_layers: { ...content.quality_layers, eyebrow: e.target.value } })} /></div>
         <div className={styles.field}><label className={styles.label}>Title / emphasis</label><input className={styles.input} value={content.quality_layers.title} onChange={(e) => set({ quality_layers: { ...content.quality_layers, title: e.target.value } })} /><input className={styles.input} style={{ marginTop: 8 }} value={content.quality_layers.title_emphasis ?? ''} onChange={(e) => set({ quality_layers: { ...content.quality_layers, title_emphasis: e.target.value } })} /></div>
+        <div className={styles.field}><label className={styles.label}>Intro body</label><textarea className={styles.textarea} value={content.quality_layers.body ?? ''} rows={2} onChange={(e) => set({ quality_layers: { ...content.quality_layers, body: e.target.value } })} /></div>
         <ImageField label="Elevation cutaway photo" value={content.quality_layers.elevation_image_url} onChange={(url) => set({ quality_layers: { ...content.quality_layers, elevation_image_url: url } })} folder="pages/home/quality" />
         {content.quality_layers.layers.map((layer, i) => (
           <div key={layer.id} className={styles.repeatItem}>

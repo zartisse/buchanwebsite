@@ -30,8 +30,9 @@ export function QualityLayersInteractive({ section }: QualityLayersInteractivePr
       <div className={styles.inner}>
         <RevealOnScroll>
           <div className={styles.header}>
-            <span className="eyebrowRule eyebrowRuleCenter">{section.eyebrow}</span>
+            {section.eyebrow && <span className="eyebrowRule eyebrowRuleCenter">{section.eyebrow}</span>}
             <h2 className={styles.title}>{title}</h2>
+            {section.body && <p className={styles.body}>{section.body}</p>}
           </div>
         </RevealOnScroll>
 

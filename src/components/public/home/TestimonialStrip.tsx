@@ -24,9 +24,11 @@ export function TestimonialStrip({ section }: TestimonialStripProps) {
           <blockquote className={styles.quoteBlock}>
             <p className={styles.quote}>&ldquo;{section.quote}&rdquo;</p>
             <cite className={styles.cite}>{section.cite}</cite>
-            <Link to={section.cta_link} className="linkAccent" style={{ marginTop: 24 }}>
-              {section.cta_label} <span>→</span>
-            </Link>
+            {section.cta_label?.trim() && section.cta_link && (
+              <Link to={section.cta_link} className="linkAccent" style={{ marginTop: 24 }}>
+                {section.cta_label.replace(/\s*→\s*$/, '')} <span>→</span>
+              </Link>
+            )}
           </blockquote>
         </RevealOnScroll>
         <RevealOnScroll variant="left" index={1}>

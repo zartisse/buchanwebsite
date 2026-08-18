@@ -41,7 +41,7 @@ export function WhatWeDo({ section }: WhatWeDoProps) {
                 <ServiceIcon name={iconFor(item)} className={styles.icon} size={36} />
                 <h3 className={styles.cardTitle}>{item.title}</h3>
                 <p className={styles.cardDesc}>{item.description}</p>
-                <span className="linkAccent">Explore {item.title.split(' ')[0]} <span>→</span></span>
+                <span className="linkAccent">{item.cta_label ?? `Explore ${item.title}`} <span>→</span></span>
               </Link>
             </RevealOnScroll>
           ))}

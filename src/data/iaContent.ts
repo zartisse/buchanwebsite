@@ -576,10 +576,10 @@ export const HOME_STARTING_POINTS = {
 };
 
 export const PROCESS_STAGES = [
-  { n: '01', title: 'Discover & Evaluate', description: 'Understand your vision, site, and investment goals before committing to a path forward.' },
-  { n: '02', title: 'Plan & Align', description: 'Progressive estimates, design coordination, and constructability review with your project team.' },
-  { n: '03', title: 'Build with Discipline', description: 'Craftsmanship on site with clear milestones, communication, and quality standards at every layer.' },
-  { n: '04', title: 'Care Beyond Completion', description: 'Walkthrough, warranty support, and ongoing Home Care — accountability that outlasts move-in day.' },
+  { n: '01', title: 'Discover & Evaluate', description: 'We listen deeply, understand your vision, and evaluate your property and possibilities with honesty and care.' },
+  { n: '02', title: 'Plan & Align', description: 'We shape a plan that reflects your goals, confirms investment clarity, and aligns every detail before we build.' },
+  { n: '03', title: 'Build with Discipline', description: 'Our team executes with precision, protecting quality, schedule, and budget—so you feel informed and at ease.' },
+  { n: '04', title: 'Care Beyond Completion', description: 'We remain a trusted partner long after move-in, ensuring your home performs beautifully for years to come.' },
 ];
 
 export const CREDIBILITY_LINE =
@@ -612,31 +612,28 @@ export const FEATURED_WORK_ITEMS: FeaturedWorkItem[] = [
 
 export const WHAT_WE_DO = {
   primary: [
-    { title: 'Custom Homes', description: 'Ground-up homes on your lot — from feasibility through completion.', image_url: '/assets/ph-arch-1.png', link: '/custom-homes', icon: 'custom-home' as const },
-    { title: 'Major Renovations', description: 'Major whole-home transformations with the same Buchan standard.', image_url: '/assets/ph-arch-2.png', link: '/renovations', icon: 'renovation' as const },
+    { title: 'Custom Homes', description: 'Beautifully designed. Expertly built. Precisely planned from start to finish.', image_url: '/assets/ph-arch-1.png', link: '/custom-homes', icon: 'custom-home' as const, cta_label: 'Explore Custom Homes' },
+    { title: 'Major Renovations', description: 'Reimagine your home with seamless additions and whole-home transformations.', image_url: '/assets/ph-arch-2.png', link: '/renovations', icon: 'renovation' as const, cta_label: 'Explore Renovations' },
   ],
   secondary: [
-    { title: 'ADUs & DADUs', description: 'Additional dwelling units for family or rental income.', link: '/services/adus', icon: 'adu' as const },
-    { title: 'Fire Restoration', description: 'Rebuild and restore after fire or disaster.', link: '/services/fire-restoration', icon: 'fire-restoration' as const },
-    { title: 'Real Estate Services', description: 'Lot finding, selling, and land acquisition support.', link: '/services/real-estate', icon: 'real-estate' as const },
-    { title: 'Maintenance & Service', description: 'Ongoing care through Buchan Home Care.', link: '/services/home-care', icon: 'maintenance' as const },
+    { title: 'ADUs & DADUs', description: 'Smart spaces for extended living and added value.', link: '/services/adus', icon: 'adu' as const },
+    { title: 'Fire Restoration', description: 'Compassionate support. Expert restoration.', link: '/services/fire-restoration', icon: 'fire-restoration' as const },
+    { title: 'Real Estate Services', description: 'Guidance for buying, selling, and property strategy.', link: '/services/real-estate', icon: 'real-estate' as const },
+    { title: 'Maintenance & Service', description: 'Protect your investment with proactive care.', link: '/services/home-care', icon: 'maintenance' as const },
   ],
 };
 
 export const CLIENT_CONCERNS = [
-  { title: 'How do we establish a realistic investment?', body: 'Your budget and vision stay connected through progressive estimates — not a single number that shifts later.' },
-  { title: 'Who will manage the team?', body: 'We align architects, interior designers, engineers, and specialty consultants around one shared plan.' },
-  { title: 'What happens after we move in?', body: 'Warranty coverage and continuing care so support does not end at the key handoff.' },
-  { title: 'Schedule management', body: 'Realistic timelines mapped before construction begins, with honest updates when conditions change.' },
-  { title: 'Hidden construction quality', body: 'The details behind walls — water management, structure, comfort — are where we invest most.' },
-  { title: 'Accountability after move-in', body: 'Warranty coverage and continuing care so support does not end at the key handoff.' },
+  { title: 'How do we establish a realistic investment?', body: 'We start with your vision and priorities, then clarify scope, timeline, and investment ranges early—so you can make confident decisions without surprises.' },
+  { title: 'How will the team stay aligned?', body: 'Through collaborative planning, clear communication, and shared accountability—so decisions are informed, timely, and in service of your goals.' },
+  { title: 'What makes a John Buchan home perform differently over time?', body: "It's the combination of thoughtful design, quality construction, and proactive care—built to endure beautifully and efficiently for generations." },
 ];
 
 export const BETTER_PLANNED_PATH = {
   eyebrow: 'Our Process',
   title: 'A custom experience,',
   titleEmphasis: 'thoughtfully managed.',
-  intro: 'Preconstruction, collaboration, and construction leadership — aligned around your vision, investment, constructability, and schedule.',
+  intro: 'An aligned team. Early clarity. And steady communication at every step. We make the process predictable and the experience exceptional—so you can enjoy the journey as much as the destination.',
   teamHeading: 'One Aligned Team, Chosen for Your Home',
   teamBody: 'We collaborate with independent architects on every project and interior designers on most. Clients may bring their own trusted professionals. Buchan provides estimating, constructability review, schedule planning, coordination, detailed specifications, and construction leadership from the early stages.',
   teamImage: '/assets/ph-arch-4.png',
@@ -652,12 +649,10 @@ export interface QualityLayerHotspot {
 }
 
 export const QUALITY_LAYERS: QualityLayerHotspot[] = [
-  { id: 'water', label: 'Water management', benefit: 'Homes built for Pacific Northwest rain — moisture managed before it reaches your living spaces.', x: 22, y: 66, icon: 'water' },
-  { id: 'structure', label: 'Structural planning', benefit: 'A frame designed for your site, your architecture, and decades of stable performance.', x: 84, y: 34, icon: 'structure' },
-  { id: 'comfort', label: 'Interior comfort', benefit: 'Even temperatures and healthy air — comfort engineered into the home, not added after.', x: 56, y: 62, icon: 'comfort' },
-  { id: 'craft', label: 'Enduring craftsmanship', benefit: 'Materials and methods chosen for how they perform over time, not just how they look on day one.', x: 24, y: 32, icon: 'craft' },
-  { id: 'windows', label: 'Window & door integration', benefit: 'Tight, weather-ready openings that keep drafts out and comfort in year-round.', x: 33, y: 50, icon: 'structure' },
-  { id: 'sound', label: 'Sound control', benefit: 'Quieter rooms through thoughtful assembly — less noise between spaces and from outside.', x: 90, y: 60, icon: 'craft' },
+  { id: 'water', label: 'Water Management', benefit: 'Thoughtful site planning and water control protect your home and your investment.', x: 22, y: 28, icon: 'water' },
+  { id: 'structure', label: 'Structural Planning', benefit: 'Engineered systems and precise detailing create strength, stability, and long-term performance.', x: 22, y: 66, icon: 'structure' },
+  { id: 'comfort', label: 'Interior Comfort', benefit: 'Healthy air, consistent temperatures, and quiet spaces designed for how you truly live.', x: 78, y: 28, icon: 'comfort' },
+  { id: 'craft', label: 'Enduring Craftsmanship', benefit: 'Carefully selected materials and meticulous workmanship ensure beauty that stands the test of time.', x: 78, y: 66, icon: 'craft' },
 ];
 
 export interface PickPathTile {
@@ -670,13 +665,12 @@ export interface PickPathTile {
 }
 
 export const PICK_YOUR_PATH_TILES: PickPathTile[] = [
-  { title: 'I am considering building', description: 'Explore custom homes, land considerations, and what to expect from preconstruction.', link: '/custom-homes', icon: 'building', cta_label: 'Explore Your Options →' },
-  { title: 'I already have plans', description: 'Upload plans, share your city and budget, and connect with our construction team.', link: '/contact?service=I have plans and need a builder#inquiry', icon: 'blueprint', cta_label: 'Share Your Plans →' },
-  { title: "I'm planning a major renovation", description: 'Whole-home and major remodel scope with the same Buchan planning discipline.', link: '/renovations', icon: 'hammer', cta_label: 'Explore Renovations →' },
+  { title: 'I am considering building', description: 'Explore ideas, understand possibilities, and take the first step with clarity.', link: '/custom-homes', icon: 'building', cta_label: 'Explore Your Options' },
+  { title: 'I already own a property or have plans', description: 'Bring your property or plans to life with expert guidance.', link: '/contact?service=I have plans and need a builder#inquiry', icon: 'blueprint', cta_label: "Let's Review Together" },
+  { title: 'I am planning a major renovation', description: "Reimagine your home with craftsmanship that respects what's already there.", link: '/renovations', icon: 'hammer', cta_label: 'See Renovation Services' },
 ];
 
-export const PICK_YOUR_PATH_INTRO =
-  'Choose your starting point';
+export const PICK_YOUR_PATH_INTRO = '';
 
 export const WHY_CHOOSE_VALUES = [
   { title: 'Certainty', body: 'Progressive estimates and preconstruction discipline reduce surprises.' },

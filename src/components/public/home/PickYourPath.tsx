@@ -24,7 +24,9 @@ export function PickYourPath({ section }: PickYourPathProps) {
       <div className={styles.inner}>
         <RevealOnScroll>
           <div className={styles.header}>
-            <span className="eyebrowRule eyebrowRuleCenter">{section.intro}</span>
+            {section.intro ? (
+              <span className="eyebrowRule eyebrowRuleCenter">{section.intro}</span>
+            ) : null}
             {section.title && <h2 className={styles.title}>{section.title}</h2>}
           </div>
         </RevealOnScroll>
@@ -35,7 +37,7 @@ export function PickYourPath({ section }: PickYourPathProps) {
                 <ServiceIcon name={iconFor(tile)} className={styles.icon} size={32} />
                 <h3 className={styles.cardTitle}>{tile.title}</h3>
                 {tile.description && <p className={styles.cardDesc}>{tile.description}</p>}
-                <span className="linkAccent">{tile.cta_label ?? 'Explore Your Options →'} <span>→</span></span>
+                <span className="linkAccent">{tile.cta_label ?? 'Explore Your Options'} <span>→</span></span>
               </>
             );
             return (

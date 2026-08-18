@@ -15,5 +15,4 @@ export function applyAssetCssVars(): void {
   root.setProperty('--texture-mark-square', `url('${texture}')`);
   root.setProperty('--texture-mark', `url('${texture}')`);
   root.setProperty('--texture-mark-light', `url('${texture}')`);
-  root.setProperty('--hero-mobile-fallback', `url('${assetUrl('/assets/ph-arch-1.png')}')`);
 }

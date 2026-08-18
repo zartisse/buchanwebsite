@@ -8,10 +8,15 @@ type BetterPlannedPathProps = {
   stages: HomePageContent['process_stages'];
 };
 
+function linkLabel(label: string): string {
+  return label.replace(/\s*→\s*$/, '').trim();
+}
+
 export function BetterPlannedPath({ section, stages }: BetterPlannedPathProps) {
   const title = section.title_emphasis
     ? <>{section.title} <em>{section.title_emphasis}</em></>
     : section.title;
+  const ctaLabel = section.cta_label?.trim();
 
   return (
     <section className={styles.section}>
@@ -41,11 +46,13 @@ export function BetterPlannedPath({ section, stages }: BetterPlannedPathProps) {
           ))}
         </div>
 
-        <RevealOnScroll>
-          <Link to={section.cta_link} className="linkAccent" style={{ marginTop: 40, display: 'inline-flex' }}>
-            {section.cta_label} <span>→</span>
-          </Link>
-        </RevealOnScroll>
+        {ctaLabel && section.cta_link && (
+          <RevealOnScroll>
+            <Link to={section.cta_link} className="linkAccent" style={{ marginTop: 40, display: 'inline-flex' }}>
+              {linkLabel(ctaLabel)} <span>→</span>
+            </Link>
+          </RevealOnScroll>
+        )}
       </div>
     </section>
   );

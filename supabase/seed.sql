@@ -11,11 +11,11 @@ INSERT INTO posts (title, slug, category, status, date, excerpt, body, image_url
 ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO properties (name, slug, status, address, city, beds, baths, sqft, lot, year, description, image_url) VALUES
-  ('Clyde Hill Estate', 'clyde-hill-estate', 'Available', '1024 92nd Ave NE', 'Clyde Hill', '5', '6', '6,800', '0.9', '2025', 'Set on nearly an acre in Clyde Hill, built from the ground up on the owner''s lot.', '/assets/ph-arch-1.png'),
-  ('Medina Modern', 'medina-modern', 'Sold', '7820 Overlake Dr W', 'Medina', '4', '5', '5,200', '0.7', '2024', 'A contemporary residence on the shores of Lake Washington.', '/assets/ph-arch-2.png'),
-  ('Bridle Trails Retreat', 'bridle-trails-retreat', 'Available', '6512 132nd Pl NE', 'Bellevue', '5', '5.5', '5,900', '1.1', '2025', 'Nestled among the trails of Bridle Trails, this home balances privacy with open living.', '/assets/ph-arch-3.png'),
+  ('Laurelwood Estate', 'laurelwood-estate', 'Available', '1024 92nd Ave NE', 'Bellevue', '5', '6', '6,800', '0.9', '2025', 'A custom residence in Bellevue, built from the ground up on the owner''s lot.', '/assets/ph-arch-1.png'),
+  ('Creekside Retreat', 'creekside-retreat', 'Sold', '7820 Overlake Dr W', 'Kirkland', '4', '5', '5,200', '0.7', '2024', 'A refined home set along Kirkland''s creekside neighborhoods.', '/assets/ph-arch-2.png'),
+  ('Yarrow Point Residence', 'yarrow-point-residence', 'Available', '4208 95th Ave NE', 'Yarrow Point', '5', '5.5', '5,900', '1.1', '2025', 'Water views and refined craftsmanship on Yarrow Point.', '/assets/ph-arch-3.png'),
   ('Hunts Point Manor', 'hunts-point-manor', 'Sold', '3110 Hunts Point Rd', 'Hunts Point', '6', '7', '8,200', '1.4', '2023', 'An estate-scale home on one of the Eastside''s most coveted peninsulas.', '/assets/ph-arch-4.png'),
-  ('Yarrow Point Residence', 'yarrow-point-residence', 'Available', '4208 95th Ave NE', 'Yarrow Point', '4', '4.5', '4,800', '0.6', '2025', 'Water views and refined craftsmanship on Yarrow Point.', '/assets/ph-arch-2.png'),
+  ('Clyde Hill Estate', 'clyde-hill-estate', 'Available', '6512 132nd Pl NE', 'Clyde Hill', '4', '4.5', '4,800', '0.6', '2025', 'Set on nearly an acre in Clyde Hill.', '/assets/ph-arch-2.png'),
   ('West Bellevue Contemporary', 'west-bellevue-contemporary', 'Sold', '1640 98th Ave NE', 'Bellevue', '5', '6', '6,100', '0.8', '2024', 'Clean lines and warm materials in the heart of West Bellevue.', '/assets/ph-arch-3.png')
 ON CONFLICT (slug) DO NOTHING;
 

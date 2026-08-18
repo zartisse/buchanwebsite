@@ -115,7 +115,7 @@ export interface HomePageContent {
     eyebrow: string;
     title: string;
     title_emphasis?: string;
-    primary: { title: string; description: string; image_url?: string; link: string; icon?: ServiceIconName }[];
+    primary: { title: string; description: string; image_url?: string; link: string; icon?: ServiceIconName; cta_label?: string }[];
     secondary: { title: string; description: string; link: string; icon?: ServiceIconName }[];
     preconstruction: { title: string; body: string; cta_label: string; cta_link: string; image_url?: string };
   };
@@ -141,6 +141,7 @@ export interface HomePageContent {
     eyebrow: string;
     title: string;
     title_emphasis?: string;
+    body?: string;
     elevation_image_url: string;
     layers: { id: string; label: string; benefit: string; x: number; y: number; icon?: ServiceIconName }[];
   };
@@ -168,6 +169,8 @@ export interface HomePageContent {
     phone_href: string;
     background_image_url?: string;
   };
+  /** Bump when default homepage copy/layout changes; stale CMS rows auto-upgrade on read. */
+  content_version?: number;
 }
 
 export interface AboutPageContent {

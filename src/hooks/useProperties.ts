@@ -4,6 +4,32 @@ import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { getSchemaCapabilities } from '../lib/schemaCapabilities';
 import { DEMO_PROPERTIES } from '../data/demo';
 
+const DOC_FEATURED = DEMO_PROPERTIES.filter((p) => p.featured).sort(
+  (a, b) => (a.featured_order ?? 0) - (b.featured_order ?? 0),
+);
+const DOC_FEATURED_SLUGS = new Set(DOC_FEATURED.map((p) => p.slug));
+
+function patchFeaturedDisplayLabels(properties: Property[]): Property[] {
+  const featuredSorted = properties
+    .filter((p) => p.featured)
+    .sort((a, b) => (a.featured_order ?? 0) - (b.featured_order ?? 0));
+  const needsPatch = featuredSorted.some((p) => !DOC_FEATURED_SLUGS.has(p.slug));
+  if (!needsPatch) return properties;
+
+  const docBySlug = new Map(
+    featuredSorted.map((p, index) => [p.slug, DOC_FEATURED[index]] as const),
+  );
+
+  const patched = properties.map((p) => {
+    if (!p.featured) return p;
+    const doc = docBySlug.get(p.slug);
+    if (!doc) return p;
+    return { ...p, name: doc.name, city: doc.city };
+  });
+
+  return patched;
+}
+
 export function useProperties(options?: { publicOnly?: boolean; admin?: boolean }) {
   const [properties, setProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState(true);
@@ -26,7 +52,11 @@ export function useProperties(options?: { publicOnly?: boolean; admin?: boolean 
       }
       const { data, error: err } = await query;
       if (err) throw err;
-      setProperties((data as Property[]) ?? []);
+      let list = (data as Property[]) ?? [];
+      if (options?.publicOnly && !options?.admin) {
+        list = patchFeaturedDisplayLabels(list);
+      }
+      setProperties(list);
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Failed to load properties');
       if (options?.admin) {

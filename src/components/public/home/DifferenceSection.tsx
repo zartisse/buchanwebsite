@@ -9,6 +9,8 @@ type DifferenceSectionProps = {
 };
 
 export function DifferenceSection({ section }: DifferenceSectionProps) {
+  const paragraphs = section.body.split(/\n\n+/).filter(Boolean);
+
   return (
     <section className={styles.section}>
       <div className={styles.inner}>
@@ -16,7 +18,9 @@ export function DifferenceSection({ section }: DifferenceSectionProps) {
           <div className={styles.copy}>
             <span className="eyebrowRule">{section.eyebrow}</span>
             <h2 className={styles.title}>{section.title}</h2>
-            <p className={styles.body}>{section.body}</p>
+            {paragraphs.map((paragraph) => (
+              <p key={paragraph.slice(0, 32)} className={styles.body}>{paragraph}</p>
+            ))}
             <Link to={section.cta_link} className="linkAccent">
               {section.cta_label} <span>→</span>
             </Link>
