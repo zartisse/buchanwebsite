@@ -69,8 +69,6 @@ export function getDefaultHomeContent(): HomePageContent {
       marquee: '',
       cta_primary_url: '#featured-work',
       cta_primary_label: 'Explore Our Work',
-      cta_secondary_url: '/contact',
-      cta_secondary_label: 'Start a Conversation',
     },
     credibility_line: CREDIBILITY_LINE,
     credibility_stats: CREDIBILITY_ITEMS.map((label) => ({ label })),
@@ -179,9 +177,15 @@ function backfillHero(hero: Partial<HomePageContent['hero']>, defaults: HomePage
       title: defaults.title,
       title_emphasis: defaults.title_emphasis,
       subtitle: defaults.subtitle,
+      cta_secondary_url: undefined,
+      cta_secondary_label: undefined,
     };
   }
-  return merged;
+  return {
+    ...merged,
+    cta_secondary_url: undefined,
+    cta_secondary_label: undefined,
+  };
 }
 
 function backfillQualityLayers(

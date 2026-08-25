@@ -73,13 +73,6 @@ export function Home() {
           <p className={homeStyles.heroSub}>{hero.subtitle}</p>
           <div className={homeStyles.heroCtas}>
             <HeroCta url={hero.cta_primary_url} label={hero.cta_primary_label} className="btnPrimaryFill" />
-            {hero.cta_secondary_url && hero.cta_secondary_label && (
-              <HeroCta
-                url={hero.cta_secondary_url}
-                label={hero.cta_secondary_label}
-                className="btnGhostLight"
-              />
-            )}
           </div>
         </div>
       </section>

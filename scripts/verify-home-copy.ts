@@ -5,6 +5,8 @@ const content = getDefaultHomeContent();
 const expectations: Array<[string, boolean]> = [
   ['hero title', content.hero.title === 'Build with certainty.'],
   ['hero emphasis', content.hero.title_emphasis === 'Live exceptionally.'],
+  ['hero primary CTA', content.hero.cta_primary_label === 'Explore Our Work'],
+  ['hero secondary hidden', !content.hero.cta_secondary_url && !content.hero.cta_secondary_label],
   ['featured body', content.featured_work.body?.startsWith('Each home we build') ?? false],
   ['difference paragraphs', content.difference_section.body.includes('\n\n')],
   ['ADU description', content.what_we_do.secondary[0].description.includes('Smart spaces')],
