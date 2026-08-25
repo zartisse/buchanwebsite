@@ -26,7 +26,7 @@
 
 .quoteBlock {
   margin: 0;
-  text-align: center;
+  text-align: left;
   padding: 0 var(--s-4);
 }
 

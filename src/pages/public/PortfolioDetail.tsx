@@ -57,7 +57,7 @@ export function PortfolioDetail() {
     <main>
       <PageMeta
         title={property.meta_title || property.name}
-        description={property.meta_description || property.description || `${property.name} — custom home in ${property.city}.`}
+        description={property.meta_description || property.description || `${property.name}, custom home in ${property.city}.`}
       />
       <section className={ps.detailHero}>
         <button

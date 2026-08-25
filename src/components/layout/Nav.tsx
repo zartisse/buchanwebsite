@@ -38,23 +38,25 @@ export function Nav() {
           <img src={lightTop ? assetUrl('/assets/logo-reverse.png') : assetUrl('/assets/logo.png')} alt="John Buchan Homes" className={styles.logo} />
         </Link>
 
-        <nav className={styles.desktopNav} aria-label="Primary">
-          {PRIMARY_NAV.map((group) => (
-            <DesktopNavItem key={group.label} group={group} lightTop={lightTop} scrolled={scrolled} />
-          ))}
-        </nav>
+        <div className={styles.topCluster}>
+          <nav className={styles.desktopNav} aria-label="Primary">
+            {PRIMARY_NAV.map((group) => (
+              <DesktopNavItem key={group.label} group={group} lightTop={lightTop} scrolled={scrolled} />
+            ))}
+          </nav>
 
-        <div className={styles.topRight}>
-          <Link to="/contact" className={styles.ctaBtn}>Let&apos;s Talk</Link>
-          <a href="tel:4258272266" className={`${styles.phone} ${!lightTop ? styles.phoneDark : ''}`}>425.827.2266</a>
-          <button
-            type="button"
-            className={styles.burger}
-            onClick={() => setOpen(true)}
-            aria-label="Open menu"
-          >
-            <span /><span />
-          </button>
+          <div className={styles.topRight}>
+            <Link to="/contact" className={styles.ctaBtn}>Let&apos;s Talk</Link>
+            <a href="tel:4258272266" className={`${styles.phone} ${!lightTop ? styles.phoneDark : ''}`}>425.827.2266</a>
+            <button
+              type="button"
+              className={styles.burger}
+              onClick={() => setOpen(true)}
+              aria-label="Open menu"
+            >
+              <span /><span />
+            </button>
+          </div>
         </div>
       </header>
 

@@ -198,14 +198,18 @@
   margin-top: var(--s-8);
 }
 
+.ctaPhoto .ctaButtons {
+  justify-content: flex-start;
+}
+
 /* ---- Photo overlay CTA ---- */
 .ctaPhoto {
   position: relative;
   min-height: clamp(320px, 42vh, 440px);
   display: flex;
   align-items: center;
-  justify-content: center;
-  text-align: center;
+  justify-content: flex-start;
+  text-align: left;
   overflow: hidden;
   padding: clamp(64px, 10vh, 96px) var(--gutter);
 }
@@ -225,24 +229,33 @@
 .ctaPhotoOverlay {
   position: absolute;
   inset: 0;
-  background: rgba(13, 21, 18, 0.55);
+  background: linear-gradient(
+    105deg,
+    rgba(13, 21, 18, 0.72) 0%,
+    rgba(13, 21, 18, 0.45) 45%,
+    rgba(13, 21, 18, 0.2) 100%
+  );
   z-index: 1;
 }
 
 .ctaPhotoInner {
   position: relative;
   z-index: 2;
-  max-width: 640px;
+  width: 100%;
+  max-width: var(--max-width-wide);
+  margin: 0 auto;
 }
 
 .ctaPhoto .sectionTitle {
   color: #ffffff;
-  margin: 0 auto var(--s-4);
+  margin: 0 0 var(--s-4);
+  max-width: 640px;
 }
 
 .ctaPhoto .bodyText {
   color: rgba(255, 255, 255, 0.85);
-  margin: 0 auto var(--s-8);
+  margin: 0 0 var(--s-8);
+  max-width: 640px;
 }
 
 .ctaPhotoPhone {

@@ -4,10 +4,11 @@ import { assetUrl } from '../../lib/assets';
 import {
   FOOTER_COMPANY, FOOTER_RESOURCES, FOOTER_SERVICES, SOCIAL_LINKS,
 } from '../../data/navigation';
+import { OFFICE_ADDRESS_LINES } from '../../data/contactInfo';
 import styles from './Footer.module.css';
 
 const FOOTER_MISSION =
-  'Building exceptional homes on the Seattle Eastside since 1961 — with integrity, craftsmanship, and care that lasts beyond move-in day.';
+  'Building exceptional homes on the Seattle Eastside since 1961, with integrity, craftsmanship, and care that lasts beyond move-in day.';
 
 export function Footer() {
   const badges = FOOTER_AWARD_BADGES.map((b) => ({ image_url: b.image, alt: b.alt, href: b.href }));
@@ -39,7 +40,9 @@ export function Footer() {
         </div>
         <div className={styles.contactCol}>
           <span className={styles.colTitle}>Contact</span>
-          <p className={styles.contactLine}>1200 112th Ave NE, Suite 200<br />Bellevue, WA 98004</p>
+          <p className={styles.contactLine}>
+            {OFFICE_ADDRESS_LINES[0]}<br />{OFFICE_ADDRESS_LINES[1]}
+          </p>
           <a href="tel:4258272266" className={styles.contactLine}>425.827.2266</a>
           <a href="mailto:info@buchan.com" className={styles.contactLine}>info@buchan.com</a>
           <Link to="/contact" className="btnGhostDark">Let&apos;s Talk</Link>

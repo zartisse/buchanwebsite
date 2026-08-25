@@ -1,4 +1,5 @@
 import type { HomePageContent } from '../types';
+import { deepNormalizeCopy } from '../lib/normalizeCopy';
 import {
   BETTER_PLANNED_PATH,
   CLIENT_CONCERNS,
@@ -64,7 +65,7 @@ export function getDefaultHomeContent(): HomePageContent {
       eyebrow: 'Building since 1961 · Seattle Eastside',
       title: 'Build with certainty.',
       title_emphasis: 'Live exceptionally.',
-      subtitle: 'Custom homes and major renovations, built on thoughtful planning, expert guidance, and uncompromising craftsmanship—proudly serving Bellevue and the Eastside.',
+      subtitle: 'Custom homes and major renovations, built on thoughtful planning, expert guidance, and uncompromising craftsmanship, proudly serving Bellevue and the Eastside.',
       image_url: '/assets/ph-arch-1.png',
       marquee: '',
       cta_primary_url: '#featured-work',
@@ -82,7 +83,7 @@ export function getDefaultHomeContent(): HomePageContent {
     difference_section: {
       eyebrow: 'The John Buchan Difference',
       title: "What you can't see makes all the difference.",
-      body: "For over six decades, we've built a legacy of trust by doing what's right, even when it costs more and no one sees it.\n\nFrom the framing to the finishing touches, our commitment to integrity and quality is behind every wall—so you can have complete confidence in the process and the relationship that builds your home.",
+      body: "For over six decades, we've built a legacy of trust by doing what's right, even when it costs more and no one sees it.\n\nFrom the framing to the finishing touches, our commitment to integrity and quality is behind every wall, so you can have complete confidence in the process and the relationship that builds your home.",
       image_url: '/assets/ph-arch-3.png',
       cta_label: 'Learn More',
       cta_link: '/why-choose-buchan',
@@ -125,7 +126,7 @@ export function getDefaultHomeContent(): HomePageContent {
     quality_layers: {
       eyebrow: "What You Can't See",
       title: 'Quality in Every Layer',
-      body: 'Great homes are built on systems, materials, and details that work together—quietly, every day.',
+      body: 'Great homes are built on systems, materials, and details that work together, quietly, every day.',
       elevation_image_url: '/assets/quality-layers-house.jpg',
       layers: QUALITY_LAYERS.map((l) => ({
         id: l.id,
@@ -140,7 +141,7 @@ export function getDefaultHomeContent(): HomePageContent {
       eyebrow: 'Client Testimonials',
       title: 'In their words.',
       quote: 'From the first conversation to move-in and beyond, Buchan brought clarity, craftsmanship, and care. We felt guided, listened to, and completely confident in the process.',
-      cite: '— The Anderson Family, Bellevue, Washington',
+      cite: 'The Anderson Family, Bellevue, Washington',
       cta_label: '',
       cta_link: '/testimonials',
       left_image_url: '/assets/ph-arch-1.png',
@@ -262,8 +263,7 @@ function backfillWhatWeDoPrimary(
     primary.some((p) => !p.cta_label && defaults.primary.some((d) => d.title === p.title && d.cta_label));
   if (needsUpdate) {
     return defaults.primary.map((item, i) => ({
-      ...item,
-      ...(primary[i]?.image_url ? { image_url: primary[i].image_url } : {}),
+      ...item, ...(primary[i]?.image_url ? { image_url: primary[i].image_url } : {}),
     }));
   }
   return primary.map((item, i) => ({
@@ -285,15 +285,13 @@ export function mergeHomeContent(partial: Partial<HomePageContent> | HomePageCon
     : defaults.credibility_stats;
 
   const merged = {
-    ...defaults,
-    ...partial,
+    ...defaults, ...partial,
     hero: backfillHero(partial.hero ?? {}, defaults.hero),
     credibility_stats: credibilityStats,
     featured_work: backfillFeaturedWork(partial.featured_work, defaults.featured_work),
     difference_section: backfillDifferenceSection(partial.difference_section, defaults.difference_section),
     what_we_do: {
-      ...defaults.what_we_do,
-      ...partial.what_we_do,
+      ...defaults.what_we_do, ...partial.what_we_do,
       primary: backfillWhatWeDoPrimary(partial.what_we_do, defaults.what_we_do),
       secondary: backfillWhatWeDoSecondary(partial.what_we_do, defaults.what_we_do),
       preconstruction: (() => {
@@ -306,8 +304,7 @@ export function mergeHomeContent(partial: Partial<HomePageContent> | HomePageCon
     },
     client_concerns: (() => {
       const merged = {
-        ...defaults.client_concerns,
-        ...partial.client_concerns,
+        ...defaults.client_concerns, ...partial.client_concerns,
         items: partial.client_concerns?.items ?? defaults.client_concerns.items,
       };
       if ((partial.client_concerns?.items?.length ?? 0) > 3) {
@@ -348,8 +345,7 @@ export function mergeHomeContent(partial: Partial<HomePageContent> | HomePageCon
     })(),
     pick_your_path: (() => {
       const merged = {
-        ...defaults.pick_your_path,
-        ...partial.pick_your_path,
+        ...defaults.pick_your_path, ...partial.pick_your_path,
         tiles: partial.pick_your_path?.tiles ?? defaults.pick_your_path.tiles,
       };
       const firstTitle = partial.pick_your_path?.tiles?.[0]?.title ?? '';
@@ -370,5 +366,5 @@ export function mergeHomeContent(partial: Partial<HomePageContent> | HomePageCon
     })(),
   };
 
-  return { ...merged, content_version: HOME_CONTENT_VERSION };
+  return deepNormalizeCopy({ ...merged, content_version: HOME_CONTENT_VERSION });
 }

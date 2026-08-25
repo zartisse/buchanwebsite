@@ -4,8 +4,13 @@ import { SITE_PAGE_SLUGS } from '../types';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { getDemoSitePage } from '../data/sitePagesDemo';
 import { getCached, setCached, invalidateCache } from '../lib/sitePageCache';
+import { deepNormalizeCopy } from '../lib/normalizeCopy';
 
 const SITE_PAGE_COLUMNS = 'id,slug,meta_title,meta_description,content,updated_at';
+
+function normalizeSitePage<S extends SitePageSlug>(page: SitePage<S>): SitePage<S> {
+  return deepNormalizeCopy(page);
+}
 
 export function useSitePages() {
   const [pages, setPages] = useState<SitePage[]>([]);
@@ -76,12 +81,12 @@ export function useSitePage<S extends SitePageSlug>(slug: S) {
       const cacheKey = `site_page:${slug}`;
       const cached = getCached<SitePage<S>>(cacheKey);
       if (cached) {
-        setPage(cached);
+        setPage(normalizeSitePage(cached));
         setLoading(false);
         return;
       }
       if (!isSupabaseConfigured) {
-        setPage(demo);
+        setPage(normalizeSitePage(demo));
         setLoading(false);
         return;
       }
@@ -92,12 +97,12 @@ export function useSitePage<S extends SitePageSlug>(slug: S) {
           .eq('slug', slug)
           .single();
         if (err) throw err;
-        const row = data as SitePage<S>;
+        const row = normalizeSitePage(data as SitePage<S>);
         setCached(cacheKey, row);
         setPage(row);
       } catch (e) {
         setError(e instanceof Error ? e.message : 'Page not found');
-        setPage(demo);
+        setPage(normalizeSitePage(demo));
       } finally {
         setLoading(false);
       }

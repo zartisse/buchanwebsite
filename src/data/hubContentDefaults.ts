@@ -1,5 +1,6 @@
 import { IA_PAGES } from './iaContent';
 import { SERVICE_AREAS } from './navigation';
+import { deepNormalizeCopy } from '../lib/normalizeCopy';
 import type { HubPage, HubPageContent, HubPageSlug } from '../types';
 import { HUB_PAGE_SLUGS } from '../types';
 
@@ -23,13 +24,13 @@ export function iaPageToHubContent(slug: HubPageSlug): HubPageContent {
 
 export function getDemoHubPage(slug: HubPageSlug): HubPage {
   const data = IA_PAGES[slug];
-  return {
+  return deepNormalizeCopy({
     id: `demo-${slug}`,
     slug,
     meta_title: data.metaTitle,
     meta_description: data.metaDescription,
     content: iaPageToHubContent(slug),
-  };
+  });
 }
 
 export const DEMO_HUB_PAGES: Record<HubPageSlug, HubPage> = HUB_PAGE_SLUGS.reduce(
@@ -39,11 +40,11 @@ export const DEMO_HUB_PAGES: Record<HubPageSlug, HubPage> = HUB_PAGE_SLUGS.reduc
 
 export function mergeHubContent(partial: Partial<HubPageContent>, slug: HubPageSlug): HubPageContent {
   const defaults = iaPageToHubContent(slug);
-  return {
+  return deepNormalizeCopy({
     ...defaults,
     ...partial,
     hero: { ...defaults.hero, ...partial.hero },
     sections: partial.sections ?? defaults.sections,
     service_areas: partial.service_areas ?? defaults.service_areas,
-  };
+  });
 }

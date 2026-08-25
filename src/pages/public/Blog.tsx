@@ -19,7 +19,7 @@ export function Blog() {
 
   return (
     <main>
-      <PageMeta title="Blog" description="Notes and news from John Buchan Homes — building on the Seattle Eastside since 1960." />
+      <PageMeta title="Blog" description="Notes and news from John Buchan Homes, building on the Seattle Eastside since 1960." />
       <section className={ps.hero}>
         <div className={ps.heroInner}>
           <span className={ps.eyebrow}>The Journal</span>

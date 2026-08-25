@@ -133,8 +133,8 @@
   min-height: clamp(360px, 50vh, 520px);
   display: flex;
   align-items: center;
-  justify-content: center;
-  text-align: center;
+  justify-content: flex-start;
+  text-align: left;
   overflow: hidden;
 }
 
@@ -153,15 +153,22 @@
 .closingCtaOverlay {
   position: absolute;
   inset: 0;
-  background: rgba(13, 21, 18, 0.55);
+  background: linear-gradient(
+    105deg,
+    rgba(13, 21, 18, 0.72) 0%,
+    rgba(13, 21, 18, 0.45) 45%,
+    rgba(13, 21, 18, 0.2) 100%
+  );
   z-index: 1;
 }
 
 .closingCtaInner {
   position: relative;
   z-index: 2;
+  width: 100%;
+  max-width: var(--max-width-wide);
+  margin: 0 auto;
   padding: clamp(64px, 10vh, 96px) var(--gutter);
-  max-width: 720px;
 }
 
 .closingCtaTitle {
@@ -184,7 +191,7 @@
 .closingCtaActions {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   gap: var(--s-4);
 }
 

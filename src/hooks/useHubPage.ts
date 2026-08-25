@@ -3,9 +3,14 @@ import type { HubPage, HubPageSlug } from '../types';
 import { HUB_PAGE_SLUGS } from '../types';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { getDemoHubPage } from '../data/hubContentDefaults';
+import { deepNormalizeCopy } from '../lib/normalizeCopy';
 
 /** Hub pages share the site_pages table (same schema; slugs do not overlap). */
 const HUB_TABLE = 'site_pages';
+
+function normalizeHubPage(page: HubPage): HubPage {
+  return deepNormalizeCopy(page);
+}
 
 export function useHubPages() {
   const [pages, setPages] = useState<HubPage[]>([]);
@@ -69,17 +74,17 @@ export function useHubPage(slug: HubPageSlug) {
       setLoading(true);
       const demo = getDemoHubPage(slug);
       if (!isSupabaseConfigured) {
-        setPage(demo);
+        setPage(normalizeHubPage(demo));
         setLoading(false);
         return;
       }
       try {
         const { data, error: err } = await supabase.from(HUB_TABLE).select('*').eq('slug', slug).single();
         if (err) throw err;
-        setPage(data as HubPage);
+        setPage(normalizeHubPage(data as HubPage));
       } catch {
-        setError('Page not found in CMS — showing default content');
-        setPage(demo);
+        setError('Page not found in CMS, showing default content');
+        setPage(normalizeHubPage(demo));
       } finally {
         setLoading(false);
       }

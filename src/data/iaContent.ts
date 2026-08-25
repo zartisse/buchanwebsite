@@ -26,17 +26,17 @@ export const IA_PAGES: Record<string, HubPageData> = {
       titleEmphasis: 'Designed for your life.',
       image_url: '/assets/ph-arch-1.png',
     },
-    intro: 'We specialize in ground-up custom homes — not spec inventory on our land. From feasibility through completion, one team carries your project forward with progressive estimates and the craftsmanship standards Buchan has protected for 65 years.',
+    intro: 'We specialize in ground-up custom homes, not spec inventory on our land. From feasibility through completion, one team carries your project forward with progressive estimates and the craftsmanship standards Buchan has protected for 65 years.',
     sections: [
       {
         title: 'Our Process',
-        body: 'Discovery through continuing care — four stages designed to reduce uncertainty at every decision point. You work with the same leadership team from first conversation through warranty.',
+        body: 'Discovery through continuing care, four stages designed to reduce uncertainty at every decision point. You work with the same leadership team from first conversation through warranty.',
         bullets: ['Discover & evaluate', 'Plan & align', 'Build with discipline', 'Care beyond completion'],
         image_url: '/assets/ph-arch-2.png',
       },
       {
         title: 'Service Areas',
-        body: 'Bellevue, Clyde Hill, Medina, Hunts Point, Kirkland, Redmond, and surrounding Eastside communities. We know the jurisdictions, slopes, and neighborhood character — because we have built here since 1961.',
+        body: 'Bellevue, Clyde Hill, Medina, Hunts Point, Kirkland, Redmond, and surrounding Eastside communities. We know the jurisdictions, slopes, and neighborhood character, because we have built here since 1961.',
         image_url: '/assets/ph-arch-3.png',
       },
       {
@@ -62,17 +62,17 @@ export const IA_PAGES: Record<string, HubPageData> = {
       titleEmphasis: 'considerations.',
       image_url: '/assets/ph-arch-3.png',
     },
-    intro: 'Before design begins, we evaluate what your property can support — zoning, setbacks, slope, utilities, and buildability — so your investment aligns with what is actually possible on your lot.',
+    intro: 'Before design begins, we evaluate what your property can support, zoning, setbacks, slope, utilities, and buildability, so your investment aligns with what is actually possible on your lot.',
     sections: [
       {
         title: 'Site Evaluation',
-        body: 'Topography, soil, drainage, and access are reviewed alongside jurisdictional requirements. We flag constraints early so they inform design — not surprise you mid-build.',
+        body: 'Topography, soil, drainage, and access are reviewed alongside jurisdictional requirements. We flag constraints early so they inform design, not surprise you mid-build.',
         bullets: ['Zoning & setback review', 'Utility & easement mapping', 'Slope & drainage assessment'],
         image_url: '/assets/ph-arch-2.png',
       },
       {
         title: 'Feasibility & Budget Alignment',
-        body: 'Progressive estimates tied to real site conditions — not generic per-square-foot guesses. You know what your lot supports before committing to full design.',
+        body: 'Progressive estimates tied to real site conditions, not generic per-square-foot guesses. You know what your lot supports before committing to full design.',
       },
       {
         title: 'Working With Your Team',
@@ -93,11 +93,11 @@ export const IA_PAGES: Record<string, HubPageData> = {
       titleEmphasis: 'you already love.',
       image_url: '/assets/ph-arch-2.png',
     },
-    intro: 'Whole-home and major renovation projects — kitchen and bath, structural additions, and full interior transformations. We apply the same preconstruction discipline and craftsmanship standards as our custom builds.',
+    intro: 'Whole-home and major renovation projects, kitchen and bath, structural additions, and full interior transformations. We apply the same preconstruction discipline and craftsmanship standards as our custom builds.',
     sections: [
       {
         title: 'Major Remodels',
-        body: 'Scope from cosmetic refreshes through whole-house renovations and structural additions. We evaluate existing conditions honestly — structure, envelope, mechanical — before committing to a schedule.',
+        body: 'Scope from cosmetic refreshes through whole-house renovations and structural additions. We evaluate existing conditions honestly, structure, envelope, mechanical, before committing to a schedule.',
         bullets: ['Whole-home renovations', 'Kitchen & bath transformations', 'Additions & structural work'],
         image_url: '/assets/ph-arch-4.png',
       },
@@ -107,12 +107,12 @@ export const IA_PAGES: Record<string, HubPageData> = {
       },
       {
         title: 'Living Through the Work',
-        body: 'For occupied renovations, we establish dust control, access paths, and weekly owner walkthroughs so you always know what is happening next — and when your kitchen will be back.',
+        body: 'For occupied renovations, we establish dust control, access paths, and weekly owner walkthroughs so you always know what is happening next, and when your kitchen will be back.',
         image_url: '/assets/ph-arch-1.png',
       },
       {
         title: 'Renovation FAQ',
-        body: 'Timeline, living-in-place, permits, and budget — answered in our FAQ section. Common Eastside renovation questions are covered there; your project gets a personal review.',
+        body: 'Timeline, living-in-place, permits, and budget, answered in our FAQ section. Common Eastside renovation questions are covered there; your project gets a personal review.',
       },
     ],
     ctaTitle: 'Discuss your renovation project',
@@ -128,17 +128,17 @@ export const IA_PAGES: Record<string, HubPageData> = {
       titleEmphasis: 'you build.',
       image_url: '/assets/ph-arch-3.png',
     },
-    intro: 'Our flagship planning phase feeds both custom homes and renovations — progressive estimates, constructability review, and design alignment before breaking ground.',
+    intro: 'Our flagship planning phase feeds both custom homes and renovations, progressive estimates, constructability review, and design alignment before breaking ground.',
     sections: [
       {
         title: "What's Included",
-        body: 'Site evaluation, scope definition, budget ranges, schedule framework, and selection planning — documented so every stakeholder shares the same picture.',
+        body: 'Site evaluation, scope definition, budget ranges, schedule framework, and selection planning, documented so every stakeholder shares the same picture.',
         bullets: ['Feasibility studies', 'Design coordination', 'Constructability review', 'Value engineering', 'Selection planning'],
         image_url: '/assets/ph-arch-2.png',
       },
       {
         title: 'Why It Matters',
-        body: 'Preconstruction reduces surprises during construction — the phase where most custom projects succeed or struggle. A clear agreement here protects your budget and your timeline.',
+        body: 'Preconstruction reduces surprises during construction, the phase where most custom projects succeed or struggle. A clear agreement here protects your budget and your timeline.',
       },
       {
         title: 'Into Construction',
@@ -159,11 +159,11 @@ export const IA_PAGES: Record<string, HubPageData> = {
       titleEmphasis: 'certainty.',
       image_url: '/assets/ph-arch-4.png',
     },
-    intro: 'Three generations, one standard — yours. We combine Eastside expertise with white-glove client care from first conversation through long-term warranty support.',
+    intro: 'Three generations, one standard, yours. We combine Eastside expertise with white-glove client care from first conversation through long-term warranty support.',
     sections: [
       { title: 'Family-Owned Since 1961', body: '65 years on the Eastside. Decisions made by people who know your project, not a ticket queue.', image_url: '/assets/ph-arch-1.png' },
-      { title: 'Progressive Estimating', body: 'Transparent pricing developed through preconstruction — not a single guess before design is resolved.' },
-      { title: 'Continuing Care', body: 'Warranty, homeowner education, and Buchan Home Care — support that outlasts the keys.' },
+      { title: 'Progressive Estimating', body: 'Transparent pricing developed through preconstruction, not a single guess before design is resolved.' },
+      { title: 'Continuing Care', body: 'Warranty, homeowner education, and Buchan Home Care, support that outlasts the keys.' },
     ],
     ctaTitle: 'See our work',
     ctaLink: '/portfolio',
@@ -178,7 +178,7 @@ export const IA_PAGES: Record<string, HubPageData> = {
       titleEmphasis: 'serve.',
       image_url: '/assets/ph-arch-1.png',
     },
-    intro: 'Deep knowledge of Eastside jurisdictions, setbacks, slopes, and neighborhood character — built over 65 years in these communities.',
+    intro: 'Deep knowledge of Eastside jurisdictions, setbacks, slopes, and neighborhood character, built over 65 years in these communities.',
     sections: [
       {
         title: 'Primary Markets',
@@ -188,11 +188,11 @@ export const IA_PAGES: Record<string, HubPageData> = {
       },
       {
         title: 'Jurisdiction Knowledge',
-        body: 'Setback rules, tree retention, slope stability, and design review processes vary block by block on the Eastside. We have navigated these jurisdictions for decades — relationships and reputation matter when permits are on the line.',
+        body: 'Setback rules, tree retention, slope stability, and design review processes vary block by block on the Eastside. We have navigated these jurisdictions for decades, relationships and reputation matter when permits are on the line.',
       },
       {
         title: 'Jurisdiction Guides',
-        body: 'City-specific planning guides will be added over time — linking from each service area below. In the meantime, start with a property feasibility conversation.',
+        body: 'City-specific planning guides will be added over time, linking from each service area below. In the meantime, start with a property feasibility conversation.',
       },
     ],
     ctaTitle: 'Evaluate your property',
@@ -208,17 +208,17 @@ export const IA_PAGES: Record<string, HubPageData> = {
       titleEmphasis: 'Same lot.',
       image_url: '/assets/ph-arch-3.png',
     },
-    intro: 'Detached and attached accessory dwelling units for aging-parent housing, guest space, or rental income — evaluated and built with the same Buchan team that handles custom homes.',
+    intro: 'Detached and attached accessory dwelling units for aging-parent housing, guest space, or rental income, evaluated and built with the same Buchan team that handles custom homes.',
     sections: [
       {
         title: 'Feasibility',
-        body: 'We evaluate zoning, setbacks, utilities, and access before design begins. Washington ADU legislation has expanded options in many Eastside cities — but every lot is different.',
+        body: 'We evaluate zoning, setbacks, utilities, and access before design begins. Washington ADU legislation has expanded options in many Eastside cities, but every lot is different.',
         bullets: ['Zoning & setback review', 'Utility & sewer capacity', 'Access & parking requirements'],
         image_url: '/assets/ph-arch-1.png',
       },
       {
         title: 'Design & Build',
-        body: 'Integrated with our custom home process — one team from concept through certificate of occupancy. No separate architect-builder handoffs.',
+        body: 'Integrated with our custom home process, one team from concept through certificate of occupancy. No separate architect-builder handoffs.',
       },
       {
         title: 'Zoning & Legislation',
@@ -256,11 +256,11 @@ export const IA_PAGES: Record<string, HubPageData> = {
       },
       {
         title: 'Phased Rebuild',
-        body: 'Envelope and structure first, then mechanical, then interior finish — sequenced to match insurance releases and your family\'s housing plan.',
+        body: 'Envelope and structure first, then mechanical, then interior finish, sequenced to match insurance releases and your family\'s housing plan.',
       },
       {
         title: 'Rebuild to Buchan Standard',
-        body: 'Full restoration to Buchan quality standards — matching existing architecture where possible, improving envelope performance where the loss allows.',
+        body: 'Full restoration to Buchan quality standards, matching existing architecture where possible, improving envelope performance where the loss allows.',
       },
     ],
     ctaTitle: 'Contact us about fire restoration',
@@ -276,16 +276,16 @@ export const IA_PAGES: Record<string, HubPageData> = {
       titleEmphasis: 'commitment.',
       image_url: '/assets/ph-arch-2.png',
     },
-    intro: 'Feasibility studies, design coordination, constructability review, progressive estimates, value engineering, and code compliance — the planning layer behind every Buchan project.',
+    intro: 'Feasibility studies, design coordination, constructability review, progressive estimates, value engineering, and code compliance, the planning layer behind every Buchan project.',
     sections: [
       {
         title: 'Progressive Estimates',
-        body: 'Budget ranges refined as design resolves — tied to our Preconstruction flagship page. You see numbers update as decisions get made, not after.',
+        body: 'Budget ranges refined as design resolves, tied to our Preconstruction flagship page. You see numbers update as decisions get made, not after.',
         image_url: '/assets/ph-arch-3.png',
       },
       {
         title: 'Constructability Review',
-        body: 'We review plans for buildability before you commit to expensive design iterations — catching conflicts between structure, envelope, and mechanical early.',
+        body: 'We review plans for buildability before you commit to expensive design iterations, catching conflicts between structure, envelope, and mechanical early.',
       },
       {
         title: 'Code & Compliance',
@@ -310,11 +310,11 @@ export const IA_PAGES: Record<string, HubPageData> = {
       titleEmphasis: 'One team.',
       image_url: '/assets/ph-arch-1.png',
     },
-    intro: 'Three distinct relationships — not one blended service. Each path has its own process, timeline, and client relationship.',
+    intro: 'Three distinct relationships, not one blended service. Each path has its own process, timeline, and client relationship.',
     sections: [
       { title: 'Find Your Lot', body: 'Buy-side sourcing for clients ready to build custom who do not yet have land.', image_url: '/assets/ph-arch-2.png' },
       { title: 'Sell Your Current Home', body: 'Traditional listing and brokerage support while you plan or build your next home.' },
-      { title: 'Sell Directly to Buchan', body: 'JBH may purchase your property as a principal buyer — not as your listing agent. Written disclosures explain the difference before any agreement.' },
+      { title: 'Sell Directly to Buchan', body: 'JBH may purchase your property as a principal buyer, not as your listing agent. Written disclosures explain the difference before any agreement.' },
     ],
     ctaTitle: 'Talk to our real estate team',
     ctaLink: '/contact?service=Real estate services#inquiry',
@@ -329,22 +329,22 @@ export const IA_PAGES: Record<string, HubPageData> = {
       titleEmphasis: 'lot.',
       image_url: '/assets/ph-arch-2.png',
     },
-    intro: 'For clients who know they want to build custom but have not yet secured land — we help evaluate and source buildable lots aligned with your vision and budget.',
+    intro: 'For clients who know they want to build custom but have not yet secured land, we help evaluate and source buildable lots aligned with your vision and budget.',
     sections: [
       {
         title: 'Search Criteria',
-        body: 'We start with how you want to live — schools, commute, views, privacy — then filter for lots that can support the home you have in mind, not just what is listed today.',
+        body: 'We start with how you want to live, schools, commute, views, privacy, then filter for lots that can support the home you have in mind, not just what is listed today.',
         bullets: ['Location & lifestyle priorities', 'Budget range for land + build', 'Timeline flexibility'],
         image_url: '/assets/ph-arch-3.png',
       },
       {
         title: 'Lot Evaluation Checklist',
-        body: 'Zoning, setbacks, slope, utilities, and access — understood before you commit. We flag deal-breakers early so you do not fall in love with land that cannot support your plan.',
+        body: 'Zoning, setbacks, slope, utilities, and access, understood before you commit. We flag deal-breakers early so you do not fall in love with land that cannot support your plan.',
         bullets: ['Zoning & buildable area', 'Slope & geotechnical flags', 'Utility & sewer availability', 'Tree retention & critical areas'],
       },
       {
         title: 'Typical Timeline',
-        body: 'Lot search timelines vary — some clients find land in weeks, others over a year. We stay engaged through feasibility on shortlisted parcels so you know build cost before you write an offer.',
+        body: 'Lot search timelines vary, some clients find land in weeks, others over a year. We stay engaged through feasibility on shortlisted parcels so you know build cost before you write an offer.',
       },
       {
         title: 'Next Steps',
@@ -364,11 +364,11 @@ export const IA_PAGES: Record<string, HubPageData> = {
       titleEmphasis: 'current home.',
       image_url: '/assets/ph-arch-3.png',
     },
-    intro: 'Traditional brokerage support coordinated with your custom build or renovation timeline — so selling and building are one plan, not two competing urgencies.',
+    intro: 'Traditional brokerage support coordinated with your custom build or renovation timeline, so selling and building are one plan, not two competing urgencies.',
     sections: [
       {
         title: 'Staging & Presentation',
-        body: 'We advise on preparation that matters on the Eastside — curb presence, decluttering, and timing photography around your construction milestones.',
+        body: 'We advise on preparation that matters on the Eastside, curb presence, decluttering, and timing photography around your construction milestones.',
         image_url: '/assets/ph-arch-4.png',
       },
       {
@@ -377,7 +377,7 @@ export const IA_PAGES: Record<string, HubPageData> = {
       },
       {
         title: 'Pricing Strategy',
-        body: 'Market analysis grounded in your neighborhood — not generic county averages. We coordinate listing strategy with your builder so showings do not conflict with active construction on your next home.',
+        body: 'Market analysis grounded in your neighborhood, not generic county averages. We coordinate listing strategy with your builder so showings do not conflict with active construction on your next home.',
       },
       {
         title: 'Coordination With Buchan',
@@ -397,23 +397,23 @@ export const IA_PAGES: Record<string, HubPageData> = {
       titleEmphasis: 'to Buchan.',
       image_url: '/assets/ph-arch-4.png',
     },
-    intro: 'In select situations, John Buchan Homes may purchase your property directly as a principal buyer — for our own development or inventory purposes. This is not listing or brokerage service on your behalf.',
+    intro: 'In select situations, John Buchan Homes may purchase your property directly as a principal buyer, for our own development or inventory purposes. This is not listing or brokerage service on your behalf.',
     sections: [
       {
         title: 'How this differs from listing your home',
-        body: 'When you list with a broker, you engage an agent to market your property to third-party buyers. When you sell directly to Buchan, we are the buyer. We do not represent you as a seller in a fiduciary brokerage relationship — we negotiate with you as a counterparty. You should consult your own legal and tax advisors before proceeding.',
+        body: 'When you list with a broker, you engage an agent to market your property to third-party buyers. When you sell directly to Buchan, we are the buyer. We do not represent you as a seller in a fiduciary brokerage relationship, we negotiate with you as a counterparty. You should consult your own legal and tax advisors before proceeding.',
       },
       {
         title: 'When a direct sale may make sense',
-        body: 'Clients often explore this path when speed, certainty, or discretion matters more than maximizing every dollar through a public listing — for example, when coordinating a custom build timeline or avoiding showings while living in the home.',
+        body: 'Clients often explore this path when speed, certainty, or discretion matters more than maximizing every dollar through a public listing, for example, when coordinating a custom build timeline or avoiding showings while living in the home.',
       },
       {
         title: 'Compliance & licensing notice',
-        body: 'John Buchan Homes holds Washington real estate and contractor licenses where required for its activities. Any direct purchase is documented with clear purchase-and-sale terms, earnest money handling consistent with state law, and written disclosure that JBH is acting as a principal buyer, not as your listing agent. Separate brokerage services — such as listing your home on the open market — are available through our real estate team and involve different representation.',
+        body: 'John Buchan Homes holds Washington real estate and contractor licenses where required for its activities. Any direct purchase is documented with clear purchase-and-sale terms, earnest money handling consistent with state law, and written disclosure that JBH is acting as a principal buyer, not as your listing agent. Separate brokerage services, such as listing your home on the open market, are available through our real estate team and involve different representation.',
       },
       {
         title: 'Fair, discreet process',
-        body: 'We evaluate each property individually — location, condition, zoning, and timing. Conversations are confidential. If a direct purchase is not the right fit, we will say so and outline alternatives, including traditional listing support.',
+        body: 'We evaluate each property individually, location, condition, zoning, and timing. Conversations are confidential. If a direct purchase is not the right fit, we will say so and outline alternatives, including traditional listing support.',
         image_url: '/assets/ph-arch-1.png',
       },
     ],
@@ -430,11 +430,11 @@ export const IA_PAGES: Record<string, HubPageData> = {
       titleEmphasis: 'the keys.',
       image_url: '/assets/ph-arch-1.png',
     },
-    intro: 'Maintenance, seasonal upkeep, and smaller projects for homeowners who want Buchan quality on an ongoing basis — whether we built your home or you simply want the same standard of care.',
+    intro: 'Maintenance, seasonal upkeep, and smaller projects for homeowners who want Buchan quality on an ongoing basis, whether we built your home or you simply want the same standard of care.',
     sections: [
       {
         title: 'What We Handle',
-        body: 'Seasonal maintenance, minor repairs, fixture upgrades, and selective remodels scoped for occupied homes. The same trades and supers who know Buchan standards — scaled for ongoing care.',
+        body: 'Seasonal maintenance, minor repairs, fixture upgrades, and selective remodels scoped for occupied homes. The same trades and supers who know Buchan standards, scaled for ongoing care.',
         bullets: ['Seasonal maintenance visits', 'Minor repairs & adjustments', 'Selective upgrades', 'Pre-sale preparation'],
         image_url: '/assets/ph-arch-2.png',
       },
@@ -444,11 +444,11 @@ export const IA_PAGES: Record<string, HubPageData> = {
       },
       {
         title: 'Response & Scheduling',
-        body: 'Home Care requests are routed to a dedicated coordinator — not a generic inbox. Urgent envelope or water issues are prioritized; planned work is scheduled in advance with clear arrival windows.',
+        body: 'Home Care requests are routed to a dedicated coordinator, not a generic inbox. Urgent envelope or water issues are prioritized; planned work is scheduled in advance with clear arrival windows.',
       },
       {
         title: 'Warranty Tie-In',
-        body: 'For Buchan-built homes still under warranty, Home Care complements — never replaces — warranty coverage. We document every visit so warranty and maintenance history stay clear.',
+        body: 'For Buchan-built homes still under warranty, Home Care complements, never replaces, warranty coverage. We document every visit so warranty and maintenance history stay clear.',
       },
     ],
     ctaTitle: 'Request Home Care',
@@ -456,7 +456,7 @@ export const IA_PAGES: Record<string, HubPageData> = {
   },
   'land-acquisition': {
     slug: 'land-acquisition',
-    metaTitle: 'Landowners — Sell Your Land',
+    metaTitle: 'Landowners, Sell Your Land',
     metaDescription: 'Property owners interested in selling land directly to John Buchan Homes.',
     hero: {
       eyebrow: 'Landowners',
@@ -464,7 +464,7 @@ export const IA_PAGES: Record<string, HubPageData> = {
       titleEmphasis: 'land.',
       image_url: '/assets/ph-arch-3.png',
     },
-    intro: 'For property owners with no other relationship to JBH who may want to sell land directly — without listing it. A confidential path for parcels that may fit future custom or spec opportunities.',
+    intro: 'For property owners with no other relationship to JBH who may want to sell land directly, without listing it. A confidential path for parcels that may fit future custom or spec opportunities.',
     sections: [
       {
         title: 'Parcel Types We Evaluate',
@@ -474,11 +474,11 @@ export const IA_PAGES: Record<string, HubPageData> = {
       },
       {
         title: 'Evaluation Process',
-        body: 'Tell us location, acreage, zoning, and timing. Our team reviews feasibility internally before a follow-up — no mass mailers, no automated lowball offers.',
+        body: 'Tell us location, acreage, zoning, and timing. Our team reviews feasibility internally before a follow-up, no mass mailers, no automated lowball offers.',
       },
       {
         title: 'How a Direct Sale Works',
-        body: 'If there is mutual interest, we outline terms as a principal buyer — separate from any listing or brokerage relationship. You should consult your own legal and tax advisors before proceeding.',
+        body: 'If there is mutual interest, we outline terms as a principal buyer, separate from any listing or brokerage relationship. You should consult your own legal and tax advisors before proceeding.',
       },
       {
         title: 'Confidentiality',
@@ -491,32 +491,32 @@ export const IA_PAGES: Record<string, HubPageData> = {
   'second-opinion': {
     slug: 'second-opinion',
     metaTitle: 'Need a Second Opinion?',
-    metaDescription: 'Outside review for a project already underway — builder transition or gut-check.',
+    metaDescription: 'Outside review for a project already underway, builder transition or gut-check.',
     hero: {
       eyebrow: 'Second Opinion',
       title: 'Need another',
       titleEmphasis: 'perspective?',
       image_url: '/assets/ph-arch-2.png',
     },
-    intro: 'Whether you are considering a builder transition or simply want an outside gut-check on a project underway — reach a person, not a form funnel.',
+    intro: 'Whether you are considering a builder transition or simply want an outside gut-check on a project underway, reach a person, not a form funnel.',
     sections: [
       {
         title: 'When to Call',
-        body: 'Schedule slips with no explanation, change orders stacking up, quality concerns on site, or a gut feeling that the project has drifted from plan — these are all valid reasons for an outside review.',
+        body: 'Schedule slips with no explanation, change orders stacking up, quality concerns on site, or a gut feeling that the project has drifted from plan, these are all valid reasons for an outside review.',
         image_url: '/assets/ph-arch-3.png',
       },
       {
         title: 'What We Review',
-        body: 'We walk the site, review contracts and draw schedules, and assess remaining scope against realistic budget and timeline. You receive an honest assessment — even if the answer is to stay with your current builder.',
+        body: 'We walk the site, review contracts and draw schedules, and assess remaining scope against realistic budget and timeline. You receive an honest assessment, even if the answer is to stay with your current builder.',
         bullets: ['Site walk & photo documentation', 'Schedule & budget review', 'Remaining scope assessment'],
       },
       {
         title: 'Builder Transition',
-        body: 'We have successfully taken over mid-construction projects — read our builder-transition case study for a real Clyde Hill example of schedule recovery and finish quality.',
+        body: 'We have successfully taken over mid-construction projects, read our builder-transition case study for a real Clyde Hill example of schedule recovery and finish quality.',
       },
       {
         title: 'Personal Contact',
-        body: 'Call 425.827.2266 directly or submit a brief description through our contact form — routed to a senior team member for review within one business day.',
+        body: 'Call 425.827.2266 directly or submit a brief description through our contact form, routed to a senior team member for review within one business day.',
       },
     ],
     ctaTitle: 'Read the case study',
@@ -532,9 +532,9 @@ export const IA_PAGES: Record<string, HubPageData> = {
       titleEmphasis: 'build here?',
       image_url: '/assets/ph-arch-4.png',
     },
-    intro: 'Not sure where to start? Tell us about your property and goals — we will help you find the path that fits: build, renovate, add an ADU, or explore selling instead.',
+    intro: 'Not sure where to start? Tell us about your property and goals, we will help you find the path that fits: build, renovate, add an ADU, or explore selling instead.',
     sections: [
-      { title: 'Build Custom', body: 'Ground-up home on your lot — our core practice since 1961.', bullets: ['Feasibility & zoning review', 'Progressive cost estimating', '→ Custom Homes'], image_url: '/assets/ph-arch-1.png' },
+      { title: 'Build Custom', body: 'Ground-up home on your lot, our core practice since 1961.', bullets: ['Feasibility & zoning review', 'Progressive cost estimating', '→ Custom Homes'], image_url: '/assets/ph-arch-1.png' },
       { title: 'ADU or DADU', body: 'Additional dwelling on existing lot for family or rental income.', bullets: ['Setback & utility check', 'Coordinated design & construction', '→ ADUs & DADUs'] },
       { title: 'Renovate or Rebuild', body: 'Transform or replace an existing structure while staying on the land you love.', bullets: ['Condition assessment', 'Phasing for occupied homes', '→ Renovations'] },
       { title: 'Sell Instead', body: 'Explore selling your property or land directly or on the open market.', bullets: ['→ Land Acquisition', '→ Sell to Buchan', '→ Sell Your Home'] },
@@ -555,15 +555,15 @@ export type JourneyPathItem = {
 
 export const JOURNEY_PATHS: JourneyPathItem[] = [
   { title: 'How much will my project cost?', description: 'Personalized range from our estimator tool.', link: 'https://estimator.buchan.com/', group: 'anchor', image_url: '/assets/ph-arch-1.png', external: true },
-  { title: 'What can I build on my property?', description: 'Build, ADU, renovate, or sell — find your path.', link: '/property-feasibility', group: 'anchor', image_url: '/assets/ph-arch-2.png' },
+  { title: 'What can I build on my property?', description: 'Build, ADU, renovate, or sell, find your path.', link: '/property-feasibility', group: 'anchor', image_url: '/assets/ph-arch-2.png' },
   { title: 'I want to build a custom home', description: 'Ground-up on your lot.', link: '/custom-homes', group: 'core', image_url: '/assets/ph-arch-3.png' },
   { title: "I'm considering a major renovation", description: 'Whole-home and major remodel scope.', link: '/renovations', group: 'core', image_url: '/assets/ph-arch-4.png' },
   { title: 'I have plans and need a builder', description: 'Upload plans, city, budget, timing.', link: '/contact?service=I have plans and need a builder#inquiry', group: 'core', image_url: '/assets/ph-arch-1.png' },
   { title: "I'm looking for a move-in-ready home", description: 'Available and coming-soon homes.', link: '/available-homes', group: 'core', image_url: '/assets/ph-arch-2.png' },
-  { title: 'Not sure where to start?', description: 'Tell us about your situation — we will guide you.', link: '/contact?service=Not sure where to start#inquiry', group: 'secondary', image_url: '/assets/ph-arch-3.png' },
+  { title: 'Not sure where to start?', description: 'Tell us about your situation, we will guide you.', link: '/contact?service=Not sure where to start#inquiry', group: 'secondary', image_url: '/assets/ph-arch-3.png' },
   { title: 'I have land to sell', description: 'Direct land acquisition intake.', link: '/land-acquisition', group: 'secondary', image_url: '/assets/ph-arch-4.png' },
   { title: 'Thinking about an ADU?', description: 'Family housing or rental income.', link: '/services/adus', group: 'secondary', image_url: '/assets/ph-arch-1.png' },
-  { title: 'Need a second opinion?', description: 'Project underway — we can help.', link: '/second-opinion', group: 'secondary', image_url: '/assets/ph-arch-2.png' },
+  { title: 'Need a second opinion?', description: 'Project underway, we can help.', link: '/second-opinion', group: 'secondary', image_url: '/assets/ph-arch-2.png' },
   { title: 'Maintenance or small project', description: 'Buchan Home Care.', link: '/services/home-care', group: 'secondary', image_url: '/assets/ph-arch-3.png' },
   { title: 'Just browsing', description: 'Why Choose Buchan and Portfolio.', link: '/why-choose-buchan', group: 'secondary', image_url: '/assets/ph-arch-4.png' },
 ];
@@ -578,7 +578,7 @@ export const HOME_STARTING_POINTS = {
 export const PROCESS_STAGES = [
   { n: '01', title: 'Discover & Evaluate', description: 'We listen deeply, understand your vision, and evaluate your property and possibilities with honesty and care.' },
   { n: '02', title: 'Plan & Align', description: 'We shape a plan that reflects your goals, confirms investment clarity, and aligns every detail before we build.' },
-  { n: '03', title: 'Build with Discipline', description: 'Our team executes with precision, protecting quality, schedule, and budget—so you feel informed and at ease.' },
+  { n: '03', title: 'Build with Discipline', description: 'Our team executes with precision, protecting quality, schedule, and budget, so you feel informed and at ease.' },
   { n: '04', title: 'Care Beyond Completion', description: 'We remain a trusted partner long after move-in, ensuring your home performs beautifully for years to come.' },
 ];
 
@@ -624,16 +624,16 @@ export const WHAT_WE_DO = {
 };
 
 export const CLIENT_CONCERNS = [
-  { title: 'How do we establish a realistic investment?', body: 'We start with your vision and priorities, then clarify scope, timeline, and investment ranges early—so you can make confident decisions without surprises.' },
-  { title: 'How will the team stay aligned?', body: 'Through collaborative planning, clear communication, and shared accountability—so decisions are informed, timely, and in service of your goals.' },
-  { title: 'What makes a John Buchan home perform differently over time?', body: "It's the combination of thoughtful design, quality construction, and proactive care—built to endure beautifully and efficiently for generations." },
+  { title: 'How do we establish a realistic investment?', body: 'We start with your vision and priorities, then clarify scope, timeline, and investment ranges early, so you can make confident decisions without surprises.' },
+  { title: 'How will the team stay aligned?', body: 'Through collaborative planning, clear communication, and shared accountability, so decisions are informed, timely, and in service of your goals.' },
+  { title: 'What makes a John Buchan home perform differently over time?', body: "It's the combination of thoughtful design, quality construction, and proactive care, built to endure beautifully and efficiently for generations." },
 ];
 
 export const BETTER_PLANNED_PATH = {
   eyebrow: 'Our Process',
   title: 'A custom experience,',
   titleEmphasis: 'thoughtfully managed.',
-  intro: 'An aligned team. Early clarity. And steady communication at every step. We make the process predictable and the experience exceptional—so you can enjoy the journey as much as the destination.',
+  intro: 'An aligned team. Early clarity. And steady communication at every step. We make the process predictable and the experience exceptional, so you can enjoy the journey as much as the destination.',
   teamHeading: 'One Aligned Team, Chosen for Your Home',
   teamBody: 'We collaborate with independent architects on every project and interior designers on most. Clients may bring their own trusted professionals. Buchan provides estimating, constructability review, schedule planning, coordination, detailed specifications, and construction leadership from the early stages.',
   teamImage: '/assets/ph-arch-4.png',
@@ -675,7 +675,7 @@ export const PICK_YOUR_PATH_INTRO = '';
 export const WHY_CHOOSE_VALUES = [
   { title: 'Certainty', body: 'Progressive estimates and preconstruction discipline reduce surprises.' },
   { title: 'Craftsmanship', body: 'Three generations of hands-on building standards.' },
-  { title: 'Local Expertise', body: 'Eastside jurisdictions, slopes, and neighborhoods — known deeply.' },
+  { title: 'Local Expertise', body: 'Eastside jurisdictions, slopes, and neighborhoods, known deeply.' },
   { title: 'White-Glove Care', body: 'A person who knows your project, not a ticket queue.' },
   { title: 'Continuing Support', body: 'Warranty, education, and Home Care after the keys.' },
 ];

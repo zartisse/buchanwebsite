@@ -77,7 +77,7 @@ export function Contact() {
               <h2 className={ps.sectionTitle} style={{ marginTop: 16 }}>{content.inquiry_title}</h2>
               {submitted ? (
                 <p className={ps.formSuccess}>
-                  Thank you — we will be in touch within one business day.
+                  Thank you. We will be in touch within one business day.
                 </p>
               ) : (
                 <form onSubmit={handleSubmit} className={ps.formStack}>

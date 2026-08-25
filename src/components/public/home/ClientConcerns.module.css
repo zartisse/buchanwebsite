@@ -10,7 +10,7 @@
 }
 
 .header {
-  text-align: center;
+  text-align: left;
   margin-bottom: clamp(40px, 6vh, 56px);
 }
 

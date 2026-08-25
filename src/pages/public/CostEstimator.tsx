@@ -16,7 +16,7 @@ export function CostEstimator() {
           <span className={ps.eyebrow}>Cost & Planning</span>
           <h1 className={ps.heroTitle}>How much will my<br /><em>project cost?</em></h1>
           <p className={ps.bodyText} style={{ marginTop: 24, maxWidth: 560 }}>
-            Answer five questions for a preliminary range — then follow up with our preconstruction team for project-specific pricing.
+            Answer five questions for a preliminary range, then follow up with our preconstruction team for project-specific pricing.
           </p>
         </div>
       </section>
@@ -32,7 +32,7 @@ export function CostEstimator() {
                 Start Your Estimate
               </a>
               <p className={est.fallbackLink}>
-                Opens in a new tab — return here anytime to explore the rest of the site.
+                Opens in a new tab. Return here anytime to explore the rest of the site.
               </p>
             </div>
           </RevealOnScroll>
