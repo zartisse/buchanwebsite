@@ -4,6 +4,9 @@ import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { getSchemaCapabilities } from '../lib/schemaCapabilities';
 import { DEMO_POSTS } from '../data/demo';
 
+const POST_LIST_COLUMNS = 'id,title,slug,category,status,date,excerpt,image_url,featured';
+const POST_DETAIL_COLUMNS = 'id,title,slug,category,status,date,excerpt,body,image_url,meta_title,meta_description,featured';
+
 export function usePosts(options?: { publishedOnly?: boolean; admin?: boolean }) {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
@@ -20,13 +23,16 @@ export function usePosts(options?: { publishedOnly?: boolean; admin?: boolean })
       return;
     }
     try {
-      let query = supabase.from('posts').select('*').order('date', { ascending: false });
+      let query = options?.admin
+        ? supabase.from('posts').select('*')
+        : supabase.from('posts').select(POST_LIST_COLUMNS);
+      query = query.order('date', { ascending: false });
       if (options?.publishedOnly && !options?.admin) {
         query = query.eq('status', 'Published');
       }
       const { data, error: err } = await query;
       if (err) throw err;
-      setPosts((data as Post[]) ?? []);
+      setPosts((data as unknown as Post[]) ?? []);
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Failed to load posts');
       if (options?.admin) {
@@ -100,7 +106,7 @@ export function usePost(slug: string) {
       try {
         const { data, error: err } = await supabase
           .from('posts')
-          .select('*')
+          .select(POST_DETAIL_COLUMNS)
           .eq('slug', slug)
           .eq('status', 'Published')
           .single();

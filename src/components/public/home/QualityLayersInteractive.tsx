@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { HomePageContent, ServiceIconName } from '../../../types';
-import { assetUrl } from '../../../lib/assets';
+import { OptimizedImage } from '../../ui/OptimizedImage';
 import { ServiceIcon } from '../../ui/ServiceIcon';
 import { RevealOnScroll } from '../../ui/RevealOnScroll';
 import styles from './QualityLayersInteractive.module.css';
@@ -39,7 +39,7 @@ export function QualityLayersInteractive({ section }: QualityLayersInteractivePr
         <div className={styles.interactiveWrap}>
           <RevealOnScroll>
             <div className={styles.elevationPanel}>
-              <img src={assetUrl(section.elevation_image_url)} alt="" className={styles.elevationPhoto} />
+              <OptimizedImage src={section.elevation_image_url} seed="quality-layers" className={styles.elevationPhoto} direct />
               {section.layers.map((layer) => (
                 <button
                   key={layer.id}

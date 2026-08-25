@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 import { BetterPlannedPath } from '../../components/public/home/BetterPlannedPath';
 import { ClientConcerns } from '../../components/public/home/ClientConcerns';
 import { DifferenceSection } from '../../components/public/home/DifferenceSection';
@@ -10,9 +11,10 @@ import { TestimonialStrip } from '../../components/public/home/TestimonialStrip'
 import { WhatWeDo } from '../../components/public/home/WhatWeDo';
 import { useSitePage } from '../../hooks/useSitePage';
 import { PageMeta } from '../../components/ui/PageMeta';
+import { OptimizedImage } from '../../components/ui/OptimizedImage';
 import { mergeHomeContent } from '../../data/homeContentDefaults';
 import { getDemoPageContent } from '../../data/sitePagesDemo';
-import { assetUrl } from '../../lib/assets';
+import { resolveImageUrl } from '../../lib/placeholders';
 import homeStyles from './Home.module.css';
 
 function HeroCta({ url, label, className }: { url: string; label: string; className: string }) {
@@ -39,13 +41,31 @@ export function Home() {
     ? content.credibility_stats
     : content.credibility_line.split('|').map((s) => ({ label: s.trim() })).filter((s) => s.label);
 
+  useEffect(() => {
+    const heroSrc = resolveImageUrl(hero.image_url ?? '/assets/ph-arch-1.webp', 'home-hero');
+    const existing = document.querySelector('link[data-home-hero-preload]');
+    if (existing) existing.remove();
+    const link = document.createElement('link');
+    link.rel = 'preload';
+    link.as = 'image';
+    link.href = heroSrc;
+    link.setAttribute('fetchpriority', 'high');
+    link.setAttribute('data-home-hero-preload', 'true');
+    document.head.appendChild(link);
+    return () => { link.remove(); };
+  }, [hero.image_url]);
+
   return (
     <main className={homeStyles.homePage}>
       <PageMeta title={page?.meta_title ?? 'Build with Certainty | John Buchan Homes'} description={page?.meta_description} />
 
       <section className={homeStyles.heroOverlay}>
         <div className={homeStyles.heroMedia} aria-hidden>
-          <img src={assetUrl(hero.image_url ?? '/assets/ph-arch-1.png')} alt="" />
+          <OptimizedImage
+            src={hero.image_url ?? '/assets/ph-arch-1.webp'}
+            seed="home-hero"
+            priority
+          />
         </div>
         <div className={homeStyles.heroScrim} aria-hidden />
         <div className={homeStyles.heroContent}>
@@ -93,7 +113,10 @@ export function Home() {
 
       <section className={homeStyles.closingCta}>
         <div className={homeStyles.closingCtaBg} aria-hidden>
-          <img src={assetUrl(content.closing_cta.background_image_url ?? '/assets/ph-arch-1.png')} alt="" />
+          <OptimizedImage
+            src={content.closing_cta.background_image_url ?? '/assets/ph-arch-1.webp'}
+            seed="closing-cta"
+          />
         </div>
         <div className={homeStyles.closingCtaOverlay} aria-hidden />
         <div className={homeStyles.closingCtaInner}>

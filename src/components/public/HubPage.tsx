@@ -5,7 +5,7 @@ import { PageCta } from '../ui/PageCta';
 import { RevealOnScroll } from '../ui/RevealOnScroll';
 import { HeroTitle } from '../ui/HeroTitle';
 import { ESTIMATOR_URL } from '../../lib/estimator';
-import { resolveImageUrl } from '../../lib/placeholders';
+import { OptimizedImage } from '../ui/OptimizedImage';
 import ps from '../../styles/pages.module.css';
 import hs from './HubPage.module.css';
 
@@ -25,7 +25,7 @@ export function HubPage({ page }: { page: HubPage }) {
           {data.hero.subtitle && <p className={ps.bodyText} style={{ marginTop: 8, maxWidth: 640 }}>{data.hero.subtitle}</p>}
           {data.hero.image_url && (
             <div className={hs.heroMedia}>
-              <img src={resolveImageUrl(data.hero.image_url, page.slug)} alt="" />
+              <OptimizedImage src={data.hero.image_url} seed={page.slug} priority />
             </div>
           )}
         </div>
@@ -61,7 +61,7 @@ export function HubPage({ page }: { page: HubPage }) {
                   </div>
                   {section.image_url && (
                     <div className={hs.sectionImage}>
-                      <img src={resolveImageUrl(section.image_url, section.title)} alt="" />
+                      <OptimizedImage src={section.image_url} seed={section.title} />
                     </div>
                   )}
                 </div>
@@ -86,7 +86,7 @@ export function HubPage({ page }: { page: HubPage }) {
       {isExternal ? (
         <section className={ps.ctaPhoto}>
           <div className={ps.ctaPhotoBg} aria-hidden>
-            <img src={resolveImageUrl(ctaBg, `${page.slug}-cta`)} alt="" />
+            <OptimizedImage src={ctaBg} seed={`${page.slug}-cta`} />
           </div>
           <div className={ps.ctaPhotoOverlay} aria-hidden />
           <div className={ps.ctaPhotoInner}>

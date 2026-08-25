@@ -3,6 +3,9 @@ import type { SitePage, SitePageSlug } from '../types';
 import { SITE_PAGE_SLUGS } from '../types';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { getDemoSitePage } from '../data/sitePagesDemo';
+import { getCached, setCached, invalidateCache } from '../lib/sitePageCache';
+
+const SITE_PAGE_COLUMNS = 'id,slug,meta_title,meta_description,content,updated_at';
 
 export function useSitePages() {
   const [pages, setPages] = useState<SitePage[]>([]);
@@ -25,7 +28,7 @@ export function useSitePages() {
     try {
       const { data, error: err } = await supabase
         .from('site_pages')
-        .select('*')
+        .select(SITE_PAGE_COLUMNS)
         .order('slug');
       if (err) throw err;
       setPages((data as SitePage[]) ?? []);
@@ -54,6 +57,7 @@ export function useSitePages() {
       const { error: err } = await supabase.from('site_pages').upsert(payload, { onConflict: 'slug' });
       if (err) throw err;
     }
+    invalidateCache(`site_page:${page.slug}`);
     await fetchPages();
   };
 
@@ -69,6 +73,13 @@ export function useSitePage<S extends SitePageSlug>(slug: S) {
     async function load() {
       setLoading(true);
       const demo = getDemoSitePage(slug) as SitePage<S>;
+      const cacheKey = `site_page:${slug}`;
+      const cached = getCached<SitePage<S>>(cacheKey);
+      if (cached) {
+        setPage(cached);
+        setLoading(false);
+        return;
+      }
       if (!isSupabaseConfigured) {
         setPage(demo);
         setLoading(false);
@@ -77,11 +88,13 @@ export function useSitePage<S extends SitePageSlug>(slug: S) {
       try {
         const { data, error: err } = await supabase
           .from('site_pages')
-          .select('*')
+          .select(SITE_PAGE_COLUMNS)
           .eq('slug', slug)
           .single();
         if (err) throw err;
-        setPage(data as SitePage<S>);
+        const row = data as SitePage<S>;
+        setCached(cacheKey, row);
+        setPage(row);
       } catch (e) {
         setError(e instanceof Error ? e.message : 'Page not found');
         setPage(demo);

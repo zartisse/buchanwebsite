@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useProperties } from '../../hooks/useProperties';
 import { PageMeta } from '../../components/ui/PageMeta';
+import { OptimizedImage } from '../../components/ui/OptimizedImage';
 import { RevealOnScroll } from '../../components/ui/RevealOnScroll';
-import { resolveImageUrl } from '../../lib/placeholders';
 import type { PortfolioType as PropertyPortfolioType } from '../../types';
 import ps from '../../styles/pages.module.css';
 
@@ -123,7 +123,7 @@ export function Portfolio() {
               <RevealOnScroll key={h.id}>
                 <Link to={`/portfolio/${h.slug}`} className={`${ps.cardLink} imageHover`}>
                   <div className={ps.cardImageWrap}>
-                    <img src={resolveImageUrl(h.image_url, h.slug)} alt={h.name} className={ps.imageCover} style={{ transition: 'transform 0.55s ease' }} />
+                    <OptimizedImage src={h.image_url} seed={h.slug} alt={h.name} className={ps.imageCover} style={{ transition: 'transform 0.55s ease' }} />
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 16 }}>
                     <span className={ps.cardTitle}>{h.name}</span>

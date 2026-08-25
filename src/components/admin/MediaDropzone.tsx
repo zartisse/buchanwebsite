@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useId, useRef, useState } from 'react';
+import { compressImageForUpload } from '../../lib/imageCompress';
 import { fileToDataUrl, isVideoUrl, uploadMedia } from '../../lib/utils';
 import styles from '../../styles/admin.module.css';
 
@@ -71,13 +72,14 @@ export function MediaDropzone({
 
   const uploadFile = useCallback(async (file: File) => {
     const id = crypto.randomUUID();
-    const preview = URL.createObjectURL(file);
     const isVideo = file.type.startsWith('video/');
+    const uploadTarget = isVideo ? file : await compressImageForUpload(file, folder);
+    const preview = URL.createObjectURL(uploadTarget);
 
     setUploads((prev) => [...prev, { id, preview, isVideo, progress: 0, status: 'uploading' }]);
 
     try {
-      const url = await uploadMedia(file, folder, (progress) => {
+      const url = await uploadMedia(uploadTarget, folder, (progress) => {
         updateUpload(id, { progress });
       });
       updateUpload(id, { progress: 100, status: 'done' });
@@ -85,7 +87,7 @@ export function MediaDropzone({
       onChange(url);
     } catch {
       try {
-        const url = await fileToDataUrl(file);
+        const url = await fileToDataUrl(uploadTarget);
         updateUpload(id, { progress: 100, status: 'done' });
         removeUpload(id, preview);
         onChange(url);

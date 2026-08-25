@@ -4,6 +4,10 @@ import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { getSchemaCapabilities } from '../lib/schemaCapabilities';
 import { DEMO_PROPERTIES } from '../data/demo';
 
+const PROPERTY_LIST_COLUMNS = 'id,name,slug,status,city,image_url,featured,featured_order,portfolio_type,created_at';
+const PROPERTY_DETAIL_COLUMNS = 'id,name,slug,status,address,city,beds,baths,sqft,lot,year,description,image_url,gallery_urls,meta_title,meta_description,featured,featured_order,portfolio_type';
+const FEATURED_COLUMNS = 'name,slug,city,image_url,featured,featured_order,status';
+
 const DOC_FEATURED = DEMO_PROPERTIES.filter((p) => p.featured).sort(
   (a, b) => (a.featured_order ?? 0) - (b.featured_order ?? 0),
 );
@@ -46,13 +50,16 @@ export function useProperties(options?: { publicOnly?: boolean; admin?: boolean 
       return;
     }
     try {
-      let query = supabase.from('properties').select('*').order('created_at', { ascending: false });
+      let query = options?.admin
+        ? supabase.from('properties').select('*')
+        : supabase.from('properties').select(PROPERTY_LIST_COLUMNS);
+      query = query.order('created_at', { ascending: false });
       if (options?.publicOnly && !options?.admin) {
         query = query.neq('status', 'Draft');
       }
       const { data, error: err } = await query;
       if (err) throw err;
-      let list = (data as Property[]) ?? [];
+      let list = (data as unknown as Property[]) ?? [];
       if (options?.publicOnly && !options?.admin) {
         list = patchFeaturedDisplayLabels(list);
       }
@@ -121,6 +128,50 @@ export function useProperties(options?: { publicOnly?: boolean; admin?: boolean 
   return { properties, loading, error, refetch: fetchProperties, saveProperty, deleteProperty };
 }
 
+export function useFeaturedProperties() {
+  const [properties, setProperties] = useState<Property[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function load() {
+      setLoading(true);
+      setError(null);
+      if (!isSupabaseConfigured) {
+        const data = DEMO_PROPERTIES.filter((p) => p.featured && p.status !== 'Draft')
+          .sort((a, b) => (a.featured_order ?? 0) - (b.featured_order ?? 0))
+          .slice(0, 3);
+        setProperties(data);
+        setLoading(false);
+        return;
+      }
+      try {
+        const { data, error: err } = await supabase
+          .from('properties')
+          .select(FEATURED_COLUMNS)
+          .eq('featured', true)
+          .neq('status', 'Draft')
+          .order('featured_order')
+          .limit(3);
+        if (err) throw err;
+        setProperties(patchFeaturedDisplayLabels((data as Property[]) ?? []));
+      } catch (e) {
+        setError(e instanceof Error ? e.message : 'Failed to load featured properties');
+        setProperties(
+          DEMO_PROPERTIES.filter((p) => p.featured && p.status !== 'Draft')
+            .sort((a, b) => (a.featured_order ?? 0) - (b.featured_order ?? 0))
+            .slice(0, 3),
+        );
+      } finally {
+        setLoading(false);
+      }
+    }
+    load();
+  }, []);
+
+  return { properties, loading, error };
+}
+
 export function useProperty(slug: string) {
   const [property, setProperty] = useState<Property | null>(null);
   const [loading, setLoading] = useState(true);
@@ -137,7 +188,7 @@ export function useProperty(slug: string) {
       try {
         const { data, error: err } = await supabase
           .from('properties')
-          .select('*')
+          .select(PROPERTY_DETAIL_COLUMNS)
           .eq('slug', slug)
           .neq('status', 'Draft')
           .single();

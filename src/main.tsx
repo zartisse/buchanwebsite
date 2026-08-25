@@ -4,7 +4,6 @@ import { HelmetProvider } from 'react-helmet-async';
 import { AppRouter } from './router';
 import { ToastProvider } from './components/ui/Toast';
 import { applyAssetCssVars } from './lib/assets';
-import './styles/tokens.css';
 import './styles/global.css';
 
 applyAssetCssVars();

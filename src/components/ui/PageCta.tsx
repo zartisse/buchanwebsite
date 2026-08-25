@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { resolveImageUrl } from '../../lib/placeholders';
+import { OptimizedImage } from './OptimizedImage';
 import ps from '../../styles/pages.module.css';
 
 type PageCtaProps = {
@@ -34,7 +34,7 @@ export function PageCta({
     return (
       <section className={ps.ctaPhoto}>
         <div className={ps.ctaPhotoBg} aria-hidden>
-          <img src={resolveImageUrl(backgroundImage, 'page-cta')} alt="" />
+          <OptimizedImage src={backgroundImage} seed="page-cta" />
         </div>
         <div className={ps.ctaPhotoOverlay} aria-hidden />
         <div className={ps.ctaPhotoInner}>

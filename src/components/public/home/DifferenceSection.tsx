@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import type { HomePageContent } from '../../../types';
-import { resolveImageUrl } from '../../../lib/placeholders';
+import { OptimizedImage } from '../../ui/OptimizedImage';
 import { RevealOnScroll } from '../../ui/RevealOnScroll';
 import styles from './DifferenceSection.module.css';
 
@@ -28,7 +28,7 @@ export function DifferenceSection({ section }: DifferenceSectionProps) {
         </RevealOnScroll>
         <RevealOnScroll variant="left" index={1}>
           <div className={styles.imageWrap}>
-            <img src={resolveImageUrl(section.image_url, 'difference')} alt="" className={styles.image} />
+            <OptimizedImage src={section.image_url} seed="difference" className={styles.image} />
           </div>
         </RevealOnScroll>
       </div>

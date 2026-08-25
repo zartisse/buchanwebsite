@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import { useProperties } from '../../../hooks/useProperties';
-import { resolveImageUrl } from '../../../lib/placeholders';
+import { useFeaturedProperties } from '../../../hooks/useProperties';
+import { OptimizedImage } from '../../ui/OptimizedImage';
 import type { HomePageContent, Property } from '../../../types';
 import { RevealOnScroll } from '../../ui/RevealOnScroll';
 import styles from './FeaturedWorkGrid.module.css';
@@ -16,11 +16,8 @@ type FeaturedWorkGridProps = {
 };
 
 export function FeaturedWorkGrid({ labels }: FeaturedWorkGridProps) {
-  const { properties, loading } = useProperties({ publicOnly: true });
-  const featured = properties
-    .filter((p) => p.featured)
-    .sort((a, b) => (a.featured_order ?? 0) - (b.featured_order ?? 0))
-    .slice(0, 3);
+  const { properties, loading } = useFeaturedProperties();
+  const featured = properties;
 
   return (
     <section id="featured-work" className={styles.section}>
@@ -47,7 +44,7 @@ export function FeaturedWorkGrid({ labels }: FeaturedWorkGridProps) {
                 <RevealOnScroll>
                   <Link to={`/portfolio/${featured[0].slug}`} className={`${styles.heroCard} imageHover`}>
                     <div className={styles.imgWrap}>
-                      <img src={resolveImageUrl(featured[0].image_url, featured[0].slug)} alt={featured[0].name} />
+                      <OptimizedImage src={featured[0].image_url} seed={featured[0].slug} alt={featured[0].name} />
                     </div>
                     <div className={styles.meta}>
                       <span className={styles.name}>{featured[0].name}</span>
@@ -60,7 +57,7 @@ export function FeaturedWorkGrid({ labels }: FeaturedWorkGridProps) {
                     <RevealOnScroll key={item.slug} index={i + 1}>
                       <Link to={`/portfolio/${item.slug}`} className={`${styles.sideCard} imageHover`}>
                         <div className={styles.sideImgWrap}>
-                          <img src={resolveImageUrl(item.image_url, item.slug)} alt={item.name} />
+                          <OptimizedImage src={item.image_url} seed={item.slug} alt={item.name} />
                         </div>
                         <div className={styles.meta}>
                           <span className={styles.name}>{item.name}</span>

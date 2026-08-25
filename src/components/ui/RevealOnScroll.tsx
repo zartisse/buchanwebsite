@@ -10,6 +10,27 @@ interface RevealOnScrollProps {
   index?: number;
 }
 
+let sharedObserver: IntersectionObserver | null = null;
+const observed = new WeakMap<Element, IntersectionObserver>();
+
+function getSharedObserver() {
+  if (!sharedObserver) {
+    sharedObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            sharedObserver?.unobserve(entry.target);
+            observed.delete(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' },
+    );
+  }
+  return sharedObserver;
+}
+
 export function RevealOnScroll({
   children,
   className = '',
@@ -23,19 +44,13 @@ export function RevealOnScroll({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            io.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' },
-    );
+    const io = getSharedObserver();
     io.observe(el);
-    return () => io.disconnect();
+    observed.set(el, io);
+    return () => {
+      io.unobserve(el);
+      observed.delete(el);
+    };
   }, []);
 
   return (

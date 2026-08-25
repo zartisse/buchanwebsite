@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useId, useRef, useState } from 'react';
 import { fileToDataUrl, uploadMedia } from '../../lib/utils';
+import { compressImageForUpload } from '../../lib/imageCompress';
 import styles from '../../styles/admin.module.css';
 
 type UploadItem = {
@@ -54,12 +55,13 @@ export function ImageDropzone(props: ImageDropzoneProps) {
 
   const uploadFile = useCallback(async (file: File) => {
     const id = crypto.randomUUID();
-    const preview = URL.createObjectURL(file);
+    const compressed = await compressImageForUpload(file, folder);
+    const preview = URL.createObjectURL(compressed);
 
     setUploads((prev) => [...prev, { id, preview, progress: 0, status: 'uploading' }]);
 
     try {
-      const url = await uploadMedia(file, folder, (progress) => {
+      const url = await uploadMedia(compressed, folder, (progress) => {
         updateUpload(id, { progress });
       });
       updateUpload(id, { progress: 100, status: 'done' });
@@ -72,7 +74,7 @@ export function ImageDropzone(props: ImageDropzoneProps) {
       }
     } catch {
       try {
-        const url = await fileToDataUrl(file);
+        const url = await fileToDataUrl(compressed);
         updateUpload(id, { progress: 100, status: 'done' });
         removeUpload(id, preview);
 

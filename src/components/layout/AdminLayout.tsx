@@ -1,4 +1,5 @@
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { useEffect, useRef } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 import { useSubmissions } from '../../hooks/useSubmissions';
 import { assetUrl } from '../../lib/assets';
@@ -16,9 +17,14 @@ const NAV_ITEMS = [
 export function AdminLayout() {
   const location = useLocation();
   const navigate = useNavigate();
+  const mainRef = useRef<HTMLElement>(null);
   const { signOut } = useAuth();
   const { submissions } = useSubmissions(true);
   const newCount = submissions.filter((s) => s.status === 'New').length;
+
+  useEffect(() => {
+    mainRef.current?.scrollTo(0, 0);
+  }, [location.pathname]);
 
   const handleSignOut = async () => {
     await signOut();
@@ -57,7 +63,7 @@ export function AdminLayout() {
           <button type="button" onClick={handleSignOut} className={styles.signOut}>Sign Out</button>
         </div>
       </aside>
-      <main className={styles.main}>
+      <main ref={mainRef} className={styles.main}>
         <Outlet />
       </main>
     </div>

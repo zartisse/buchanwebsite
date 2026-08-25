@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import type { HomePageContent } from '../../../types';
-import { resolveImageUrl } from '../../../lib/placeholders';
+import { OptimizedImage } from '../../ui/OptimizedImage';
 import { RevealOnScroll } from '../../ui/RevealOnScroll';
 import styles from './TestimonialStrip.module.css';
 
@@ -9,15 +9,15 @@ type TestimonialStripProps = {
 };
 
 export function TestimonialStrip({ section }: TestimonialStripProps) {
-  const leftImg = section.left_image_url ?? '/assets/ph-arch-1.png';
-  const rightImg = section.right_image_url ?? '/assets/ph-arch-4.png';
+  const leftImg = section.left_image_url ?? '/assets/ph-arch-1.webp';
+  const rightImg = section.right_image_url ?? '/assets/ph-arch-4.webp';
 
   return (
     <section className={styles.section}>
       <div className={styles.grid}>
         <RevealOnScroll variant="left">
           <div className={styles.photoWrap}>
-            <img src={resolveImageUrl(leftImg, 'testimonial-left')} alt="" className={styles.photo} />
+            <OptimizedImage src={leftImg} seed="testimonial-left" className={styles.photo} />
           </div>
         </RevealOnScroll>
         <RevealOnScroll>
@@ -33,7 +33,7 @@ export function TestimonialStrip({ section }: TestimonialStripProps) {
         </RevealOnScroll>
         <RevealOnScroll variant="left" index={1}>
           <div className={styles.photoWrap}>
-            <img src={resolveImageUrl(rightImg, 'testimonial-right')} alt="" className={styles.photo} />
+            <OptimizedImage src={rightImg} seed="testimonial-right" className={styles.photo} />
           </div>
         </RevealOnScroll>
       </div>

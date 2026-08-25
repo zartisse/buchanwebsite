@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useProperty } from '../../hooks/useProperties';
 import { ImageLightbox } from '../../components/ui/ImageLightbox';
+import { OptimizedImage } from '../../components/ui/OptimizedImage';
 import { PageMeta } from '../../components/ui/PageMeta';
 import { PageCta } from '../../components/ui/PageCta';
 import { RevealOnScroll } from '../../components/ui/RevealOnScroll';
@@ -66,7 +67,7 @@ export function PortfolioDetail() {
           aria-label="View hero image fullscreen"
           style={{ width: '100%', height: '100%', padding: 0, border: 'none', background: 'none', display: 'block' }}
         >
-          <img src={resolvedHero} alt={property.name} className={ps.imageCover} />
+          <OptimizedImage src={resolvedHero} alt={property.name} className={ps.imageCover} resolved priority />
         </button>
         <div className={ps.detailHeroOverlay} aria-hidden />
         <div className={ps.detailHeroContent}>
@@ -96,7 +97,7 @@ export function PortfolioDetail() {
 
       <section className={ps.sectionAlt}>
         <div className={ps.galleryGrid}>
-          {allImages.map((url) => (
+          {allImages.map((url, index) => (
             <button
               key={url}
               type="button"
@@ -104,7 +105,7 @@ export function PortfolioDetail() {
               onClick={() => openLightbox(url)}
               aria-label="View image fullscreen"
             >
-              <img src={url} alt="" />
+              <OptimizedImage src={url} alt="" resolved priority={index === 0} />
             </button>
           ))}
         </div>

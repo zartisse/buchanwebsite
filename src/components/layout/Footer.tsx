@@ -1,8 +1,6 @@
 import { Link } from 'react-router-dom';
 import { FOOTER_AWARD_BADGES, HOUZZ_PROFILE_URL } from '../../data/awards';
-import { useSitePage } from '../../hooks/useSitePage';
 import { assetUrl } from '../../lib/assets';
-import { getDemoPageContent } from '../../data/sitePagesDemo';
 import {
   FOOTER_COMPANY, FOOTER_RESOURCES, FOOTER_SERVICES, SOCIAL_LINKS,
 } from '../../data/navigation';
@@ -12,11 +10,7 @@ const FOOTER_MISSION =
   'Building exceptional homes on the Seattle Eastside since 1961 — with integrity, craftsmanship, and care that lasts beyond move-in day.';
 
 export function Footer() {
-  const { page } = useSitePage('awards');
-  const awardsContent = page?.content ?? getDemoPageContent('awards');
-  const badges = awardsContent.badges?.length
-    ? awardsContent.badges
-    : FOOTER_AWARD_BADGES.map((b) => ({ image_url: b.image, alt: b.alt, href: b.href }));
+  const badges = FOOTER_AWARD_BADGES.map((b) => ({ image_url: b.image, alt: b.alt, href: b.href }));
 
   return (
     <footer className={styles.footer}>
