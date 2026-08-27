@@ -146,15 +146,10 @@ export interface HomePageContent {
     elevation_image_url: string;
     layers: { id: string; label: string; benefit: string; x: number; y: number; icon?: ServiceIconName }[];
   };
-  testimonial_section: {
+  google_reviews_section: {
     eyebrow: string;
     title: string;
-    quote: string;
-    cite: string;
-    cta_label: string;
-    cta_link: string;
-    left_image_url?: string;
-    right_image_url?: string;
+    fallback_maps_url?: string;
   };
   pick_your_path: {
     intro: string;

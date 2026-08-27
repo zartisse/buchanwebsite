@@ -1,0 +1,60 @@
+.section {
+  padding: clamp(80px, 12vh, 120px) var(--gutter);
+  background: var(--color-bg-white);
+  border-top: 1px solid var(--color-hairline-light);
+}
+
+.inner {
+  max-width: var(--max-width-wide);
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: clamp(40px, 6vh, 56px);
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 3.2vw, 40px);
+  font-weight: var(--fw-light);
+  line-height: 1.2;
+  color: var(--color-text-on-light);
+  margin: var(--s-6) 0 0;
+}
+
+.widgetWrap {
+  min-height: 200px;
+}
+
+.loading {
+  text-align: center;
+  color: var(--color-text-muted-light);
+  font-size: var(--text-body-sm);
+  margin-top: var(--s-6);
+}
+
+.fallback {
+  text-align: center;
+  padding: var(--s-10) var(--s-4);
+}
+
+.fallbackText {
+  color: var(--color-text-muted-light);
+  margin: 0 0 var(--s-5);
+}
+
+.fallbackLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  font-size: var(--text-label);
+  letter-spacing: var(--tr-widest);
+  text-transform: uppercase;
+  color: var(--color-accent-on-light);
+  text-decoration: none;
+}
+
+.fallbackLink:hover {
+  text-decoration: underline;
+}

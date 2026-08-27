@@ -8,7 +8,7 @@ import { HeroCarousel } from '../../components/public/home/HeroCarousel';
 import { PickYourPath } from '../../components/public/home/PickYourPath';
 import { PreconstructionBand } from '../../components/public/home/PreconstructionBand';
 import { QualityLayersInteractive } from '../../components/public/home/QualityLayersInteractive';
-import { TestimonialStrip } from '../../components/public/home/TestimonialStrip';
+import { GoogleReviewsSection } from '../../components/public/home/GoogleReviewsSection';
 import { WhatWeDo } from '../../components/public/home/WhatWeDo';
 import { useSitePage } from '../../hooks/useSitePage';
 import { PageMeta } from '../../components/ui/PageMeta';
@@ -119,7 +119,10 @@ export function Home() {
 
       <QualityLayersInteractive section={content.quality_layers} />
 
-      <TestimonialStrip section={content.testimonial_section} />
+      <GoogleReviewsSection
+        section={content.google_reviews_section}
+        widgetId={import.meta.env.VITE_GOOGLE_REVIEWS_WIDGET_ID}
+      />
 
       <ClientConcerns section={content.client_concerns} />
 

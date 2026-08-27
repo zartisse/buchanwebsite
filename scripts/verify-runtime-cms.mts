@@ -49,7 +49,7 @@ async function main() {
     mergedHero: merged.hero.title,
     mergedFeaturedStart: merged.featured_work.body?.slice(0, 35),
     matchesDefaultFeatured: merged.featured_work.body === defaults.featured_work.body,
-    testimonialCta: merged.testimonial_section.cta_label,
+    googleReviewsTitle: merged.google_reviews_section.title,
     processCta: merged.better_planned_path.cta_label,
     mergedVersion: merged.content_version,
   }, 'A');

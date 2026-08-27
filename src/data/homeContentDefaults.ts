@@ -13,9 +13,9 @@ import {
 } from './iaContent';
 
 /** Increment when default homepage copy changes so stale Supabase rows upgrade on read. */
-export const HOME_CONTENT_VERSION = 3;
+export const HOME_CONTENT_VERSION = 4;
 
-const LEGACY_CMS_KEYS = ['legacy', 'services', 'recent_work', 'concierge', 'quality_gallery', 'testimonials_strip'] as const;
+const LEGACY_CMS_KEYS = ['legacy', 'services', 'recent_work', 'concierge', 'quality_gallery', 'testimonials_strip', 'testimonial_section'] as const;
 
 export function isStaleHomeCms(partial: Record<string, unknown>): boolean {
   if (LEGACY_CMS_KEYS.some((key) => key in partial)) return true;
@@ -49,10 +49,10 @@ function preserveCmsMedia(defaults: HomePageContent, partial: Partial<HomePageCo
       ...defaults.quality_layers,
       elevation_image_url: partial.quality_layers?.elevation_image_url ?? defaults.quality_layers.elevation_image_url,
     },
-    testimonial_section: {
-      ...defaults.testimonial_section,
-      left_image_url: partial.testimonial_section?.left_image_url ?? defaults.testimonial_section.left_image_url,
-      right_image_url: partial.testimonial_section?.right_image_url ?? defaults.testimonial_section.right_image_url,
+    google_reviews_section: {
+      ...defaults.google_reviews_section,
+      fallback_maps_url:
+        partial.google_reviews_section?.fallback_maps_url ?? defaults.google_reviews_section.fallback_maps_url,
     },
     closing_cta: {
       ...defaults.closing_cta,
@@ -141,15 +141,11 @@ export function getDefaultHomeContent(): HomePageContent {
         icon: l.icon,
       })),
     },
-    testimonial_section: {
+    google_reviews_section: {
       eyebrow: 'Client Testimonials',
-      title: 'In their words.',
-      quote: 'From the first conversation to move-in and beyond, Buchan brought clarity, craftsmanship, and care. We felt guided, listened to, and completely confident in the process.',
-      cite: 'The Anderson Family, Bellevue, Washington',
-      cta_label: '',
-      cta_link: '/testimonials',
-      left_image_url: '/assets/ph-arch-1.png',
-      right_image_url: '/assets/ph-arch-4.png',
+      title: 'What our clients say on Google.',
+      fallback_maps_url:
+        'https://www.google.com/maps/search/?api=1&query=John+Buchan+Homes+Bellevue+WA',
     },
     pick_your_path: {
       intro: PICK_YOUR_PATH_INTRO,
@@ -345,22 +341,10 @@ export function mergeHomeContent(partial: Partial<HomePageContent> | HomePageCon
         ? defaults.process_stages
         : (partial.process_stages ?? defaults.process_stages),
     quality_layers: backfillQualityLayers(partial.quality_layers, defaults.quality_layers),
-    testimonial_section: (() => {
-      const merged = { ...defaults.testimonial_section, ...partial.testimonial_section };
-      if (partial.testimonial_section?.quote?.includes('only project that mattered')) {
-        return { ...merged, quote: defaults.testimonial_section.quote };
-      }
-      if (
-        partial.testimonial_section?.cite?.includes(' · ') ||
-        partial.testimonial_section?.cite === 'The Anderson Family, Bellevue, Washington'
-      ) {
-        return { ...merged, cite: defaults.testimonial_section.cite };
-      }
-      if (partial.testimonial_section?.cta_label === 'All client stories') {
-        return { ...merged, cta_label: defaults.testimonial_section.cta_label };
-      }
-      return merged;
-    })(),
+    google_reviews_section: {
+      ...defaults.google_reviews_section,
+      ...partial.google_reviews_section,
+    },
     pick_your_path: (() => {
       const merged = {
         ...defaults.pick_your_path, ...partial.pick_your_path,

@@ -312,17 +312,14 @@ function HomeEditor({ content, onChange }: { content: HomePageContent; onChange:
       </fieldset>
 
       <fieldset className={styles.fieldset}>
-        <legend className={styles.legend}>Testimonial</legend>
-        <div className={styles.field}><label className={styles.label}>Eyebrow</label><input className={styles.input} value={content.testimonial_section.eyebrow} onChange={(e) => set({ testimonial_section: { ...content.testimonial_section, eyebrow: e.target.value } })} /></div>
-        <div className={styles.field}><label className={styles.label}>Title</label><input className={styles.input} value={content.testimonial_section.title} onChange={(e) => set({ testimonial_section: { ...content.testimonial_section, title: e.target.value } })} /></div>
-        <div className={styles.field}><label className={styles.label}>Quote</label><textarea className={styles.textarea} value={content.testimonial_section.quote} rows={3} onChange={(e) => set({ testimonial_section: { ...content.testimonial_section, quote: e.target.value } })} /></div>
-        <div className={styles.field}><label className={styles.label}>Citation</label><input className={styles.input} value={content.testimonial_section.cite} onChange={(e) => set({ testimonial_section: { ...content.testimonial_section, cite: e.target.value } })} /></div>
-        <ImageField label="Left photo" value={content.testimonial_section.left_image_url ?? ''} onChange={(url) => set({ testimonial_section: { ...content.testimonial_section, left_image_url: url } })} folder="pages/home/testimonials" />
-        <ImageField label="Right photo" value={content.testimonial_section.right_image_url ?? ''} onChange={(url) => set({ testimonial_section: { ...content.testimonial_section, right_image_url: url } })} folder="pages/home/testimonials" />
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-          <div className={styles.field}><label className={styles.label}>CTA label</label><input className={styles.input} value={content.testimonial_section.cta_label} onChange={(e) => set({ testimonial_section: { ...content.testimonial_section, cta_label: e.target.value } })} /></div>
-          <div className={styles.field}><label className={styles.label}>CTA link</label><input className={styles.input} value={content.testimonial_section.cta_link} onChange={(e) => set({ testimonial_section: { ...content.testimonial_section, cta_link: e.target.value } })} /></div>
-        </div>
+        <legend className={styles.legend}>Google Reviews</legend>
+        <p style={{ marginBottom: 16, fontSize: '0.875rem', color: 'var(--color-text-muted-light, #666)' }}>
+          Live reviews are loaded from your Google Business Profile via an Elfsight widget. Set{' '}
+          <code>VITE_GOOGLE_REVIEWS_WIDGET_ID</code> in Netlify (or <code>.env.local</code> for local dev).
+        </p>
+        <div className={styles.field}><label className={styles.label}>Eyebrow</label><input className={styles.input} value={content.google_reviews_section.eyebrow} onChange={(e) => set({ google_reviews_section: { ...content.google_reviews_section, eyebrow: e.target.value } })} /></div>
+        <div className={styles.field}><label className={styles.label}>Title</label><input className={styles.input} value={content.google_reviews_section.title} onChange={(e) => set({ google_reviews_section: { ...content.google_reviews_section, title: e.target.value } })} /></div>
+        <div className={styles.field}><label className={styles.label}>Fallback Google Maps reviews URL</label><input className={styles.input} value={content.google_reviews_section.fallback_maps_url ?? ''} onChange={(e) => set({ google_reviews_section: { ...content.google_reviews_section, fallback_maps_url: e.target.value } })} placeholder="https://www.google.com/maps/..." /></div>
       </fieldset>
 
       <fieldset className={styles.fieldset}>

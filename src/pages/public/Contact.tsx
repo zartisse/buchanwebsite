@@ -8,6 +8,7 @@ import { RevealOnScroll } from '../../components/ui/RevealOnScroll';
 import { HeroTitle } from '../../components/ui/HeroTitle';
 import { getDemoPageContent } from '../../data/sitePagesDemo';
 import { resolveImageUrl } from '../../lib/placeholders';
+import { OfficeMapEmbed } from '../../components/public/OfficeMapEmbed';
 import ps from '../../styles/pages.module.css';
 
 export function Contact() {
@@ -112,6 +113,16 @@ export function Contact() {
                 </div>
               </div>
             </div>
+          </div>
+        </RevealOnScroll>
+      </section>
+
+      <section className={ps.sectionAlt}>
+        <RevealOnScroll>
+          <div className={ps.sectionInner}>
+            <span className={ps.eyebrow}>Location</span>
+            <h2 className={ps.sectionTitle} style={{ marginTop: 16 }}>Find us in Bellevue</h2>
+            <OfficeMapEmbed />
           </div>
         </RevealOnScroll>
       </section>
