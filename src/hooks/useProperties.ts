@@ -4,9 +4,20 @@ import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { getSchemaCapabilities } from '../lib/schemaCapabilities';
 import { DEMO_PROPERTIES } from '../data/demo';
 
-const PROPERTY_LIST_COLUMNS = 'id,name,slug,status,city,image_url,featured,featured_order,portfolio_type,created_at';
-const PROPERTY_DETAIL_COLUMNS = 'id,name,slug,status,address,city,beds,baths,sqft,lot,year,description,image_url,gallery_urls,meta_title,meta_description,featured,featured_order,portfolio_type';
+const PROPERTY_LIST_BASE = 'id,name,slug,status,city,image_url,featured,featured_order';
+const PROPERTY_DETAIL_BASE =
+  'id,name,slug,status,address,city,beds,baths,sqft,lot,year,description,image_url,gallery_urls,meta_title,meta_description,featured,featured_order';
 const FEATURED_COLUMNS = 'name,slug,city,image_url,featured,featured_order,status';
+
+function propertyListColumns(portfolioType: boolean) {
+  return portfolioType
+    ? `${PROPERTY_LIST_BASE},portfolio_type,created_at`
+    : `${PROPERTY_LIST_BASE},created_at`;
+}
+
+function propertyDetailColumns(portfolioType: boolean) {
+  return portfolioType ? `${PROPERTY_DETAIL_BASE},portfolio_type` : PROPERTY_DETAIL_BASE;
+}
 
 const DOC_FEATURED = DEMO_PROPERTIES.filter((p) => p.featured).sort(
   (a, b) => (a.featured_order ?? 0) - (b.featured_order ?? 0),
@@ -50,9 +61,11 @@ export function useProperties(options?: { publicOnly?: boolean; admin?: boolean 
       return;
     }
     try {
+      const caps = await getSchemaCapabilities();
+      const listColumns = propertyListColumns(caps.portfolioType);
       let query = options?.admin
         ? supabase.from('properties').select('*')
-        : supabase.from('properties').select(PROPERTY_LIST_COLUMNS);
+        : supabase.from('properties').select(listColumns);
       query = query.order('created_at', { ascending: false });
       if (options?.publicOnly && !options?.admin) {
         query = query.neq('status', 'Draft');
@@ -65,8 +78,9 @@ export function useProperties(options?: { publicOnly?: boolean; admin?: boolean 
       }
       setProperties(list);
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Failed to load properties');
+      const errMsg = e instanceof Error ? e.message : 'Failed to load properties';
       if (options?.admin) {
+        setError(errMsg);
         setProperties([]);
       } else {
         let data = DEMO_PROPERTIES;
@@ -186,17 +200,19 @@ export function useProperty(slug: string) {
         return;
       }
       try {
+        const caps = await getSchemaCapabilities();
         const { data, error: err } = await supabase
           .from('properties')
-          .select(PROPERTY_DETAIL_COLUMNS)
+          .select(propertyDetailColumns(caps.portfolioType))
           .eq('slug', slug)
           .neq('status', 'Draft')
           .single();
         if (err) throw err;
-        setProperty(data as Property);
+        setProperty(data as unknown as Property);
       } catch (e) {
-        setError(e instanceof Error ? e.message : 'Property not found');
-        setProperty(DEMO_PROPERTIES.find((p) => p.slug === slug && p.status !== 'Draft') ?? null);
+        const fallback = DEMO_PROPERTIES.find((p) => p.slug === slug && p.status !== 'Draft') ?? null;
+        if (!fallback) setError(e instanceof Error ? e.message : 'Property not found');
+        setProperty(fallback);
       } finally {
         setLoading(false);
       }
