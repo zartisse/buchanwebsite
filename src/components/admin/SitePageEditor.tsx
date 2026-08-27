@@ -19,6 +19,7 @@ import { getDemoSitePage } from '../../data/sitePagesDemo';
 import { mergeHomeContent, isStaleHomeCms } from '../../data/homeContentDefaults';
 import { PageMeta } from '../ui/PageMeta';
 import { HeroFields, ImageField, MetaFields, CtaBackgroundField } from './AdminFormFields';
+import { ImageDropzone } from './ImageDropzone';
 import styles from '../../styles/admin.module.css';
 
 interface SitePageEditorProps {
@@ -131,7 +132,29 @@ function HomeEditor({ content, onChange }: { content: HomePageContent; onChange:
           <label className={styles.label}>Subtitle</label>
           <input className={styles.input} value={content.hero.subtitle} onChange={(e) => onChange({ ...content, hero: { ...content.hero, subtitle: e.target.value } })} />
         </div>
-        <ImageField label="Hero background photo" value={content.hero.image_url} onChange={(url) => onChange({ ...content, hero: { ...content.hero, image_url: url } })} folder="pages/home" />
+        <div className={styles.field}>
+          <label className={styles.label}>Heritage marquee text</label>
+          <input className={styles.input} value={content.hero.marquee} onChange={(e) => onChange({ ...content, hero: { ...content.hero, marquee: e.target.value } })} placeholder="Celebrating 65 Years · John Buchan Homes" />
+        </div>
+        <ImageDropzone
+          label="Hero carousel slides"
+          folder="pages/home"
+          multiple
+          values={content.hero.image_urls ?? [content.hero.image_url]}
+          onChange={(urls) => {
+            const next = typeof urls === 'function' ? urls(content.hero.image_urls ?? [content.hero.image_url]) : urls;
+            onChange({
+              ...content,
+              hero: {
+                ...content.hero,
+                image_urls: next,
+                image_url: next[0] ?? content.hero.image_url,
+              },
+            });
+          }}
+          heroUrl={content.hero.image_url}
+          onSetHero={(url) => onChange({ ...content, hero: { ...content.hero, image_url: url } })}
+        />
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
           <div className={styles.field}>
             <label className={styles.label}>Primary CTA label</label>

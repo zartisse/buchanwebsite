@@ -4,6 +4,24 @@
   color: var(--color-text-on-light);
 }
 
+/* ---- Heritage marquee ---- */
+.heritageMarquee {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1001;
+  height: var(--heritage-marquee-height);
+  overflow: hidden;
+  background: var(--color-bg-dark);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.marqueeGroup {
+  display: flex;
+  flex-shrink: 0;
+}
+
 /* ---- Overlay hero ---- */
 .heroOverlay {
   position: relative;
@@ -19,7 +37,20 @@
   z-index: 0;
 }
 
-.heroMedia img {
+.heroSlide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.2s var(--ease-out);
+}
+
+.heroSlideActive {
+  opacity: 1;
+  z-index: 1;
+}
+
+.heroMedia img,
+.heroSlide img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -112,6 +143,11 @@
   flex-shrink: 0;
 }
 
+.trustReveal {
+  display: inline-flex;
+  align-items: center;
+}
+
 @media (max-width: 640px) {
   .trustDivider {
     display: none;
@@ -142,6 +178,7 @@
   position: absolute;
   inset: 0;
   z-index: 0;
+  pointer-events: none;
 }
 
 .closingCtaBg img {
@@ -160,6 +197,13 @@
     rgba(13, 21, 18, 0.2) 100%
   );
   z-index: 1;
+  pointer-events: none;
+}
+
+.closingCtaContent {
+  position: relative;
+  z-index: 2;
+  width: 100%;
 }
 
 .closingCtaInner {
@@ -182,7 +226,7 @@
 
 .closingCtaSub {
   font-size: var(--text-body-lg);
-  color: rgba(255, 255, 255, 0.82);
+  color: rgba(255, 255, 255, 0.95);
   margin: 0 0 var(--s-8);
   line-height: var(--lh-relaxed);
   font-weight: var(--fw-light);
@@ -195,17 +239,28 @@
   gap: var(--s-4);
 }
 
+.closingCtaInner :global(.btnPrimaryFill) {
+  background: var(--color-accent-dark);
+  color: #ffffff;
+  font-weight: var(--fw-semibold);
+}
+
+.closingCtaInner :global(.btnPrimaryFill:hover) {
+  background: var(--color-text-on-light);
+}
+
 .closingCtaPhone {
   font-size: var(--text-body-sm);
-  color: rgba(255, 255, 255, 0.85);
+  color: #ffffff;
   text-decoration: none;
   letter-spacing: var(--tr-wide);
 }
 
 .closingCtaPhone:hover {
   color: #ffffff;
+  opacity: 0.9;
 }
 
 .closingCtaPhonePrefix {
-  opacity: 0.75;
+  opacity: 0.9;
 }

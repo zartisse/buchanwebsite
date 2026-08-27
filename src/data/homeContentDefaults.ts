@@ -13,7 +13,7 @@ import {
 } from './iaContent';
 
 /** Increment when default homepage copy changes so stale Supabase rows upgrade on read. */
-export const HOME_CONTENT_VERSION = 2;
+export const HOME_CONTENT_VERSION = 3;
 
 const LEGACY_CMS_KEYS = ['legacy', 'services', 'recent_work', 'concierge', 'quality_gallery', 'testimonials_strip'] as const;
 
@@ -30,6 +30,9 @@ function preserveCmsMedia(defaults: HomePageContent, partial: Partial<HomePageCo
     hero: {
       ...defaults.hero,
       image_url: partial.hero?.image_url ?? defaults.hero.image_url,
+      image_urls: partial.hero?.image_urls?.length
+        ? partial.hero.image_urls
+        : defaults.hero.image_urls,
     },
     difference_section: {
       ...defaults.difference_section,
@@ -67,7 +70,8 @@ export function getDefaultHomeContent(): HomePageContent {
       title_emphasis: 'Live exceptionally.',
       subtitle: 'Custom homes and major renovations, built on thoughtful planning, expert guidance, and uncompromising craftsmanship, proudly serving Bellevue and the Eastside.',
       image_url: '/assets/ph-arch-1.png',
-      marquee: '',
+      image_urls: ['/assets/ph-arch-1.png', '/assets/ph-arch-2.png', '/assets/ph-arch-3.png'],
+      marquee: 'Celebrating 65 Years · John Buchan Homes',
       cta_primary_url: '#featured-work',
       cta_primary_label: 'Explore Our Work',
     },
@@ -153,7 +157,7 @@ export function getDefaultHomeContent(): HomePageContent {
       tiles: PICK_YOUR_PATH_TILES,
     },
     closing_cta: {
-      title: 'The right home begins with the right conversation.',
+      title: 'The right home begins\nwith the right conversation.',
       subtitle: "Let's talk about your vision, your property, and the experience you want to create.",
       primary_label: 'Start a Conversation',
       primary_url: '/contact',
@@ -166,6 +170,16 @@ export function getDefaultHomeContent(): HomePageContent {
 
 function backfillHero(hero: Partial<HomePageContent['hero']>, defaults: HomePageContent['hero']): HomePageContent['hero'] {
   const merged = { ...defaults, ...hero };
+  const imageUrl = merged.image_url || defaults.image_url;
+  const imageUrls = hero.image_urls?.length
+    ? hero.image_urls
+    : (merged.image_urls?.length ? merged.image_urls : [imageUrl]);
+  const normalized = {
+    ...merged,
+    image_url: imageUrl,
+    image_urls: imageUrls,
+    marquee: merged.marquee || defaults.marquee,
+  };
   const needsHeadlineUpdate =
     hero.title === 'Build with' ||
     (hero.subtitle != null &&
@@ -174,7 +188,7 @@ function backfillHero(hero: Partial<HomePageContent['hero']>, defaults: HomePage
 
   if (needsHeadlineUpdate) {
     return {
-      ...merged,
+      ...normalized,
       title: defaults.title,
       title_emphasis: defaults.title_emphasis,
       subtitle: defaults.subtitle,
@@ -183,7 +197,7 @@ function backfillHero(hero: Partial<HomePageContent['hero']>, defaults: HomePage
     };
   }
   return {
-    ...merged,
+    ...normalized,
     cta_secondary_url: undefined,
     cta_secondary_label: undefined,
   };
@@ -250,7 +264,11 @@ function backfillWhatWeDoSecondary(
   const hasLegacy = secondary.some((item) =>
     LEGACY_SECONDARY_PHRASES.some((phrase) => item.description.includes(phrase)),
   );
-  return hasLegacy ? defaults.secondary : secondary;
+  const base = hasLegacy ? defaults.secondary : secondary;
+  return base.map((item, i) => ({
+    ...item,
+    image_url: item.image_url ?? defaults.secondary[i]?.image_url,
+  }));
 }
 
 function backfillWhatWeDoPrimary(
@@ -355,12 +373,21 @@ export function mergeHomeContent(partial: Partial<HomePageContent> | HomePageCon
       if (needsTileUpdate) {
         return { ...merged, tiles: defaults.pick_your_path.tiles, intro: defaults.pick_your_path.intro, title: defaults.pick_your_path.title };
       }
-      return merged;
+      return {
+        ...merged,
+        tiles: merged.tiles.map((tile, i) => ({
+          ...tile,
+          image_url: tile.image_url ?? defaults.pick_your_path.tiles[i]?.image_url,
+        })),
+      };
     })(),
     closing_cta: (() => {
       const merged = { ...defaults.closing_cta, ...partial.closing_cta };
       if (partial.closing_cta?.subtitle?.includes('Tell us about your project')) {
         return { ...merged, subtitle: defaults.closing_cta.subtitle };
+      }
+      if (partial.closing_cta?.title === 'The right home begins with the right conversation.') {
+        return { ...merged, title: defaults.closing_cta.title };
       }
       return merged;
     })(),

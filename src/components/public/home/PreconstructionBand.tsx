@@ -12,7 +12,7 @@ export function PreconstructionBand({ band }: PreconstructionBandProps) {
   return (
     <section className={styles.section}>
       <div className={styles.inner}>
-        <RevealOnScroll variant="left">
+        <RevealOnScroll variant="right">
           <div className={styles.imageWrap}>
             <img
               src={resolveImageUrl(band.image_url ?? '/assets/ph-arch-2.png', 'preconstruction')}

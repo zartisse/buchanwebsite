@@ -37,29 +37,87 @@
   grid-template-columns: repeat(2, 1fr);
   gap: var(--s-6);
   margin-bottom: var(--s-6);
+  align-items: stretch;
 }
 
-.primaryCard {
+.secondaryGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--s-4);
+  align-items: stretch;
+}
+
+.primaryCard,
+.secondaryCard {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: var(--s-4);
-  padding: clamp(32px, 4vw, 48px);
+  height: 100%;
+  min-height: 280px;
+  overflow: hidden;
   border: 1px solid var(--color-hairline-light);
-  background: var(--color-bg-white);
   text-decoration: none;
   color: inherit;
   transition: border-color var(--d-base) var(--ease-out), box-shadow var(--d-base) var(--ease-out);
 }
 
-.primaryCard:hover {
+.secondaryCard {
+  min-height: 240px;
+}
+
+.primaryCard:hover,
+.secondaryCard:hover {
   border-color: var(--color-hairline-light-3);
-  box-shadow: 0 8px 32px rgba(26, 36, 32, 0.06);
+  box-shadow: 0 8px 32px rgba(26, 36, 32, 0.08);
 }
 
-.icon {
-  color: var(--color-accent-fill);
+.cardBg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transform: scale(1);
+  transition: transform var(--d-slow) var(--ease-out);
 }
 
+.primaryCard:hover .cardBg,
+.secondaryCard:hover .cardBg {
+  transform: scale(1.04);
+}
+
+.cardContent {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  height: 100%;
+  padding: clamp(32px, 4vw, 48px);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.78) 0%,
+    rgba(255, 255, 255, 0.62) 55%,
+    rgba(255, 255, 255, 0.48) 100%
+  );
+  transition: background var(--d-base) var(--ease-out);
+}
+
+.primaryCard:hover .cardContent,
+.secondaryCard:hover .cardContent {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.68) 0%,
+    rgba(255, 255, 255, 0.52) 55%,
+    rgba(255, 255, 255, 0.38) 100%
+  );
+}
+
+.secondaryCard .cardContent {
+  padding: var(--s-6);
+  gap: var(--s-3);
+}
+
+.icon,
 .iconSm {
   color: var(--color-accent-fill);
 }
@@ -78,28 +136,6 @@
   color: var(--color-text-body);
   margin: 0;
   flex: 1;
-}
-
-.secondaryGrid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--s-4);
-}
-
-.secondaryCard {
-  display: flex;
-  flex-direction: column;
-  gap: var(--s-3);
-  padding: var(--s-6);
-  border: 1px solid var(--color-hairline-light);
-  background: var(--color-bg-white);
-  text-decoration: none;
-  color: inherit;
-  transition: border-color var(--d-base) var(--ease-out);
-}
-
-.secondaryCard:hover {
-  border-color: var(--color-hairline-light-3);
 }
 
 .secondaryTitle {

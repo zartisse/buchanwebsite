@@ -1,5 +1,9 @@
 @import './tokens.css';
 
+:root {
+  --heritage-marquee-height: clamp(40px, 4.5vh, 48px);
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -53,6 +57,24 @@ img {
   to { transform: translateX(-50%); }
 }
 
+.heritage-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: jbh-marquee 18s linear infinite;
+  will-change: transform;
+}
+
+.heritage-marquee-track span {
+  flex-shrink: 0;
+  padding: 0 2.5rem;
+  font-size: clamp(11px, 1.1vw, 13px);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #ffffff;
+  white-space: nowrap;
+  line-height: var(--heritage-marquee-height);
+}
+
 @keyframes jbh-ken {
   from { transform: scale(1); }
   to { transform: scale(1.12); }
@@ -102,6 +124,22 @@ img {
   transform: translateX(0);
 }
 
+.reveal-down {
+  transform: translateY(-28px);
+}
+
+.reveal-down.visible {
+  transform: translateY(0);
+}
+
+.reveal-right {
+  transform: translateX(32px);
+}
+
+.reveal-right.visible {
+  transform: translateX(0);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -110,6 +148,16 @@ img {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none !important;
+  }
+
+  .heritage-marquee-track {
+    animation-duration: 28s !important;
+    animation-iteration-count: infinite !important;
   }
 }
 

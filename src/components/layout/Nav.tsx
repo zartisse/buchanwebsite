@@ -33,7 +33,7 @@ export function Nav() {
 
   return (
     <>
-      <header className={`${styles.topbar} ${scrolled ? styles.scrolled : ''} ${lightTop ? styles.lightTopbar : ''}`}>
+      <header className={`${styles.topbar} ${scrolled ? styles.scrolled : ''} ${lightTop ? styles.lightTopbar : ''} ${onHomeHero ? styles.withMarquee : ''}`}>
         <Link to="/" className={styles.logoLink}>
           <img src={lightTop ? assetUrl('/assets/logo-reverse.png') : assetUrl('/assets/logo.png')} alt="John Buchan Homes" className={styles.logo} />
         </Link>

@@ -15,6 +15,29 @@ type FeaturedWorkGridProps = {
   labels: HomePageContent['featured_work'];
 };
 
+function FeaturedCard({
+  property,
+  variant,
+}: {
+  property: Property;
+  variant: 'hero' | 'side';
+}) {
+  const cardClass = variant === 'hero' ? styles.heroCard : styles.sideCard;
+  const wrapClass = variant === 'hero' ? styles.imgWrap : styles.sideImgWrap;
+
+  return (
+    <Link to={`/portfolio/${property.slug}`} className={`${cardClass} imageHover`}>
+      <div className={wrapClass}>
+        <OptimizedImage src={property.image_url} seed={property.slug} alt={property.name} />
+        <div className={styles.hoverMeta}>
+          <span className={styles.hoverName}>{property.name}</span>
+          <span className={styles.hoverLocation}>{locationLabel(property)}</span>
+        </div>
+      </div>
+    </Link>
+  );
+}
+
 export function FeaturedWorkGrid({ labels }: FeaturedWorkGridProps) {
   const { properties, loading } = useFeaturedProperties();
   const featured = properties;
@@ -41,32 +64,16 @@ export function FeaturedWorkGrid({ labels }: FeaturedWorkGridProps) {
             )}
             {!loading && featured.length > 0 && (
               <>
-                <RevealOnScroll>
-                  <Link to={`/portfolio/${featured[0].slug}`} className={`${styles.heroCard} imageHover`}>
-                    <div className={styles.imgWrap}>
-                      <OptimizedImage src={featured[0].image_url} seed={featured[0].slug} alt={featured[0].name} />
-                    </div>
-                    <div className={styles.meta}>
-                      <span className={styles.name}>{featured[0].name}</span>
-                      <span className={styles.location}>{locationLabel(featured[0])}</span>
-                    </div>
-                  </Link>
+                <RevealOnScroll className={styles.gridReveal}>
+                  <FeaturedCard property={featured[0]} variant="hero" />
                 </RevealOnScroll>
-                <div className={styles.sideStack}>
-                  {featured.slice(1).map((item, i) => (
-                    <RevealOnScroll key={item.slug} index={i + 1}>
-                      <Link to={`/portfolio/${item.slug}`} className={`${styles.sideCard} imageHover`}>
-                        <div className={styles.sideImgWrap}>
-                          <OptimizedImage src={item.image_url} seed={item.slug} alt={item.name} />
-                        </div>
-                        <div className={styles.meta}>
-                          <span className={styles.name}>{item.name}</span>
-                          <span className={styles.location}>{locationLabel(item)}</span>
-                        </div>
-                      </Link>
-                    </RevealOnScroll>
-                  ))}
-                </div>
+                <RevealOnScroll className={styles.gridReveal} variant="right" index={1}>
+                  <div className={styles.sideStack}>
+                    {featured.slice(1).map((item) => (
+                      <FeaturedCard key={item.slug} property={item} variant="side" />
+                    ))}
+                  </div>
+                </RevealOnScroll>
               </>
             )}
           </div>

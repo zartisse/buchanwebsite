@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import type { HomePageContent, ServiceIconName } from '../../../types';
+import { resolveImageUrl } from '../../../lib/placeholders';
 import { ServiceIcon } from '../../ui/ServiceIcon';
 import { RevealOnScroll } from '../../ui/RevealOnScroll';
 import styles from './PickYourPath.module.css';
@@ -22,7 +23,7 @@ export function PickYourPath({ section }: PickYourPathProps) {
   return (
     <section className={styles.section}>
       <div className={styles.inner}>
-        <RevealOnScroll>
+        <RevealOnScroll variant="down">
           <div className={styles.header}>
             {section.intro ? (
               <span className="eyebrowRule eyebrowRuleCenter">{section.intro}</span>
@@ -34,18 +35,26 @@ export function PickYourPath({ section }: PickYourPathProps) {
           {tiles.map((tile, i) => {
             const inner = (
               <>
-                <ServiceIcon name={iconFor(tile)} className={styles.icon} size={32} />
-                <h3 className={styles.cardTitle}>{tile.title}</h3>
-                {tile.description && <p className={styles.cardDesc}>{tile.description}</p>}
-                <span className="linkAccent">{tile.cta_label ?? 'Explore Your Options'} <span>→</span></span>
+                <div
+                  className={styles.cardBg}
+                  style={{ backgroundImage: `url(${resolveImageUrl(tile.image_url, tile.title)})` }}
+                  aria-hidden
+                />
+                <div className={styles.cardContent}>
+                  <ServiceIcon name={iconFor(tile)} className={styles.icon} size={32} />
+                  <h3 className={styles.cardTitle}>{tile.title}</h3>
+                  {tile.description && <p className={styles.cardDesc}>{tile.description}</p>}
+                  <span className="linkAccent">{tile.cta_label ?? 'Explore Your Options'} <span>→</span></span>
+                </div>
               </>
             );
+            const cardClass = `${styles.card} cardHover`;
             return (
-              <RevealOnScroll key={tile.title} index={i}>
+              <RevealOnScroll key={tile.title} index={i} variant={i % 2 === 0 ? 'scale' : 'up'}>
                 {tile.external ? (
-                  <a href={tile.link} target="_blank" rel="noopener noreferrer" className={styles.card}>{inner}</a>
+                  <a href={tile.link} target="_blank" rel="noopener noreferrer" className={cardClass}>{inner}</a>
                 ) : (
-                  <Link to={tile.link} className={styles.card}>{inner}</Link>
+                  <Link to={tile.link} className={cardClass}>{inner}</Link>
                 )}
               </RevealOnScroll>
             );

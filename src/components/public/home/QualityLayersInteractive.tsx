@@ -17,9 +17,35 @@ function layerIcon(layer: { icon?: ServiceIconName; id: string }): ServiceIconNa
   return 'craft';
 }
 
+function CalloutButton({
+  layer,
+  activeId,
+  onSelect,
+}: {
+  layer: HomePageContent['quality_layers']['layers'][0];
+  activeId: string | null;
+  onSelect: (id: string) => void;
+}) {
+  return (
+    <button
+      type="button"
+      className={`${styles.callout} ${activeId === layer.id ? styles.calloutActive : ''}`}
+      onClick={() => onSelect(layer.id)}
+    >
+      <ServiceIcon name={layerIcon(layer)} className={styles.calloutIcon} size={24} />
+      <div className={styles.calloutText}>
+        <strong>{layer.label}</strong>
+        <p>{layer.benefit}</p>
+      </div>
+    </button>
+  );
+}
+
 export function QualityLayersInteractive({ section }: QualityLayersInteractiveProps) {
   const [activeId, setActiveId] = useState<string | null>(section.layers[0]?.id ?? null);
   const active = section.layers.find((l) => l.id === activeId) ?? section.layers[0];
+  const leftLayers = section.layers.slice(0, 2);
+  const rightLayers = section.layers.slice(2);
 
   const title = section.title_emphasis
     ? <>{section.title} <em>{section.title_emphasis}</em></>
@@ -28,7 +54,7 @@ export function QualityLayersInteractive({ section }: QualityLayersInteractivePr
   return (
     <section className={styles.section}>
       <div className={styles.inner}>
-        <RevealOnScroll>
+        <RevealOnScroll variant="down">
           <div className={styles.header}>
             {section.eyebrow && <span className="eyebrowRule eyebrowRuleCenter">{section.eyebrow}</span>}
             <h2 className={styles.title}>{title}</h2>
@@ -37,7 +63,15 @@ export function QualityLayersInteractive({ section }: QualityLayersInteractivePr
         </RevealOnScroll>
 
         <div className={styles.interactiveWrap}>
-          <RevealOnScroll>
+          <div className={styles.calloutsLeft}>
+            {leftLayers.map((layer, i) => (
+              <RevealOnScroll key={layer.id} index={i} variant="left">
+                <CalloutButton layer={layer} activeId={activeId} onSelect={setActiveId} />
+              </RevealOnScroll>
+            ))}
+          </div>
+
+          <RevealOnScroll variant="scale">
             <div className={styles.elevationPanel}>
               <OptimizedImage src={section.elevation_image_url} seed="quality-layers" className={styles.elevationPhoto} direct />
               {section.layers.map((layer) => (
@@ -57,20 +91,10 @@ export function QualityLayersInteractive({ section }: QualityLayersInteractivePr
             </div>
           </RevealOnScroll>
 
-          <div className={styles.callouts}>
-            {section.layers.map((layer, i) => (
-              <RevealOnScroll key={layer.id} index={i}>
-                <button
-                  type="button"
-                  className={`${styles.callout} ${activeId === layer.id ? styles.calloutActive : ''}`}
-                  onClick={() => setActiveId(layer.id)}
-                >
-                  <ServiceIcon name={layerIcon(layer)} className={styles.calloutIcon} size={24} />
-                  <div className={styles.calloutText}>
-                    <strong>{layer.label}</strong>
-                    <p>{layer.benefit}</p>
-                  </div>
-                </button>
+          <div className={styles.calloutsRight}>
+            {rightLayers.map((layer, i) => (
+              <RevealOnScroll key={layer.id} index={i} variant="right">
+                <CalloutButton layer={layer} activeId={activeId} onSelect={setActiveId} />
               </RevealOnScroll>
             ))}
           </div>

@@ -4,6 +4,7 @@ import { BetterPlannedPath } from '../../components/public/home/BetterPlannedPat
 import { ClientConcerns } from '../../components/public/home/ClientConcerns';
 import { DifferenceSection } from '../../components/public/home/DifferenceSection';
 import { FeaturedWorkGrid } from '../../components/public/home/FeaturedWorkGrid';
+import { HeroCarousel } from '../../components/public/home/HeroCarousel';
 import { PickYourPath } from '../../components/public/home/PickYourPath';
 import { PreconstructionBand } from '../../components/public/home/PreconstructionBand';
 import { QualityLayersInteractive } from '../../components/public/home/QualityLayersInteractive';
@@ -12,10 +13,13 @@ import { WhatWeDo } from '../../components/public/home/WhatWeDo';
 import { useSitePage } from '../../hooks/useSitePage';
 import { PageMeta } from '../../components/ui/PageMeta';
 import { OptimizedImage } from '../../components/ui/OptimizedImage';
+import { RevealOnScroll } from '../../components/ui/RevealOnScroll';
 import { mergeHomeContent } from '../../data/homeContentDefaults';
 import { getDemoPageContent } from '../../data/sitePagesDemo';
 import { resolveImageUrl } from '../../lib/placeholders';
 import homeStyles from './Home.module.css';
+
+const MARQUEE_GROUP_SIZE = 4;
 
 function HeroCta({ url, label, className }: { url: string; label: string; className: string }) {
   if (url.startsWith('#')) {
@@ -32,6 +36,7 @@ export function Home() {
   const rawContent = page?.content ?? getDemoPageContent('home');
   const content = mergeHomeContent(rawContent);
   const { hero } = content;
+  const heroSlides = hero.image_urls?.length ? hero.image_urls : [hero.image_url];
 
   const heroTitle = hero.title_emphasis
     ? <>{hero.title} <em>{hero.title_emphasis}</em></>
@@ -42,7 +47,7 @@ export function Home() {
     : content.credibility_line.split('|').map((s) => ({ label: s.trim() })).filter((s) => s.label);
 
   useEffect(() => {
-    const heroSrc = resolveImageUrl(hero.image_url ?? '/assets/ph-arch-1.webp', 'home-hero');
+    const heroSrc = resolveImageUrl(heroSlides[0] ?? '/assets/ph-arch-1.webp', 'home-hero');
     const existing = document.querySelector('link[data-home-hero-preload]');
     if (existing) existing.remove();
     const link = document.createElement('link');
@@ -53,36 +58,52 @@ export function Home() {
     link.setAttribute('data-home-hero-preload', 'true');
     document.head.appendChild(link);
     return () => { link.remove(); };
-  }, [hero.image_url]);
+  }, [heroSlides]);
 
   return (
     <main className={homeStyles.homePage}>
       <PageMeta title={page?.meta_title ?? 'Build with Certainty | John Buchan Homes'} description={page?.meta_description} />
 
+      {hero.marquee && (
+        <div className={homeStyles.heritageMarquee} aria-hidden>
+          <div className="heritage-marquee-track">
+            {[0, 1].map((group) => (
+              <div key={group} className={homeStyles.marqueeGroup}>
+                {Array.from({ length: MARQUEE_GROUP_SIZE }, (_, i) => (
+                  <span key={i}>{hero.marquee} ·</span>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       <section className={homeStyles.heroOverlay}>
         <div className={homeStyles.heroMedia} aria-hidden>
-          <OptimizedImage
-            src={hero.image_url ?? '/assets/ph-arch-1.webp'}
-            seed="home-hero"
-            priority
-          />
+          <HeroCarousel slides={heroSlides} />
         </div>
         <div className={homeStyles.heroScrim} aria-hidden />
         <div className={homeStyles.heroContent}>
-          <h1 className={homeStyles.heroTitle}>{heroTitle}</h1>
-          <p className={homeStyles.heroSub}>{hero.subtitle}</p>
-          <div className={homeStyles.heroCtas}>
-            <HeroCta url={hero.cta_primary_url} label={hero.cta_primary_label} className="btnPrimaryFill" />
-          </div>
+          <RevealOnScroll variant="down">
+            <h1 className={homeStyles.heroTitle}>{heroTitle}</h1>
+          </RevealOnScroll>
+          <RevealOnScroll variant="down" index={1}>
+            <p className={homeStyles.heroSub}>{hero.subtitle}</p>
+          </RevealOnScroll>
+          <RevealOnScroll variant="up" index={2}>
+            <div className={homeStyles.heroCtas}>
+              <HeroCta url={hero.cta_primary_url} label={hero.cta_primary_label} className="btnPrimaryFill" />
+            </div>
+          </RevealOnScroll>
         </div>
       </section>
 
       <section className={homeStyles.trustBar} aria-label="Company credentials">
         {stats.map((stat, i) => (
-          <span key={stat.label} style={{ display: 'contents' }}>
+          <RevealOnScroll key={stat.label} index={i} variant="up" className={homeStyles.trustReveal}>
             {i > 0 && <span className={homeStyles.trustDivider} aria-hidden />}
             <span className={homeStyles.trustItem}>{stat.label}</span>
-          </span>
+          </RevealOnScroll>
         ))}
       </section>
 
@@ -112,16 +133,25 @@ export function Home() {
           />
         </div>
         <div className={homeStyles.closingCtaOverlay} aria-hidden />
-        <div className={homeStyles.closingCtaInner}>
-          <h2 className={homeStyles.closingCtaTitle}>{content.closing_cta.title}</h2>
-          {content.closing_cta.subtitle && (
-            <p className={homeStyles.closingCtaSub}>{content.closing_cta.subtitle}</p>
-          )}
-          <div className={homeStyles.closingCtaActions}>
-            <Link to={content.closing_cta.primary_url} className="btnPrimaryFill">{content.closing_cta.primary_label}</Link>
-            <a href={content.closing_cta.phone_href} className={homeStyles.closingCtaPhone}>
-              <span className={homeStyles.closingCtaPhonePrefix}>or call </span>{content.closing_cta.phone}
-            </a>
+        <div className={homeStyles.closingCtaContent}>
+          <div className={homeStyles.closingCtaInner}>
+            <h2 className={homeStyles.closingCtaTitle}>
+              {content.closing_cta.title.split('\n').map((line, i, lines) => (
+                <span key={line}>
+                  {line}
+                  {i < lines.length - 1 && <br />}
+                </span>
+              ))}
+            </h2>
+            {content.closing_cta.subtitle && (
+              <p className={homeStyles.closingCtaSub}>{content.closing_cta.subtitle}</p>
+            )}
+            <div className={homeStyles.closingCtaActions}>
+              <Link to={content.closing_cta.primary_url} className="btnPrimaryFill">{content.closing_cta.primary_label}</Link>
+              <a href={content.closing_cta.phone_href} className={homeStyles.closingCtaPhone}>
+                <span className={homeStyles.closingCtaPhonePrefix}>or call </span>{content.closing_cta.phone}
+              </a>
+            </div>
           </div>
         </div>
       </section>

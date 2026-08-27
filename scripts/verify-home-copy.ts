@@ -17,7 +17,12 @@ const expectations: Array<[string, boolean]> = [
   ['testimonial CTA hidden', content.testimonial_section.cta_label === ''],
   ['path tile title', content.pick_your_path.tiles[0].title === 'I am considering building'],
   ['path tile CTA', !content.pick_your_path.tiles[0].cta_label?.includes('→')],
-  ['content version', (content as { content_version?: number }).content_version === 2],
+  ['content version', (content as { content_version?: number }).content_version === 3],
+  ['hero marquee', content.hero.marquee === 'Celebrating 65 Years · John Buchan Homes'],
+  ['hero carousel', (content.hero.image_urls?.length ?? 0) >= 1],
+  ['closing CTA lines', content.closing_cta.title.includes('\n')],
+  ['secondary card images', !!content.what_we_do.secondary[0].image_url],
+  ['path tile images', !!content.pick_your_path.tiles[0].image_url],
 ];
 
 const failures = expectations.filter(([, ok]) => !ok).map(([label]) => label);

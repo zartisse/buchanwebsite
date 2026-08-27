@@ -616,10 +616,10 @@ export const WHAT_WE_DO = {
     { title: 'Major Renovations', description: 'Reimagine your home with seamless additions and whole-home transformations.', image_url: '/assets/ph-arch-2.png', link: '/renovations', icon: 'renovation' as const, cta_label: 'Explore Renovations' },
   ],
   secondary: [
-    { title: 'ADUs & DADUs', description: 'Smart spaces for extended living and added value.', link: '/services/adus', icon: 'adu' as const },
-    { title: 'Fire Restoration', description: 'Compassionate support. Expert restoration.', link: '/services/fire-restoration', icon: 'fire-restoration' as const },
-    { title: 'Real Estate Services', description: 'Guidance for buying, selling, and property strategy.', link: '/services/real-estate', icon: 'real-estate' as const },
-    { title: 'Maintenance & Service', description: 'Protect your investment with proactive care.', link: '/services/home-care', icon: 'maintenance' as const },
+    { title: 'ADUs & DADUs', description: 'Smart spaces for extended living and added value.', link: '/services/adus', icon: 'adu' as const, image_url: '/assets/ph-arch-2.webp' },
+    { title: 'Fire Restoration', description: 'Compassionate support. Expert restoration.', link: '/services/fire-restoration', icon: 'fire-restoration' as const, image_url: '/assets/ph-arch-3.webp' },
+    { title: 'Real Estate Services', description: 'Guidance for buying, selling, and property strategy.', link: '/services/real-estate', icon: 'real-estate' as const, image_url: '/assets/ph-arch-4.webp' },
+    { title: 'Maintenance & Service', description: 'Protect your investment with proactive care.', link: '/services/home-care', icon: 'maintenance' as const, image_url: '/assets/ph-arch-1.webp' },
   ],
 };
 
@@ -662,12 +662,13 @@ export interface PickPathTile {
   description?: string;
   icon?: 'building' | 'blueprint' | 'hammer';
   cta_label?: string;
+  image_url?: string;
 }
 
 export const PICK_YOUR_PATH_TILES: PickPathTile[] = [
-  { title: 'I am considering building', description: 'Explore ideas, understand possibilities, and take the first step with clarity.', link: '/custom-homes', icon: 'building', cta_label: 'Explore Your Options' },
-  { title: 'I already own a property or have plans', description: 'Bring your property or plans to life with expert guidance.', link: '/contact?service=I have plans and need a builder#inquiry', icon: 'blueprint', cta_label: "Let's Review Together" },
-  { title: 'I am planning a major renovation', description: "Reimagine your home with craftsmanship that respects what's already there.", link: '/renovations', icon: 'hammer', cta_label: 'See Renovation Services' },
+  { title: 'I am considering building', description: 'Explore ideas, understand possibilities, and take the first step with clarity.', link: '/custom-homes', icon: 'building', cta_label: 'Explore Your Options', image_url: '/assets/ph-arch-1.webp' },
+  { title: 'I already own a property or have plans', description: 'Bring your property or plans to life with expert guidance.', link: '/contact?service=I have plans and need a builder#inquiry', icon: 'blueprint', cta_label: "Let's Review Together", image_url: '/assets/ph-arch-3.webp' },
+  { title: 'I am planning a major renovation', description: "Reimagine your home with craftsmanship that respects what's already there.", link: '/renovations', icon: 'hammer', cta_label: 'See Renovation Services', image_url: '/assets/ph-arch-2.webp' },
 ];
 
 export const PICK_YOUR_PATH_INTRO = '';

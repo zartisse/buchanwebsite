@@ -9,7 +9,11 @@
   justify-content: space-between;
   padding: var(--s-6) var(--s-10);
   border-bottom: 1px solid transparent;
-  transition: background var(--d-slow) var(--ease-out), padding var(--d-slow) var(--ease-out), border-color var(--d-slow) var(--ease-out);
+  transition: background var(--d-slow) var(--ease-out), padding var(--d-slow) var(--ease-out), border-color var(--d-slow) var(--ease-out), top var(--d-slow) var(--ease-out);
+}
+
+.withMarquee {
+  top: var(--heritage-marquee-height);
 }
 
 .scrolled {
@@ -69,8 +73,12 @@
 }
 
 .logo {
-  height: 38px;
+  height: clamp(52px, 5vw, 64px);
   width: auto;
+}
+
+.overlayTop .logo {
+  height: 56px;
 }
 
 .topCluster {

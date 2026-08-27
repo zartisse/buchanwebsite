@@ -87,6 +87,7 @@ export interface HomePageContent {
   hero: HeroSection & {
     subtitle: string;
     image_url: string;
+    image_urls?: string[];
     video_url?: string;
     marquee: string;
     cta_primary_url: string;
@@ -116,7 +117,7 @@ export interface HomePageContent {
     title: string;
     title_emphasis?: string;
     primary: { title: string; description: string; image_url?: string; link: string; icon?: ServiceIconName; cta_label?: string }[];
-    secondary: { title: string; description: string; link: string; icon?: ServiceIconName }[];
+    secondary: { title: string; description: string; link: string; icon?: ServiceIconName; image_url?: string }[];
     preconstruction: { title: string; body: string; cta_label: string; cta_link: string; image_url?: string };
   };
   client_concerns: {
@@ -158,7 +159,7 @@ export interface HomePageContent {
   pick_your_path: {
     intro: string;
     title?: string;
-    tiles: { title: string; link: string; external?: boolean; description?: string; icon?: ServiceIconName; cta_label?: string }[];
+    tiles: { title: string; link: string; external?: boolean; description?: string; icon?: ServiceIconName; cta_label?: string; image_url?: string }[];
   };
   closing_cta: {
     title: string;

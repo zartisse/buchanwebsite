@@ -26,7 +26,7 @@ export function DifferenceSection({ section }: DifferenceSectionProps) {
             </Link>
           </div>
         </RevealOnScroll>
-        <RevealOnScroll variant="left" index={1}>
+        <RevealOnScroll variant="right" index={1}>
           <div className={styles.imageWrap}>
             <OptimizedImage src={section.image_url} seed="difference" className={styles.image} />
           </div>
