@@ -318,9 +318,24 @@
 }
 
 .cardImageWrap {
+  position: relative;
   overflow: hidden;
   height: clamp(260px, 30vw, 380px);
   margin-bottom: var(--s-5);
+}
+
+.cardStatusBanner {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: var(--s-3) var(--s-4);
+  background: rgba(26, 36, 32, 0.82);
+  color: #ffffff;
+  font-size: var(--text-micro);
+  letter-spacing: var(--tr-widest);
+  text-transform: uppercase;
+  text-align: center;
 }
 
 .cardImageWrapSm {
@@ -401,6 +416,63 @@
   font-weight: var(--fw-medium);
 }
 
+.contactPhoneRow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-3);
+  margin-top: var(--s-3);
+  font-size: 22px;
+  font-family: var(--font-serif);
+  text-decoration: none;
+  color: var(--color-text-on-light);
+}
+
+.contactPhoneRow:hover {
+  color: var(--color-accent-on-light);
+}
+
+.contactPhoneIcon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: var(--color-accent-on-light);
+}
+
+.contactPhoneNumber {
+  line-height: 1.2;
+}
+
+.socialList {
+  list-style: none;
+  margin: var(--s-3) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+
+.socialHandle {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-decoration: none;
+  color: var(--color-text-on-light);
+  font-family: var(--font-serif);
+  font-size: var(--text-body-md);
+}
+
+.socialHandle:hover {
+  color: var(--color-accent-on-light);
+}
+
+.socialLabel {
+  font-size: var(--text-micro);
+  letter-spacing: var(--tr-widest);
+  text-transform: uppercase;
+  color: var(--color-text-muted-light);
+  font-family: var(--font-sans);
+}
+
 .formSuccess {
   color: var(--color-accent-dark);
   margin-top: var(--s-6);
@@ -410,6 +482,20 @@
 .formError {
   color: #c0562e;
   font-size: var(--text-body-sm);
+}
+
+.propertyInquiryContext {
+  margin: 0 0 var(--s-2);
+  padding: var(--s-4);
+  background: var(--color-bg-cream);
+  border: 1px solid var(--color-hairline-light);
+  font-size: var(--text-body-sm);
+  color: var(--color-text-muted-light);
+}
+
+.propertyInquiryContext strong {
+  color: var(--color-text-on-light);
+  font-weight: var(--fw-medium);
 }
 
 .quickLinks {
@@ -571,11 +657,23 @@
 
 .galleryGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: var(--s-6);
-  max-width: var(--max-width-wide);
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(8px, 1vw, 12px);
+  max-width: min(1400px, 100%);
   margin: 0 auto;
-  padding: 0 var(--gutter);
+  padding: 0 clamp(12px, 2vw, var(--gutter));
+}
+
+@media (max-width: 900px) {
+  .galleryGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .galleryGrid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .galleryThumb {
@@ -585,7 +683,7 @@
   margin: 0;
   cursor: pointer;
   overflow: hidden;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 5 / 4;
   background: var(--color-bg-cream);
   transition: opacity var(--d-base) var(--ease-out);
 }

@@ -434,6 +434,8 @@ export interface Submission {
   subject: string;
   message: string;
   source: string;
+  property_slug?: string;
+  property_name?: string;
   status: SubmissionStatus;
   created_at: string;
 }

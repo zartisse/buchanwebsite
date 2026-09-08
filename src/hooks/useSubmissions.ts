@@ -39,10 +39,15 @@ export function useSubmissions(admin = false) {
       console.info('Demo mode: submission recorded locally', data);
       return;
     }
-    const { error: err } = await supabase.from('submissions').insert({
-      ...data,
-      status: 'New',
-    });
+    const payload: Record<string, unknown> = { ...data, status: 'New' };
+    let { error: err } = await supabase.from('submissions').insert(payload);
+    if (
+      err?.message.includes('property_slug') ||
+      err?.message.includes('property_name')
+    ) {
+      const { property_slug: _, property_name: __, ...rest } = payload;
+      ({ error: err } = await supabase.from('submissions').insert(rest));
+    }
     if (err) throw err;
   };
 

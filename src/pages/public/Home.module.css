@@ -248,19 +248,3 @@
 .closingCtaInner :global(.btnPrimaryFill:hover) {
   background: var(--color-text-on-light);
 }
-
-.closingCtaPhone {
-  font-size: var(--text-body-sm);
-  color: #ffffff;
-  text-decoration: none;
-  letter-spacing: var(--tr-wide);
-}
-
-.closingCtaPhone:hover {
-  color: #ffffff;
-  opacity: 0.9;
-}
-
-.closingCtaPhonePrefix {
-  opacity: 0.9;
-}

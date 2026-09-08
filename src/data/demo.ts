@@ -20,7 +20,7 @@ export const DEMO_PROPERTIES: Property[] = [
 
 export const DEMO_SUBMISSIONS: Submission[] = [
   { id: '1', name: 'Andrew Coletti', email: 'a.coletti@gmail.com', phone: '206-555-0142', subject: 'I want to build a custom home', message: 'We just closed on a lot in Clyde Hill and would love to talk about a ground-up build.', source: 'Contact page', status: 'New', created_at: '2026-06-16T09:24:00Z' },
-  { id: '2', name: 'Priya Anand', email: 'priya.anand@outlook.com', phone: '', subject: 'I am looking for a new home', message: 'Is the Laurelwood Estate still available?', source: 'Contact page', status: 'New', created_at: '2026-06-15T17:48:00Z' },
+  { id: '2', name: 'Priya Anand', email: 'priya.anand@outlook.com', phone: '', subject: 'Interest in Laurelwood Estate', message: 'Is the Laurelwood Estate still available?', source: 'Portfolio listing', property_slug: 'laurelwood-estate', property_name: 'Laurelwood Estate', status: 'New', created_at: '2026-06-15T17:48:00Z' },
   { id: '3', name: 'Mark Whitfield', email: 'mwhitfield@whitfieldcap.com', phone: '425-555-0199', subject: 'I have land to sell', message: 'I own a tear-down property in Medina.', source: 'Home page', status: 'Read', created_at: '2026-06-13T11:02:00Z' },
   { id: '4', name: 'The Levy Family', email: 'levyhome@icloud.com', phone: '206-555-0177', subject: "I'm planning a remodel", message: 'Looking to remodel the main floor and primary suite.', source: 'Contact page', status: 'Archived', created_at: '2026-06-10T08:15:00Z' },
 ];

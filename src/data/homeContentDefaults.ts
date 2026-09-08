@@ -155,7 +155,7 @@ export function getDefaultHomeContent(): HomePageContent {
     closing_cta: {
       title: 'The right home begins\nwith the right conversation.',
       subtitle: "Let's talk about your vision, your property, and the experience you want to create.",
-      primary_label: 'Start a Conversation',
+      primary_label: "Let's Talk",
       primary_url: '/contact',
       phone: '425.827.2266',
       phone_href: 'tel:4258272266',
@@ -372,6 +372,9 @@ export function mergeHomeContent(partial: Partial<HomePageContent> | HomePageCon
       }
       if (partial.closing_cta?.title === 'The right home begins with the right conversation.') {
         return { ...merged, title: defaults.closing_cta.title };
+      }
+      if (partial.closing_cta?.primary_label === 'Start a Conversation') {
+        return { ...merged, primary_label: defaults.closing_cta.primary_label };
       }
       return merged;
     })(),

@@ -22,6 +22,7 @@ const expectations: Array<[string, boolean]> = [
   ['hero marquee', content.hero.marquee === 'Celebrating 65 Years · John Buchan Homes'],
   ['hero carousel', (content.hero.image_urls?.length ?? 0) >= 1],
   ['closing CTA lines', content.closing_cta.title.includes('\n')],
+  ['closing CTA label', content.closing_cta.primary_label === "Let's Talk"],
   ['secondary card images', !!content.what_we_do.secondary[0].image_url],
   ['path tile images', !!content.pick_your_path.tiles[0].image_url],
 ];

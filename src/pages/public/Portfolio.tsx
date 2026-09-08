@@ -1,56 +1,43 @@
 import { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useProperties } from '../../hooks/useProperties';
+import { PortfolioPropertyCard } from '../../components/public/PortfolioPropertyCard';
 import { PageMeta } from '../../components/ui/PageMeta';
-import { OptimizedImage } from '../../components/ui/OptimizedImage';
 import { RevealOnScroll } from '../../components/ui/RevealOnScroll';
-import type { PortfolioType as PropertyPortfolioType } from '../../types';
 import ps from '../../styles/pages.module.css';
 
-type PortfolioFilter = 'all' | PropertyPortfolioType;
+type PortfolioFilter = 'all' | 'custom-homes' | 'video-tours';
 type StatusFilter = 'all' | 'Available' | 'Coming Soon' | 'Sold';
 
 const TYPE_LABELS: Record<PortfolioFilter, string> = {
   all: 'All Work',
   'custom-homes': 'Custom Homes',
-  renovations: 'Renovations',
-  interiors: 'Interiors',
   'video-tours': 'Video Tours',
-  'available-homes': 'Available Homes',
 };
 
-function propertyCategories(p: { slug: string; status: string; portfolio_type?: PropertyPortfolioType }): PortfolioFilter[] {
-  const cats: PortfolioFilter[] = [p.portfolio_type ?? 'custom-homes'];
-  if (p.status === 'Available' || p.status === 'Coming Soon') cats.push('available-homes');
-  if (!p.portfolio_type) {
-    if (p.slug.includes('renov') || p.slug.includes('remodel')) cats.push('renovations');
-    if (p.slug.includes('interior') || p.slug.includes('kitchen')) cats.push('interiors');
-  }
-  return [...new Set(cats)];
-}
+const REMOVED_TYPE_PARAMS = new Set(['renovations', 'interiors', 'available-homes']);
 
 export function Portfolio() {
   const { properties, loading, error } = useProperties({ publicOnly: true });
   const [searchParams, setSearchParams] = useSearchParams();
-  const typeParam = (searchParams.get('type') as PortfolioFilter) ?? 'all';
+  const rawType = searchParams.get('type') ?? 'all';
+  const typeParam = (REMOVED_TYPE_PARAMS.has(rawType) ? 'all' : rawType) as PortfolioFilter;
   const [statusFilter, setStatusFilter] = useState<StatusFilter>('all');
 
   const portfolioType: PortfolioFilter = TYPE_LABELS[typeParam] ? typeParam : 'all';
 
   useEffect(() => {
-    if (portfolioType === 'available-homes') {
-      setStatusFilter('Available');
+    if (REMOVED_TYPE_PARAMS.has(rawType)) {
+      searchParams.delete('type');
+      setSearchParams(searchParams, { replace: true });
     }
-  }, [portfolioType]);
+  }, [rawType, searchParams, setSearchParams]);
 
   const filtered = properties.filter((p) => {
     if (portfolioType === 'video-tours') return false;
-    if (portfolioType === 'available-homes') {
-      return p.status === 'Available' || p.status === 'Coming Soon';
-    }
-    if (portfolioType !== 'all') {
-      const cats = propertyCategories(p);
-      if (!cats.includes(portfolioType)) return false;
+    if (portfolioType === 'custom-homes') {
+      const type = p.portfolio_type ?? 'custom-homes';
+      if (type !== 'custom-homes') return false;
     }
     if (statusFilter === 'all') return true;
     return p.status === statusFilter;
@@ -93,7 +80,7 @@ export function Portfolio() {
             ))}
           </div>
 
-          {portfolioType !== 'available-homes' && portfolioType !== 'video-tours' && (
+          {portfolioType !== 'video-tours' && (
             <div className={ps.filterRow}>
               {(['all', 'Available', 'Coming Soon', 'Sold'] as StatusFilter[]).map((f) => (
                 <button
@@ -121,16 +108,7 @@ export function Portfolio() {
           <div className={ps.cardGrid}>
             {filtered.map((h) => (
               <RevealOnScroll key={h.id}>
-                <Link to={`/portfolio/${h.slug}`} className={`${ps.cardLink} imageHover`}>
-                  <div className={ps.cardImageWrap}>
-                    <OptimizedImage src={h.image_url} seed={h.slug} alt={h.name} className={ps.imageCover} style={{ transition: 'transform 0.55s ease' }} />
-                  </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 16 }}>
-                    <span className={ps.cardTitle}>{h.name}</span>
-                    <span className={h.status === 'Available' || h.status === 'Coming Soon' ? ps.cardMetaAccent : ps.cardMeta}>{h.status}</span>
-                  </div>
-                  <span className={ps.cardMeta}>{h.city}</span>
-                </Link>
+                <PortfolioPropertyCard property={h} />
               </RevealOnScroll>
             ))}
           </div>

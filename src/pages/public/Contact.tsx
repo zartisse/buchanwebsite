@@ -1,53 +1,28 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useSitePage } from '../../hooks/useSitePage';
-import { useSubmissions } from '../../hooks/useSubmissions';
 import { PageMeta } from '../../components/ui/PageMeta';
 import { PageCta } from '../../components/ui/PageCta';
 import { RevealOnScroll } from '../../components/ui/RevealOnScroll';
 import { HeroTitle } from '../../components/ui/HeroTitle';
+import { InquiryForm } from '../../components/public/InquiryForm';
 import { getDemoPageContent } from '../../data/sitePagesDemo';
 import { resolveImageUrl } from '../../lib/placeholders';
+import { SOCIAL_LINKS } from '../../data/navigation';
 import { OfficeMapEmbed } from '../../components/public/OfficeMapEmbed';
 import ps from '../../styles/pages.module.css';
 
 export function Contact() {
   const { page } = useSitePage('contact');
   const content = page?.content ?? getDemoPageContent('contact');
-  const { createSubmission } = useSubmissions();
   const [params] = useSearchParams();
-  const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState('');
+  const defaultSubject = params.get('service') ?? undefined;
 
   useEffect(() => {
-    const service = params.get('service');
-    if (service) {
-      const select = document.getElementById('jbh-service') as HTMLSelectElement;
-      if (select) select.value = service;
+    if (defaultSubject) {
       document.getElementById('inquiry')?.scrollIntoView({ behavior: 'smooth' });
     }
-  }, [params]);
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setError('');
-    const form = e.currentTarget;
-    const fd = new FormData(form);
-    try {
-      await createSubmission({
-        name: String(fd.get('name') ?? ''),
-        email: String(fd.get('email') ?? ''),
-        phone: String(fd.get('phone') ?? ''),
-        subject: String(fd.get('subject') ?? ''),
-        message: String(fd.get('message') ?? ''),
-        source: 'Contact page',
-      });
-      setSubmitted(true);
-      form.reset();
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Could not send message. Please try again.');
-    }
-  };
+  }, [defaultSubject]);
 
   const officeLines = content.office.split('\n');
 
@@ -76,32 +51,37 @@ export function Contact() {
             <div>
               <span className={ps.eyebrow}>Inquiry</span>
               <h2 className={ps.sectionTitle} style={{ marginTop: 16 }}>{content.inquiry_title}</h2>
-              {submitted ? (
-                <p className={ps.formSuccess}>
-                  Thank you. We will be in touch within one business day.
-                </p>
-              ) : (
-                <form onSubmit={handleSubmit} className={ps.formStack}>
-                  <input name="name" type="text" required placeholder="Your name" className={ps.formInput} />
-                  <input name="email" type="email" required placeholder="Email" className={ps.formInput} />
-                  <input name="phone" type="tel" placeholder="Phone (optional)" className={ps.formInput} />
-                  <select id="jbh-service" name="subject" required className={ps.formInput} defaultValue="">
-                    <option value="" disabled>Select a topic</option>
-                    {content.service_options.map((s) => <option key={s} value={s}>{s}</option>)}
-                  </select>
-                  <textarea name="message" required placeholder="Tell us about your project" rows={5} className={ps.formInput} />
-                  {error && <p className={ps.formError}>{error}</p>}
-                  <button type="submit" className={ps.btnPrimary} style={{ alignSelf: 'flex-start' }}>Send Message</button>
-                </form>
-              )}
+              <InquiryForm
+                variant="contact"
+                serviceOptions={content.service_options}
+                defaultSubject={defaultSubject}
+                subjectSelectId="jbh-service"
+              />
             </div>
             <div>
               <span className={ps.eyebrow}>Visit</span>
-              <h2 className={ps.sectionTitle} style={{ marginTop: 16 }}>{content.visit_title}</h2>
               <div style={{ marginTop: 32, display: 'flex', flexDirection: 'column', gap: 24 }}>
                 <div>
                   <span className={ps.formLabel}>Phone</span>
-                  <a href={content.phone_href} style={{ display: 'block', marginTop: 8, fontSize: 22, fontFamily: 'var(--font-serif)', textDecoration: 'none', color: 'var(--color-text-on-light)' }}>{content.phone}</a>
+                  <a href={content.phone_href} className={ps.contactPhoneRow}>
+                    <svg className={ps.contactPhoneIcon} viewBox="0 0 24 24" aria-hidden fill="none" stroke="currentColor" strokeWidth="1.5">
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                    </svg>
+                    <span className={ps.contactPhoneNumber}>{content.phone}</span>
+                  </a>
+                </div>
+                <div>
+                  <span className={ps.formLabel}>Social</span>
+                  <ul className={ps.socialList}>
+                    {SOCIAL_LINKS.map((s) => (
+                      <li key={s.label}>
+                        <a href={s.href} target="_blank" rel="noopener noreferrer" className={ps.socialHandle}>
+                          <span className={ps.socialLabel}>{s.label}</span>
+                          <span>{s.handle}</span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
                 <div>
                   <span className={ps.formLabel}>Office</span>

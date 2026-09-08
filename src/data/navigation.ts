@@ -108,9 +108,9 @@ export const FOOTER_CLIENT_SUPPORT = [
 ];
 
 export const SOCIAL_LINKS = [
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/company/john-buchan-homes' },
-  { label: 'Facebook', href: 'https://www.facebook.com/johnbuchanhomes' },
-  { label: 'Instagram', href: 'https://www.instagram.com/johnbuchanhomes' },
+  { label: 'LinkedIn', handle: 'John Buchan Homes', href: 'https://www.linkedin.com/company/john-buchan-homes' },
+  { label: 'Facebook', handle: '@johnbuchanhomes', href: 'https://www.facebook.com/johnbuchanhomes' },
+  { label: 'Instagram', handle: '@johnbuchanhomes', href: 'https://www.instagram.com/johnbuchanhomes' },
 ];
 
 export const SERVICE_AREAS = [

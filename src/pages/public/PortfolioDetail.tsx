@@ -1,10 +1,11 @@
 import { useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { useProperty } from '../../hooks/useProperties';
+import { useProperties, useProperty } from '../../hooks/useProperties';
+import { PortfolioPropertyCard } from '../../components/public/PortfolioPropertyCard';
+import { InquiryForm } from '../../components/public/InquiryForm';
 import { ImageLightbox } from '../../components/ui/ImageLightbox';
 import { OptimizedImage } from '../../components/ui/OptimizedImage';
 import { PageMeta } from '../../components/ui/PageMeta';
-import { PageCta } from '../../components/ui/PageCta';
 import { RevealOnScroll } from '../../components/ui/RevealOnScroll';
 import { resolveImageUrl } from '../../lib/placeholders';
 import ps from '../../styles/pages.module.css';
@@ -26,6 +27,7 @@ function buildImageList(heroUrl: string, galleryUrls: string[]) {
 export function PortfolioDetail() {
   const { slug = '' } = useParams();
   const { property, loading, error } = useProperty(slug);
+  const { properties: allProperties } = useProperties({ publicOnly: true });
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   const heroUrl = property?.image_url || '/assets/ph-arch-1.png';
@@ -36,6 +38,15 @@ export function PortfolioDetail() {
     [property, heroUrl, galleryUrls, slug],
   );
   const resolvedHero = allImages[0] ?? resolveImageUrl(heroUrl, slug);
+
+  const relatedFeatured = useMemo(
+    () =>
+      allProperties
+        .filter((p) => p.featured && p.slug !== slug)
+        .sort((a, b) => (a.featured_order ?? 0) - (b.featured_order ?? 0))
+        .slice(0, 3),
+    [allProperties, slug],
+  );
 
   if (loading) return <div className="page-loading">Loading…</div>;
   if (!property) return <div className="page-error">{error || 'Property not found.'}</div>;
@@ -111,14 +122,43 @@ export function PortfolioDetail() {
         </div>
       </section>
 
-      <PageCta
-        title="Interested in this home?"
-        primaryLabel="Contact Us"
-        primaryUrl="/contact"
-        backgroundImage={heroUrl}
-      >
-        <Link to="/portfolio" className="btnGhostLight">All Homes</Link>
-      </PageCta>
+      <section className={ps.section}>
+        <RevealOnScroll>
+          <div className={ps.sectionInner}>
+            <span className={ps.eyebrow}>Inquiry</span>
+            <h2 className={ps.sectionTitle} style={{ marginTop: 16 }}>Interested in this home?</h2>
+            <div style={{ maxWidth: 560, marginTop: 32 }}>
+              <InquiryForm
+                variant="property"
+                propertyName={property.name}
+                propertySlug={property.slug}
+                propertyCity={property.city}
+              />
+            </div>
+            <Link to="/portfolio" className={ps.btnLink} style={{ display: 'inline-flex', marginTop: 32 }}>
+              View all homes<span>→</span>
+            </Link>
+          </div>
+        </RevealOnScroll>
+      </section>
+
+      {relatedFeatured.length > 0 && (
+        <section className={ps.sectionAlt}>
+          <div className={ps.sectionInner}>
+            <RevealOnScroll>
+              <span className={ps.eyebrow}>Featured Work</span>
+              <h2 className={ps.sectionTitle} style={{ marginTop: 16 }}>More featured homes</h2>
+            </RevealOnScroll>
+            <div className={ps.cardGrid} style={{ marginTop: 48 }}>
+              {relatedFeatured.map((p) => (
+                <RevealOnScroll key={p.id}>
+                  <PortfolioPropertyCard property={p} />
+                </RevealOnScroll>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {lightboxIndex !== null && (
         <ImageLightbox

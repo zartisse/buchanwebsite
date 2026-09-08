@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useSubmissions } from '../../hooks/useSubmissions';
 import { PageMeta } from '../../components/ui/PageMeta';
 import { toast } from '../../components/ui/Toast';
@@ -78,7 +79,9 @@ export function AdminSubmissions() {
                     <strong>{s.name}</strong>
                     <span style={{ fontSize: 12, color: 'rgba(26,36,32,0.45)' }}>{fmtDateTime(s.created_at)}</span>
                   </div>
-                  <div style={{ fontSize: 13, color: 'rgba(26,36,32,0.6)', marginTop: 4 }}>{s.subject}</div>
+                  <div style={{ fontSize: 13, color: 'rgba(26,36,32,0.6)', marginTop: 4 }}>
+                    {s.property_name ?? s.subject}
+                  </div>
                 </button>
               ))
             )}
@@ -97,6 +100,14 @@ export function AdminSubmissions() {
               </div>
               <p><strong>Subject:</strong> {openSub.subject}</p>
               <p><strong>Source:</strong> {openSub.source}</p>
+              {openSub.property_slug && (
+                <p>
+                  <strong>Property:</strong>{' '}
+                  <Link to={`/portfolio/${openSub.property_slug}`}>
+                    {openSub.property_name ?? openSub.property_slug}
+                  </Link>
+                </p>
+              )}
               {openSub.phone && <p><strong>Phone:</strong> {openSub.phone}</p>}
               <p style={{ lineHeight: 1.7, marginTop: 16 }}>{openSub.message}</p>
               <div className={styles.formActions}>

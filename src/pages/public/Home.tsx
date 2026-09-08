@@ -151,9 +151,6 @@ export function Home() {
             )}
             <div className={homeStyles.closingCtaActions}>
               <Link to={content.closing_cta.primary_url} className="btnPrimaryFill">{content.closing_cta.primary_label}</Link>
-              <a href={content.closing_cta.phone_href} className={homeStyles.closingCtaPhone}>
-                <span className={homeStyles.closingCtaPhonePrefix}>or call </span>{content.closing_cta.phone}
-              </a>
             </div>
           </div>
         </div>
