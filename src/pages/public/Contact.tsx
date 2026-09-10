@@ -10,6 +10,7 @@ import { getDemoPageContent } from '../../data/sitePagesDemo';
 import { resolveImageUrl } from '../../lib/placeholders';
 import { SOCIAL_LINKS } from '../../data/navigation';
 import { OfficeMapEmbed } from '../../components/public/OfficeMapEmbed';
+import { SocialBrandIcon } from '../../components/ui/SocialBrandIcon';
 import ps from '../../styles/pages.module.css';
 
 export function Contact() {
@@ -63,21 +64,23 @@ export function Contact() {
               <div style={{ marginTop: 32, display: 'flex', flexDirection: 'column', gap: 24 }}>
                 <div>
                   <span className={ps.formLabel}>Phone</span>
-                  <a href={content.phone_href} className={ps.contactPhoneRow}>
-                    <svg className={ps.contactPhoneIcon} viewBox="0 0 24 24" aria-hidden fill="none" stroke="currentColor" strokeWidth="1.5">
-                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-                    </svg>
-                    <span className={ps.contactPhoneNumber}>{content.phone}</span>
-                  </a>
+                  <div className={ps.contactPhoneBlock}>
+                    <a href={content.phone_href} className={ps.contactPhoneRow}>
+                      <svg className={ps.contactPhoneIcon} viewBox="0 0 24 24" aria-hidden fill="none" stroke="currentColor" strokeWidth="1.5">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                      </svg>
+                      <span className={ps.contactPhoneNumber}>{content.phone}</span>
+                    </a>
+                  </div>
                 </div>
                 <div>
                   <span className={ps.formLabel}>Social</span>
                   <ul className={ps.socialList}>
                     {SOCIAL_LINKS.map((s) => (
                       <li key={s.label}>
-                        <a href={s.href} target="_blank" rel="noopener noreferrer" className={ps.socialHandle}>
-                          <span className={ps.socialLabel}>{s.label}</span>
-                          <span>{s.handle}</span>
+                        <a href={s.href} target="_blank" rel="noopener noreferrer" className={ps.socialLink} aria-label={`${s.label}: ${s.handle}`}>
+                          <SocialBrandIcon platform={s.label as 'LinkedIn' | 'Facebook' | 'Instagram'} className={ps.socialBrandIcon} />
+                          <span className={ps.socialHandleText}>{s.handle}</span>
                         </a>
                       </li>
                     ))}
