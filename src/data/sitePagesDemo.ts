@@ -236,7 +236,7 @@ export const DEMO_SITE_PAGES: Record<SitePageSlug, SitePage> = {
       visit_title: '',
       phone: '425.827.2266',
       phone_href: 'tel:4258272266',
-      office: OFFICE_ADDRESS_TEXT + '\nServing the Seattle Eastside',
+      office: OFFICE_ADDRESS_TEXT,
       cta_title: 'Know your numbers?',
       cta_background_image_url: '/assets/ph-arch-2.png',
     } satisfies ContactPageContent,

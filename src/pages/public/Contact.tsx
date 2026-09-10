@@ -8,6 +8,7 @@ import { HeroTitle } from '../../components/ui/HeroTitle';
 import { InquiryForm } from '../../components/public/InquiryForm';
 import { getDemoPageContent } from '../../data/sitePagesDemo';
 import { resolveImageUrl } from '../../lib/placeholders';
+import { OFFICE_ADDRESS_LINES } from '../../data/contactInfo';
 import { SOCIAL_LINKS } from '../../data/navigation';
 import { OfficeMapEmbed } from '../../components/public/OfficeMapEmbed';
 import { SocialBrandIcon } from '../../components/ui/SocialBrandIcon';
@@ -24,8 +25,6 @@ export function Contact() {
       document.getElementById('inquiry')?.scrollIntoView({ behavior: 'smooth' });
     }
   }, [defaultSubject]);
-
-  const officeLines = content.office.split('\n');
 
   return (
     <main>
@@ -89,9 +88,7 @@ export function Contact() {
                 <div>
                   <span className={ps.formLabel}>Office</span>
                   <p className={ps.bodyText} style={{ marginTop: 8 }}>
-                    {officeLines.map((line, i) => (
-                      <span key={i}>{line}{i < officeLines.length - 1 && <br />}</span>
-                    ))}
+                    {OFFICE_ADDRESS_LINES[0]}<br />{OFFICE_ADDRESS_LINES[1]}
                   </p>
                 </div>
               </div>
