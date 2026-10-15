@@ -192,15 +192,19 @@ export function ChatWidget() {
           Questions? Ask us
         </div>
       )}
-      <button
-        type="button"
-        className={`${styles.toggle} ${!open && showAttention ? styles.toggleAttention : ''}`}
-        onClick={() => setOpen((v) => !v)}
-        aria-expanded={open}
-        aria-label={open ? 'Close chat' : 'Open chat'}
+      <div
+        className={`${styles.togglePulse} ${!open && showAttention ? styles.togglePulseActive : ''}`}
       >
-        {open ? '×' : '💬'}
-      </button>
+        <button
+          type="button"
+          className={styles.toggle}
+          onClick={() => setOpen((v) => !v)}
+          aria-expanded={open}
+          aria-label={open ? 'Close chat' : 'Open chat'}
+        >
+          {open ? '×' : '💬'}
+        </button>
+      </div>
     </div>
   );
 }
