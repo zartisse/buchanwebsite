@@ -91,7 +91,10 @@ In **Supabase → Project Settings → Edge Functions → Secrets**, set:
 
 | Secret | Purpose |
 |--------|---------|
-| `OPENAI_API_KEY` | Embeddings (`text-embedding-3-small`) + chat (`gpt-4o-mini`) |
+| `ANTHROPIC_API_KEY` | Chat replies (Claude) |
+| `VOYAGE_API_KEY` | Search embeddings over your knowledge base ([Voyage AI](https://www.voyageai.com/)) |
+
+After migration `009`, run [`supabase/apply_voyage_embeddings.sql`](supabase/apply_voyage_embeddings.sql) once so vectors match Voyage (1024 dimensions).
 
 `SUPABASE_SERVICE_ROLE_KEY` is provided automatically to Edge Functions for vector search and indexing.
 
@@ -107,7 +110,8 @@ supabase functions deploy index-knowledge-source
 Local testing:
 
 ```bash
-supabase secrets set OPENAI_API_KEY=sk-...
+supabase secrets set ANTHROPIC_API_KEY=sk-ant-...
+supabase secrets set VOYAGE_API_KEY=pa-...
 supabase functions serve chat index-knowledge-source
 ```
 
@@ -134,7 +138,7 @@ Shows the widget even if disabled in DB (useful before migration 009 is applied)
 ### Verification checklist
 
 - [ ] Migration `009` applied; `chatbot_settings` row exists
-- [ ] Functions deployed; `OPENAI_API_KEY` set
+- [ ] Functions deployed; `ANTHROPIC_API_KEY` + `VOYAGE_API_KEY` set; voyage SQL applied
 - [ ] Admin: upload or sync a source → status **indexed**
 - [ ] Public site: ask a question answerable from that source → correct reply + optional sources line
 - [ ] Ask something outside the KB → honest “don’t know” + call/book guidance

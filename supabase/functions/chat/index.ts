@@ -1,5 +1,6 @@
 import { corsHeaders, jsonResponse } from '../_shared/cors.ts';
-import { chatCompletion, embedText } from '../_shared/openai.ts';
+import { chatCompletion } from '../_shared/anthropic.ts';
+import { embedText } from '../_shared/voyage.ts';
 import { createAdminClient } from '../_shared/supabaseAdmin.ts';
 
 const OFFICE = '2821 Northup Way, Suite 100, Bellevue, WA 98004';
@@ -75,8 +76,11 @@ Deno.serve(async (req) => {
   }
 
   try {
-    const openaiKey = Deno.env.get('OPENAI_API_KEY');
-    if (!openaiKey) return jsonResponse({ error: 'Chat is not configured' }, 503);
+    const anthropicKey = Deno.env.get('ANTHROPIC_API_KEY');
+    const voyageKey = Deno.env.get('VOYAGE_API_KEY');
+    if (!anthropicKey || !voyageKey) {
+      return jsonResponse({ error: 'Chat is not configured (need ANTHROPIC_API_KEY and VOYAGE_API_KEY)' }, 503);
+    }
 
     const supabase = createAdminClient();
     const { data: settingsRows } = await supabase.from('chatbot_settings').select('*').limit(1);
@@ -102,7 +106,7 @@ Deno.serve(async (req) => {
     const sid = sessionId ?? crypto.randomUUID();
     await supabase.from('chat_logs').insert({ session_id: sid, role: 'user', message: message.trim() });
 
-    const queryEmbedding = await embedText(openaiKey, message.trim());
+    const queryEmbedding = await embedText(voyageKey, message.trim(), 'query');
     const { data: matches, error: matchErr } = await supabase.rpc('match_knowledge_chunks', {
       query_embedding: queryEmbedding,
       match_threshold: 0.65,
@@ -125,7 +129,7 @@ Deno.serve(async (req) => {
     const trimmedHistory = (history ?? []).slice(-6).filter(
       (m) => m.role === 'user' || m.role === 'assistant',
     );
-    const reply = await chatCompletion(openaiKey, system, [
+    const reply = await chatCompletion(anthropicKey, system, [
       ...trimmedHistory,
       { role: 'user', content: message.trim() },
     ]);
