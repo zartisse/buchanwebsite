@@ -40,6 +40,7 @@ export function PickYourPath({ section }: PickYourPathProps) {
                   style={{ backgroundImage: `url(${resolveImageUrl(tile.image_url, tile.title)})` }}
                   aria-hidden
                 />
+                <div className={styles.cardScrim} aria-hidden />
                 <div className={styles.cardContent}>
                   <ServiceIcon name={iconFor(tile)} className={styles.icon} size={32} />
                   <h3 className={styles.cardTitle}>{tile.title}</h3>

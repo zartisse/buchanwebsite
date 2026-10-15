@@ -44,6 +44,7 @@ export function WhatWeDo({ section }: WhatWeDoProps) {
                   style={{ backgroundImage: `url(${resolveImageUrl(item.image_url, item.title)})` }}
                   aria-hidden
                 />
+                <div className={styles.cardScrim} aria-hidden />
                 <div className={styles.cardContent}>
                   <ServiceIcon name={iconFor(item)} className={styles.icon} size={36} />
                   <h3 className={styles.cardTitle}>{item.title}</h3>
@@ -64,6 +65,7 @@ export function WhatWeDo({ section }: WhatWeDoProps) {
                   style={{ backgroundImage: `url(${resolveImageUrl(item.image_url, item.title)})` }}
                   aria-hidden
                 />
+                <div className={styles.cardScrim} aria-hidden />
                 <div className={styles.cardContent}>
                   <ServiceIcon name={iconFor(item)} className={styles.iconSm} size={28} />
                   <h4 className={styles.secondaryTitle}>{item.title}</h4>

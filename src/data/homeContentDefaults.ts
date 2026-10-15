@@ -1,5 +1,6 @@
 import type { HomePageContent } from '../types';
 import { deepNormalizeCopy } from '../lib/normalizeCopy';
+import { coalesceImageUrl } from '../lib/placeholders';
 import {
   BETTER_PLANNED_PATH,
   CLIENT_CONCERNS,
@@ -263,7 +264,7 @@ function backfillWhatWeDoSecondary(
   const base = hasLegacy ? defaults.secondary : secondary;
   return base.map((item, i) => ({
     ...item,
-    image_url: item.image_url ?? defaults.secondary[i]?.image_url,
+    image_url: coalesceImageUrl(item.image_url, defaults.secondary[i]?.image_url ?? ''),
   }));
 }
 
@@ -277,12 +278,14 @@ function backfillWhatWeDoPrimary(
     primary.some((p) => !p.cta_label && defaults.primary.some((d) => d.title === p.title && d.cta_label));
   if (needsUpdate) {
     return defaults.primary.map((item, i) => ({
-      ...item, ...(primary[i]?.image_url ? { image_url: primary[i].image_url } : {}),
+      ...item,
+      image_url: coalesceImageUrl(primary[i]?.image_url, item.image_url),
     }));
   }
   return primary.map((item, i) => ({
     ...item,
     cta_label: item.cta_label ?? defaults.primary[i]?.cta_label,
+    image_url: coalesceImageUrl(item.image_url, defaults.primary[i]?.image_url ?? ''),
   }));
 }
 

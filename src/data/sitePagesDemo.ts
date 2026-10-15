@@ -1,6 +1,6 @@
 import { getDefaultHomeContent } from './homeContentDefaults';
 import { FOOTER_AWARD_BADGES } from './awards';
-import { OFFICE_ADDRESS_TEXT } from './contactInfo';
+import { OFFICE_ADDRESS_TEXT, OFFICE_HOURS, OFFICE_HOURS_LABEL } from './contactInfo';
 import { deepNormalizeCopy } from '../lib/normalizeCopy';
 import type {
   AboutPageContent,
@@ -237,6 +237,8 @@ export const DEMO_SITE_PAGES: Record<SitePageSlug, SitePage> = {
       phone: '425.827.2266',
       phone_href: 'tel:4258272266',
       office: OFFICE_ADDRESS_TEXT,
+      office_hours: OFFICE_HOURS,
+      office_hours_label: OFFICE_HOURS_LABEL,
       cta_title: 'Know your numbers?',
       cta_background_image_url: '/assets/ph-arch-2.png',
     } satisfies ContactPageContent,

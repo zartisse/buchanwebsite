@@ -249,7 +249,7 @@ function HomeEditor({ content, onChange }: { content: HomePageContent; onChange:
             <div className={styles.field}><label className={styles.label}>Primary card {i + 1} title</label><input className={styles.input} value={item.title} onChange={(e) => { const primary = [...content.what_we_do.primary]; primary[i] = { ...primary[i], title: e.target.value }; set({ what_we_do: { ...content.what_we_do, primary } }); }} /></div>
             <div className={styles.field}><label className={styles.label}>Description</label><textarea className={styles.textarea} value={item.description} rows={2} onChange={(e) => { const primary = [...content.what_we_do.primary]; primary[i] = { ...primary[i], description: e.target.value }; set({ what_we_do: { ...content.what_we_do, primary } }); }} /></div>
             <div className={styles.field}><label className={styles.label}>CTA label</label><input className={styles.input} value={item.cta_label ?? ''} onChange={(e) => { const primary = [...content.what_we_do.primary]; primary[i] = { ...primary[i], cta_label: e.target.value }; set({ what_we_do: { ...content.what_we_do, primary } }); }} /></div>
-            <ImageField label="Image (optional legacy)" value={item.image_url ?? ''} onChange={(url) => { const primary = [...content.what_we_do.primary]; primary[i] = { ...primary[i], image_url: url }; set({ what_we_do: { ...content.what_we_do, primary } }); }} folder="pages/home/what-we-do" />
+            <ImageField label="Background photo" value={item.image_url ?? ''} onChange={(url) => { const primary = [...content.what_we_do.primary]; primary[i] = { ...primary[i], image_url: url }; set({ what_we_do: { ...content.what_we_do, primary } }); }} folder="pages/home/what-we-do/primary" />
             <div className={styles.field}><label className={styles.label}>Link</label><input className={styles.input} value={item.link} onChange={(e) => { const primary = [...content.what_we_do.primary]; primary[i] = { ...primary[i], link: e.target.value }; set({ what_we_do: { ...content.what_we_do, primary } }); }} /></div>
           </div>
         ))}
@@ -257,6 +257,7 @@ function HomeEditor({ content, onChange }: { content: HomePageContent; onChange:
           <div key={i} className={styles.repeatItem}>
             <div className={styles.field}><label className={styles.label}>Secondary card {i + 1}</label><input className={styles.input} value={item.title} onChange={(e) => { const secondary = [...content.what_we_do.secondary]; secondary[i] = { ...secondary[i], title: e.target.value }; set({ what_we_do: { ...content.what_we_do, secondary } }); }} /></div>
             <div className={styles.field}><textarea className={styles.textarea} value={item.description} rows={2} onChange={(e) => { const secondary = [...content.what_we_do.secondary]; secondary[i] = { ...secondary[i], description: e.target.value }; set({ what_we_do: { ...content.what_we_do, secondary } }); }} /></div>
+            <ImageField label="Background photo" value={item.image_url ?? ''} onChange={(url) => { const secondary = [...content.what_we_do.secondary]; secondary[i] = { ...secondary[i], image_url: url }; set({ what_we_do: { ...content.what_we_do, secondary } }); }} folder="pages/home/what-we-do/secondary" />
             <div className={styles.field}><input className={styles.input} value={item.link} placeholder="Link" onChange={(e) => { const secondary = [...content.what_we_do.secondary]; secondary[i] = { ...secondary[i], link: e.target.value }; set({ what_we_do: { ...content.what_we_do, secondary } }); }} /></div>
           </div>
         ))}
@@ -332,6 +333,7 @@ function HomeEditor({ content, onChange }: { content: HomePageContent; onChange:
             <textarea className={styles.textarea} style={{ marginTop: 8 }} value={tile.description ?? ''} placeholder="Description" rows={2} onChange={(e) => { const tiles = [...content.pick_your_path.tiles]; tiles[i] = { ...tiles[i], description: e.target.value }; set({ pick_your_path: { ...content.pick_your_path, tiles } }); }} />
             <input className={styles.input} style={{ marginTop: 8 }} value={tile.link} placeholder="Link" onChange={(e) => { const tiles = [...content.pick_your_path.tiles]; tiles[i] = { ...tiles[i], link: e.target.value }; set({ pick_your_path: { ...content.pick_your_path, tiles } }); }} />
             <input className={styles.input} style={{ marginTop: 8 }} value={tile.cta_label ?? ''} placeholder="Link label" onChange={(e) => { const tiles = [...content.pick_your_path.tiles]; tiles[i] = { ...tiles[i], cta_label: e.target.value }; set({ pick_your_path: { ...content.pick_your_path, tiles } }); }} />
+            <ImageField label="Background photo" value={tile.image_url ?? ''} onChange={(url) => { const tiles = [...content.pick_your_path.tiles]; tiles[i] = { ...tiles[i], image_url: url }; set({ pick_your_path: { ...content.pick_your_path, tiles } }); }} folder="pages/home/pick-your-path" />
             <label style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 8, fontSize: 13 }}>
               <input type="checkbox" checked={!!tile.external} onChange={(e) => { const tiles = [...content.pick_your_path.tiles]; tiles[i] = { ...tiles[i], external: e.target.checked }; set({ pick_your_path: { ...content.pick_your_path, tiles } }); }} />
               External link
@@ -741,6 +743,25 @@ function ContactEditor({ content, onChange }: { content: ContactPageContent; onC
       <div className={styles.field}>
         <label className={styles.label}>Office (use line breaks)</label>
         <textarea className={styles.textarea} value={content.office} onChange={(e) => onChange({ ...content, office: e.target.value })} rows={3} />
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+        <div className={styles.field}>
+          <label className={styles.label}>Office hours label</label>
+          <input
+            className={styles.input}
+            value={content.office_hours_label ?? 'Hours'}
+            onChange={(e) => onChange({ ...content, office_hours_label: e.target.value })}
+          />
+        </div>
+        <div className={styles.field}>
+          <label className={styles.label}>Office hours</label>
+          <input
+            className={styles.input}
+            value={content.office_hours ?? ''}
+            onChange={(e) => onChange({ ...content, office_hours: e.target.value })}
+            placeholder="Monday–Friday, 8:30 AM – 5:00 PM PT"
+          />
+        </div>
       </div>
       <div className={styles.field}>
         <label className={styles.label}>CTA title</label>

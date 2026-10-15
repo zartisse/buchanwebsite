@@ -75,3 +75,24 @@
     grid-template-columns: 1fr;
   }
 }
+
+.pdfActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-4);
+  margin-top: var(--s-6);
+}
+
+.pdfPreviewWrap {
+  margin-top: var(--s-6);
+  border: 1px solid var(--color-hairline-light);
+  background: var(--color-bg-cream);
+  overflow: hidden;
+}
+
+.pdfPreviewFrame {
+  display: block;
+  width: 100%;
+  height: min(70vh, 720px);
+  border: 0;
+}

@@ -1,5 +1,6 @@
 import { IA_PAGES } from './iaContent';
 import { SERVICE_AREAS } from './navigation';
+import { RENOVATION_PROCESS_PDF_TITLE, RENOVATION_PROCESS_PDF_URL } from './renovationAssets';
 import { deepNormalizeCopy } from '../lib/normalizeCopy';
 import type { HubPage, HubPageContent, HubPageSlug } from '../types';
 import { HUB_PAGE_SLUGS } from '../types';
@@ -19,6 +20,12 @@ export function iaPageToHubContent(slug: HubPageSlug): HubPageContent {
     ctaTitle: page.ctaTitle,
     ctaLink: page.ctaLink,
     service_areas: slug === 'areas-we-serve' ? [...SERVICE_AREAS] : undefined,
+    ...(slug === 'renovations'
+      ? {
+          process_pdf_url: RENOVATION_PROCESS_PDF_URL,
+          process_pdf_title: RENOVATION_PROCESS_PDF_TITLE,
+        }
+      : {}),
   };
 }
 
@@ -46,5 +53,7 @@ export function mergeHubContent(partial: Partial<HubPageContent>, slug: HubPageS
     hero: { ...defaults.hero, ...partial.hero },
     sections: partial.sections ?? defaults.sections,
     service_areas: partial.service_areas ?? defaults.service_areas,
+    process_pdf_url: partial.process_pdf_url ?? defaults.process_pdf_url,
+    process_pdf_title: partial.process_pdf_title ?? defaults.process_pdf_title,
   });
 }

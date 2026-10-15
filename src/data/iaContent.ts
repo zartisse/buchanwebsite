@@ -116,7 +116,7 @@ export const IA_PAGES: Record<string, HubPageData> = {
       },
     ],
     ctaTitle: 'Discuss your renovation project',
-    ctaLink: '/contact?service=I\'m planning a major renovation#inquiry',
+    ctaLink: '#renovation-inquiry',
   },
   preconstruction: {
     slug: 'preconstruction',
@@ -182,7 +182,7 @@ export const IA_PAGES: Record<string, HubPageData> = {
     sections: [
       {
         title: 'Primary Markets',
-        body: 'Bellevue, Medina, Clyde Hill, Yarrow Point, Hunts Point, Kirkland, Redmond, Newcastle, Mercer Island, Sammamish, Issaquah, Woodinville, and Bothell.',
+        body: 'Bellevue, Medina, Clyde Hill, Yarrow Point, Hunts Point, Kirkland, Redmond, Newcastle, Mercer Island, Sammamish, Issaquah, and Woodinville.',
         bullets: ['Bellevue & Bridle Trails', 'Clyde Hill & Medina', 'Kirkland & Juanita', 'Redmond & Sammamish'],
         image_url: '/assets/ph-arch-2.png',
       },

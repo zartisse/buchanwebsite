@@ -87,6 +87,29 @@ export function HubPageEditor({ slug, page, onSave, onCancel }: HubPageEditorPro
           </fieldset>
         )}
 
+        {slug === 'renovations' && (
+          <fieldset className={styles.fieldset}>
+            <legend className={styles.legend}>Renovation process PDF</legend>
+            <div className={styles.field}>
+              <label className={styles.label}>Section title</label>
+              <input
+                className={styles.input}
+                value={content.process_pdf_title ?? ''}
+                onChange={(e) => setContent({ ...content, process_pdf_title: e.target.value })}
+              />
+            </div>
+            <div className={styles.field}>
+              <label className={styles.label}>PDF URL (path under public/ or full URL)</label>
+              <input
+                className={styles.input}
+                value={content.process_pdf_url ?? ''}
+                onChange={(e) => setContent({ ...content, process_pdf_url: e.target.value })}
+                placeholder="/assets/documents/buchan-renovation-process.pdf"
+              />
+            </div>
+          </fieldset>
+        )}
+
         <fieldset className={styles.fieldset}>
           <legend className={styles.legend}>Closing CTA</legend>
           <div className={styles.field}><label className={styles.label}>CTA title</label><input className={styles.input} value={content.ctaTitle} onChange={(e) => setContent({ ...content, ctaTitle: e.target.value })} /></div>

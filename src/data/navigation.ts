@@ -116,7 +116,7 @@ export const SOCIAL_LINKS = [
 export const SERVICE_AREAS = [
   'Bellevue', 'Medina', 'Clyde Hill', 'Yarrow Point', 'Hunts Point',
   'Kirkland', 'Redmond', 'Newcastle', 'Mercer Island', 'Sammamish',
-  'Issaquah', 'Woodinville', 'Bothell',
+  'Issaquah', 'Woodinville',
 ];
 
 export const LEGACY_REDIRECTS: Record<string, string> = {

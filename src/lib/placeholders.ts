@@ -35,9 +35,23 @@ export function placeholderImage(seed?: string | number): string {
   return ARCH_PLACEHOLDERS[index];
 }
 
+/** Prefer CMS value when non-empty; otherwise use site default (empty string must not win). */
+export function coalesceImageUrl(value: string | undefined | null, fallback: string): string {
+  const trimmed = value?.trim();
+  return trimmed ? trimmed : fallback;
+}
+
+export function coalesceImageList(value: string[] | undefined | null, fallback: string[]): string[] {
+  const filtered = (value ?? []).map((entry) => entry?.trim()).filter((entry): entry is string => Boolean(entry));
+  return filtered.length > 0 ? filtered : fallback;
+}
+
 export function resolveImageUrl(url: string | undefined | null, seed?: string | number): string {
   if (!url || url.trim() === '' || url === LEGACY_PORTRAIT) {
     return assetUrl(placeholderImage(seed));
+  }
+  if (/^https?:\/\//i.test(url) || url.startsWith('data:') || url.startsWith('blob:')) {
+    return url;
   }
   return assetUrl(optimizeAssetPath(url));
 }

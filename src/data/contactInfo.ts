@@ -14,3 +14,7 @@ export const OFFICE_MAP_EMBED_URL =
 
 export const OFFICE_MAPS_LINK_URL =
   `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(OFFICE_ADDRESS_QUERY)}`;
+
+export const OFFICE_HOURS = 'Monday–Friday, 8:30 AM – 5:00 PM PT';
+
+export const OFFICE_HOURS_LABEL = 'Hours';

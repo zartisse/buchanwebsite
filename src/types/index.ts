@@ -251,6 +251,8 @@ export interface ContactPageContent {
   phone: string;
   phone_href: string;
   office: string;
+  office_hours?: string;
+  office_hours_label?: string;
   cta_title: string;
   cta_background_image_url?: string;
 }
@@ -317,6 +319,8 @@ export interface HubPageContent {
   ctaLink?: string;
   cta_background_image_url?: string;
   service_areas?: string[];
+  process_pdf_url?: string;
+  process_pdf_title?: string;
 }
 
 export interface HubPage {

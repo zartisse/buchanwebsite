@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import type { HubPage } from '../../types';
 import { EstimatorLink } from '../ui/EstimatorLink';
 import { PageMeta } from '../ui/PageMeta';
@@ -6,14 +7,40 @@ import { RevealOnScroll } from '../ui/RevealOnScroll';
 import { HeroTitle } from '../ui/HeroTitle';
 import { ESTIMATOR_URL } from '../../lib/estimator';
 import { OptimizedImage } from '../ui/OptimizedImage';
+import { RenovationInquiryForm } from './RenovationInquiryForm';
 import ps from '../../styles/pages.module.css';
 import hs from './HubPage.module.css';
+
+function HubCtaPrimaryButton({ to, className, children }: { to: string; className: string; children: ReactNode }) {
+  if (to.startsWith('#')) {
+    return (
+      <a href={to} className={className}>
+        {children}
+      </a>
+    );
+  }
+  if (to.startsWith('tel:') || to.startsWith('http')) {
+    return (
+      <a href={to} className={className} target={to.startsWith('http') ? '_blank' : undefined} rel={to.startsWith('http') ? 'noopener noreferrer' : undefined}>
+        {children}
+      </a>
+    );
+  }
+  return (
+    <a href={to} className={className}>
+      {children}
+    </a>
+  );
+}
 
 export function HubPage({ page }: { page: HubPage }) {
   const data = page.content;
   const ctaTo = data.ctaLink ?? '/contact';
   const ctaBg = data.cta_background_image_url ?? data.hero.image_url ?? '/assets/ph-arch-1.png';
   const isExternal = ctaTo.startsWith('tel:') || ctaTo.startsWith('http');
+  const isHashCta = ctaTo.startsWith('#');
+  const pdfUrl = data.process_pdf_url;
+  const pdfTitle = data.process_pdf_title ?? 'Renovation process overview';
 
   return (
     <main>
@@ -83,6 +110,57 @@ export function HubPage({ page }: { page: HubPage }) {
         </section>
       )}
 
+      {page.slug === 'renovations' && pdfUrl && (
+        <section className={ps.sectionAlt}>
+          <RevealOnScroll>
+            <div className={ps.sectionInner}>
+              <span className={ps.eyebrow}>Process overview</span>
+              <h2 className={ps.sectionTitle} style={{ marginTop: 16 }}>{pdfTitle}</h2>
+              <p className={ps.bodyText} style={{ marginTop: 12, maxWidth: 640 }}>
+                Preview the step-by-step process you will follow with Buchan, or download a copy to share with your household.
+              </p>
+              <div className={hs.pdfActions}>
+                <a href={pdfUrl} download className={ps.btnPrimary}>
+                  Download PDF
+                </a>
+                <a href={pdfUrl} target="_blank" rel="noopener noreferrer" className={ps.btnGhost}>
+                  Open in new tab
+                </a>
+              </div>
+              <div className={hs.pdfPreviewWrap}>
+                <iframe
+                  title={pdfTitle}
+                  src={pdfUrl}
+                  className={hs.pdfPreviewFrame}
+                />
+              </div>
+              <p className={ps.bodyText} style={{ marginTop: 12, fontSize: '0.9rem' }}>
+                If the preview does not load in your browser, use Download PDF or Open in new tab.
+              </p>
+            </div>
+          </RevealOnScroll>
+        </section>
+      )}
+
+      {page.slug === 'renovations' && (
+        <section id="renovation-inquiry" className={ps.section}>
+          <RevealOnScroll>
+            <div className={ps.formGrid}>
+              <div>
+                <span className={ps.eyebrow}>Start your project</span>
+                <h2 className={ps.sectionTitle} style={{ marginTop: 16 }}>Tell us about your renovation</h2>
+                <p className={ps.bodyText} style={{ marginTop: 12, maxWidth: 520 }}>
+                  Share location, goals, and timing so we can respond with the right next steps for your home.
+                </p>
+              </div>
+              <div>
+                <RenovationInquiryForm />
+              </div>
+            </div>
+          </RevealOnScroll>
+        </section>
+      )}
+
       {isExternal ? (
         <section className={ps.ctaPhoto}>
           <div className={ps.ctaPhotoBg} aria-hidden>
@@ -103,6 +181,22 @@ export function HubPage({ page }: { page: HubPage }) {
               {ctaTo !== ESTIMATOR_URL && (
                 <EstimatorLink className="btnGhostLight">Cost Estimator</EstimatorLink>
               )}
+            </div>
+          </div>
+        </section>
+      ) : isHashCta ? (
+        <section className={ps.ctaPhoto}>
+          <div className={ps.ctaPhotoBg} aria-hidden>
+            <OptimizedImage src={ctaBg} seed={`${page.slug}-cta`} />
+          </div>
+          <div className={ps.ctaPhotoOverlay} aria-hidden />
+          <div className={ps.ctaPhotoInner}>
+            <h2 className={ps.sectionTitle}>{data.ctaTitle}</h2>
+            <div className={ps.ctaButtons}>
+              <HubCtaPrimaryButton to={ctaTo} className="btnPrimaryFill">
+                Start your renovation inquiry
+              </HubCtaPrimaryButton>
+              <EstimatorLink className="btnGhostLight">Cost Estimator</EstimatorLink>
             </div>
           </div>
         </section>

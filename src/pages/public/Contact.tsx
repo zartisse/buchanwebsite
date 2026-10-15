@@ -8,7 +8,8 @@ import { HeroTitle } from '../../components/ui/HeroTitle';
 import { InquiryForm } from '../../components/public/InquiryForm';
 import { getDemoPageContent } from '../../data/sitePagesDemo';
 import { resolveImageUrl } from '../../lib/placeholders';
-import { OFFICE_ADDRESS_LINES } from '../../data/contactInfo';
+import { OFFICE_ADDRESS_LINES, OFFICE_HOURS, OFFICE_HOURS_LABEL } from '../../data/contactInfo';
+import { OfficeVisitForm } from '../../components/public/OfficeVisitForm';
 import { SOCIAL_LINKS } from '../../data/navigation';
 import { OfficeMapEmbed } from '../../components/public/OfficeMapEmbed';
 import { SocialBrandIcon } from '../../components/ui/SocialBrandIcon';
@@ -25,6 +26,12 @@ export function Contact() {
       document.getElementById('inquiry')?.scrollIntoView({ behavior: 'smooth' });
     }
   }, [defaultSubject]);
+
+  useEffect(() => {
+    if (params.get('visit') === '1') {
+      document.getElementById('office-visit')?.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [params]);
 
   return (
     <main>
@@ -91,13 +98,36 @@ export function Contact() {
                     {OFFICE_ADDRESS_LINES[0]}<br />{OFFICE_ADDRESS_LINES[1]}
                   </p>
                 </div>
+                <div>
+                  <span className={ps.formLabel}>{content.office_hours_label ?? OFFICE_HOURS_LABEL}</span>
+                  <p className={ps.bodyText} style={{ marginTop: 8 }}>
+                    {content.office_hours ?? OFFICE_HOURS}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </RevealOnScroll>
       </section>
 
-      <section className={ps.sectionAlt}>
+      <section id="office-visit" className={ps.sectionAlt}>
+        <RevealOnScroll>
+          <div className={ps.formGrid}>
+            <div>
+              <span className={ps.eyebrow}>Visit our office</span>
+              <h2 className={ps.sectionTitle} style={{ marginTop: 16 }}>Request an office appointment</h2>
+              <p className={ps.bodyText} style={{ marginTop: 12, maxWidth: 520 }}>
+                Meet our team in person at our Bellevue office. Share your preferred date and time; we will confirm by email or phone.
+              </p>
+            </div>
+            <div>
+              <OfficeVisitForm />
+            </div>
+          </div>
+        </RevealOnScroll>
+      </section>
+
+      <section className={ps.section}>
         <RevealOnScroll>
           <div className={ps.sectionInner}>
             <span className={ps.eyebrow}>Location</span>
