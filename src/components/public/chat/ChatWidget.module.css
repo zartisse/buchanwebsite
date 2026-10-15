@@ -28,60 +28,102 @@
 
 /* Animate wrapper so button transition does not cancel keyframes */
 .togglePulse {
+  position: relative;
   display: inline-flex;
   border-radius: 50%;
 }
 
+.togglePulseActive::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid var(--color-accent);
+  opacity: 0;
+  pointer-events: none;
+  animation: chatToggleRing 11s ease-out 2s infinite;
+}
+
 .togglePulseActive {
-  animation: chatToggleAttention 8s ease-in-out 3s infinite;
+  animation: chatToggleAttention 11s ease-in-out 2s infinite;
 }
 
 .togglePulseActive .toggle {
-  box-shadow:
-    0 8px 28px rgba(13, 21, 18, 0.35),
-    0 0 0 0 rgba(176, 130, 76, 0);
+  animation: chatToggleGlow 11s ease-in-out 2s infinite;
 }
 
+/* ~3.3s active wiggle, then ~7.7s rest (11s cycle) */
 @keyframes chatToggleAttention {
   0%,
-  12%,
+  32%,
   100% {
-    transform: rotate(0deg) scale(1);
+    transform: rotate(0deg) scale(1) translateY(0);
   }
-  1.5% {
-    transform: rotate(-5deg) scale(1.05);
+  2% {
+    transform: rotate(-10deg) scale(1.08) translateY(-2px);
   }
-  3% {
-    transform: rotate(5deg) scale(1.06);
-  }
-  4.5% {
-    transform: rotate(-5deg) scale(1.07);
+  4% {
+    transform: rotate(10deg) scale(1.1) translateY(-4px);
   }
   6% {
-    transform: rotate(5deg) scale(1.08);
+    transform: rotate(-10deg) scale(1.1) translateY(-3px);
   }
-  7.5% {
-    transform: rotate(0deg) scale(1.1);
+  8% {
+    transform: rotate(10deg) scale(1.11) translateY(-5px);
   }
   10% {
-    transform: rotate(0deg) scale(1);
+    transform: rotate(-8deg) scale(1.12) translateY(-4px);
   }
-}
-
-.togglePulseActive .toggle {
-  animation: chatToggleGlow 8s ease-in-out 3s infinite;
+  12% {
+    transform: rotate(8deg) scale(1.12) translateY(-5px);
+  }
+  14% {
+    transform: rotate(-6deg) scale(1.13) translateY(-3px);
+  }
+  16% {
+    transform: rotate(6deg) scale(1.13) translateY(-4px);
+  }
+  18% {
+    transform: rotate(-4deg) scale(1.14) translateY(-2px);
+  }
+  22% {
+    transform: rotate(0deg) scale(1.15) translateY(-6px);
+  }
+  28% {
+    transform: rotate(0deg) scale(1.05) translateY(0);
+  }
 }
 
 @keyframes chatToggleGlow {
   0%,
-  12%,
+  32%,
   100% {
     box-shadow: 0 8px 28px rgba(13, 21, 18, 0.35);
+    border-color: var(--color-accent-hairline);
   }
-  7.5% {
+  22% {
     box-shadow:
-      0 12px 36px rgba(13, 21, 18, 0.45),
-      0 0 0 4px var(--color-accent-muted);
+      0 16px 40px rgba(13, 21, 18, 0.5),
+      0 0 0 6px var(--color-accent-muted),
+      0 0 24px rgba(176, 130, 76, 0.45);
+    border-color: var(--color-accent);
+  }
+}
+
+@keyframes chatToggleRing {
+  0%,
+  32%,
+  100% {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  18% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+  28% {
+    opacity: 0;
+    transform: scale(1.45);
   }
 }
 
@@ -100,7 +142,8 @@
   box-shadow: 0 6px 20px rgba(13, 21, 18, 0.15);
   pointer-events: none;
   white-space: nowrap;
-  animation: chatTeaserIn 8s ease-in-out 3s infinite;
+  animation: chatTeaserIn 11s ease-in-out 2s infinite;
+  font-weight: 600;
 }
 
 .teaser::after {
@@ -118,19 +161,19 @@
 
 @keyframes chatTeaserIn {
   0%,
-  12%,
+  32%,
   100% {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(10px) scale(0.96);
   }
-  2%,
-  9% {
+  3%,
+  26% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
-  11% {
+  30% {
     opacity: 0;
-    transform: translateY(4px);
+    transform: translateY(6px) scale(0.98);
   }
 }
 
@@ -287,6 +330,10 @@
 
 @media (prefers-reduced-motion: reduce) {
   .togglePulseActive {
+    animation: none;
+  }
+
+  .togglePulseActive::before {
     animation: none;
   }
 

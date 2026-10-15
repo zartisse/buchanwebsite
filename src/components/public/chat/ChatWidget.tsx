@@ -5,7 +5,7 @@ import styles from './ChatWidget.module.css';
 
 const SESSION_KEY = 'buchan-chat-session-id';
 const ATTENTION_DISMISSED_KEY = 'buchan-chat-attention-dismissed';
-const ATTENTION_CAP_MS = 90_000;
+const ATTENTION_CAP_MS = 120_000;
 
 function isAttentionDismissed(): boolean {
   try {
