@@ -1,0 +1,10 @@
+# Supabase CLI config (project linked via `supabase link`)
+project_id = "itrdpbtbndabtrfyoidu"
+
+# Public site chat: anon visitors invoke without a logged-in user JWT
+[functions.chat]
+verify_jwt = false
+
+# Admin-only indexing: requires authenticated CMS user
+[functions.index-knowledge-source]
+verify_jwt = true

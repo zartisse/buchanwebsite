@@ -149,6 +149,7 @@ Deno.serve(async (req) => {
     });
   } catch (e) {
     const message = e instanceof Error ? e.message : 'Chat failed';
+    console.error('chat error:', message);
     return jsonResponse({ error: message }, 500);
   }
 });

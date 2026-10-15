@@ -1,9 +1,27 @@
 import { supabase, isSupabaseConfigured } from './supabase';
 
+async function functionErrorMessage(error: unknown, data: unknown): Promise<string> {
+  if (data && typeof data === 'object' && 'error' in data && data.error) {
+    return String(data.error);
+  }
+  const err = error as { context?: Response; message?: string };
+  if (err?.context && typeof err.context.json === 'function') {
+    try {
+      const body = await err.context.json();
+      if (body && typeof body === 'object' && 'error' in body && body.error) {
+        return String(body.error);
+      }
+    } catch {
+      /* ignore */
+    }
+  }
+  return err?.message ?? 'Request failed';
+}
+
 export async function invokeIndexKnowledge(body: { sourceId?: string; syncCms?: boolean }) {
   if (!isSupabaseConfigured) throw new Error('Supabase not configured');
   const { data, error } = await supabase.functions.invoke('index-knowledge-source', { body });
-  if (error) throw error;
+  if (error) throw new Error(await functionErrorMessage(error, data));
   if (data && typeof data === 'object' && 'error' in data && data.error) {
     throw new Error(String(data.error));
   }
@@ -17,7 +35,7 @@ export async function sendChatMessage(payload: {
 }) {
   if (!isSupabaseConfigured) throw new Error('Supabase not configured');
   const { data, error } = await supabase.functions.invoke('chat', { body: payload });
-  if (error) throw error;
+  if (error) throw new Error(await functionErrorMessage(error, data));
   if (data && typeof data === 'object' && 'error' in data && data.error) {
     throw new Error(String(data.error));
   }
