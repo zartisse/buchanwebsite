@@ -38,9 +38,14 @@ export function AdminPageEdit() {
         slug={pageSlug}
         page={page}
         onSave={async (data) => {
-          await saveSitePage(data);
-          toast('Saved ✓');
-          navigate('/admin/pages');
+          try {
+            await saveSitePage(data);
+            toast('Saved ✓');
+            navigate('/admin/pages');
+          } catch (err) {
+            toast(err instanceof Error ? err.message : 'Could not save. Check Supabase connection and try again.');
+            throw err;
+          }
         }}
         onCancel={() => navigate('/admin/pages')}
       />

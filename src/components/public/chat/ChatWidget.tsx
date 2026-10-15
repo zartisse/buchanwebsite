@@ -4,6 +4,24 @@ import { sendChatMessage } from '../../../lib/chatbotApi';
 import styles from './ChatWidget.module.css';
 
 const SESSION_KEY = 'buchan-chat-session-id';
+const ATTENTION_DISMISSED_KEY = 'buchan-chat-attention-dismissed';
+const ATTENTION_CAP_MS = 90_000;
+
+function isAttentionDismissed(): boolean {
+  try {
+    return sessionStorage.getItem(ATTENTION_DISMISSED_KEY) === '1';
+  } catch {
+    return false;
+  }
+}
+
+function dismissAttention(): void {
+  try {
+    sessionStorage.setItem(ATTENTION_DISMISSED_KEY, '1');
+  } catch {
+    /* ignore */
+  }
+}
 
 type ChatMessage = {
   role: 'user' | 'assistant';
@@ -32,11 +50,24 @@ export function ChatWidget() {
   const [input, setInput] = useState('');
   const [sending, setSending] = useState(false);
   const [sessionId, setSessionId] = useState('');
+  const [showAttention, setShowAttention] = useState(() => !isAttentionDismissed());
   const listRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setSessionId(getOrCreateSessionId());
   }, []);
+
+  useEffect(() => {
+    if (!showAttention) return;
+    const cap = window.setTimeout(() => setShowAttention(false), ATTENTION_CAP_MS);
+    return () => window.clearTimeout(cap);
+  }, [showAttention]);
+
+  useEffect(() => {
+    if (!open) return;
+    dismissAttention();
+    setShowAttention(false);
+  }, [open]);
 
   useEffect(() => {
     if (open && settings?.welcome_message && messages.length === 0) {
@@ -156,9 +187,14 @@ export function ChatWidget() {
           </form>
         </div>
       )}
+      {!open && showAttention && (
+        <div className={styles.teaser} aria-hidden="true">
+          Questions? Ask us
+        </div>
+      )}
       <button
         type="button"
-        className={styles.toggle}
+        className={`${styles.toggle} ${!open && showAttention ? styles.toggleAttention : ''}`}
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-label={open ? 'Close chat' : 'Open chat'}

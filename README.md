@@ -107,8 +107,7 @@ supabase functions deploy index-knowledge-source
 Local testing:
 
 ```bash
-supabase secrets set ANTHROPIC_API_KEY=sk-ant-...
-supabase secrets set VOYAGE_API_KEY=pa-...
+supabase secrets set OPENAI_API_KEY=sk-...
 supabase functions serve chat index-knowledge-source
 ```
 
@@ -135,7 +134,7 @@ Shows the widget even if disabled in DB (useful before migration 009 is applied)
 ### Verification checklist
 
 - [ ] Migration `009` applied; `chatbot_settings` row exists
-- [ ] Functions deployed; `ANTHROPIC_API_KEY` + `VOYAGE_API_KEY` set; voyage SQL applied
+- [ ] Functions deployed; `OPENAI_API_KEY` set
 - [ ] Admin: upload or sync a source → status **indexed**
 - [ ] Public site: ask a question answerable from that source → correct reply + optional sources line
 - [ ] Ask something outside the KB → honest “don’t know” + call/book guidance
