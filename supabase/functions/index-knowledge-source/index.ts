@@ -1,6 +1,6 @@
 import { corsHeaders, jsonResponse } from '../_shared/cors.ts';
 import { chunkText, stripHtml } from '../_shared/chunk.ts';
-import { embedTexts } from '../_shared/voyage.ts';
+import { embedTexts } from '../_shared/openai.ts';
 import { createAdminClient } from '../_shared/supabaseAdmin.ts';
 
 async function extractPdfText(bytes: Uint8Array): Promise<string> {
@@ -121,7 +121,7 @@ async function resolveSourceText(
   }
 }
 
-async function indexSource(supabase: ReturnType<typeof createAdminClient>, sourceId: string, voyageKey: string) {
+async function indexSource(supabase: ReturnType<typeof createAdminClient>, sourceId: string, openaiKey: string) {
   const { data: source, error: fetchErr } = await supabase
     .from('knowledge_sources')
     .select('*')
@@ -140,7 +140,7 @@ async function indexSource(supabase: ReturnType<typeof createAdminClient>, sourc
   const chunks = chunkText(text);
   if (chunks.length === 0) throw new Error('No indexable text found');
 
-  const embeddings = await embedTexts(voyageKey, chunks, 'document');
+  const embeddings = await embedTexts(openaiKey, chunks);
   const rows = chunks.map((content, i) => ({
     source_id: sourceId,
     content,
@@ -169,8 +169,8 @@ Deno.serve(async (req) => {
 
   let failSourceId: string | undefined;
   try {
-    const voyageKey = Deno.env.get('VOYAGE_API_KEY');
-    if (!voyageKey) return jsonResponse({ error: 'VOYAGE_API_KEY not configured' }, 500);
+    const openaiKey = Deno.env.get('OPENAI_API_KEY');
+    if (!openaiKey) return jsonResponse({ error: 'OPENAI_API_KEY not configured' }, 500);
 
     const authHeader = req.headers.get('Authorization');
     if (!authHeader) return jsonResponse({ error: 'Unauthorized' }, 401);
@@ -208,13 +208,13 @@ Deno.serve(async (req) => {
           .eq('id', cmsId);
       }
 
-      const result = await indexSource(supabase, cmsId!, voyageKey);
+      const result = await indexSource(supabase, cmsId!, openaiKey);
       return jsonResponse({ ok: true, sourceId: cmsId, ...result });
     }
 
     if (!sourceId) return jsonResponse({ error: 'sourceId or syncCms required' }, 400);
 
-    const result = await indexSource(supabase, sourceId, voyageKey);
+    const result = await indexSource(supabase, sourceId, openaiKey);
     return jsonResponse({ ok: true, sourceId, ...result });
   } catch (e) {
     const message = e instanceof Error ? e.message : 'Indexing failed';

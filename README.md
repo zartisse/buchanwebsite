@@ -91,10 +91,7 @@ In **Supabase → Project Settings → Edge Functions → Secrets**, set:
 
 | Secret | Purpose |
 |--------|---------|
-| `ANTHROPIC_API_KEY` | Chat replies (Claude) |
-| `VOYAGE_API_KEY` | Search embeddings over your knowledge base ([Voyage AI](https://www.voyageai.com/)) |
-
-After migration `009`, run [`supabase/apply_voyage_embeddings.sql`](supabase/apply_voyage_embeddings.sql) once so vectors match Voyage (1024 dimensions).
+| `OPENAI_API_KEY` | Embeddings (`text-embedding-3-small`) + chat (`gpt-4o-mini`) |
 
 `SUPABASE_SERVICE_ROLE_KEY` is provided automatically to Edge Functions for vector search and indexing.
 
