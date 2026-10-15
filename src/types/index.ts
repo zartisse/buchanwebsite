@@ -449,3 +449,39 @@ export interface Profile {
   display_name: string;
   role: 'editor' | 'admin';
 }
+
+export type KnowledgeSourceType = 'pdf' | 'url' | 'text' | 'image' | 'cms_sync';
+export type KnowledgeSourceStatus = 'pending' | 'indexing' | 'indexed' | 'error';
+
+export interface KnowledgeSource {
+  id: string;
+  type: KnowledgeSourceType;
+  title: string;
+  source_url: string;
+  storage_path: string;
+  body_text: string;
+  status: KnowledgeSourceStatus;
+  error_message: string;
+  metadata: Record<string, unknown>;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface ChatbotSettings {
+  id: string;
+  enabled: boolean;
+  phone: string;
+  phone_href: string;
+  hubspot_meeting_url: string;
+  welcome_message: string;
+  system_prompt_append: string;
+  updated_at: string;
+}
+
+export interface ChatLog {
+  id: string;
+  session_id: string;
+  role: 'user' | 'assistant';
+  message: string;
+  created_at: string;
+}

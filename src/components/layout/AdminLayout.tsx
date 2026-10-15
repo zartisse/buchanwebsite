@@ -12,6 +12,7 @@ const NAV_ITEMS = [
   { path: '/admin/posts', label: 'Blog Posts', icon: '¶' },
   { path: '/admin/properties', label: 'Properties', icon: '□' },
   { path: '/admin/submissions', label: 'Submissions', icon: '✉' },
+  { path: '/admin/knowledge', label: 'Knowledge / Chatbot', icon: '◈' },
 ];
 
 export function AdminLayout() {

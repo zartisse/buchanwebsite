@@ -40,8 +40,9 @@ Run in order in **Supabase → SQL Editor**:
 | [`supabase/migrations/001_schema.sql`](supabase/migrations/001_schema.sql) | Core tables, RLS, media bucket |
 | [`supabase/migrations/002_site_pages.sql`](supabase/migrations/002_site_pages.sql) | Marketing pages CMS |
 | [`supabase/apply_cms_migrations.sql`](supabase/apply_cms_migrations.sql) | Hub pages, Coming Soon, featured posts, portfolio type (003–006) |
+| [`supabase/migrations/009_chatbot_knowledge.sql`](supabase/migrations/009_chatbot_knowledge.sql) | AI chatbot (pgvector, knowledge sources, settings) |
 
-If you already applied 001–002, run only `apply_cms_migrations.sql`.
+If you already applied 001–002, run only `apply_cms_migrations.sql`. Run `009_chatbot_knowledge.sql` before using the chat widget or **Knowledge / Chatbot** admin.
 
 ### 3. Seed content (optional)
 
@@ -79,6 +80,66 @@ npx tsx scripts/verify-supabase.ts
 ```
 
 Sign in at `/admin/login`.
+
+## AI chat assistant (RAG)
+
+Visitors see a floating chat widget when **chatbot is enabled** in admin. Answers are grounded in knowledge you add in Content Studio (not model fine-tuning).
+
+### Secrets (Supabase only — never in Netlify/Vite)
+
+In **Supabase → Project Settings → Edge Functions → Secrets**, set:
+
+| Secret | Purpose |
+|--------|---------|
+| `OPENAI_API_KEY` | Embeddings (`text-embedding-3-small`) + chat (`gpt-4o-mini`) |
+
+`SUPABASE_SERVICE_ROLE_KEY` is provided automatically to Edge Functions for vector search and indexing.
+
+### Deploy Edge Functions
+
+From the repo root (with [Supabase CLI](https://supabase.com/docs/guides/cli) linked to your project):
+
+```bash
+supabase functions deploy chat
+supabase functions deploy index-knowledge-source
+```
+
+Local testing:
+
+```bash
+supabase secrets set OPENAI_API_KEY=sk-...
+supabase functions serve chat index-knowledge-source
+```
+
+### Admin workflow
+
+1. Open **`/admin/knowledge`**
+2. Adjust settings (HubSpot link, phone, welcome message, enable widget) and **Save settings**
+3. Add sources (text, URL, PDF upload, image + description) or click **Sync website content to knowledge base**
+4. Use **Re-index** if a source shows `error` or after CMS changes
+
+Default CTAs: call **425.827.2266**, book with Mischelle at  
+[https://meetings-na2.hubspot.com/mischelle-mccall](https://meetings-na2.hubspot.com/mischelle-mccall)
+
+### Local dev override
+
+Optional in `.env.local` (widget only; still needs Supabase + deployed functions):
+
+```
+VITE_CHATBOT_ENABLED=true
+```
+
+Shows the widget even if disabled in DB (useful before migration 009 is applied).
+
+### Verification checklist
+
+- [ ] Migration `009` applied; `chatbot_settings` row exists
+- [ ] Functions deployed; `OPENAI_API_KEY` set
+- [ ] Admin: upload or sync a source → status **indexed**
+- [ ] Public site: ask a question answerable from that source → correct reply + optional sources line
+- [ ] Ask something outside the KB → honest “don’t know” + call/book guidance
+- [ ] Ask how to meet with Mischelle → HubSpot URL + phone
+- [ ] Anon client cannot `select` from `knowledge_chunks` (RLS)
 
 ## Deployment
 
@@ -128,6 +189,7 @@ After deploy, confirm `/admin/login` loads and saves persist (check Supabase tab
 | Blog posts | `/admin/posts` |
 | About, Services, Process, Awards, etc. | `/admin/pages` |
 | Contact submissions | `/admin/submissions` |
+| Chatbot knowledge & settings | `/admin/knowledge` |
 
 **Featured Work on homepage** comes from Properties marked **Featured** (with featured order), not from the home page editor.
 

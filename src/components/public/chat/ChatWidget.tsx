@@ -1,0 +1,170 @@
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { useChatbotSettings } from '../../../hooks/useChatbotSettings';
+import { sendChatMessage } from '../../../lib/chatbotApi';
+import styles from './ChatWidget.module.css';
+
+const SESSION_KEY = 'buchan-chat-session-id';
+
+type ChatMessage = {
+  role: 'user' | 'assistant';
+  content: string;
+  citations?: { sourceId: string; title: string }[];
+};
+
+function getOrCreateSessionId(): string {
+  try {
+    const existing = sessionStorage.getItem(SESSION_KEY);
+    if (existing) return existing;
+    const id = crypto.randomUUID();
+    sessionStorage.setItem(SESSION_KEY, id);
+    return id;
+  } catch {
+    return crypto.randomUUID();
+  }
+}
+
+const devForceEnabled = import.meta.env.VITE_CHATBOT_ENABLED === 'true';
+
+export function ChatWidget() {
+  const { settings, loading } = useChatbotSettings(false);
+  const [open, setOpen] = useState(false);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [input, setInput] = useState('');
+  const [sending, setSending] = useState(false);
+  const [sessionId, setSessionId] = useState('');
+  const listRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setSessionId(getOrCreateSessionId());
+  }, []);
+
+  useEffect(() => {
+    if (open && settings?.welcome_message && messages.length === 0) {
+      setMessages([{ role: 'assistant', content: settings.welcome_message }]);
+    }
+  }, [open, settings?.welcome_message, messages.length]);
+
+  useEffect(() => {
+    listRef.current?.scrollTo({ top: listRef.current.scrollHeight, behavior: 'smooth' });
+  }, [messages, sending]);
+
+  const phone = settings?.phone ?? '425.827.2266';
+  const phoneHref = settings?.phone_href ?? 'tel:4258272266';
+  const hubspotUrl =
+    settings?.hubspot_meeting_url ?? 'https://meetings-na2.hubspot.com/mischelle-mccall';
+
+  const handleSend = useCallback(async () => {
+    const text = input.trim();
+    if (!text || sending) return;
+    setInput('');
+    setMessages((prev) => [...prev, { role: 'user', content: text }]);
+    setSending(true);
+    try {
+      const history = messages
+        .filter((m) => m.role === 'user' || m.role === 'assistant')
+        .slice(-10)
+        .map((m) => ({ role: m.role, content: m.content }));
+      const data = await sendChatMessage({
+        message: text,
+        sessionId,
+        history,
+      });
+      if (data.sessionId) {
+        sessionStorage.setItem(SESSION_KEY, data.sessionId);
+        setSessionId(data.sessionId);
+      }
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: 'assistant',
+          content: data.reply,
+          citations: data.citations,
+        },
+      ]);
+    } catch (err) {
+      const msg =
+        err instanceof Error
+          ? err.message
+          : 'Something went wrong. Please call us or book a meeting using the buttons above.';
+      setMessages((prev) => [...prev, { role: 'assistant', content: msg }]);
+    } finally {
+      setSending(false);
+    }
+  }, [input, sending, messages, sessionId]);
+
+  if (loading) return null;
+  if (!settings) return null;
+  if (!settings.enabled && !devForceEnabled) return null;
+
+  return (
+    <div className={styles.root} aria-live="polite">
+      {open && (
+        <div className={styles.panel} role="dialog" aria-label="Chat with John Buchan Homes">
+          <header className={styles.header}>
+            <h2 className={styles.headerTitle}>Ask Buchan Homes</h2>
+            <p className={styles.headerSub}>Custom homes &amp; renovations in the Pacific Northwest</p>
+          </header>
+          <div className={styles.quickActions}>
+            <a className={styles.quickBtn} href={phoneHref}>
+              Call {phone}
+            </a>
+            <a className={styles.quickBtn} href={hubspotUrl} target="_blank" rel="noopener noreferrer">
+              Book with Mischelle
+            </a>
+          </div>
+          <div className={styles.messages} ref={listRef}>
+            {messages.map((m, i) => (
+              <div
+                key={`${m.role}-${i}`}
+                className={`${styles.bubble} ${m.role === 'user' ? styles.bubbleUser : styles.bubbleAssistant}`}
+              >
+                {m.content}
+                {m.citations && m.citations.length > 0 && (
+                  <div className={styles.citations}>
+                    Sources: {m.citations.map((c) => c.title).join(', ')}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+          {sending && <div className={styles.typing}>Thinking…</div>}
+          <form
+            className={styles.form}
+            onSubmit={(e) => {
+              e.preventDefault();
+              void handleSend();
+            }}
+          >
+            <textarea
+              className={styles.input}
+              rows={1}
+              placeholder="Ask a question…"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                  e.preventDefault();
+                  void handleSend();
+                }
+              }}
+              disabled={sending}
+              aria-label="Your message"
+            />
+            <button type="submit" className={styles.send} disabled={sending || !input.trim()}>
+              Send
+            </button>
+          </form>
+        </div>
+      )}
+      <button
+        type="button"
+        className={styles.toggle}
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        aria-label={open ? 'Close chat' : 'Open chat'}
+      >
+        {open ? '×' : '💬'}
+      </button>
+    </div>
+  );
+}

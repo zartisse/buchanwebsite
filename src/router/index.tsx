@@ -32,6 +32,7 @@ const AdminPages = lazy(() => import('../pages/admin/Pages').then((m) => ({ defa
 const AdminPageEdit = lazy(() => import('../pages/admin/PageEdit').then((m) => ({ default: m.AdminPageEdit })));
 const AdminHubPages = lazy(() => import('../pages/admin/HubPages').then((m) => ({ default: m.AdminHubPages })));
 const AdminHubPageEdit = lazy(() => import('../pages/admin/HubPageEdit').then((m) => ({ default: m.AdminHubPageEdit })));
+const AdminKnowledge = lazy(() => import('../pages/admin/Knowledge').then((m) => ({ default: m.AdminKnowledge })));
 
 const IA_LAZY: Record<string, ComponentType> = {
   CustomHomes: lazy(() => import('../pages/public/IaPages').then((m) => ({ default: m.CustomHomes }))),
@@ -130,6 +131,7 @@ export function AppRouter() {
           <Route path="hub-pages" element={<Lazy><AdminHubPages /></Lazy>} />
           <Route path="hub-pages/:slug" element={<Lazy><AdminHubPageEdit /></Lazy>} />
           <Route path="submissions" element={<Lazy><AdminSubmissions /></Lazy>} />
+          <Route path="knowledge" element={<Lazy><AdminKnowledge /></Lazy>} />
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />
