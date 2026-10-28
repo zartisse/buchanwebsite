@@ -33,7 +33,7 @@ export function Nav() {
 
   return (
     <>
-      <header className={`${styles.topbar} ${scrolled ? styles.scrolled : ''} ${lightTop ? styles.lightTopbar : ''} ${onHomeHero ? styles.withMarquee : ''}`}>
+      <header className={`${styles.topbar} ${scrolled ? styles.scrolled : ''} ${lightTop ? styles.lightTopbar : ''}`}>
         <Link to="/" className={styles.logoLink}>
           <img src={lightTop ? assetUrl('/assets/logo-reverse.png') : assetUrl('/assets/logo.png')} alt="John Buchan Homes" className={styles.logo} />
         </Link>
@@ -98,7 +98,11 @@ function DesktopNavItem({
   scrolled: boolean;
 }) {
   const [open, setOpen] = useState(false);
+  const { pathname } = useLocation();
   const hasDropdown = group.links.length > 0;
+  const isCurrent = [group.to, ...group.links.map((l) => l.to)].some(
+    (to) => to !== '/' && !to.startsWith('http') && (pathname === to || pathname.startsWith(`${to}/`)),
+  );
 
   return (
     <div
@@ -112,7 +116,8 @@ function DesktopNavItem({
     >
       <Link
         to={group.to}
-        className={`${styles.desktopNavLink} ${lightTop && !scrolled ? styles.desktopNavLinkLight : ''}`}
+        className={`${styles.desktopNavLink} ${lightTop && !scrolled ? styles.desktopNavLinkLight : ''} ${isCurrent ? styles.desktopNavLinkCurrent : ''}`}
+        aria-current={isCurrent ? 'page' : undefined}
         aria-haspopup={hasDropdown ? 'true' : undefined}
         aria-expanded={hasDropdown ? open : undefined}
       >
@@ -120,11 +125,20 @@ function DesktopNavItem({
       </Link>
       {hasDropdown && (
         <div className={`${styles.dropdown} ${open ? styles.dropdownOpen : ''}`}>
-          {group.links.map((link) => (
-            <Link key={link.to} to={link.to} className={styles.dropdownLink}>
-              {link.label}
-            </Link>
-          ))}
+          {group.links.map((link) => {
+            const path = link.to.split('?')[0].split('#')[0];
+            const current = path !== '/' && (pathname === path || pathname.startsWith(`${path}/`));
+            return (
+              <Link
+                key={link.to}
+                to={link.to}
+                className={`${styles.dropdownLink} ${current ? styles.dropdownLinkCurrent : ''}`}
+                aria-current={current ? 'page' : undefined}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
         </div>
       )}
     </div>

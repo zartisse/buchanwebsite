@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import type { HomePageContent } from '../../../types';
-import { resolveImageUrl } from '../../../lib/placeholders';
+import { OptimizedImage } from '../../ui/OptimizedImage';
 import { RevealOnScroll } from '../../ui/RevealOnScroll';
 import styles from './PreconstructionBand.module.css';
 
@@ -14,10 +14,13 @@ export function PreconstructionBand({ band }: PreconstructionBandProps) {
       <div className={styles.inner}>
         <RevealOnScroll variant="right">
           <div className={styles.imageWrap}>
-            <img
-              src={resolveImageUrl(band.image_url ?? '/assets/ph-arch-2.png', 'preconstruction')}
+            <OptimizedImage
+              src={band.image_url ?? '/assets/ph-arch-2.webp'}
+              seed="preconstruction"
               alt=""
               className={styles.image}
+              displayWidth={1200}
+              sizes="(max-width: 900px) 100vw, 50vw"
             />
           </div>
         </RevealOnScroll>

@@ -19,7 +19,7 @@ import { getDemoPageContent } from '../../data/sitePagesDemo';
 import { resolveImageUrl } from '../../lib/placeholders';
 import homeStyles from './Home.module.css';
 
-const MARQUEE_GROUP_SIZE = 4;
+const MARQUEE_GROUP_SIZE = 2;
 
 function HeroCta({ url, label, className }: { url: string; label: string; className: string }) {
   if (url.startsWith('#')) {
@@ -42,10 +42,6 @@ export function Home() {
     ? <>{hero.title} <em>{hero.title_emphasis}</em></>
     : hero.title;
 
-  const stats = content.credibility_stats?.length
-    ? content.credibility_stats
-    : content.credibility_line.split('|').map((s) => ({ label: s.trim() })).filter((s) => s.label);
-
   useEffect(() => {
     const heroSrc = resolveImageUrl(heroSlides[0] ?? '/assets/ph-arch-1.webp', 'home-hero');
     const existing = document.querySelector('link[data-home-hero-preload]');
@@ -63,20 +59,6 @@ export function Home() {
   return (
     <main className={homeStyles.homePage}>
       <PageMeta title={page?.meta_title ?? 'Build with Certainty | John Buchan Homes'} description={page?.meta_description} />
-
-      {hero.marquee && (
-        <div className={homeStyles.heritageMarquee} aria-hidden>
-          <div className="heritage-marquee-track">
-            {[0, 1].map((group) => (
-              <div key={group} className={homeStyles.marqueeGroup}>
-                {Array.from({ length: MARQUEE_GROUP_SIZE }, (_, i) => (
-                  <span key={i}>{hero.marquee} ·</span>
-                ))}
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
 
       <section className={homeStyles.heroOverlay}>
         <div className={homeStyles.heroMedia} aria-hidden>
@@ -98,14 +80,19 @@ export function Home() {
         </div>
       </section>
 
-      <section className={homeStyles.trustBar} aria-label="Company credentials">
-        {stats.map((stat, i) => (
-          <RevealOnScroll key={stat.label} index={i} variant="up" className={homeStyles.trustReveal}>
-            {i > 0 && <span className={homeStyles.trustDivider} aria-hidden />}
-            <span className={homeStyles.trustItem}>{stat.label}</span>
-          </RevealOnScroll>
-        ))}
-      </section>
+      {hero.marquee && (
+        <section className={homeStyles.heritageMarquee} aria-label="Company heritage">
+          <div className="heritage-marquee-track">
+            {[0, 1].map((group) => (
+              <div key={group} className={homeStyles.marqueeGroup}>
+                {Array.from({ length: MARQUEE_GROUP_SIZE }, (_, i) => (
+                  <span key={i}>{hero.marquee} ·</span>
+                ))}
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
 
       <FeaturedWorkGrid labels={content.featured_work} />
 

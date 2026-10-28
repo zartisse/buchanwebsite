@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useChatbotSettings } from '../../../hooks/useChatbotSettings';
-import { sendChatMessage } from '../../../lib/chatbotApi';
+import { friendlyChatError, sendChatMessage } from '../../../lib/chatbotApi';
 import styles from './ChatWidget.module.css';
 
 const SESSION_KEY = 'buchan-chat-session-id';
@@ -113,10 +113,8 @@ export function ChatWidget() {
         },
       ]);
     } catch (err) {
-      const msg =
-        err instanceof Error
-          ? err.message
-          : 'Something went wrong. Please call us or book a meeting using the buttons above.';
+      const raw = err instanceof Error ? err.message : 'Something went wrong.';
+      const msg = friendlyChatError(raw);
       setMessages((prev) => [...prev, { role: 'assistant', content: msg }]);
     } finally {
       setSending(false);
@@ -202,7 +200,21 @@ export function ChatWidget() {
           aria-expanded={open}
           aria-label={open ? 'Close chat' : 'Open chat'}
         >
-          {open ? '×' : '💬'}
+          {open ? (
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden>
+              <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+            </svg>
+          ) : (
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
+              <path
+                d="M4.5 5.5h15a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H10l-4.5 3.5v-3.5h-1a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1z"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinejoin="round"
+              />
+              <path d="M8 10.5h8M8 13h5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            </svg>
+          )}
         </button>
       </div>
     </div>

@@ -450,12 +450,23 @@ export interface Profile {
   role: 'editor' | 'admin';
 }
 
-export type KnowledgeSourceType = 'pdf' | 'url' | 'text' | 'image' | 'cms_sync';
+export type KnowledgeSourceType = 'pdf' | 'url' | 'text' | 'image' | 'cms_sync' | 'crawl';
 export type KnowledgeSourceStatus = 'pending' | 'indexing' | 'indexed' | 'error';
+
+export interface CrawlProgress {
+  total: number;
+  pending: number;
+  indexing: number;
+  indexed: number;
+  error: number;
+  done?: boolean;
+}
 
 export interface KnowledgeSource {
   id: string;
   type: KnowledgeSourceType;
+  /** Set on pages discovered by a website crawl. */
+  parent_id?: string | null;
   title: string;
   source_url: string;
   storage_path: string;

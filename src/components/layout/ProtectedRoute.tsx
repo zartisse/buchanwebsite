@@ -11,7 +11,7 @@ export function ProtectedRoute({ children }: { children: React.ReactNode }) {
 
   if (!isConfigured) {
     return (
-      <div className="page-error" style={{ minHeight: '100vh', background: '#EFEBE3', color: '#1A2420' }}>
+      <div className="page-error" style={{ minHeight: '100dvh', background: '#EFEBE3', color: '#1A2420' }}>
         Supabase is not configured. Add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY to .env.local
       </div>
     );

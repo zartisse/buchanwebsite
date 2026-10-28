@@ -36,7 +36,7 @@ function HubCtaPrimaryButton({ to, className, children }: { to: string; classNam
 export function HubPage({ page }: { page: HubPage }) {
   const data = page.content;
   const ctaTo = data.ctaLink ?? '/contact';
-  const ctaBg = data.cta_background_image_url ?? data.hero.image_url ?? '/assets/ph-arch-1.png';
+  const ctaBg = data.cta_background_image_url ?? data.hero.image_url ?? '/assets/ph-arch-1.webp';
   const isExternal = ctaTo.startsWith('tel:') || ctaTo.startsWith('http');
   const isHashCta = ctaTo.startsWith('#');
   const pdfUrl = data.process_pdf_url;

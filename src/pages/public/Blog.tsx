@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { usePosts } from '../../hooks/usePosts';
+import { EmptyState } from '../../components/ui/EmptyState';
 import { PageMeta } from '../../components/ui/PageMeta';
 import { RevealOnScroll } from '../../components/ui/RevealOnScroll';
 import { fmtDate } from '../../lib/utils';
@@ -60,6 +61,14 @@ export function Blog() {
 
           {loading && <div className="page-loading">Loading posts…</div>}
           {error && <div className="page-error">{error}</div>}
+          {!loading && !error && filtered.length === 0 && (
+            <EmptyState
+              title="No articles in this category yet"
+              body="Company notes and industry news will appear here. In the meantime, we are happy to talk through a project by phone or at the Bellevue office."
+              actionTo="/contact"
+              actionLabel="Talk with us"
+            />
+          )}
 
           <div className={ps.cardGrid}>
             {gridPosts.map((p) => (

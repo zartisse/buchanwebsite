@@ -44,8 +44,7 @@ export function GoogleReviewsSection({ section, widgetId }: GoogleReviewsSection
       <div className={styles.inner}>
         <RevealOnScroll>
           <header className={styles.header}>
-            <span className="eyebrowRule eyebrowRuleCenter">{section.eyebrow}</span>
-            {section.title && <h2 className={styles.title}>{section.title}</h2>}
+            <h2 className={styles.title}>{section.title || section.eyebrow}</h2>
           </header>
         </RevealOnScroll>
 

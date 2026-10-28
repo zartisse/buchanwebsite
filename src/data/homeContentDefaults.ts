@@ -16,12 +16,27 @@ import {
 /** Increment when default homepage copy changes so stale Supabase rows upgrade on read. */
 export const HOME_CONTENT_VERSION = 4;
 
+export const HERITAGE_MARQUEE_DEFAULT =
+  'Celebrating 65 Years · Family-owned since 1961 · 4,000+ homes built · Serving Bellevue and the Eastside · John Buchan Homes';
+
+const LEGACY_HERITAGE_MARQUEE = 'Celebrating 65 Years · John Buchan Homes';
+
 const LEGACY_CMS_KEYS = ['legacy', 'services', 'recent_work', 'concierge', 'quality_gallery', 'testimonials_strip', 'testimonial_section'] as const;
 
 export function isStaleHomeCms(partial: Record<string, unknown>): boolean {
   if (LEGACY_CMS_KEYS.some((key) => key in partial)) return true;
   const version = partial.content_version;
   return typeof version !== 'number' || version < HOME_CONTENT_VERSION;
+}
+
+function keepImageByTitle<T extends { title: string; image_url?: string }>(
+  items: T[],
+  fromCms: { title?: string; image_url?: string }[] | undefined,
+): T[] {
+  return items.map((item) => ({
+    ...item,
+    image_url: coalesceImageUrl(fromCms?.find((c) => c.title === item.title)?.image_url, item.image_url ?? ''),
+  }));
 }
 
 function preserveCmsMedia(defaults: HomePageContent, partial: Partial<HomePageContent>): HomePageContent {
@@ -41,10 +56,16 @@ function preserveCmsMedia(defaults: HomePageContent, partial: Partial<HomePageCo
     },
     what_we_do: {
       ...defaults.what_we_do,
+      primary: keepImageByTitle(defaults.what_we_do.primary, partial.what_we_do?.primary),
+      secondary: keepImageByTitle(defaults.what_we_do.secondary, partial.what_we_do?.secondary),
       preconstruction: {
         ...defaults.what_we_do.preconstruction,
         image_url: partial.what_we_do?.preconstruction?.image_url ?? defaults.what_we_do.preconstruction.image_url,
       },
+    },
+    pick_your_path: {
+      ...defaults.pick_your_path,
+      tiles: keepImageByTitle(defaults.pick_your_path.tiles, partial.pick_your_path?.tiles),
     },
     quality_layers: {
       ...defaults.quality_layers,
@@ -70,9 +91,9 @@ export function getDefaultHomeContent(): HomePageContent {
       title: 'Build with certainty.',
       title_emphasis: 'Live exceptionally.',
       subtitle: 'Custom homes and major renovations, built on thoughtful planning, expert guidance, and uncompromising craftsmanship, proudly serving Bellevue and the Eastside.',
-      image_url: '/assets/ph-arch-1.png',
-      image_urls: ['/assets/ph-arch-1.png', '/assets/ph-arch-2.png', '/assets/ph-arch-3.png'],
-      marquee: 'Celebrating 65 Years · John Buchan Homes',
+      image_url: '/assets/ph-arch-1.webp',
+      image_urls: ['/assets/ph-arch-1.webp', '/assets/ph-arch-2.webp', '/assets/ph-arch-3.webp'],
+      marquee: HERITAGE_MARQUEE_DEFAULT,
       cta_primary_url: '#featured-work',
       cta_primary_label: 'Explore Our Work',
     },
@@ -89,7 +110,7 @@ export function getDefaultHomeContent(): HomePageContent {
       eyebrow: 'The John Buchan Difference',
       title: "What you can't see makes all the difference.",
       body: "For over six decades, we've built a legacy of trust by doing what's right, even when it costs more and no one sees it.\n\nFrom the framing to the finishing touches, our commitment to integrity and quality is behind every wall, so you can have complete confidence in the process and the relationship that builds your home.",
-      image_url: '/assets/ph-arch-3.png',
+      image_url: '/assets/ph-arch-3.webp',
       cta_label: 'Learn More',
       cta_link: '/why-choose-buchan',
     },
@@ -104,7 +125,7 @@ export function getDefaultHomeContent(): HomePageContent {
         body: 'Preconstruction brings clarity, alignment, and confidence before a single day on site.',
         cta_label: 'Explore Preconstruction',
         cta_link: '/preconstruction',
-        image_url: '/assets/ph-arch-2.png',
+        image_url: '/assets/ph-arch-2.webp',
       },
     },
     client_concerns: {
@@ -132,7 +153,7 @@ export function getDefaultHomeContent(): HomePageContent {
       eyebrow: "What You Can't See",
       title: 'Quality in Every Layer',
       body: 'Great homes are built on systems, materials, and details that work together, quietly, every day.',
-      elevation_image_url: '/assets/quality-layers-house.jpg',
+      elevation_image_url: '/assets/quality-layers-house.webp',
       layers: QUALITY_LAYERS.map((l) => ({
         id: l.id,
         label: l.label,
@@ -160,7 +181,7 @@ export function getDefaultHomeContent(): HomePageContent {
       primary_url: '/contact',
       phone: '425.827.2266',
       phone_href: 'tel:4258272266',
-      background_image_url: '/assets/ph-arch-1.png',
+      background_image_url: '/assets/ph-arch-1.webp',
     },
   };
 }
@@ -175,7 +196,12 @@ function backfillHero(hero: Partial<HomePageContent['hero']>, defaults: HomePage
     ...merged,
     image_url: imageUrl,
     image_urls: imageUrls,
-    marquee: merged.marquee || defaults.marquee,
+    marquee:
+      !merged.marquee ||
+      merged.marquee === LEGACY_HERITAGE_MARQUEE ||
+      !merged.marquee.includes('Family-owned')
+        ? defaults.marquee
+        : merged.marquee,
   };
   const needsHeadlineUpdate =
     hero.title === 'Build with' ||
@@ -261,7 +287,22 @@ function backfillWhatWeDoSecondary(
   const hasLegacy = secondary.some((item) =>
     LEGACY_SECONDARY_PHRASES.some((phrase) => item.description.includes(phrase)),
   );
-  const base = hasLegacy ? defaults.secondary : secondary;
+  const fireIdx = secondary.findIndex((item) => item.title === 'Fire Restoration');
+  const maintIdx = secondary.findIndex((item) => item.title === 'Maintenance & Service');
+  const hasOldServiceOrder = fireIdx >= 0 && maintIdx >= 0 && fireIdx < maintIdx;
+
+  const base =
+    hasLegacy || hasOldServiceOrder
+      ? defaults.secondary.map((def) => {
+          const fromPartial = secondary.find((item) => item.title === def.title);
+          return {
+            ...def,
+            ...fromPartial,
+            image_url: coalesceImageUrl(fromPartial?.image_url, def.image_url),
+          };
+        })
+      : secondary;
+
   return base.map((item, i) => ({
     ...item,
     image_url: coalesceImageUrl(item.image_url, defaults.secondary[i]?.image_url ?? ''),

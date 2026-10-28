@@ -10,24 +10,23 @@ export function ClientConcerns({ section }: ClientConcernsProps) {
   const items = section.items.slice(0, 3);
 
   return (
-    <section className={styles.section}>
+    <section className={styles.section} aria-labelledby="client-concerns-title">
       <div className={styles.inner}>
         <RevealOnScroll>
-          <div className={styles.header}>
-            <span className="eyebrowRule eyebrowRuleCenter">{section.eyebrow}</span>
-          </div>
+          <h2 id="client-concerns-title" className={styles.title}>
+            {section.eyebrow}
+          </h2>
         </RevealOnScroll>
-        <div className={styles.grid}>
+        <dl className={styles.list}>
           {items.map((item, i) => (
             <RevealOnScroll key={item.title} index={i}>
-              <article className={styles.card}>
-                <span className={styles.bgNum} aria-hidden>{String(i + 1).padStart(2, '0')}</span>
-                <h3 className={styles.question}>{item.title}</h3>
-                <p className={styles.answer}>{item.body}</p>
-              </article>
+              <div className={styles.item}>
+                <dt className={styles.question}>{item.title}</dt>
+                <dd className={styles.answer}>{item.body}</dd>
+              </div>
             </RevealOnScroll>
           ))}
-        </div>
+        </dl>
       </div>
     </section>
   );

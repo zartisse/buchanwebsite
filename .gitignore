@@ -9,6 +9,9 @@ lerna-debug.log*
 
 node_modules
 dist
+.tmp
+.taste-skill
+deno.lock
 dist-ssr
 *.local
 
@@ -27,3 +30,9 @@ design-handoff-for-claude/
 *.njsproj
 *.sln
 *.sw?
+
+# Local agent / editor skill packs
+.cursor/
+.agents/
+
+supabase/.temp/

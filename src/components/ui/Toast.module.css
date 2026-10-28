@@ -9,7 +9,7 @@
   border-radius: 4px;
   font-size: 13px;
   letter-spacing: 0.02em;
-  z-index: 99999;
+  z-index: var(--z-toast);
   opacity: 0;
   transition: opacity 0.3s ease, transform 0.3s ease;
   pointer-events: none;

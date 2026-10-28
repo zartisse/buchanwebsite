@@ -11,9 +11,9 @@
 
   /* ---- Color: text on light surfaces ---- */
   --color-text-on-light: #1a2420;
-  --color-text-body: #4a4a42;
-  --color-text-muted-light: #6b6258;
-  --color-accent-on-light: #a07a45;
+  --color-text-body: #3a3d36;
+  --color-text-muted-light: #625a50;
+  --color-accent-on-light: #8a6334;
 
   /* ---- Color: hairlines on light surfaces ---- */
   --color-hairline-light: #e0dacb;
@@ -35,7 +35,7 @@
   --color-accent-hairline: rgba(176, 130, 76, 0.35);
   --color-accent-fill: #c5a07d;
   --color-accent-fill-hover: #b8926f;
-  --color-accent-fill-text: #ffffff;
+  --color-accent-fill-text: #1a2420;
 
   /* ---- Button semantics ---- */
   --btn-primary-bg: var(--color-accent-fill);
@@ -64,24 +64,28 @@
   --text-display-xl: clamp(36px, 4.6vw, 64px);    /* section H2 */
   --text-display-lg: clamp(28px, 3.2vw, 42px);    /* card / subsection titles */
   --text-display-md: clamp(22px, 2.2vw, 28px);    /* pull quotes */
-  --text-body-lg: clamp(16px, 1.4vw, 19px);
-  --text-body: 15px;
-  --text-body-sm: 13px;
-  --text-label: 11px;   /* eyebrows, uppercase labels */
-  --text-micro: 10px;
+  --text-body-lg: clamp(17px, 1.4vw, 20px);
+  --text-body: 16px;
+  --text-body-sm: 14px;
+  --text-label: 12px;   /* eyebrows, uppercase labels */
+  --text-micro: 11px;
 
   /* ---- Line height ---- */
   --lh-tight: 0.95;
   --lh-snug: 1.05;
   --lh-normal: 1.4;
-  --lh-relaxed: 1.8;
+  --lh-relaxed: 1.65;
 
   /* ---- Letter spacing ---- */
+  --tr-display: -0.02em;
   --tr-tight: -0.015em;
   --tr-normal: 0em;
   --tr-wide: 0.06em;
-  --tr-wider: 0.14em;
-  --tr-widest: 0.26em;
+  --tr-wider: 0.12em;
+  --tr-widest: 0.18em;
+
+  /* ---- Measure ---- */
+  --measure: 65ch;
 
   /* ---- Weight ---- */
   --fw-light: 300;
@@ -106,6 +110,16 @@
   --d-base: 350ms;
   --d-slow: 600ms;
   --d-slower: 900ms;
+
+  /* ---- Stacking ---- */
+  --z-raised: 2;
+  --z-nav: 1000;
+  --z-nav-menu: 1010;
+  --z-chat: 1100;
+  --z-drawer: 1200;
+  --z-lightbox: 1300;
+  --z-toast: 1400;
+  --z-skip-link: 1500;
 
   /* ---- Layout ---- */
   --section-padding: clamp(100px, 16vh, 180px) 8vw;

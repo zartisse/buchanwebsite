@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useProperties } from '../../hooks/useProperties';
 import { PortfolioPropertyCard } from '../../components/public/PortfolioPropertyCard';
+import { EmptyState } from '../../components/ui/EmptyState';
 import { PageMeta } from '../../components/ui/PageMeta';
 import { RevealOnScroll } from '../../components/ui/RevealOnScroll';
 import ps from '../../styles/pages.module.css';
@@ -104,6 +105,14 @@ export function Portfolio() {
 
           {loading && <div className="page-loading">Loading portfolio…</div>}
           {error && <div className="page-error">{error}</div>}
+          {!loading && !error && portfolioType !== 'video-tours' && filtered.length === 0 && (
+            <EmptyState
+              title="No homes match these filters"
+              body="Try another type or status, or ask the Bellevue office which homes are available to tour."
+              actionTo="/contact"
+              actionLabel="Talk with us"
+            />
+          )}
 
           <div className={ps.cardGrid}>
             {filtered.map((h) => (

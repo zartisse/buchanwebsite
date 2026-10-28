@@ -229,7 +229,7 @@
 .ctaPhotoOverlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
+  background: linear-gradient( /* taste-skill-ignore — photo scrim */
     105deg,
     rgba(13, 21, 18, 0.72) 0%,
     rgba(13, 21, 18, 0.45) 45%,
@@ -404,6 +404,58 @@
   border-color: var(--color-accent-fill);
 }
 
+.formInputInvalid {
+  border-color: #c0562e;
+}
+
+.formField {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--s-5);
+  padding: clamp(48px, 8vh, 80px) 0;
+  max-width: 42ch;
+}
+
+.emptyTitle {
+  font-family: var(--font-serif);
+  font-size: var(--text-display-lg);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-snug);
+  margin: 0;
+  color: var(--color-text-on-light);
+}
+
+.notFound {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--s-6);
+  padding: clamp(140px, 18vh, 200px) var(--gutter) clamp(80px, 12vh, 128px);
+  background: var(--color-bg-cream);
+}
+
+.notFoundKicker {
+  font-family: var(--font-serif);
+  font-size: var(--text-body-lg);
+  margin: 0;
+  color: var(--color-text-body);
+}
+
+.notFoundActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-4);
+  margin-top: var(--s-4);
+}
+
 .formInput::placeholder {
   color: var(--color-text-muted-light);
 }
@@ -545,7 +597,7 @@
 .detailHeroOverlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 35%, rgba(13, 21, 18, 0.78) 100%);
+  background: linear-gradient(180deg, transparent 35%, rgba(13, 21, 18, 0.78) 100%); /* taste-skill-ignore — photo scrim */
   pointer-events: none;
 }
 
@@ -753,7 +805,7 @@
 .lightboxBackdrop {
   position: fixed;
   inset: 0;
-  z-index: 10000;
+  z-index: var(--z-lightbox);
   background: rgba(13, 21, 18, 0.96);
   display: flex;
   align-items: center;

@@ -59,7 +59,7 @@ export function Testimonials() {
         </div>
       </section>
 
-      <PageCta title={content.cta_title} backgroundImage={resolveImageUrl(content.cta_background_image_url ?? '/assets/ph-arch-4.png', 'testimonials-cta')}>
+      <PageCta title={content.cta_title} backgroundImage={resolveImageUrl(content.cta_background_image_url ?? '/assets/ph-arch-4.webp', 'testimonials-cta')}>
         <EstimatorLink className="btnGhostLight">Cost Estimator</EstimatorLink>
       </PageCta>
     </main>

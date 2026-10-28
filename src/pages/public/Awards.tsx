@@ -37,26 +37,39 @@ export function Awards() {
       <section className={ps.sectionAlt}>
         <div className={ps.sectionInner}>
           <RevealOnScroll>
-            <span className={ps.eyebrow}>Houzz</span>
-            <h2 className={ps.sectionTitle} style={{ marginTop: 18, marginBottom: 32 }}>Best of Houzz & community recognition.</h2>
+            <h2 className={ps.sectionTitle} style={{ marginBottom: 32 }}>Awards & community recognition.</h2>
           </RevealOnScroll>
-          <div className={footerStyles.awardLogos}>
-            {badges.map((badge) => (
-              <a
-                key={badge.alt}
-                href={badge.href ?? HOUZZ_PROFILE_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={footerStyles.awardLogoLink}
-                title={badge.alt}
-              >
-                {badge.image_url ? (
-                  <img src={assetUrl(badge.image_url)} alt={badge.alt} className={footerStyles.awardLogo} />
-                ) : (
-                  <span className={footerStyles.awardTextBadge}>{badge.alt}</span>
-                )}
-              </a>
-            ))}
+          <div className={footerStyles.awardRow} style={{ gap: 16 }}>
+            {badges.filter((b) => b.image_url).map((badge) => {
+              const href = badge.href ?? HOUZZ_PROFILE_URL;
+              const logo = (
+                <img
+                  src={assetUrl(badge.image_url!)}
+                  alt={badge.alt}
+                  className={footerStyles.awardLogo}
+                  style={{ width: 56, height: 56 }}
+                  loading="lazy"
+                  decoding="async"
+                />
+              );
+              const isInternal = href.startsWith('/') && !href.startsWith('//');
+              return isInternal ? (
+                <Link key={badge.alt} to={href} className={footerStyles.awardLogoLink} title={badge.alt}>
+                  {logo}
+                </Link>
+              ) : (
+                <a
+                  key={badge.alt}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={footerStyles.awardLogoLink}
+                  title={badge.alt}
+                >
+                  {logo}
+                </a>
+              );
+            })}
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 24, marginTop: 48 }}>
             {content.awards.map((a) => (
@@ -114,7 +127,7 @@ export function Awards() {
         </div>
       </section>
 
-      <PageCta title={content.cta_title} backgroundImage={resolveImageUrl(content.cta_background_image_url ?? '/assets/ph-arch-2.png', 'awards-cta')}>
+      <PageCta title={content.cta_title} backgroundImage={resolveImageUrl(content.cta_background_image_url ?? '/assets/ph-arch-2.webp', 'awards-cta')}>
         <Link to="/portfolio" className="btnGhostLight">View Portfolio</Link>
       </PageCta>
     </main>

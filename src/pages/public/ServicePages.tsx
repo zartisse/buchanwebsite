@@ -47,7 +47,7 @@ function ServicePageView({ slug }: { slug: ServiceSlug }) {
           </div>
         </div>
       </section>
-      <PageCta title={content.cta_title} backgroundImage={resolveImageUrl(content.cta_background_image_url ?? '/assets/ph-arch-2.png', `${slug}-cta`)} />
+      <PageCta title={content.cta_title} backgroundImage={resolveImageUrl(content.cta_background_image_url ?? '/assets/ph-arch-2.webp', `${slug}-cta`)} />
     </main>
   );
 }

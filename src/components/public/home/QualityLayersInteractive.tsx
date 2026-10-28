@@ -41,11 +41,23 @@ function CalloutButton({
   );
 }
 
+/** Line-drawing cutaways ship with a baked white plate; use the transparent local WebP. */
+function elevationSource(url: string | undefined): string {
+  // Cache-bust when the transparent asset is regenerated locally.
+  const local = '/assets/quality-layers-house.webp?v=3';
+  if (!url) return local;
+  if (/quality-layers-house/i.test(url) || /\/pages\/home\/quality\//i.test(url)) {
+    return local;
+  }
+  return url;
+}
+
 export function QualityLayersInteractive({ section }: QualityLayersInteractiveProps) {
   const [activeId, setActiveId] = useState<string | null>(section.layers[0]?.id ?? null);
   const active = section.layers.find((l) => l.id === activeId) ?? section.layers[0];
   const leftLayers = section.layers.slice(0, 2);
   const rightLayers = section.layers.slice(2);
+  const elevationUrl = elevationSource(section.elevation_image_url);
 
   const title = section.title_emphasis
     ? <>{section.title} <em>{section.title_emphasis}</em></>
@@ -56,7 +68,6 @@ export function QualityLayersInteractive({ section }: QualityLayersInteractivePr
       <div className={styles.inner}>
         <RevealOnScroll variant="down">
           <div className={styles.header}>
-            {section.eyebrow && <span className="eyebrowRule eyebrowRuleCenter">{section.eyebrow}</span>}
             <h2 className={styles.title}>{title}</h2>
             {section.body && <p className={styles.body}>{section.body}</p>}
           </div>
@@ -73,7 +84,13 @@ export function QualityLayersInteractive({ section }: QualityLayersInteractivePr
 
           <RevealOnScroll variant="scale">
             <div className={styles.elevationPanel}>
-              <OptimizedImage src={section.elevation_image_url} seed="quality-layers" className={styles.elevationPhoto} direct />
+              <OptimizedImage
+                src={elevationUrl}
+                seed="quality-layers"
+                className={styles.elevationPhoto}
+                displayWidth={1100}
+                sizes="(max-width: 960px) 100vw, 40vw"
+              />
               {section.layers.map((layer) => (
                 <button
                   key={layer.id}

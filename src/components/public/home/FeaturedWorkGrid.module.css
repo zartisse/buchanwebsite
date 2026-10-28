@@ -27,8 +27,11 @@
   font-weight: var(--fw-light);
   font-size: var(--text-display-xl);
   line-height: var(--lh-snug);
+  letter-spacing: var(--tr-display);
   margin: 0;
+  max-width: min(22ch, 100%);
   color: var(--color-text-on-light);
+  text-wrap: balance;
 }
 
 .body {
@@ -95,7 +98,7 @@
   bottom: 0;
   z-index: 2;
   padding: var(--s-5) var(--s-5) var(--s-4);
-  background: linear-gradient(180deg, transparent 0%, rgba(13, 21, 18, 0.82) 100%);
+  background: linear-gradient(180deg, transparent 0%, rgba(13, 21, 18, 0.82) 100%); /* taste-skill-ignore — photo scrim */
   opacity: 0;
   transform: translateY(8px);
   transition: opacity var(--d-base) var(--ease-out), transform var(--d-base) var(--ease-out);

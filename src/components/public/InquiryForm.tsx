@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSubmissions } from '../../hooks/useSubmissions';
+import { fieldErrors } from '../../lib/formValidation';
+import { FormField, inputClass } from '../ui/FormField';
 import ps from '../../styles/pages.module.css';
 
 type ContactInquiryFormProps = {
@@ -22,6 +24,7 @@ export function InquiryForm(props: InquiryFormProps) {
   const { createSubmission } = useSubmissions();
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
+  const [fieldErr, setFieldErr] = useState<Record<string, string>>({});
 
   const defaultSubject = props.variant === 'contact' ? props.defaultSubject : undefined;
   const subjectSelectId = props.variant === 'contact' ? (props.subjectSelectId ?? 'jbh-service') : undefined;
@@ -37,6 +40,13 @@ export function InquiryForm(props: InquiryFormProps) {
     setError('');
     const form = e.currentTarget;
     const fd = new FormData(form);
+    const required =
+      props.variant === 'property'
+        ? { name: 'Your name', email: 'Email', message: 'A message' }
+        : { name: 'Your name', email: 'Email', subject: 'A topic', message: 'A message' };
+    const next = fieldErrors(fd, required);
+    setFieldErr(next);
+    if (Object.keys(next).length) return;
 
     try {
       if (props.variant === 'property') {
@@ -76,31 +86,67 @@ export function InquiryForm(props: InquiryFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className={ps.formStack}>
+    <form onSubmit={handleSubmit} className={ps.formStack} noValidate>
       {props.variant === 'property' && (
         <p className={ps.propertyInquiryContext}>
           Inquiring about: <strong>{props.propertyName}</strong>
           {props.propertyCity ? `, ${props.propertyCity}` : ''}
         </p>
       )}
-      <input name="name" type="text" required placeholder="Your name" className={ps.formInput} />
-      <input name="email" type="email" required placeholder="Email" className={ps.formInput} />
-      <input name="phone" type="tel" placeholder="Phone (optional)" className={ps.formInput} />
+      <FormField name="name" error={fieldErr.name}>
+        <input
+          name="name"
+          type="text"
+          required
+          placeholder="Your name"
+          className={inputClass(fieldErr.name)}
+          autoComplete="name"
+          aria-invalid={!!fieldErr.name}
+          aria-describedby={fieldErr.name ? 'name-error' : undefined}
+        />
+      </FormField>
+      <FormField name="email" error={fieldErr.email}>
+        <input
+          name="email"
+          type="email"
+          required
+          placeholder="Email"
+          className={inputClass(fieldErr.email)}
+          autoComplete="email"
+          aria-invalid={!!fieldErr.email}
+          aria-describedby={fieldErr.email ? 'email-error' : undefined}
+        />
+      </FormField>
+      <input name="phone" type="tel" placeholder="Phone (optional)" className={ps.formInput} autoComplete="tel" />
       {props.variant === 'contact' ? (
-        <select id={subjectSelectId} name="subject" required className={ps.formInput} defaultValue="">
-          <option value="" disabled>Select a topic</option>
-          {props.serviceOptions.map((s) => (
-            <option key={s} value={s}>{s}</option>
-          ))}
-        </select>
+        <FormField name="subject" error={fieldErr.subject}>
+          <select
+            id={subjectSelectId}
+            name="subject"
+            required
+            className={inputClass(fieldErr.subject)}
+            defaultValue=""
+            aria-invalid={!!fieldErr.subject}
+            aria-describedby={fieldErr.subject ? 'subject-error' : undefined}
+          >
+            <option value="" disabled>Select a topic</option>
+            {props.serviceOptions.map((s) => (
+              <option key={s} value={s}>{s}</option>
+            ))}
+          </select>
+        </FormField>
       ) : null}
-      <textarea
-        name="message"
-        required
-        placeholder={props.variant === 'property' ? 'Tell us about your interest in this home' : 'Tell us about your project'}
-        rows={5}
-        className={ps.formInput}
-      />
+      <FormField name="message" error={fieldErr.message}>
+        <textarea
+          name="message"
+          required
+          placeholder={props.variant === 'property' ? 'Tell us about your interest in this home' : 'Tell us about your project'}
+          rows={5}
+          className={inputClass(fieldErr.message)}
+          aria-invalid={!!fieldErr.message}
+          aria-describedby={fieldErr.message ? 'message-error' : undefined}
+        />
+      </FormField>
       {error && <p className={ps.formError}>{error}</p>}
       <button type="submit" className={ps.btnPrimary} style={{ alignSelf: 'flex-start' }}>Send Message</button>
     </form>

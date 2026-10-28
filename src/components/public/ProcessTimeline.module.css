@@ -88,13 +88,13 @@
   border: 2px solid var(--color-accent-dark);
   margin-top: -36px;
   margin-bottom: var(--s-2);
-  transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+  transition: transform 0.3s var(--ease-out), outline-color 0.3s var(--ease-out);
 }
 
 .step:hover .dot,
 .step:focus-within .dot {
   transform: scale(1.25);
-  box-shadow: 0 0 0 6px rgba(160, 122, 69, 0.12);
+  outline: 6px solid rgba(160, 122, 69, 0.12);
 }
 
 .title {

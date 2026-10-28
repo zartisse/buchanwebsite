@@ -1,6 +1,10 @@
-import { getDefaultHomeContent } from '../src/data/homeContentDefaults';
+import { getDefaultHomeContent, HERITAGE_MARQUEE_DEFAULT, HOME_CONTENT_VERSION } from '../src/data/homeContentDefaults';
 
 const content = getDefaultHomeContent();
+
+const secondaryTitles = content.what_we_do.secondary.map((s) => s.title);
+const maintenanceIdx = secondaryTitles.indexOf('Maintenance & Service');
+const fireIdx = secondaryTitles.indexOf('Fire Restoration');
 
 const expectations: Array<[string, boolean]> = [
   ['hero title', content.hero.title === 'Build with certainty.'],
@@ -18,8 +22,9 @@ const expectations: Array<[string, boolean]> = [
   ['no em dashes in hero', !content.hero.subtitle?.includes('—')],
   ['path tile title', content.pick_your_path.tiles[0].title === 'I am considering building'],
   ['path tile CTA', !content.pick_your_path.tiles[0].cta_label?.includes('→')],
-  ['content version', (content as { content_version?: number }).content_version === 4],
-  ['hero marquee', content.hero.marquee === 'Celebrating 65 Years · John Buchan Homes'],
+  ['content version', (content as { content_version?: number }).content_version === HOME_CONTENT_VERSION],
+  ['hero marquee', content.hero.marquee === HERITAGE_MARQUEE_DEFAULT],
+  ['maintenance before fire', maintenanceIdx >= 0 && fireIdx >= 0 && maintenanceIdx < fireIdx],
   ['hero carousel', (content.hero.image_urls?.length ?? 0) >= 1],
   ['closing CTA lines', content.closing_cta.title.includes('\n')],
   ['closing CTA label', content.closing_cta.primary_label === "Let's Talk"],

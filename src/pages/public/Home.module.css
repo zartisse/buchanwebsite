@@ -4,13 +4,10 @@
   color: var(--color-text-on-light);
 }
 
-/* ---- Heritage marquee ---- */
+/* ---- Heritage marquee (below hero, replaces former trust bar) ---- */
 .heritageMarquee {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1001;
+  position: relative;
+  width: 100%;
   height: var(--heritage-marquee-height);
   overflow: hidden;
   background: var(--color-bg-dark);
@@ -25,7 +22,7 @@
 /* ---- Overlay hero ---- */
 .heroOverlay {
   position: relative;
-  min-height: clamp(520px, 88vh, 820px);
+  min-height: clamp(520px, 88dvh, 820px);
   display: flex;
   align-items: flex-end;
   overflow: hidden;
@@ -60,7 +57,7 @@
 .heroScrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
+  background: linear-gradient( /* taste-skill-ignore — photo scrim */
     105deg,
     rgba(13, 21, 18, 0.72) 0%,
     rgba(13, 21, 18, 0.45) 45%,
@@ -190,7 +187,7 @@
 .closingCtaOverlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
+  background: linear-gradient( /* taste-skill-ignore — photo scrim */
     105deg,
     rgba(13, 21, 18, 0.72) 0%,
     rgba(13, 21, 18, 0.45) 45%,

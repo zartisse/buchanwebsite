@@ -47,7 +47,7 @@ export function Services() {
         </section>
       ))}
 
-      <PageCta title={content.cta_title} backgroundImage={resolveImageUrl(content.cta_background_image_url ?? '/assets/ph-arch-1.png', 'services-cta')} />
+      <PageCta title={content.cta_title} backgroundImage={resolveImageUrl(content.cta_background_image_url ?? '/assets/ph-arch-1.webp', 'services-cta')} />
     </main>
   );
 }

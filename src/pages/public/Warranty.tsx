@@ -58,7 +58,7 @@ export function Warranty() {
         </div>
       </section>
 
-      <PageCta title={content.cta_title} backgroundImage={resolveImageUrl(content.cta_background_image_url ?? '/assets/ph-arch-3.png', 'warranty-cta')}>
+      <PageCta title={content.cta_title} backgroundImage={resolveImageUrl(content.cta_background_image_url ?? '/assets/ph-arch-3.webp', 'warranty-cta')}>
         <Link to="/faq" className="btnGhostLight">Read FAQ</Link>
       </PageCta>
     </main>

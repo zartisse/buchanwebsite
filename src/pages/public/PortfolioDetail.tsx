@@ -30,8 +30,8 @@ export function PortfolioDetail() {
   const { properties: allProperties } = useProperties({ publicOnly: true });
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
-  const heroUrl = property?.image_url || '/assets/ph-arch-1.png';
-  const fallbackGallery = [heroUrl, '/assets/ph-arch-2.png', '/assets/ph-arch-3.png'];
+  const heroUrl = property?.image_url || '/assets/ph-arch-1.webp';
+  const fallbackGallery = [heroUrl, '/assets/ph-arch-2.webp', '/assets/ph-arch-3.webp'];
   const galleryUrls = property?.gallery_urls?.length ? property.gallery_urls : fallbackGallery;
   const allImages = useMemo(
     () => (property ? buildImageList(heroUrl, galleryUrls).map((url, i) => resolveImageUrl(url, `${slug}-${i}`)) : []),

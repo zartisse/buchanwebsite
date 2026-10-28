@@ -18,7 +18,23 @@ async function functionErrorMessage(error: unknown, data: unknown): Promise<stri
   return err?.message ?? 'Request failed';
 }
 
-export async function invokeIndexKnowledge(body: { sourceId?: string; syncCms?: boolean }) {
+export function friendlyChatError(message: string): string {
+  if (message.includes('Chat is disabled')) {
+    return 'Chat is turned off on the site right now. Please call us or book a meeting using the buttons above, or ask an admin to enable the widget under Knowledge & Chatbot.';
+  }
+  if (message.includes('Chat is not configured')) {
+    return 'Chat is not set up yet. Please call us or book a meeting using the buttons above.';
+  }
+  return message;
+}
+
+export async function invokeIndexKnowledge(body: {
+  sourceId?: string;
+  syncCms?: boolean;
+  crawlStart?: string;
+  crawlStep?: string;
+  crawlStop?: string;
+}) {
   if (!isSupabaseConfigured) throw new Error('Supabase not configured');
   const { data, error } = await supabase.functions.invoke('index-knowledge-source', { body });
   if (error) throw new Error(await functionErrorMessage(error, data));

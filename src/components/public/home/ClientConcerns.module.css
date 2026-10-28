@@ -1,64 +1,72 @@
 .section {
-  padding: clamp(80px, 12vh, 120px) var(--gutter);
-  background: var(--color-bg-cream);
-  border-top: 1px solid var(--color-hairline-light);
+  padding: clamp(64px, 10vh, 96px) var(--gutter);
+  background: var(--color-bg-trust);
 }
 
 .inner {
   max-width: var(--max-width-wide);
   margin: 0 auto;
-}
-
-.header {
-  text-align: left;
-  margin-bottom: clamp(40px, 6vh, 56px);
-}
-
-.grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: clamp(24px, 4vw, 48px);
+  grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+  gap: clamp(32px, 5vw, 80px);
+  align-items: start;
 }
 
-.card {
-  position: relative;
-  padding: var(--s-8) var(--s-4);
-}
-
-.bgNum {
-  position: absolute;
-  top: 0;
-  left: 0;
+.title {
+  position: sticky;
+  top: 120px;
   font-family: var(--font-serif);
-  font-size: clamp(72px, 10vw, 120px);
-  line-height: 1;
-  color: var(--color-hairline-light);
-  font-weight: var(--fw-light);
-  pointer-events: none;
-  user-select: none;
+  font-weight: var(--fw-regular);
+  font-size: clamp(24px, 2.4vw, 32px);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--tr-tight);
+  color: var(--color-text-on-light);
+  margin: 0;
+  max-width: 18ch;
+  text-wrap: balance;
+}
+
+.title::first-letter {
+  text-transform: uppercase;
+}
+
+.list {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(24px, 3.5vh, 36px);
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
 }
 
 .question {
-  position: relative;
   font-family: var(--font-serif);
-  font-size: var(--text-display-md);
-  font-weight: var(--fw-regular);
-  line-height: var(--lh-snug);
-  margin: 0 0 var(--s-5);
+  font-size: clamp(20px, 2vw, 26px);
+  font-weight: var(--fw-medium);
+  line-height: 1.25;
   color: var(--color-text-on-light);
+  margin: 0;
 }
 
 .answer {
-  position: relative;
   font-size: var(--text-body);
   line-height: var(--lh-relaxed);
   color: var(--color-text-body);
   margin: 0;
-  font-weight: var(--fw-light);
+  max-width: 58ch;
 }
 
-@media (max-width: 768px) {
-  .grid {
+@media (max-width: 860px) {
+  .inner {
     grid-template-columns: 1fr;
+  }
+
+  .title {
+    position: static;
+    max-width: none;
   }
 }

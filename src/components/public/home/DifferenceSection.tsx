@@ -16,7 +16,6 @@ export function DifferenceSection({ section }: DifferenceSectionProps) {
       <div className={styles.inner}>
         <RevealOnScroll variant="left">
           <div className={styles.copy}>
-            <span className="eyebrowRule">{section.eyebrow}</span>
             <h2 className={styles.title}>{section.title}</h2>
             {paragraphs.map((paragraph) => (
               <p key={paragraph.slice(0, 32)} className={styles.body}>{paragraph}</p>
@@ -28,7 +27,13 @@ export function DifferenceSection({ section }: DifferenceSectionProps) {
         </RevealOnScroll>
         <RevealOnScroll variant="right" index={1}>
           <div className={styles.imageWrap}>
-            <OptimizedImage src={section.image_url} seed="difference" className={styles.image} />
+            <OptimizedImage
+              src={section.image_url}
+              seed="difference"
+              className={styles.image}
+              displayWidth={1100}
+              sizes="(max-width: 900px) 100vw, 50vw"
+            />
           </div>
         </RevealOnScroll>
       </div>

@@ -73,7 +73,13 @@ async function verify() {
     console.log('\nIf tables are missing, run supabase/migrations/009_chatbot_knowledge.sql in Supabase → SQL Editor.');
     process.exit(1);
   }
-  console.log('\nDatabase ready for chatbot. Next: deploy Edge Functions and set OPENAI_API_KEY in Supabase.');
+  console.log(`
+Database ready for chatbot. Next steps:
+  1. Supabase → Edge Functions → Secrets: set OPENAI_API_KEY (billing/credits active)
+  2. Deploy: supabase functions deploy chat index-knowledge-source
+  3. Admin → Knowledge & Chatbot: enable widget, Sync CMS / Re-index
+  4. Smoke test: npm run cms:smoke-chat
+`);
 }
 
 async function main() {

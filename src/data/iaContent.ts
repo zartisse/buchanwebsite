@@ -24,7 +24,7 @@ export const IA_PAGES: Record<string, HubPageData> = {
       eyebrow: 'Custom Homes',
       title: 'Built on your lot.',
       titleEmphasis: 'Designed for your life.',
-      image_url: '/assets/ph-arch-1.png',
+      image_url: '/assets/ph-arch-1.webp',
     },
     intro: 'We specialize in ground-up custom homes, not spec inventory on our land. From feasibility through completion, one team carries your project forward with progressive estimates and the craftsmanship standards Buchan has protected for 65 years.',
     sections: [
@@ -32,12 +32,12 @@ export const IA_PAGES: Record<string, HubPageData> = {
         title: 'Our Process',
         body: 'Discovery through continuing care, four stages designed to reduce uncertainty at every decision point. You work with the same leadership team from first conversation through warranty.',
         bullets: ['Discover & evaluate', 'Plan & align', 'Build with discipline', 'Care beyond completion'],
-        image_url: '/assets/ph-arch-2.png',
+        image_url: '/assets/ph-arch-2.webp',
       },
       {
         title: 'Service Areas',
         body: 'Bellevue, Clyde Hill, Medina, Hunts Point, Kirkland, Redmond, and surrounding Eastside communities. We know the jurisdictions, slopes, and neighborhood character, because we have built here since 1961.',
-        image_url: '/assets/ph-arch-3.png',
+        image_url: '/assets/ph-arch-3.webp',
       },
       {
         title: 'Cost & Planning',
@@ -60,7 +60,7 @@ export const IA_PAGES: Record<string, HubPageData> = {
       eyebrow: 'Custom Homes',
       title: 'Land & site',
       titleEmphasis: 'considerations.',
-      image_url: '/assets/ph-arch-3.png',
+      image_url: '/assets/ph-arch-3.webp',
     },
     intro: 'Before design begins, we evaluate what your property can support, zoning, setbacks, slope, utilities, and buildability, so your investment aligns with what is actually possible on your lot.',
     sections: [
@@ -68,7 +68,7 @@ export const IA_PAGES: Record<string, HubPageData> = {
         title: 'Site Evaluation',
         body: 'Topography, soil, drainage, and access are reviewed alongside jurisdictional requirements. We flag constraints early so they inform design, not surprise you mid-build.',
         bullets: ['Zoning & setback review', 'Utility & easement mapping', 'Slope & drainage assessment'],
-        image_url: '/assets/ph-arch-2.png',
+        image_url: '/assets/ph-arch-2.webp',
       },
       {
         title: 'Feasibility & Budget Alignment',
@@ -77,7 +77,7 @@ export const IA_PAGES: Record<string, HubPageData> = {
       {
         title: 'Working With Your Team',
         body: 'We collaborate with your architect or recommend trusted independent professionals. Buchan leads constructability review, estimating, and schedule planning from the early stages.',
-        image_url: '/assets/ph-arch-4.png',
+        image_url: '/assets/ph-arch-4.webp',
       },
     ],
     ctaTitle: 'Evaluate your property',
@@ -91,7 +91,7 @@ export const IA_PAGES: Record<string, HubPageData> = {
       eyebrow: 'Renovations',
       title: 'Transform the home',
       titleEmphasis: 'you already love.',
-      image_url: '/assets/ph-arch-2.png',
+      image_url: '/assets/ph-arch-2.webp',
     },
     intro: 'Whole-home and major renovation projects, kitchen and bath, structural additions, and full interior transformations. We apply the same preconstruction discipline and craftsmanship standards as our custom builds.',
     sections: [
@@ -99,7 +99,7 @@ export const IA_PAGES: Record<string, HubPageData> = {
         title: 'Major Remodels',
         body: 'Scope from cosmetic refreshes through whole-house renovations and structural additions. We evaluate existing conditions honestly, structure, envelope, mechanical, before committing to a schedule.',
         bullets: ['Whole-home renovations', 'Kitchen & bath transformations', 'Additions & structural work'],
-        image_url: '/assets/ph-arch-4.png',
+        image_url: '/assets/ph-arch-4.webp',
       },
       {
         title: 'Preconstruction First',
@@ -108,7 +108,7 @@ export const IA_PAGES: Record<string, HubPageData> = {
       {
         title: 'Living Through the Work',
         body: 'For occupied renovations, we establish dust control, access paths, and weekly owner walkthroughs so you always know what is happening next, and when your kitchen will be back.',
-        image_url: '/assets/ph-arch-1.png',
+        image_url: '/assets/ph-arch-1.webp',
       },
       {
         title: 'Renovation FAQ',
@@ -126,7 +126,7 @@ export const IA_PAGES: Record<string, HubPageData> = {
       eyebrow: 'Preconstruction',
       title: 'Know before',
       titleEmphasis: 'you build.',
-      image_url: '/assets/ph-arch-3.png',
+      image_url: '/assets/ph-arch-3.webp',
     },
     intro: 'Our flagship planning phase feeds both custom homes and renovations, progressive estimates, constructability review, and design alignment before breaking ground.',
     sections: [
@@ -134,7 +134,7 @@ export const IA_PAGES: Record<string, HubPageData> = {
         title: "What's Included",
         body: 'Site evaluation, scope definition, budget ranges, schedule framework, and selection planning, documented so every stakeholder shares the same picture.',
         bullets: ['Feasibility studies', 'Design coordination', 'Constructability review', 'Value engineering', 'Selection planning'],
-        image_url: '/assets/ph-arch-2.png',
+        image_url: '/assets/ph-arch-2.webp',
       },
       {
         title: 'Why It Matters',
@@ -143,7 +143,7 @@ export const IA_PAGES: Record<string, HubPageData> = {
       {
         title: 'Into Construction',
         body: 'A clear preconstruction agreement transitions your project into build with aligned expectations on cost, schedule, and quality. No handoffs to a different team.',
-        image_url: '/assets/ph-arch-4.png',
+        image_url: '/assets/ph-arch-4.webp',
       },
     ],
     ctaTitle: 'Start with preconstruction',
@@ -157,11 +157,11 @@ export const IA_PAGES: Record<string, HubPageData> = {
       eyebrow: 'Why Choose Buchan',
       title: 'Build with',
       titleEmphasis: 'certainty.',
-      image_url: '/assets/ph-arch-4.png',
+      image_url: '/assets/ph-arch-4.webp',
     },
     intro: 'Three generations, one standard, yours. We combine Eastside expertise with white-glove client care from first conversation through long-term warranty support.',
     sections: [
-      { title: 'Family-Owned Since 1961', body: '65 years on the Eastside. Decisions made by people who know your project, not a ticket queue.', image_url: '/assets/ph-arch-1.png' },
+      { title: 'Family-Owned Since 1961', body: '65 years on the Eastside. Decisions made by people who know your project, not a ticket queue.', image_url: '/assets/ph-arch-1.webp' },
       { title: 'Progressive Estimating', body: 'Transparent pricing developed through preconstruction, not a single guess before design is resolved.' },
       { title: 'Continuing Care', body: 'Warranty, homeowner education, and Buchan Home Care, support that outlasts the keys.' },
     ],
@@ -176,7 +176,7 @@ export const IA_PAGES: Record<string, HubPageData> = {
       eyebrow: 'Local Expertise',
       title: 'Areas we',
       titleEmphasis: 'serve.',
-      image_url: '/assets/ph-arch-1.png',
+      image_url: '/assets/ph-arch-1.webp',
     },
     intro: 'Deep knowledge of Eastside jurisdictions, setbacks, slopes, and neighborhood character, built over 65 years in these communities.',
     sections: [
@@ -184,7 +184,7 @@ export const IA_PAGES: Record<string, HubPageData> = {
         title: 'Primary Markets',
         body: 'Bellevue, Medina, Clyde Hill, Yarrow Point, Hunts Point, Kirkland, Redmond, Newcastle, Mercer Island, Sammamish, Issaquah, and Woodinville.',
         bullets: ['Bellevue & Bridle Trails', 'Clyde Hill & Medina', 'Kirkland & Juanita', 'Redmond & Sammamish'],
-        image_url: '/assets/ph-arch-2.png',
+        image_url: '/assets/ph-arch-2.webp',
       },
       {
         title: 'Jurisdiction Knowledge',
@@ -206,7 +206,7 @@ export const IA_PAGES: Record<string, HubPageData> = {
       eyebrow: 'ADUs & DADUs',
       title: 'More living.',
       titleEmphasis: 'Same lot.',
-      image_url: '/assets/ph-arch-3.png',
+      image_url: '/assets/ph-arch-3.webp',
     },
     intro: 'Detached and attached accessory dwelling units for aging-parent housing, guest space, or rental income, evaluated and built with the same Buchan team that handles custom homes.',
     sections: [
@@ -214,7 +214,7 @@ export const IA_PAGES: Record<string, HubPageData> = {
         title: 'Feasibility',
         body: 'We evaluate zoning, setbacks, utilities, and access before design begins. Washington ADU legislation has expanded options in many Eastside cities, but every lot is different.',
         bullets: ['Zoning & setback review', 'Utility & sewer capacity', 'Access & parking requirements'],
-        image_url: '/assets/ph-arch-1.png',
+        image_url: '/assets/ph-arch-1.webp',
       },
       {
         title: 'Design & Build',
@@ -240,14 +240,14 @@ export const IA_PAGES: Record<string, HubPageData> = {
       eyebrow: 'Fire Restoration',
       title: 'Restore with',
       titleEmphasis: 'care.',
-      image_url: '/assets/ph-arch-4.png',
+      image_url: '/assets/ph-arch-4.webp',
     },
     intro: 'Emergency response coordination and rebuild services for fire-damaged homes. Available through Services and Contact when you need a builder who understands insurance, structure, and finish quality together.',
     sections: [
       {
         title: 'Immediate Response',
         body: 'Secure the site, assess structural integrity, and develop a recovery plan with your insurance partners. We document conditions thoroughly before any demolition.',
-        image_url: '/assets/ph-arch-2.png',
+        image_url: '/assets/ph-arch-2.webp',
       },
       {
         title: 'Insurance Coordination',
@@ -274,14 +274,14 @@ export const IA_PAGES: Record<string, HubPageData> = {
       eyebrow: 'Planning & Budgeting',
       title: 'Clarity before',
       titleEmphasis: 'commitment.',
-      image_url: '/assets/ph-arch-2.png',
+      image_url: '/assets/ph-arch-2.webp',
     },
     intro: 'Feasibility studies, design coordination, constructability review, progressive estimates, value engineering, and code compliance, the planning layer behind every Buchan project.',
     sections: [
       {
         title: 'Progressive Estimates',
         body: 'Budget ranges refined as design resolves, tied to our Preconstruction flagship page. You see numbers update as decisions get made, not after.',
-        image_url: '/assets/ph-arch-3.png',
+        image_url: '/assets/ph-arch-3.webp',
       },
       {
         title: 'Constructability Review',
@@ -308,11 +308,11 @@ export const IA_PAGES: Record<string, HubPageData> = {
       eyebrow: 'Real Estate Services',
       title: 'Three paths.',
       titleEmphasis: 'One team.',
-      image_url: '/assets/ph-arch-1.png',
+      image_url: '/assets/ph-arch-1.webp',
     },
     intro: 'Three distinct relationships, not one blended service. Each path has its own process, timeline, and client relationship.',
     sections: [
-      { title: 'Find Your Lot', body: 'Buy-side sourcing for clients ready to build custom who do not yet have land.', image_url: '/assets/ph-arch-2.png' },
+      { title: 'Find Your Lot', body: 'Buy-side sourcing for clients ready to build custom who do not yet have land.', image_url: '/assets/ph-arch-2.webp' },
       { title: 'Sell Your Current Home', body: 'Traditional listing and brokerage support while you plan or build your next home.' },
       { title: 'Sell Directly to Buchan', body: 'JBH may purchase your property as a principal buyer, not as your listing agent. Written disclosures explain the difference before any agreement.' },
     ],
@@ -327,7 +327,7 @@ export const IA_PAGES: Record<string, HubPageData> = {
       eyebrow: 'Real Estate',
       title: 'Find your',
       titleEmphasis: 'lot.',
-      image_url: '/assets/ph-arch-2.png',
+      image_url: '/assets/ph-arch-2.webp',
     },
     intro: 'For clients who know they want to build custom but have not yet secured land, we help evaluate and source buildable lots aligned with your vision and budget.',
     sections: [
@@ -335,7 +335,7 @@ export const IA_PAGES: Record<string, HubPageData> = {
         title: 'Search Criteria',
         body: 'We start with how you want to live, schools, commute, views, privacy, then filter for lots that can support the home you have in mind, not just what is listed today.',
         bullets: ['Location & lifestyle priorities', 'Budget range for land + build', 'Timeline flexibility'],
-        image_url: '/assets/ph-arch-3.png',
+        image_url: '/assets/ph-arch-3.webp',
       },
       {
         title: 'Lot Evaluation Checklist',
@@ -362,14 +362,14 @@ export const IA_PAGES: Record<string, HubPageData> = {
       eyebrow: 'Real Estate',
       title: 'Sell your',
       titleEmphasis: 'current home.',
-      image_url: '/assets/ph-arch-3.png',
+      image_url: '/assets/ph-arch-3.webp',
     },
     intro: 'Traditional brokerage support coordinated with your custom build or renovation timeline, so selling and building are one plan, not two competing urgencies.',
     sections: [
       {
         title: 'Staging & Presentation',
         body: 'We advise on preparation that matters on the Eastside, curb presence, decluttering, and timing photography around your construction milestones.',
-        image_url: '/assets/ph-arch-4.png',
+        image_url: '/assets/ph-arch-4.webp',
       },
       {
         title: 'Timing With Your Build',
@@ -395,7 +395,7 @@ export const IA_PAGES: Record<string, HubPageData> = {
       eyebrow: 'Real Estate',
       title: 'Sell directly',
       titleEmphasis: 'to Buchan.',
-      image_url: '/assets/ph-arch-4.png',
+      image_url: '/assets/ph-arch-4.webp',
     },
     intro: 'In select situations, John Buchan Homes may purchase your property directly as a principal buyer, for our own development or inventory purposes. This is not listing or brokerage service on your behalf.',
     sections: [
@@ -414,7 +414,7 @@ export const IA_PAGES: Record<string, HubPageData> = {
       {
         title: 'Fair, discreet process',
         body: 'We evaluate each property individually, location, condition, zoning, and timing. Conversations are confidential. If a direct purchase is not the right fit, we will say so and outline alternatives, including traditional listing support.',
-        image_url: '/assets/ph-arch-1.png',
+        image_url: '/assets/ph-arch-1.webp',
       },
     ],
     ctaTitle: 'Explore a direct sale',
@@ -428,7 +428,7 @@ export const IA_PAGES: Record<string, HubPageData> = {
       eyebrow: 'Buchan Home Care',
       title: 'Care after',
       titleEmphasis: 'the keys.',
-      image_url: '/assets/ph-arch-1.png',
+      image_url: '/assets/ph-arch-1.webp',
     },
     intro: 'Maintenance, seasonal upkeep, and smaller projects for homeowners who want Buchan quality on an ongoing basis, whether we built your home or you simply want the same standard of care.',
     sections: [
@@ -436,7 +436,7 @@ export const IA_PAGES: Record<string, HubPageData> = {
         title: 'What We Handle',
         body: 'Seasonal maintenance, minor repairs, fixture upgrades, and selective remodels scoped for occupied homes. The same trades and supers who know Buchan standards, scaled for ongoing care.',
         bullets: ['Seasonal maintenance visits', 'Minor repairs & adjustments', 'Selective upgrades', 'Pre-sale preparation'],
-        image_url: '/assets/ph-arch-2.png',
+        image_url: '/assets/ph-arch-2.webp',
       },
       {
         title: 'Who It Is For',
@@ -462,7 +462,7 @@ export const IA_PAGES: Record<string, HubPageData> = {
       eyebrow: 'Landowners',
       title: 'Sell your',
       titleEmphasis: 'land.',
-      image_url: '/assets/ph-arch-3.png',
+      image_url: '/assets/ph-arch-3.webp',
     },
     intro: 'For property owners with no other relationship to JBH who may want to sell land directly, without listing it. A confidential path for parcels that may fit future custom or spec opportunities.',
     sections: [
@@ -470,7 +470,7 @@ export const IA_PAGES: Record<string, HubPageData> = {
         title: 'Parcel Types We Evaluate',
         body: 'Buildable residential lots, teardown candidates, and infill parcels across the Eastside. Size, slope, and utility access all factor into whether a direct conversation makes sense.',
         bullets: ['Single-family residential lots', 'Teardown / rebuild candidates', 'Infill & subdivision remnants'],
-        image_url: '/assets/ph-arch-4.png',
+        image_url: '/assets/ph-arch-4.webp',
       },
       {
         title: 'Evaluation Process',
@@ -496,14 +496,14 @@ export const IA_PAGES: Record<string, HubPageData> = {
       eyebrow: 'Second Opinion',
       title: 'Need another',
       titleEmphasis: 'perspective?',
-      image_url: '/assets/ph-arch-2.png',
+      image_url: '/assets/ph-arch-2.webp',
     },
     intro: 'Whether you are considering a builder transition or simply want an outside gut-check on a project underway, reach a person, not a form funnel.',
     sections: [
       {
         title: 'When to Call',
         body: 'Schedule slips with no explanation, change orders stacking up, quality concerns on site, or a gut feeling that the project has drifted from plan, these are all valid reasons for an outside review.',
-        image_url: '/assets/ph-arch-3.png',
+        image_url: '/assets/ph-arch-3.webp',
       },
       {
         title: 'What We Review',
@@ -530,11 +530,11 @@ export const IA_PAGES: Record<string, HubPageData> = {
       eyebrow: 'Property Evaluation',
       title: 'What can you',
       titleEmphasis: 'build here?',
-      image_url: '/assets/ph-arch-4.png',
+      image_url: '/assets/ph-arch-4.webp',
     },
     intro: 'Not sure where to start? Tell us about your property and goals, we will help you find the path that fits: build, renovate, add an ADU, or explore selling instead.',
     sections: [
-      { title: 'Build Custom', body: 'Ground-up home on your lot, our core practice since 1961.', bullets: ['Feasibility & zoning review', 'Progressive cost estimating', '→ Custom Homes'], image_url: '/assets/ph-arch-1.png' },
+      { title: 'Build Custom', body: 'Ground-up home on your lot, our core practice since 1961.', bullets: ['Feasibility & zoning review', 'Progressive cost estimating', '→ Custom Homes'], image_url: '/assets/ph-arch-1.webp' },
       { title: 'ADU or DADU', body: 'Additional dwelling on existing lot for family or rental income.', bullets: ['Setback & utility check', 'Coordinated design & construction', '→ ADUs & DADUs'] },
       { title: 'Renovate or Rebuild', body: 'Transform or replace an existing structure while staying on the land you love.', bullets: ['Condition assessment', 'Phasing for occupied homes', '→ Renovations'] },
       { title: 'Sell Instead', body: 'Explore selling your property or land directly or on the open market.', bullets: ['→ Land Acquisition', '→ Sell to Buchan', '→ Sell Your Home'] },
@@ -554,18 +554,18 @@ export type JourneyPathItem = {
 };
 
 export const JOURNEY_PATHS: JourneyPathItem[] = [
-  { title: 'How much will my project cost?', description: 'Personalized range from our estimator tool.', link: 'https://estimator.buchan.com/', group: 'anchor', image_url: '/assets/ph-arch-1.png', external: true },
-  { title: 'What can I build on my property?', description: 'Build, ADU, renovate, or sell, find your path.', link: '/property-feasibility', group: 'anchor', image_url: '/assets/ph-arch-2.png' },
-  { title: 'I want to build a custom home', description: 'Ground-up on your lot.', link: '/custom-homes', group: 'core', image_url: '/assets/ph-arch-3.png' },
-  { title: "I'm considering a major renovation", description: 'Whole-home and major remodel scope.', link: '/renovations', group: 'core', image_url: '/assets/ph-arch-4.png' },
-  { title: 'I have plans and need a builder', description: 'Upload plans, city, budget, timing.', link: '/contact?service=I have plans and need a builder#inquiry', group: 'core', image_url: '/assets/ph-arch-1.png' },
-  { title: "I'm looking for a move-in-ready home", description: 'Available and coming-soon homes.', link: '/available-homes', group: 'core', image_url: '/assets/ph-arch-2.png' },
-  { title: 'Not sure where to start?', description: 'Tell us about your situation, we will guide you.', link: '/contact?service=Not sure where to start#inquiry', group: 'secondary', image_url: '/assets/ph-arch-3.png' },
-  { title: 'I have land to sell', description: 'Direct land acquisition intake.', link: '/land-acquisition', group: 'secondary', image_url: '/assets/ph-arch-4.png' },
-  { title: 'Thinking about an ADU?', description: 'Family housing or rental income.', link: '/services/adus', group: 'secondary', image_url: '/assets/ph-arch-1.png' },
-  { title: 'Need a second opinion?', description: 'Project underway, we can help.', link: '/second-opinion', group: 'secondary', image_url: '/assets/ph-arch-2.png' },
-  { title: 'Maintenance or small project', description: 'Buchan Home Care.', link: '/services/home-care', group: 'secondary', image_url: '/assets/ph-arch-3.png' },
-  { title: 'Just browsing', description: 'Why Choose Buchan and Portfolio.', link: '/why-choose-buchan', group: 'secondary', image_url: '/assets/ph-arch-4.png' },
+  { title: 'How much will my project cost?', description: 'Personalized range from our estimator tool.', link: 'https://estimator.buchan.com/', group: 'anchor', image_url: '/assets/ph-arch-1.webp', external: true },
+  { title: 'What can I build on my property?', description: 'Build, ADU, renovate, or sell, find your path.', link: '/property-feasibility', group: 'anchor', image_url: '/assets/ph-arch-2.webp' },
+  { title: 'I want to build a custom home', description: 'Ground-up on your lot.', link: '/custom-homes', group: 'core', image_url: '/assets/ph-arch-3.webp' },
+  { title: "I'm considering a major renovation", description: 'Whole-home and major remodel scope.', link: '/renovations', group: 'core', image_url: '/assets/ph-arch-4.webp' },
+  { title: 'I have plans and need a builder', description: 'Upload plans, city, budget, timing.', link: '/contact?service=I have plans and need a builder#inquiry', group: 'core', image_url: '/assets/ph-arch-1.webp' },
+  { title: "I'm looking for a move-in-ready home", description: 'Available and coming-soon homes.', link: '/available-homes', group: 'core', image_url: '/assets/ph-arch-2.webp' },
+  { title: 'Not sure where to start?', description: 'Tell us about your situation, we will guide you.', link: '/contact?service=Not sure where to start#inquiry', group: 'secondary', image_url: '/assets/ph-arch-3.webp' },
+  { title: 'I have land to sell', description: 'Direct land acquisition intake.', link: '/land-acquisition', group: 'secondary', image_url: '/assets/ph-arch-4.webp' },
+  { title: 'Thinking about an ADU?', description: 'Family housing or rental income.', link: '/services/adus', group: 'secondary', image_url: '/assets/ph-arch-1.webp' },
+  { title: 'Need a second opinion?', description: 'Project underway, we can help.', link: '/second-opinion', group: 'secondary', image_url: '/assets/ph-arch-2.webp' },
+  { title: 'Maintenance or small project', description: 'Buchan Home Care.', link: '/services/home-care', group: 'secondary', image_url: '/assets/ph-arch-3.webp' },
+  { title: 'Just browsing', description: 'Why Choose Buchan and Portfolio.', link: '/why-choose-buchan', group: 'secondary', image_url: '/assets/ph-arch-4.webp' },
 ];
 
 /** @deprecated Use JOURNEY_PATHS */
@@ -601,25 +601,25 @@ export interface FeaturedWorkItem {
 }
 
 export const FEATURED_WORK_ITEMS: FeaturedWorkItem[] = [
-  { image_url: '/assets/ph-arch-1.png', title: 'Eastside Custom Residence', label: 'Featured Residence', featured: true, link: '/portfolio' },
-  { image_url: '/assets/ph-arch-2.png', title: 'Clyde Hill Exterior', link: '/portfolio?type=custom-homes' },
-  { image_url: '/assets/ph-arch-3.png', title: 'Medina Interior', link: '/portfolio?type=interiors' },
-  { image_url: '/assets/ph-arch-4.png', title: 'Whole-Home Renovation', link: '/portfolio?type=renovations' },
-  { image_url: '/assets/ph-arch-1.png', title: 'Bellevue Custom Home', link: '/portfolio?type=custom-homes' },
-  { image_url: '/assets/ph-arch-2.png', title: 'Kitchen Transformation', link: '/portfolio?type=interiors' },
-  { image_url: '/assets/ph-arch-3.png', title: 'Available Now', label: 'Available Now', link: '/portfolio?type=available-homes' },
+  { image_url: '/assets/ph-arch-1.webp', title: 'Eastside Custom Residence', label: 'Featured Residence', featured: true, link: '/portfolio' },
+  { image_url: '/assets/ph-arch-2.webp', title: 'Clyde Hill Exterior', link: '/portfolio?type=custom-homes' },
+  { image_url: '/assets/ph-arch-3.webp', title: 'Medina Interior', link: '/portfolio?type=interiors' },
+  { image_url: '/assets/ph-arch-4.webp', title: 'Whole-Home Renovation', link: '/portfolio?type=renovations' },
+  { image_url: '/assets/ph-arch-1.webp', title: 'Bellevue Custom Home', link: '/portfolio?type=custom-homes' },
+  { image_url: '/assets/ph-arch-2.webp', title: 'Kitchen Transformation', link: '/portfolio?type=interiors' },
+  { image_url: '/assets/ph-arch-3.webp', title: 'Available Now', label: 'Available Now', link: '/portfolio?type=available-homes' },
 ];
 
 export const WHAT_WE_DO = {
   primary: [
-    { title: 'Custom Homes', description: 'Beautifully designed. Expertly built. Precisely planned from start to finish.', image_url: '/assets/ph-arch-1.png', link: '/custom-homes', icon: 'custom-home' as const, cta_label: 'Explore Custom Homes' },
-    { title: 'Major Renovations', description: 'Reimagine your home with seamless additions and whole-home transformations.', image_url: '/assets/ph-arch-2.png', link: '/renovations', icon: 'renovation' as const, cta_label: 'Explore Renovations' },
+    { title: 'Custom Homes', description: 'Beautifully designed. Expertly built. Precisely planned from start to finish.', image_url: '/assets/ph-arch-1.webp', link: '/custom-homes', icon: 'custom-home' as const, cta_label: 'Explore Custom Homes' },
+    { title: 'Major Renovations', description: 'Reimagine your home with seamless additions and whole-home transformations.', image_url: '/assets/ph-arch-2.webp', link: '/renovations', icon: 'renovation' as const, cta_label: 'Explore Renovations' },
   ],
   secondary: [
     { title: 'ADUs & DADUs', description: 'Smart spaces for extended living and added value.', link: '/services/adus', icon: 'adu' as const, image_url: '/assets/ph-arch-2.webp' },
-    { title: 'Fire Restoration', description: 'Compassionate support. Expert restoration.', link: '/services/fire-restoration', icon: 'fire-restoration' as const, image_url: '/assets/ph-arch-3.webp' },
-    { title: 'Real Estate Services', description: 'Guidance for buying, selling, and property strategy.', link: '/services/real-estate', icon: 'real-estate' as const, image_url: '/assets/ph-arch-4.webp' },
     { title: 'Maintenance & Service', description: 'Protect your investment with proactive care.', link: '/services/home-care', icon: 'maintenance' as const, image_url: '/assets/ph-arch-1.webp' },
+    { title: 'Real Estate Services', description: 'Guidance for buying, selling, and property strategy.', link: '/services/real-estate', icon: 'real-estate' as const, image_url: '/assets/ph-arch-4.webp' },
+    { title: 'Fire Restoration', description: 'Compassionate support. Expert restoration.', link: '/services/fire-restoration', icon: 'fire-restoration' as const, image_url: '/assets/ph-arch-3.webp' },
   ],
 };
 
@@ -636,7 +636,7 @@ export const BETTER_PLANNED_PATH = {
   intro: 'An aligned team. Early clarity. And steady communication at every step. We make the process predictable and the experience exceptional, so you can enjoy the journey as much as the destination.',
   teamHeading: 'One Aligned Team, Chosen for Your Home',
   teamBody: 'We collaborate with independent architects on every project and interior designers on most. Clients may bring their own trusted professionals. Buchan provides estimating, constructability review, schedule planning, coordination, detailed specifications, and construction leadership from the early stages.',
-  teamImage: '/assets/ph-arch-4.png',
+  teamImage: '/assets/ph-arch-4.webp',
 };
 
 export interface QualityLayerHotspot {

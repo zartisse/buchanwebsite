@@ -134,7 +134,7 @@ function HomeEditor({ content, onChange }: { content: HomePageContent; onChange:
         </div>
         <div className={styles.field}>
           <label className={styles.label}>Heritage marquee text</label>
-          <input className={styles.input} value={content.hero.marquee} onChange={(e) => onChange({ ...content, hero: { ...content.hero, marquee: e.target.value } })} placeholder="Celebrating 65 Years · John Buchan Homes" />
+          <input className={styles.input} value={content.hero.marquee} onChange={(e) => onChange({ ...content, hero: { ...content.hero, marquee: e.target.value } })} placeholder="Celebrating 65 Years · Family-owned since 1961 · …" />
         </div>
         <ImageDropzone
           label="Hero carousel slides"
@@ -650,7 +650,7 @@ function NeighborhoodsEditor({ content, onChange }: { content: NeighborhoodsPage
             </div>
           </div>
         ))}
-        <button type="button" className={styles.btn} onClick={() => onChange({ ...content, areas: [...content.areas, { name: '', body: '', image_url: '/assets/ph-arch-1.png' }] })}>Add area</button>
+        <button type="button" className={styles.btn} onClick={() => onChange({ ...content, areas: [...content.areas, { name: '', body: '', image_url: '/assets/ph-arch-1.webp' }] })}>Add area</button>
       </fieldset>
       <div className={styles.field}>
         <label className={styles.label}>CTA title</label>
@@ -759,7 +759,7 @@ function ContactEditor({ content, onChange }: { content: ContactPageContent; onC
             className={styles.input}
             value={content.office_hours ?? ''}
             onChange={(e) => onChange({ ...content, office_hours: e.target.value })}
-            placeholder="Monday–Friday, 8:30 AM – 5:00 PM PT"
+            placeholder="Monday–Friday, 8:00 AM – 4:00 PM PT"
           />
         </div>
       </div>

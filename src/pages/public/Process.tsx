@@ -50,7 +50,7 @@ export function Process() {
       </section>
 
       <section id="renovations" className={ps.sectionAlt} style={{ position: 'relative', minHeight: 300 }}>
-        <img src={resolveImageUrl(content.band_image_url ?? '/assets/ph-arch-2.png', 'process-band')} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.35 }} />
+        <img src={resolveImageUrl(content.band_image_url ?? '/assets/ph-arch-2.webp', 'process-band')} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.35 }} />
         <RevealOnScroll>
           <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', padding: '80px 8vw' }}>
             <h2 className={ps.sectionTitle}>{content.band_title ?? 'One aligned team, chosen for your home.'}</h2>
@@ -63,7 +63,7 @@ export function Process() {
 
       <PageCta
         title={content.cta_title}
-        backgroundImage={resolveImageUrl(content.cta_background_image_url ?? content.band_image_url ?? '/assets/ph-arch-2.png', 'process-cta')}
+        backgroundImage={resolveImageUrl(content.cta_background_image_url ?? content.band_image_url ?? '/assets/ph-arch-2.webp', 'process-cta')}
       />
     </main>
   );

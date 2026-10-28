@@ -65,7 +65,7 @@ export function AvailableHomes() {
         title={content.cta.title}
         primaryLabel={content.cta.primary_label}
         primaryUrl={content.cta.primary_url}
-        backgroundImage={resolveImageUrl(content.cta.background_image_url ?? '/assets/ph-arch-1.png', 'available-homes-cta')}
+        backgroundImage={resolveImageUrl(content.cta.background_image_url ?? '/assets/ph-arch-1.webp', 'available-homes-cta')}
       >
         <Link to={content.cta.secondary_url} className="btnGhostLight">{content.cta.secondary_label}</Link>
       </PageCta>

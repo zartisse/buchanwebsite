@@ -24,8 +24,10 @@
   font-size: var(--text-display-xl);
   line-height: var(--lh-snug);
   margin: 0;
-  letter-spacing: var(--tr-tight);
+  letter-spacing: var(--tr-display);
+  max-width: min(20ch, 100%);
   color: var(--color-text-on-light);
+  text-wrap: balance;
 }
 
 .body {

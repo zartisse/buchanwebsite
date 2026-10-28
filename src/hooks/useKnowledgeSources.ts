@@ -1,18 +1,24 @@
-import { useCallback, useEffect, useState } from 'react';
-import type { KnowledgeSource, KnowledgeSourceType } from '../types';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import type { CrawlProgress, KnowledgeSource, KnowledgeSourceType } from '../types';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { invokeIndexKnowledge } from '../lib/chatbotApi';
 
+const STEP_RETRIES = 3;
+const REFRESH_EVERY_STEPS = 4;
+
+export type ActiveCrawl = { sourceId: string; progress: CrawlProgress | null; stopping: boolean };
+
 export function useKnowledgeSources() {
-  const [sources, setSources] = useState<KnowledgeSource[]>([]);
+  const [allSources, setAllSources] = useState<KnowledgeSource[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [activeCrawl, setActiveCrawl] = useState<ActiveCrawl | null>(null);
+  const stopRequested = useRef(false);
 
   const fetchSources = useCallback(async () => {
-    setLoading(true);
     setError(null);
     if (!isSupabaseConfigured) {
-      setSources([]);
+      setAllSources([]);
       setLoading(false);
       return;
     }
@@ -22,10 +28,10 @@ export function useKnowledgeSources() {
         .select('*')
         .order('updated_at', { ascending: false });
       if (err) throw err;
-      setSources((data as KnowledgeSource[]) ?? []);
+      setAllSources((data as KnowledgeSource[]) ?? []);
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Failed to load knowledge sources');
-      setSources([]);
+      setAllSources([]);
     } finally {
       setLoading(false);
     }
@@ -34,6 +40,22 @@ export function useKnowledgeSources() {
   useEffect(() => {
     fetchSources();
   }, [fetchSources]);
+
+  const { sources, pagesByCrawl } = useMemo(() => {
+    const top: KnowledgeSource[] = [];
+    const children = new Map<string, KnowledgeSource[]>();
+    for (const s of allSources) {
+      if (s.parent_id) {
+        const list = children.get(s.parent_id) ?? [];
+        list.push(s);
+        children.set(s.parent_id, list);
+      } else {
+        top.push(s);
+      }
+    }
+    for (const list of children.values()) list.sort((a, b) => a.source_url.localeCompare(b.source_url));
+    return { sources: top, pagesByCrawl: children };
+  }, [allSources]);
 
   const saveSource = async (
     input: Partial<KnowledgeSource> & { type: KnowledgeSourceType; title: string },
@@ -80,8 +102,53 @@ export function useKnowledgeSources() {
     await fetchSources();
   };
 
+  /** Runs a website crawl batch by batch until every discovered page is read (or Stop is pressed). */
+  const runCrawl = async (sourceId: string, options: { resume?: boolean } = {}) => {
+    stopRequested.current = false;
+    setActiveCrawl({ sourceId, progress: null, stopping: false });
+    try {
+      if (!options.resume) {
+        const started = (await invokeIndexKnowledge({ crawlStart: sourceId })) as CrawlProgress;
+        setActiveCrawl({ sourceId, progress: started, stopping: false });
+        await fetchSources();
+      }
+
+      let failures = 0;
+      let steps = 0;
+      let finished: CrawlProgress | null = null;
+      while (!stopRequested.current) {
+        try {
+          const progress = (await invokeIndexKnowledge({ crawlStep: sourceId })) as CrawlProgress;
+          failures = 0;
+          setActiveCrawl((c) => (c ? { ...c, progress } : c));
+          if (++steps % REFRESH_EVERY_STEPS === 0) await fetchSources();
+          if (progress.done) {
+            finished = progress;
+            break;
+          }
+        } catch (e) {
+          if (++failures >= STEP_RETRIES) throw e;
+        }
+      }
+
+      if (stopRequested.current) {
+        finished = (await invokeIndexKnowledge({ crawlStop: sourceId })) as CrawlProgress;
+      }
+      return finished;
+    } finally {
+      setActiveCrawl(null);
+      await fetchSources();
+    }
+  };
+
+  const stopCrawl = () => {
+    stopRequested.current = true;
+    setActiveCrawl((c) => (c ? { ...c, stopping: true } : c));
+  };
+
   return {
     sources,
+    pagesByCrawl,
     loading,
     error,
     refetch: fetchSources,
@@ -89,5 +156,8 @@ export function useKnowledgeSources() {
     deleteSource,
     indexSource,
     syncWebsiteContent,
+    activeCrawl,
+    runCrawl,
+    stopCrawl,
   };
 }

@@ -28,7 +28,13 @@ function FeaturedCard({
   return (
     <Link to={`/portfolio/${property.slug}`} className={`${cardClass} imageHover`}>
       <div className={wrapClass}>
-        <OptimizedImage src={property.image_url} seed={property.slug} alt={property.name} />
+        <OptimizedImage
+          src={property.image_url}
+          seed={property.slug}
+          alt={property.name}
+          displayWidth={variant === 'hero' ? 1200 : 800}
+          sizes={variant === 'hero' ? '(max-width: 900px) 100vw, 45vw' : '(max-width: 900px) 100vw, 28vw'}
+        />
         <div className={styles.hoverMeta}>
           <span className={styles.hoverName}>{property.name}</span>
           <span className={styles.hoverLocation}>{locationLabel(property)}</span>
@@ -48,7 +54,6 @@ export function FeaturedWorkGrid({ labels }: FeaturedWorkGridProps) {
         <div className={styles.layout}>
           <RevealOnScroll variant="left">
             <div className={styles.copy}>
-              <span className="eyebrowRule">{labels.eyebrow}</span>
               <h2 className={styles.title}>{labels.title}</h2>
               {labels.body && <p className={styles.body}>{labels.body}</p>}
               <Link to={labels.cta_link ?? '/portfolio'} className="linkAccent">

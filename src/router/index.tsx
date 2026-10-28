@@ -20,6 +20,7 @@ const Faq = lazy(() => import('../pages/public/Faq').then((m) => ({ default: m.F
 const Warranty = lazy(() => import('../pages/public/Warranty').then((m) => ({ default: m.Warranty })));
 const Awards = lazy(() => import('../pages/public/Awards').then((m) => ({ default: m.Awards })));
 const CostEstimator = lazy(() => import('../pages/public/CostEstimator').then((m) => ({ default: m.CostEstimator })));
+const NotFound = lazy(() => import('../pages/public/NotFound').then((m) => ({ default: m.NotFound })));
 const AvailableHomes = lazy(() => import('../pages/public/AvailableHomes').then((m) => ({ default: m.AvailableHomes })));
 const BuilderTransitionCaseStudy = lazy(() => import('../pages/public/CaseStudies').then((m) => ({ default: m.BuilderTransitionCaseStudy })));
 
@@ -112,6 +113,7 @@ export function AppRouter() {
           <Route path="remodel" element={<Navigate to="/renovations" replace />} />
           <Route path="design" element={<Navigate to="/services/planning-budgeting" replace />} />
           <Route path="neighborhoods" element={<Navigate to="/areas-we-serve" replace />} />
+          <Route path="*" element={<Lazy><NotFound /></Lazy>} />
         </Route>
 
         <Route path="admin/login" element={<Lazy><AdminLogin /></Lazy>} />
@@ -134,7 +136,7 @@ export function AppRouter() {
           <Route path="knowledge" element={<Lazy><AdminKnowledge /></Lazy>} />
         </Route>
 
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<Lazy><NotFound /></Lazy>} />
       </Routes>
     </BrowserRouter>
   );

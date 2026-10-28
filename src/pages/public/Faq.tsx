@@ -94,7 +94,7 @@ export function Faq() {
         </div>
       </section>
 
-      <PageCta title={content.cta_title} backgroundImage={resolveImageUrl(content.cta_background_image_url ?? '/assets/ph-arch-3.png', 'faq-cta')}>
+      <PageCta title={content.cta_title} backgroundImage={resolveImageUrl(content.cta_background_image_url ?? '/assets/ph-arch-3.webp', 'faq-cta')}>
         <EstimatorLink className="btnGhostLight">Estimate My Project</EstimatorLink>
       </PageCta>
     </main>

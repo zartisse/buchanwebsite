@@ -22,7 +22,7 @@ export function PageCta({
   primaryExternal = false,
   phone,
   phoneHref,
-  backgroundImage = '/assets/ph-arch-1.png',
+  backgroundImage = '/assets/ph-arch-1.webp',
   children,
 }: PageCtaProps) {
   const PrimaryBtn = primaryExternal ? (
@@ -34,7 +34,12 @@ export function PageCta({
     return (
       <section className={ps.ctaPhoto}>
         <div className={ps.ctaPhotoBg} aria-hidden>
-          <OptimizedImage src={backgroundImage} seed="page-cta" />
+          <OptimizedImage
+            src={backgroundImage}
+            seed="page-cta"
+            displayWidth={1600}
+            sizes="100vw"
+          />
         </div>
         <div className={ps.ctaPhotoOverlay} aria-hidden />
         <div className={ps.ctaPhotoInner}>

@@ -23,7 +23,6 @@ export function BetterPlannedPath({ section, stages }: BetterPlannedPathProps) {
       <div className={styles.inner}>
         <div className={styles.header}>
           <RevealOnScroll variant="left">
-            <span className="eyebrowRule">{section.eyebrow}</span>
             <h2 className={styles.title}>{title}</h2>
           </RevealOnScroll>
           <RevealOnScroll variant="left" index={1}>
@@ -31,20 +30,21 @@ export function BetterPlannedPath({ section, stages }: BetterPlannedPathProps) {
           </RevealOnScroll>
         </div>
 
-        <div className={styles.timeline}>
+        <ol className={styles.timeline}>
           {stages.map((stage, i) => (
-            <RevealOnScroll key={stage.n} index={i}>
-              <div className={styles.step}>
-                <div className={styles.stepTop}>
-                  <span className={styles.stepNum}>{stage.n}</span>
-                  {i < stages.length - 1 && <span className={styles.connector} aria-hidden />}
+            <li key={stage.n} className={styles.stepItem}>
+              <RevealOnScroll index={i}>
+                <div className={styles.step}>
+                  <span className={styles.stepNum} aria-hidden>
+                    {Number.parseInt(stage.n, 10) || i + 1}
+                  </span>
+                  <h3 className={styles.stepTitle}>{stage.title}</h3>
+                  <p className={styles.stepBody}>{stage.body}</p>
                 </div>
-                <h3 className={styles.stepTitle}>{stage.title}</h3>
-                <p className={styles.stepBody}>{stage.body}</p>
-              </div>
-            </RevealOnScroll>
+              </RevealOnScroll>
+            </li>
           ))}
-        </div>
+        </ol>
 
         {ctaLabel && section.cta_link && (
           <RevealOnScroll>

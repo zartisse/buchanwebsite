@@ -1,4 +1,4 @@
-const BASE = import.meta.env.BASE_URL;
+const BASE = import.meta.env?.BASE_URL ?? '/';
 
 /** Prefix public asset paths with Vite base (e.g. /buchanwebsite/ on GitHub Pages). */
 export function assetUrl(path: string): string {

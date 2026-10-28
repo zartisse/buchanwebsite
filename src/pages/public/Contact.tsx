@@ -142,7 +142,7 @@ export function Contact() {
         primaryLabel="How Much Will My Project Cost?"
         primaryUrl="https://estimator.buchan.com/"
         primaryExternal
-        backgroundImage={resolveImageUrl(content.cta_background_image_url ?? '/assets/ph-arch-2.png', 'contact-cta')}
+        backgroundImage={resolveImageUrl(content.cta_background_image_url ?? '/assets/ph-arch-2.webp', 'contact-cta')}
       />
     </main>
   );

@@ -49,24 +49,24 @@ export const DEMO_SITE_PAGES: Record<SitePageSlug, SitePage> = {
         title: 'Your standard is',
         title_emphasis: 'our standard.',
         body: "We don't build to impress other builders. We build to the standard you set, in every joint, every finish, every quiet detail.",
-        image_url: '/assets/ph-arch-2.png',
+        image_url: '/assets/ph-arch-2.webp',
       },
       team: {
         eyebrow: 'The Team',
         title: 'People who care',
         title_emphasis: 'deeply.',
         members: [
-          { name: 'Mischelle McCall', role: 'Client Concierge', image_url: '/assets/ph-arch-1.png' },
-          { name: 'David Buchan', role: 'President', image_url: '/assets/ph-arch-2.png' },
-          { name: 'Sarah Lindqvist', role: 'Design Director', image_url: '/assets/ph-arch-3.png' },
-          { name: 'Marcus Reyes', role: 'Construction Manager', image_url: '/assets/ph-arch-4.png' },
+          { name: 'Mischelle McCall', role: 'Client Concierge', image_url: '/assets/ph-arch-1.webp' },
+          { name: 'David Buchan', role: 'President', image_url: '/assets/ph-arch-2.webp' },
+          { name: 'Sarah Lindqvist', role: 'Design Director', image_url: '/assets/ph-arch-3.webp' },
+          { name: 'Marcus Reyes', role: 'Construction Manager', image_url: '/assets/ph-arch-4.webp' },
         ],
       },
       giving_back: {
         eyebrow: 'Giving Back',
         title: 'Building community,',
         title_emphasis: 'not just homes.',
-        image_url: '/assets/ph-arch-3.png',
+        image_url: '/assets/ph-arch-3.webp',
       },
       cta: {
         join_title: 'Join our team.',
@@ -84,15 +84,15 @@ export const DEMO_SITE_PAGES: Record<SitePageSlug, SitePage> = {
     content: {
       hero: { eyebrow: 'What We Do', title: 'Services that support', title_emphasis: 'every stage.' },
       items: [
-        { title: 'Custom Homes', slug: 'custom-homes', description: 'Ground-up custom homes on your lot, from foundation to final walkthrough.', image_url: '/assets/ph-arch-2.png' },
-        { title: 'Renovations', slug: 'renovations', description: 'Major whole-home and room-scale renovations with the Buchan standard.', image_url: '/assets/ph-arch-4.png' },
-        { title: 'Preconstruction', slug: 'preconstruction', description: 'Feasibility, progressive estimates, and design alignment before breaking ground.', image_url: '/assets/ph-arch-3.png' },
-        { title: 'ADUs & DADUs', slug: 'adus', description: 'Accessory dwellings for family housing or rental income.', image_url: '/assets/ph-arch-1.png' },
-        { title: 'Real Estate Services', slug: 'real-estate', description: 'Find your lot, sell your home, or explore selling directly to Buchan.', image_url: '/assets/ph-arch-2.png' },
-        { title: 'Buchan Home Care', slug: 'home-care', description: 'Maintenance and smaller projects for existing homeowners.', image_url: '/assets/ph-arch-3.png' },
+        { title: 'Custom Homes', slug: 'custom-homes', description: 'Ground-up custom homes on your lot, from foundation to final walkthrough.', image_url: '/assets/ph-arch-2.webp' },
+        { title: 'Renovations', slug: 'renovations', description: 'Major whole-home and room-scale renovations with the Buchan standard.', image_url: '/assets/ph-arch-4.webp' },
+        { title: 'Preconstruction', slug: 'preconstruction', description: 'Feasibility, progressive estimates, and design alignment before breaking ground.', image_url: '/assets/ph-arch-3.webp' },
+        { title: 'ADUs & DADUs', slug: 'adus', description: 'Accessory dwellings for family housing or rental income.', image_url: '/assets/ph-arch-1.webp' },
+        { title: 'Real Estate Services', slug: 'real-estate', description: 'Find your lot, sell your home, or explore selling directly to Buchan.', image_url: '/assets/ph-arch-2.webp' },
+        { title: 'Buchan Home Care', slug: 'home-care', description: 'Maintenance and smaller projects for existing homeowners.', image_url: '/assets/ph-arch-3.webp' },
       ],
       cta_title: 'Ready to begin?',
-      cta_background_image_url: '/assets/ph-arch-1.png',
+      cta_background_image_url: '/assets/ph-arch-1.webp',
     } satisfies ServicesPageContent,
   },
   build: {
@@ -102,7 +102,7 @@ export const DEMO_SITE_PAGES: Record<SitePageSlug, SitePage> = {
     meta_description: 'Ground-up custom homes on your lot in Bellevue, Clyde Hill, Medina, and Redmond.',
     content: {
       hero: { eyebrow: 'Services', title: 'Custom', title_emphasis: 'Build' },
-      image_url: '/assets/ph-arch-1.png',
+      image_url: '/assets/ph-arch-1.webp',
       steps: [
         { n: '01', title: 'Lot & Vision', body: 'We evaluate your land and understand your goals.' },
         { n: '02', title: 'Design', body: 'Architecture and interiors developed together.' },
@@ -120,7 +120,7 @@ export const DEMO_SITE_PAGES: Record<SitePageSlug, SitePage> = {
     meta_description: 'Architecture and interior design unified under one roof.',
     content: {
       hero: { eyebrow: 'Services', title: 'Design &', title_emphasis: 'Architecture' },
-      image_url: '/assets/ph-arch-3.png',
+      image_url: '/assets/ph-arch-3.webp',
       steps: [
         { n: '01', title: 'Discovery', body: 'How you live, how you want to feel at home.' },
         { n: '02', title: 'Concept', body: 'Initial plans and material palettes.' },
@@ -137,7 +137,7 @@ export const DEMO_SITE_PAGES: Record<SitePageSlug, SitePage> = {
     meta_description: 'Whole-home and room-scale renovations on the Seattle Eastside.',
     content: {
       hero: { eyebrow: 'Services', title: 'Thoughtful', title_emphasis: 'Remodel' },
-      image_url: '/assets/ph-arch-4.png',
+      image_url: '/assets/ph-arch-4.webp',
       steps: [
         { n: '01', title: 'Assessment', body: 'Understanding your existing home and goals.' },
         { n: '02', title: 'Design', body: "Plans that respect what works and improve what doesn't." },
@@ -162,9 +162,9 @@ export const DEMO_SITE_PAGES: Record<SitePageSlug, SitePage> = {
       ],
       band_title: 'One aligned team, chosen for your home.',
       band_body: 'We collaborate with independent architects on every project and interior designers on most. Buchan provides estimating, constructability review, schedule planning, coordination, and construction leadership from the early stages.',
-      band_image_url: '/assets/ph-arch-2.png',
+      band_image_url: '/assets/ph-arch-2.webp',
       cta_title: 'Ready to begin?',
-      cta_background_image_url: '/assets/ph-arch-2.png',
+      cta_background_image_url: '/assets/ph-arch-2.webp',
     } satisfies ProcessPageContent,
   },
   neighborhoods: {
@@ -175,10 +175,10 @@ export const DEMO_SITE_PAGES: Record<SitePageSlug, SitePage> = {
     content: {
       hero: { eyebrow: 'Where We Build', title: 'Eastside', title_emphasis: 'Neighborhoods' },
       areas: [
-        { name: 'Bellevue', body: 'From Bridle Trails to downtown, we know every neighborhood.', image_url: '/assets/ph-arch-1.png' },
-        { name: 'Clyde Hill', body: "Estate-scale homes on some of the Eastside's most coveted lots.", image_url: '/assets/ph-arch-2.png' },
-        { name: 'Medina', body: 'Lake Washington views and quiet streets, built to match.', image_url: '/assets/ph-arch-3.png' },
-        { name: 'Redmond', body: "Growing families and established neighborhoods we've served for decades.", image_url: '/assets/ph-arch-4.png' },
+        { name: 'Bellevue', body: 'From Bridle Trails to downtown, we know every neighborhood.', image_url: '/assets/ph-arch-1.webp' },
+        { name: 'Clyde Hill', body: "Estate-scale homes on some of the Eastside's most coveted lots.", image_url: '/assets/ph-arch-2.webp' },
+        { name: 'Medina', body: 'Lake Washington views and quiet streets, built to match.', image_url: '/assets/ph-arch-3.webp' },
+        { name: 'Redmond', body: "Growing families and established neighborhoods we've served for decades.", image_url: '/assets/ph-arch-4.webp' },
       ],
       cta_title: 'Find your neighborhood.',
     } satisfies NeighborhoodsPageContent,
@@ -193,7 +193,7 @@ export const DEMO_SITE_PAGES: Record<SitePageSlug, SitePage> = {
       featured: {
         quote: 'They stepped in when our project stalled, and finished it with a level of care we didn\'t think was still possible.',
         cite: 'The Harmon Family · Clyde Hill',
-        image_url: '/assets/ph-arch-1.png',
+        image_url: '/assets/ph-arch-1.webp',
       },
       quotes: [
         { name: 'The Castellanos Family', city: 'Clyde Hill', quote: 'They treated our home like it was their own, every detail considered, every question answered.' },
@@ -206,7 +206,7 @@ export const DEMO_SITE_PAGES: Record<SitePageSlug, SitePage> = {
         { name: 'Greg & Amanda Foster', city: 'Mercer Island', quote: 'We needed a second opinion on a project underway. Buchan gave us honesty, not a sales pitch.' },
       ],
       cta_title: 'Ready to write your story?',
-      cta_background_image_url: '/assets/ph-arch-4.png',
+      cta_background_image_url: '/assets/ph-arch-4.webp',
     } satisfies TestimonialsPageContent,
   },
   contact: {
@@ -240,7 +240,7 @@ export const DEMO_SITE_PAGES: Record<SitePageSlug, SitePage> = {
       office_hours: OFFICE_HOURS,
       office_hours_label: OFFICE_HOURS_LABEL,
       cta_title: 'Know your numbers?',
-      cta_background_image_url: '/assets/ph-arch-2.png',
+      cta_background_image_url: '/assets/ph-arch-2.webp',
     } satisfies ContactPageContent,
   },
   faq: {
@@ -293,7 +293,7 @@ export const DEMO_SITE_PAGES: Record<SitePageSlug, SitePage> = {
         },
       ],
       cta_title: 'Still have questions?',
-      cta_background_image_url: '/assets/ph-arch-3.png',
+      cta_background_image_url: '/assets/ph-arch-3.webp',
     } satisfies FaqPageContent,
   },
   warranty: {
@@ -322,7 +322,7 @@ export const DEMO_SITE_PAGES: Record<SitePageSlug, SitePage> = {
         { title: 'Ongoing support', description: 'Questions after warranty? We are still here. Buchan clients are part of a community we have served for over 65 years.' },
       ],
       cta_title: 'Questions about coverage?',
-      cta_background_image_url: '/assets/ph-arch-3.png',
+      cta_background_image_url: '/assets/ph-arch-3.webp',
     } satisfies WarrantyPageContent,
   },
   awards: {
@@ -334,14 +334,15 @@ export const DEMO_SITE_PAGES: Record<SitePageSlug, SitePage> = {
       hero: { eyebrow: 'Recognition', title: 'Awards &', title_emphasis: 'credentials.' },
       intro: 'For more than six decades, John Buchan Homes has been recognized by clients, industry peers, and the design community for craftsmanship, service, and integrity on the Seattle Eastside.',
       awards: [
+        { title: 'Best in the PNW — People’s Choice', year: '2026', description: 'Named a Best in the PNW winner by The Seattle Times for custom home building on the Eastside.' },
         { title: 'Best of Houzz, Design', year: '2022', description: 'Recognized for excellence in residential design and client satisfaction.' },
         { title: 'Best of Houzz, Design', year: '2021', description: 'Honored for outstanding design work and portfolio quality.' },
         { title: 'Best of Houzz, Service', year: '2020', description: 'Awarded for exceptional client service throughout the building process.' },
         { title: 'Best of Houzz, Service', year: '2017', description: 'Consistent recognition for communication, reliability, and results.' },
         { title: 'Best of Houzz, Service', year: '2016', description: 'Client-reviewed excellence in custom home building.' },
         { title: 'Best of Houzz, Service', year: '2014', description: 'Among the first Eastside builders honored on Houzz for service.' },
-        { title: 'Houzz Community Recommended', year: ', ', description: 'Recommended by the Houzz community for quality and professionalism.' },
-        { title: '25K+ Houzz Saves', year: ', ', description: 'Our work has been saved and shared by thousands of homeowners and design professionals.' },
+        { title: 'Houzz Community Recommended', year: '', description: 'Recommended by the Houzz community for quality and professionalism.' },
+        { title: '25K+ Houzz Saves', year: '', description: 'Our work has been saved and shared by thousands of homeowners and design professionals.' },
       ],
       press: [
         { title: 'Built for the rain', source: 'John Buchan Homes Blog', date: '2026', excerpt: 'What "built for the rain" really means in the Pacific Northwest, and why it matters for your home.', url: '/blog/built-for-the-rain' },
@@ -356,7 +357,7 @@ export const DEMO_SITE_PAGES: Record<SitePageSlug, SitePage> = {
       ],
       badges: FOOTER_AWARD_BADGES.map((b) => ({ image_url: b.image, alt: b.alt, href: b.href })),
       cta_title: 'Experience the Buchan standard.',
-      cta_background_image_url: '/assets/ph-arch-2.png',
+      cta_background_image_url: '/assets/ph-arch-2.webp',
     } satisfies AwardsPageContent,
   },
   'available-homes': {
@@ -385,7 +386,7 @@ export const DEMO_SITE_PAGES: Record<SitePageSlug, SitePage> = {
         primary_url: '/custom-homes',
         secondary_label: 'Start a Conversation',
         secondary_url: '/contact',
-        background_image_url: '/assets/ph-arch-1.png',
+        background_image_url: '/assets/ph-arch-1.webp',
       },
     } satisfies AvailableHomesPageContent,
   },

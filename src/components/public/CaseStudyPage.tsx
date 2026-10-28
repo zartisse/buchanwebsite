@@ -58,7 +58,7 @@ export function CaseStudyPage({ data }: { data: CaseStudyData }) {
         </RevealOnScroll>
       </section>
 
-      <PageCta title={data.ctaTitle} primaryUrl={data.ctaLink} backgroundImage="/assets/ph-arch-2.png" />
+      <PageCta title={data.ctaTitle} primaryUrl={data.ctaLink} backgroundImage="/assets/ph-arch-2.webp" />
     </main>
   );
 }

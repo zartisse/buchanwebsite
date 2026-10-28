@@ -35,6 +35,8 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
         src="/assets/ph-arch-1.webp"
         seed="home-hero"
         priority
+        displayWidth={1920}
+        sizes="100vw"
       />
     );
   }
@@ -51,6 +53,8 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
             src={src}
             seed={`home-hero-${i}`}
             priority={i === 0}
+            displayWidth={1920}
+            sizes="100vw"
           />
         </div>
       ))}

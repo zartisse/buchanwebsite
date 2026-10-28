@@ -58,12 +58,31 @@ Rules:
 - Be warm, concise, and factual. No invented pricing, timelines, or policies.
 - For next steps, consultations, or "talk to someone", offer the HubSpot booking link and phone.
 - Mention Mischelle by name when inviting them to book.
+- Context excerpts may start with "Source: <title> (<url>)". When a visitor wants to read more, you may share that page link.
 - Do not claim to be human.
 
 ${settings.system_prompt_append ? `Additional instructions:\n${settings.system_prompt_append}` : ''}
 
 CONTEXT:
 ${contextBlock || '(No matching knowledge base excerpts.)'}`;
+}
+
+/** User-safe message; full detail stays in Edge Function logs. */
+function toPublicChatError(raw: string): string {
+  const lower = raw.toLowerCase();
+  if (lower.includes('insufficient_quota') || lower.includes('billing') || lower.includes('exceeded your current quota')) {
+    return 'Chat is temporarily unavailable. Please call us or book a meeting using the buttons above.';
+  }
+  if (lower.includes('invalid_api_key') || lower.includes('incorrect api key')) {
+    return 'Chat is not available right now. Please call us or book a meeting.';
+  }
+  if (lower.includes('rate_limit') || lower.includes('too many requests')) {
+    return 'We are receiving many questions right now. Please try again in a moment or call us.';
+  }
+  if (raw.startsWith('OpenAI')) {
+    return 'We could not reach our assistant. Please call us or book a meeting using the buttons above.';
+  }
+  return 'Something went wrong. Please call us or book a meeting using the buttons above.';
 }
 
 Deno.serve(async (req) => {
@@ -106,7 +125,7 @@ Deno.serve(async (req) => {
     const { data: matches, error: matchErr } = await supabase.rpc('match_knowledge_chunks', {
       query_embedding: queryEmbedding,
       match_threshold: 0.65,
-      match_count: 10,
+      match_count: 12,
     });
     if (matchErr) throw matchErr;
 
@@ -150,6 +169,6 @@ Deno.serve(async (req) => {
   } catch (e) {
     const message = e instanceof Error ? e.message : 'Chat failed';
     console.error('chat error:', message);
-    return jsonResponse({ error: message }, 500);
+    return jsonResponse({ error: toPublicChatError(message) }, 500);
   }
 });

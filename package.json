@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "predev": "node scripts/check-env.mjs",
     "dev": "vite",
     "build": "tsc -b && vite build && cp dist/index.html dist/404.html",
     "build:analyze": "ANALYZE=1 npm run build",
@@ -12,7 +13,10 @@
     "verify:home-copy": "tsx scripts/verify-home-copy.ts",
     "cms:bootstrap": "tsx scripts/bootstrap-cms.ts",
     "cms:verify": "tsx scripts/verify-supabase.ts",
+    "cms:verify-remote": "tsx scripts/verify-remote-health.ts",
     "cms:smoke": "tsx scripts/smoke-test-cms.ts",
+    "cms:smoke-chat": "tsx scripts/smoke-chat.ts",
+    "chatbot:deploy": "node scripts/deploy-chatbot.mjs",
     "cms:check-live": "tsx scripts/check-live.ts",
     "deploy:gh-pages": "bash scripts/deploy-gh-pages.sh",
     "lint": "oxlint",

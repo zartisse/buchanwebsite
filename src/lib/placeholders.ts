@@ -9,6 +9,8 @@ const ARCH_PLACEHOLDERS = [
 
 const LEGACY_PORTRAIT = '/assets/ph-portrait.svg';
 
+const SRCSET_WIDTHS = [640, 1280, 1920] as const;
+
 /** Map legacy large PNG/JPG defaults to compressed WebP variants. */
 export function optimizeAssetPath(path: string): string {
   if (/^\/assets\/ph-arch-\d+\.png$/i.test(path)) {
@@ -56,9 +58,43 @@ export function resolveImageUrl(url: string | undefined | null, seed?: string | 
   return assetUrl(optimizeAssetPath(url));
 }
 
-/** Append width param for Supabase storage URLs when transformations are available. */
-export function supabaseImageUrl(url: string, width?: number): string {
-  if (!width || !url.includes('supabase.co/storage/')) return url;
-  const separator = url.includes('?') ? '&' : '?';
-  return `${url}${separator}width=${width}`;
+function transformsEnabled(): boolean {
+  return import.meta.env.VITE_SUPABASE_IMAGE_TRANSFORM === 'true';
+}
+
+function isSupabaseObjectUrl(url: string): boolean {
+  return /supabase\.co\/storage\/v1\/object\/public\//i.test(url)
+    || /supabase\.co\/storage\/v1\/render\/image\/public\//i.test(url);
+}
+
+/**
+ * Optionally rewrite Supabase public object URLs to the image transform renderer.
+ * Off by default — this project’s storage plan does not serve /render/image/
+ * reliably. Set VITE_SUPABASE_IMAGE_TRANSFORM=true once transforms are enabled.
+ */
+export function supabaseImageUrl(url: string, width?: number, quality = 75): string {
+  if (!width || !transformsEnabled() || !url.includes('supabase.co/storage/')) return url;
+
+  let next = url.replace(
+    /\/storage\/v1\/object\/public\//i,
+    '/storage/v1/render/image/public/',
+  );
+
+  try {
+    const parsed = new URL(next);
+    parsed.searchParams.set('width', String(Math.min(2500, Math.max(1, Math.round(width)))));
+    parsed.searchParams.set('quality', String(quality));
+    parsed.searchParams.set('resize', 'contain');
+    return parsed.toString();
+  } catch {
+    const separator = next.includes('?') ? '&' : '?';
+    return `${next}${separator}width=${width}&quality=${quality}&resize=contain`;
+  }
+}
+
+export function supabaseSrcSet(url: string, quality = 75): string | undefined {
+  if (!transformsEnabled() || !isSupabaseObjectUrl(url)) return undefined;
+  return SRCSET_WIDTHS
+    .map((w) => `${supabaseImageUrl(url, w, quality)} ${w}w`)
+    .join(', ');
 }
