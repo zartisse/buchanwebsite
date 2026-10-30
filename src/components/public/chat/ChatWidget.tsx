@@ -148,15 +148,22 @@ export function ChatWidget() {
                 className={`${styles.bubble} ${m.role === 'user' ? styles.bubbleUser : styles.bubbleAssistant}`}
               >
                 {m.content}
-                {m.citations && m.citations.length > 0 && (
-                  <div className={styles.citations}>
-                    Sources: {m.citations.map((c) => c.title).join(', ')}
-                  </div>
-                )}
               </div>
             ))}
+            {sending && (
+              <div
+                className={`${styles.bubble} ${styles.bubbleAssistant} ${styles.typingBubble}`}
+                aria-live="polite"
+                aria-label="Writing a reply"
+              >
+                <span className={styles.typingDots} aria-hidden>
+                  <span />
+                  <span />
+                  <span />
+                </span>
+              </div>
+            )}
           </div>
-          {sending && <div className={styles.typing}>Thinking…</div>}
           <form
             className={styles.form}
             onSubmit={(e) => {

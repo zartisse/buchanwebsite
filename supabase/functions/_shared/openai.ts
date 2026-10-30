@@ -36,7 +36,7 @@ export async function chatCompletion(
     },
     body: JSON.stringify({
       model: CHAT_MODEL,
-      temperature: 0.3,
+      temperature: 0.45,
       messages: [{ role: 'system', content: system }, ...messages],
     }),
   });
