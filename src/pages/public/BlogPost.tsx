@@ -31,7 +31,7 @@ export function BlogPost() {
           <time className={ps.articleDate}>{fmtDate(post.date)}</time>
         </header>
 
-        <img src={resolveImageUrl(post.image_url, post.slug)} alt="" className={ps.articleHeroImage} />
+        <img src={resolveImageUrl(post.image_url, post.slug)} alt={post.title} className={ps.articleHeroImage} />
 
         <div className={ps.articleBody}>
           {paragraphs.map((p, i) => (
@@ -48,7 +48,7 @@ export function BlogPost() {
             <div className={ps.cardGrid}>
               {related.map((r) => (
                 <Link key={r.id} to={`/blog/${r.slug}`} className={ps.cardLink}>
-                  <img src={resolveImageUrl(r.image_url, r.slug)} alt="" style={{ width: '100%', height: 180, objectFit: 'cover', marginBottom: 12 }} />
+                  <img src={resolveImageUrl(r.image_url, r.slug)} alt={r.title} style={{ width: '100%', height: 180, objectFit: 'cover', marginBottom: 12 }} />
                   <h3 className={ps.cardTitle} style={{ fontSize: 20 }}>{r.title}</h3>
                 </Link>
               ))}

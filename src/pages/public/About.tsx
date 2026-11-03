@@ -46,7 +46,7 @@ export function About() {
       <section id="mission" className={ps.sectionAlt}>
         <RevealOnScroll>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 48, maxWidth: 'var(--max-width)', margin: '0 auto', alignItems: 'center' }}>
-            <img src={resolveImageUrl(content.mission.image_url, 'mission')} alt="" style={{ width: '100%', height: 'clamp(300px, 40vw, 480px)', objectFit: 'cover' }} />
+            <img src={resolveImageUrl(content.mission.image_url, 'mission')} alt="John Buchan Homes custom home" style={{ width: '100%', height: 'clamp(300px, 40vw, 480px)', objectFit: 'cover' }} />
             <div>
               <span className={ps.eyebrow}>{content.mission.eyebrow}</span>
               <SectionTitleWithEmphasis title={content.mission.title} title_emphasis={content.mission.title_emphasis} className={ps.sectionTitle} style={{ marginTop: 18 } as React.CSSProperties} />

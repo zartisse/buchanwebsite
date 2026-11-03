@@ -1,3 +1,4 @@
+import { trackLead } from '../lib/analytics';
 import { useCallback, useEffect, useState } from 'react';
 import type { Submission, SubmissionStatus } from '../types';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
@@ -49,6 +50,16 @@ export function useSubmissions(admin = false) {
       ({ error: err } = await supabase.from('submissions').insert(rest));
     }
     if (err) throw err;
+
+    trackLead({ form: data.source, topic: data.subject, property: data.property_name ?? undefined });
+
+    // Email the team (fire-and-forget: the lead is already saved, so a failed
+    // email must never show the visitor an error).
+    supabase.functions
+      .invoke('notify-submission', {
+        body: { ...data, page_url: typeof window !== 'undefined' ? window.location.href : '' },
+      })
+      .catch((e) => console.warn('Lead notification failed', e));
   };
 
   const updateSubmissionStatus = async (id: string, status: SubmissionStatus) => {

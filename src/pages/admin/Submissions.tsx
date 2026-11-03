@@ -41,7 +41,7 @@ export function AdminSubmissions() {
             key={f}
             type="button"
             className={styles.btn}
-            style={filter === f ? { background: '#1A2420', color: '#F5F0E8' } : undefined}
+            style={filter === f ? { background: '#213b31', color: '#f7f5f0' } : undefined}
             onClick={() => setFilter(f)}
           >
             {f === 'all' ? 'Inbox' : f === 'new' ? 'New' : 'Archived'}
@@ -55,7 +55,7 @@ export function AdminSubmissions() {
         <div style={{ display: 'grid', gridTemplateColumns: openSub ? '1fr 1.2fr' : '1fr', gap: 24 }}>
           <div>
             {filtered.length === 0 ? (
-              <p style={{ color: 'rgba(26,36,32,0.5)' }}>No submissions in this view.</p>
+              <p style={{ color: 'rgba(33, 59, 49,0.5)' }}>No submissions in this view.</p>
             ) : (
               filtered.map((s) => (
                 <button
@@ -66,9 +66,9 @@ export function AdminSubmissions() {
                     display: 'block',
                     width: '100%',
                     textAlign: 'left',
-                    background: openId === s.id ? '#FBF9F5' : '#fff',
-                    border: '1px solid rgba(26,36,32,0.1)',
-                    borderLeft: s.status === 'New' ? '3px solid #B0824C' : '1px solid rgba(26,36,32,0.1)',
+                    background: openId === s.id ? '#f7f5f0' : '#fff',
+                    border: '1px solid rgba(33, 59, 49,0.1)',
+                    borderLeft: s.status === 'New' ? '3px solid #b88a4b' : '1px solid rgba(33, 59, 49,0.1)',
                     padding: '16px 18px',
                     marginBottom: 8,
                     cursor: 'pointer',
@@ -77,9 +77,9 @@ export function AdminSubmissions() {
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <strong>{s.name}</strong>
-                    <span style={{ fontSize: 12, color: 'rgba(26,36,32,0.45)' }}>{fmtDateTime(s.created_at)}</span>
+                    <span style={{ fontSize: 12, color: 'rgba(33, 59, 49,0.45)' }}>{fmtDateTime(s.created_at)}</span>
                   </div>
-                  <div style={{ fontSize: 13, color: 'rgba(26,36,32,0.6)', marginTop: 4 }}>
+                  <div style={{ fontSize: 13, color: 'rgba(33, 59, 49,0.6)', marginTop: 4 }}>
                     {s.property_name ?? s.subject}
                   </div>
                 </button>
@@ -90,12 +90,12 @@ export function AdminSubmissions() {
           {openSub && (
             <div className={styles.form}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
-                <div style={{ width: 40, height: 40, borderRadius: '50%', background: '#B0824C', color: '#1A2420', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-serif)' }}>
+                <div style={{ width: 40, height: 40, borderRadius: '50%', background: '#b88a4b', color: '#213b31', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-serif)' }}>
                   {initials(openSub.name)}
                 </div>
                 <div>
                   <strong>{openSub.name}</strong>
-                  <div style={{ fontSize: 13, color: 'rgba(26,36,32,0.55)' }}>{openSub.email}</div>
+                  <div style={{ fontSize: 13, color: 'rgba(33, 59, 49,0.55)' }}>{openSub.email}</div>
                 </div>
               </div>
               <p><strong>Subject:</strong> {openSub.subject}</p>

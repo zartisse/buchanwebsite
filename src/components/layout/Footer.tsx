@@ -7,7 +7,7 @@ import {
 import { OFFICE_ADDRESS_LINES, OFFICE_HOURS } from '../../data/contactInfo';
 import styles from './Footer.module.css';
 
-const FOOTER_STATEMENT = 'Building exceptional homes on the Seattle Eastside since 1961.';
+const FOOTER_STATEMENT = 'Building exceptional homes in Bellevue and the Greater Eastside since 1961.';
 const FOOTER_MISSION =
   'With integrity, craftsmanship, and care that lasts beyond move-in day.';
 
@@ -36,7 +36,7 @@ export function Footer() {
           </p>
           <p className={styles.contactLine}>{OFFICE_HOURS}</p>
           <a href="tel:4258272266" className={`${styles.contactStrong} tabularNums`}>425.827.2266</a>
-          <a href="mailto:info@buchan.com" className={styles.contactStrong}>info@buchan.com</a>
+          <a href="mailto:MischelleM@buchan.com" className={styles.contactStrong}>MischelleM@buchan.com</a>
           <Link to="/contact" className="btnPrimaryFill">Let&apos;s talk</Link>
         </address>
       </div>

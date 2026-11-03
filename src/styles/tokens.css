@@ -1,41 +1,41 @@
 :root {
   /* ---- Color: surfaces ---- */
-  --color-bg-dark: #0d1512;      /* deepest ground, hero/CTA */
-  --color-bg-mid: #1a2420;       /* forest, alternating sections */
-  --color-bg-mid-2: #15201b;     /* tertiary surface for cards/rails on dark */
-  --color-bg-light: #efefe3;     /* admin / light surfaces only */
-  --color-bg-admin: #efefe3;
-  --color-bg-cream: #faf9f6;     /* editorial light homepage */
+  --color-bg-dark: #213b31;      /* Buchan Green: hero/CTA ground */
+  --color-bg-mid: #1b3229;       /* deeper shade of Buchan Green, alternating sections */
+  --color-bg-mid-2: #274538;     /* lighter tint of Buchan Green for cards on dark */
+  --color-bg-light: #f7f5f0;     /* Warm White: admin / light surfaces */
+  --color-bg-admin: #f7f5f0;
+  --color-bg-cream: #f7f5f0;     /* Warm White (brand background) */
   --color-bg-white: #ffffff;
-  --color-bg-trust: #f0eeea;     /* trust bar / subtle bands */
+  --color-bg-trust: #eeeae2;     /* Warm White + Architectural Stone tint for bands */
 
   /* ---- Color: text on light surfaces ---- */
-  --color-text-on-light: #1a2420;
-  --color-text-body: #3a3d36;
-  --color-text-muted-light: #625a50;
-  --color-accent-on-light: #8a6334;
+  --color-text-on-light: #213b31;  /* Buchan Green headlines */
+  --color-text-body: #2f3430;      /* Soft Charcoal body text */
+  --color-text-muted-light: #5e615a; /* Soft Charcoal tint (AA on Warm White) */
+  --color-accent-on-light: #8a6334; /* darker shade of Buchan Gold for small text (AA) */
 
   /* ---- Color: hairlines on light surfaces ---- */
-  --color-hairline-light: #e0dacb;
-  --color-hairline-light-2: #ddd8cc;
-  --color-hairline-light-3: #c9c2ae;
+  --color-hairline-light: #e6e1d8;
+  --color-hairline-light-2: #dfd9cf;
+  --color-hairline-light-3: #d6d0c5; /* Architectural Stone */
 
   /* ---- Color: text ---- */
-  --color-text: #f5f0e8;
-  --color-text-muted: rgba(245, 240, 232, 0.72);
-  --color-text-mute-2: rgba(245, 240, 232, 0.55);
-  --color-text-mute-3: rgba(245, 240, 232, 0.4);
-  --color-text-dark: #1a2420;
+  --color-text: #f7f5f0;           /* Warm White on dark */
+  --color-text-muted: rgba(247, 245, 240, 0.78);
+  --color-text-mute-2: rgba(247, 245, 240, 0.6);
+  --color-text-mute-3: rgba(247, 245, 240, 0.45);
+  --color-text-dark: #213b31;
 
-  /* ---- Color: accent (warm gold) ---- */
-  --color-accent: #b0824c;
-  --color-accent-light: #c79a60;
+  /* ---- Color: accent (Buchan Gold #B88A4B, PMS 7555 C) ---- */
+  --color-accent: #b88a4b;
+  --color-accent-light: #c9a16a;
   --color-accent-dark: #8a6334;
-  --color-accent-muted: rgba(176, 130, 76, 0.16);
-  --color-accent-hairline: rgba(176, 130, 76, 0.35);
-  --color-accent-fill: #c5a07d;
-  --color-accent-fill-hover: #b8926f;
-  --color-accent-fill-text: #1a2420;
+  --color-accent-muted: rgba(184, 138, 75, 0.16);
+  --color-accent-hairline: rgba(184, 138, 75, 0.35);
+  --color-accent-fill: #b88a4b;
+  --color-accent-fill-hover: #a67b41;
+  --color-accent-fill-text: #213b31;
 
   /* ---- Button semantics ---- */
   --btn-primary-bg: var(--color-accent-fill);
@@ -52,18 +52,23 @@
   --eyebrow-rule-height: 1px;
 
   /* ---- Color: hairlines / dividers ---- */
-  --color-hairline: rgba(245, 240, 232, 0.1);
-  --color-hairline-strong: rgba(245, 240, 232, 0.18);
+  --color-hairline: rgba(247, 245, 240, 0.1);
+  --color-hairline-strong: rgba(247, 245, 240, 0.18);
 
   /* ---- Type families ---- */
-  --font-serif: 'Cormorant Garamond', Georgia, serif;
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  /* Brand (JBH Brand Book): Codec Pro headlines, Aileron subheads, Montserrat body.
+     Codec Pro / Aileron are licensed: they apply once self-hosted in fonts.css;
+     until then every role falls back to Montserrat (two families max). */
+  --font-display: 'Codec Pro', 'Montserrat', system-ui, -apple-system, sans-serif;
+  --font-subhead: 'Aileron', 'Montserrat', system-ui, -apple-system, sans-serif;
+  --font-serif: var(--font-display); /* legacy name kept so existing components switch automatically */
+  --font-sans: 'Montserrat', system-ui, -apple-system, sans-serif;
 
   /* ---- Type scale (editorial, modular ~1.25) ---- */
-  --text-display-2xl: clamp(48px, 7.2vw, 104px);  /* hero H1 */
-  --text-display-xl: clamp(36px, 4.6vw, 64px);    /* section H2 */
-  --text-display-lg: clamp(28px, 3.2vw, 42px);    /* card / subsection titles */
-  --text-display-md: clamp(22px, 2.2vw, 28px);    /* pull quotes */
+  --text-display-2xl: clamp(40px, 6vw, 84px);     /* hero H1 (sized for Montserrat's wider letters) */
+  --text-display-xl: clamp(30px, 3.8vw, 52px);    /* section H2 */
+  --text-display-lg: clamp(24px, 2.7vw, 36px);    /* card / subsection titles */
+  --text-display-md: clamp(20px, 2vw, 25px);      /* pull quotes */
   --text-body-lg: clamp(17px, 1.4vw, 20px);
   --text-body: 16px;
   --text-body-sm: 14px;

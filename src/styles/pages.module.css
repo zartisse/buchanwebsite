@@ -141,7 +141,7 @@
 
 .btnGhost:hover {
   border-color: var(--color-accent-fill);
-  background: rgba(197, 160, 125, 0.08);
+  background: rgba(184, 138, 75, 0.08);
 }
 
 .btnLink {
@@ -231,9 +231,9 @@
   inset: 0;
   background: linear-gradient( /* taste-skill-ignore — photo scrim */
     105deg,
-    rgba(13, 21, 18, 0.72) 0%,
-    rgba(13, 21, 18, 0.45) 45%,
-    rgba(13, 21, 18, 0.2) 100%
+    rgba(33, 59, 49, 0.72) 0%,
+    rgba(33, 59, 49, 0.45) 45%,
+    rgba(33, 59, 49, 0.2) 100%
   );
   z-index: 1;
 }
@@ -299,7 +299,7 @@
 
 .filterChipActive {
   composes: filterChip;
-  background: rgba(197, 160, 125, 0.12);
+  background: rgba(184, 138, 75, 0.12);
   border-color: var(--color-accent-fill);
   color: var(--color-accent-dark);
 }
@@ -330,7 +330,7 @@
   right: 0;
   bottom: 0;
   padding: var(--s-3) var(--s-4);
-  background: rgba(26, 36, 32, 0.82);
+  background: rgba(33, 59, 49, 0.82);
   color: #ffffff;
   font-size: var(--text-micro);
   letter-spacing: var(--tr-widest);
@@ -597,7 +597,7 @@
 .detailHeroOverlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 35%, rgba(13, 21, 18, 0.78) 100%); /* taste-skill-ignore — photo scrim */
+  background: linear-gradient(180deg, transparent 35%, rgba(33, 59, 49, 0.78) 100%); /* taste-skill-ignore — photo scrim */
   pointer-events: none;
 }
 
@@ -806,7 +806,7 @@
   position: fixed;
   inset: 0;
   z-index: var(--z-lightbox);
-  background: rgba(13, 21, 18, 0.96);
+  background: rgba(33, 59, 49, 0.96);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -836,9 +836,9 @@
   transform: translateY(-50%);
   width: 48px;
   height: 48px;
-  border: 1px solid rgba(245, 240, 232, 0.25);
+  border: 1px solid rgba(247, 245, 240, 0.25);
   border-radius: 50%;
-  background: rgba(13, 21, 18, 0.6);
+  background: rgba(33, 59, 49, 0.6);
   color: var(--color-text);
   font-size: 20px;
   cursor: pointer;
@@ -850,7 +850,7 @@
 }
 
 .lightboxNav:hover {
-  background: rgba(197, 160, 125, 0.25);
+  background: rgba(184, 138, 75, 0.25);
   border-color: var(--color-accent-fill);
 }
 
@@ -868,9 +868,9 @@
   right: 24px;
   width: 44px;
   height: 44px;
-  border: 1px solid rgba(245, 240, 232, 0.25);
+  border: 1px solid rgba(247, 245, 240, 0.25);
   border-radius: 50%;
-  background: rgba(13, 21, 18, 0.6);
+  background: rgba(33, 59, 49, 0.6);
   color: var(--color-text);
   font-size: 24px;
   line-height: 1;
@@ -884,7 +884,7 @@
 }
 
 .lightboxClose:hover {
-  background: rgba(197, 160, 125, 0.25);
+  background: rgba(184, 138, 75, 0.25);
   border-color: var(--color-accent-fill);
 }
 
@@ -896,7 +896,7 @@
   font-size: 12px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(245, 240, 232, 0.55);
+  color: rgba(247, 245, 240, 0.55);
 }
 
 @media (max-width: 640px) {

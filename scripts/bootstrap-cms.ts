@@ -41,7 +41,7 @@ loadEnv();
 const url = process.env.VITE_SUPABASE_URL!;
 const anonKey = process.env.VITE_SUPABASE_ANON_KEY!;
 const adminEmail = process.env.SUPABASE_ADMIN_EMAIL ?? 'admin@buchan.com';
-const adminPassword = process.env.SUPABASE_ADMIN_PASSWORD ?? 'BuchanAdmin2026!';
+const adminPassword = process.env.SUPABASE_ADMIN_PASSWORD ?? '';
 const dbPassword = process.env.SUPABASE_DB_PASSWORD;
 
 function projectRef(supabaseUrl: string) {

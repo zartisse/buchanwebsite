@@ -20,7 +20,7 @@ export function Blog() {
 
   return (
     <main>
-      <PageMeta title="Blog" description="Notes and news from John Buchan Homes, building on the Seattle Eastside since 1960." />
+      <PageMeta title="Blog" description="Notes and news from John Buchan Homes, building in Bellevue and the Greater Eastside since 1961." />
       <section className={ps.hero}>
         <div className={ps.heroInner}>
           <span className={ps.eyebrow}>The Journal</span>
@@ -32,7 +32,7 @@ export function Blog() {
         <section className={ps.sectionAlt}>
           <RevealOnScroll>
             <Link to={`/blog/${featured.slug}`} className={ps.cardLink} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 48, maxWidth: 'var(--max-width-wide)', margin: '0 auto' }}>
-              <img src={resolveImageUrl(featured.image_url, featured.slug)} alt="" style={{ width: '100%', height: 'clamp(280px, 35vw, 420px)', objectFit: 'cover' }} />
+              <img src={resolveImageUrl(featured.image_url, featured.slug)} alt={featured.title} style={{ width: '100%', height: 'clamp(280px, 35vw, 420px)', objectFit: 'cover' }} />
               <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                 <span className={ps.cardLabel}>Featured</span>
                 <h2 className={ps.sectionTitle} style={{ fontSize: 'clamp(28px, 3.5vw, 44px)', marginTop: 16 }}>{featured.title}</h2>
@@ -75,7 +75,7 @@ export function Blog() {
               <RevealOnScroll key={p.id}>
                 <Link to={`/blog/${p.slug}`} className={ps.cardLink}>
                   <div className={ps.cardImageWrapSm}>
-                    <img src={resolveImageUrl(p.image_url, p.slug)} alt="" className={ps.imageCover} />
+                    <img src={resolveImageUrl(p.image_url, p.slug)} alt={p.title} className={ps.imageCover} />
                   </div>
                   <span className={ps.cardLabel}>{p.category}</span>
                   <h3 className={ps.cardTitle} style={{ fontSize: 22, marginTop: 8 }}>{p.title}</h3>

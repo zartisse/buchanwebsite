@@ -31,7 +31,7 @@ function ServicePageView({ slug }: { slug: ServiceSlug }) {
       </section>
       <section className={ps.sectionAlt}>
         <RevealOnScroll>
-          <img src={resolveImageUrl(content.image_url, slug)} alt="" style={{ width: '100%', maxWidth: 'var(--max-width)', margin: '0 auto', display: 'block', height: 'clamp(300px, 45vw, 520px)', objectFit: 'cover' }} />
+          <img src={resolveImageUrl(content.image_url, slug)} alt="John Buchan Homes project" style={{ width: '100%', maxWidth: 'var(--max-width)', margin: '0 auto', display: 'block', height: 'clamp(300px, 45vw, 520px)', objectFit: 'cover' }} />
         </RevealOnScroll>
       </section>
       <section className={ps.section}>

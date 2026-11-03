@@ -12,10 +12,13 @@ DO $$
 DECLARE
   admin_user_id uuid := gen_random_uuid();
   admin_email text := 'admin@buchan.com';
-  admin_password text := 'BuchanAdmin2026!';
+  admin_password text := 'CHANGE-ME-before-running';
   admin_display_name text := 'Admin';
 BEGIN
-  IF admin_password = 'BuchanAdmin2026!' THEN
+  IF admin_password = 'CHANGE-ME-before-running' THEN
+    RAISE EXCEPTION 'Set admin_password in this script before running it.';
+  END IF;
+  IF false THEN
     RAISE NOTICE 'Using default password. Change admin_password in this script before production use.';
   END IF;
 

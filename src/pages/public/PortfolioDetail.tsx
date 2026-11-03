@@ -116,7 +116,7 @@ export function PortfolioDetail() {
               onClick={() => openLightbox(url)}
               aria-label="View image fullscreen"
             >
-              <OptimizedImage src={url} alt="" resolved priority={index === 0} />
+              <OptimizedImage src={url} alt={`${property.name} photo ${index + 1}`} resolved priority={index === 0} />
             </button>
           ))}
         </div>

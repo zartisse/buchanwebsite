@@ -101,9 +101,9 @@
   pointer-events: none;
   background: linear-gradient( /* taste-skill-ignore — photo scrim */
     180deg,
-    rgba(13, 21, 18, 0.15) 0%,
-    rgba(13, 21, 18, 0.4) 40%,
-    rgba(13, 21, 18, 0.9) 100%
+    rgba(33, 59, 49, 0.15) 0%,
+    rgba(33, 59, 49, 0.4) 40%,
+    rgba(33, 59, 49, 0.9) 100%
   );
 }
 
@@ -167,7 +167,7 @@
 }
 
 .cardContent :global(.linkAccent) {
-  color: #e8dcc8;
+  color: #d6d0c5;
 }
 
 .cardContent :global(.linkAccent:hover) {

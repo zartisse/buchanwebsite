@@ -98,7 +98,7 @@
   bottom: 0;
   z-index: 2;
   padding: var(--s-5) var(--s-5) var(--s-4);
-  background: linear-gradient(180deg, transparent 0%, rgba(13, 21, 18, 0.82) 100%); /* taste-skill-ignore — photo scrim */
+  background: linear-gradient(180deg, transparent 0%, rgba(33, 59, 49, 0.82) 100%); /* taste-skill-ignore — photo scrim */
   opacity: 0;
   transform: translateY(8px);
   transition: opacity var(--d-base) var(--ease-out), transform var(--d-base) var(--ease-out);

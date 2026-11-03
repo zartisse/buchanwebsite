@@ -19,7 +19,7 @@ export const IA_PAGES: Record<string, HubPageData> = {
   'custom-homes': {
     slug: 'custom-homes',
     metaTitle: 'Custom Homes',
-    metaDescription: 'Ground-up custom homes on your lot across the Seattle Eastside.',
+    metaDescription: 'Ground-up custom homes on your lot across Bellevue and the Greater Eastside.',
     hero: {
       eyebrow: 'Custom Homes',
       title: 'Built on your lot.',
@@ -55,7 +55,7 @@ export const IA_PAGES: Record<string, HubPageData> = {
   'land-and-site': {
     slug: 'land-and-site',
     metaTitle: 'Land & Site Considerations',
-    metaDescription: 'Evaluate your lot, zoning, and site conditions before building on the Seattle Eastside.',
+    metaDescription: 'Evaluate your lot, zoning, and site conditions before building in Bellevue and the Greater Eastside.',
     hero: {
       eyebrow: 'Custom Homes',
       title: 'Land & site',
@@ -86,7 +86,7 @@ export const IA_PAGES: Record<string, HubPageData> = {
   renovations: {
     slug: 'renovations',
     metaTitle: 'Renovations',
-    metaDescription: 'Major home renovations on the Seattle Eastside with the same Buchan standard.',
+    metaDescription: 'Major home renovations in Bellevue and the Greater Eastside with the same Buchan standard.',
     hero: {
       eyebrow: 'Renovations',
       title: 'Transform the home',
@@ -152,14 +152,14 @@ export const IA_PAGES: Record<string, HubPageData> = {
   'why-choose-buchan': {
     slug: 'why-choose-buchan',
     metaTitle: 'Why Choose Buchan',
-    metaDescription: 'Family-owned since 1961. 65 years of custom home building on the Seattle Eastside.',
+    metaDescription: 'Family-owned since 1961. 65 years of custom home building in Bellevue and the Greater Eastside.',
     hero: {
       eyebrow: 'Why Choose Buchan',
       title: 'Build with',
       titleEmphasis: 'certainty.',
       image_url: '/assets/ph-arch-4.webp',
     },
-    intro: 'Three generations, one standard, yours. We combine Eastside expertise with white-glove client care from first conversation through long-term warranty support.',
+    intro: 'One family, one standard, yours. We combine Eastside expertise with white-glove client care from first conversation through long-term warranty support.',
     sections: [
       { title: 'Family-Owned Since 1961', body: '65 years on the Eastside. Decisions made by people who know your project, not a ticket queue.', image_url: '/assets/ph-arch-1.webp' },
       { title: 'Progressive Estimating', body: 'Transparent pricing developed through preconstruction, not a single guess before design is resolved.' },
@@ -171,7 +171,7 @@ export const IA_PAGES: Record<string, HubPageData> = {
   'areas-we-serve': {
     slug: 'areas-we-serve',
     metaTitle: 'Areas We Serve',
-    metaDescription: 'Custom homes and renovations across the Seattle Eastside.',
+    metaDescription: 'Custom homes and renovations across Bellevue and the Greater Eastside.',
     hero: {
       eyebrow: 'Local Expertise',
       title: 'Areas we',
@@ -201,7 +201,7 @@ export const IA_PAGES: Record<string, HubPageData> = {
   adus: {
     slug: 'adus',
     metaTitle: 'ADUs & DADUs',
-    metaDescription: 'Accessory dwelling units for family housing and rental income on the Seattle Eastside.',
+    metaDescription: 'Accessory dwelling units for family housing and rental income in Bellevue and the Greater Eastside.',
     hero: {
       eyebrow: 'ADUs & DADUs',
       title: 'More living.',
@@ -322,7 +322,7 @@ export const IA_PAGES: Record<string, HubPageData> = {
   'find-your-lot': {
     slug: 'find-your-lot',
     metaTitle: 'Find Your Lot',
-    metaDescription: 'Buy-side lot sourcing for custom home clients on the Seattle Eastside.',
+    metaDescription: 'Buy-side lot sourcing for custom home clients in Bellevue and the Greater Eastside.',
     hero: {
       eyebrow: 'Real Estate',
       title: 'Find your',
@@ -583,13 +583,12 @@ export const PROCESS_STAGES = [
 ];
 
 export const CREDIBILITY_LINE =
-  'Family-owned since 1961 | 4,000+ homes built | Serving Bellevue and the Eastside';
+  'Family-owned since 1961 | Serving Bellevue & the Greater Eastside';
 
 /** @deprecated Use CREDIBILITY_LINE */
 export const CREDIBILITY_ITEMS = [
   'Family-owned since 1961',
-  '4,000+ homes built',
-  'Serving Bellevue and the Eastside',
+  'Serving Bellevue & the Greater Eastside',
 ];
 
 export interface FeaturedWorkItem {
@@ -675,7 +674,7 @@ export const PICK_YOUR_PATH_INTRO = '';
 
 export const WHY_CHOOSE_VALUES = [
   { title: 'Certainty', body: 'Progressive estimates and preconstruction discipline reduce surprises.' },
-  { title: 'Craftsmanship', body: 'Three generations of hands-on building standards.' },
+  { title: 'Craftsmanship', body: 'Hands-on building standards, held for 65 years.' },
   { title: 'Local Expertise', body: 'Eastside jurisdictions, slopes, and neighborhoods, known deeply.' },
   { title: 'White-Glove Care', body: 'A person who knows your project, not a ticket queue.' },
   { title: 'Continuing Support', body: 'Warranty, education, and Home Care after the keys.' },

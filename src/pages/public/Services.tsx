@@ -35,7 +35,7 @@ export function Services() {
         <section key={s.slug} className={i % 2 ? ps.sectionAlt : ps.section}>
           <RevealOnScroll>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 48, maxWidth: 'var(--max-width)', margin: '0 auto', alignItems: 'center' }}>
-              <img src={resolveImageUrl(s.image_url, s.slug)} alt="" style={{ width: '100%', height: 'clamp(280px, 35vw, 420px)', objectFit: 'cover', order: i % 2 ? 1 : 0 }} />
+              <img src={resolveImageUrl(s.image_url, s.slug)} alt={s.title} style={{ width: '100%', height: 'clamp(280px, 35vw, 420px)', objectFit: 'cover', order: i % 2 ? 1 : 0 }} />
               <div style={{ order: i % 2 ? 0 : 1 }}>
                 <span className={ps.eyebrow}>Service</span>
                 <h2 className={ps.sectionTitle} style={{ marginTop: 18 }}>{s.title}</h2>

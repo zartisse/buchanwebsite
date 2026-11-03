@@ -33,7 +33,7 @@ export function AdminLogin() {
     <div className={styles.loginPage}>
       <PageMeta title="Admin Login" />
       <div className={styles.loginBox}>
-        <img src={assetUrl('/assets/logo-reverse.png')} alt="" style={{ height: 38, marginBottom: 24 }} />
+        <img src={assetUrl('/assets/logo-reverse.png')} alt="John Buchan Homes" style={{ height: 38, marginBottom: 24 }} />
         <h1 className={styles.loginTitle}>Content Studio</h1>
         <p className={styles.pageSub}>Sign in to manage the Buchan Homes website.</p>
         {!isConfigured && (
@@ -76,7 +76,7 @@ export function AdminLogin() {
             {loading ? 'Signing in…' : 'Sign In'}
           </button>
         </form>
-        <Link to="/" style={{ display: 'block', marginTop: 24, fontSize: 12, color: 'rgba(26,36,32,0.5)' }}>← Back to site</Link>
+        <Link to="/" style={{ display: 'block', marginTop: 24, fontSize: 12, color: 'rgba(33, 59, 49,0.5)' }}>← Back to site</Link>
       </div>
     </div>
   );

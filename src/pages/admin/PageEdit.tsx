@@ -32,7 +32,7 @@ export function AdminPageEdit() {
     <>
       <div className={styles.toolbar} style={{ marginBottom: 16 }}>
         <Link to="/admin/pages" className={styles.btn}>← All Pages</Link>
-        <span style={{ fontSize: 13, color: 'rgba(26,36,32,0.5)' }}>{SITE_PAGE_LABELS[pageSlug]}</span>
+        <span style={{ fontSize: 13, color: 'rgba(33, 59, 49,0.5)' }}>{SITE_PAGE_LABELS[pageSlug]}</span>
       </div>
       <SitePageEditor
         slug={pageSlug}

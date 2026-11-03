@@ -34,7 +34,7 @@ loadEnv();
 const url = process.env.VITE_SUPABASE_URL!;
 const anonKey = process.env.VITE_SUPABASE_ANON_KEY!;
 const email = process.env.SUPABASE_ADMIN_EMAIL ?? 'admin@buchan.com';
-const password = process.env.SUPABASE_ADMIN_PASSWORD ?? 'BuchanAdmin2026!';
+const password = process.env.SUPABASE_ADMIN_PASSWORD ?? '';
 
 async function api(path: string, opts: RequestInit = {}, token?: string) {
   const res = await fetch(`${url}${path}`, {

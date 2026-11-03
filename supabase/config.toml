@@ -8,3 +8,7 @@ verify_jwt = false
 # Admin-only indexing: requires authenticated CMS user
 [functions.index-knowledge-source]
 verify_jwt = true
+
+# Public lead notifications: anon visitors trigger the email after submitting a form
+[functions.notify-submission]
+verify_jwt = false

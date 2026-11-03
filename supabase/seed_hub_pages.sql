@@ -6,7 +6,7 @@ INSERT INTO hub_pages (slug, meta_title, meta_description, content)
 VALUES (
   'custom-homes',
   'Custom Homes',
-  'Ground-up custom homes on your lot across the Seattle Eastside.',
+  'Ground-up custom homes on your lot across Bellevue and the Greater Eastside.',
   '{"hero":{"eyebrow":"Custom Homes","title":"Built on your lot.","titleEmphasis":"Designed for your life.","image_url":"/assets/ph-arch-1.png"},"intro":"We specialize in ground-up custom homes, not spec inventory on our land. From feasibility through completion, one team carries your project forward with progressive estimates and the craftsmanship standards Buchan has protected for 65 years.","sections":[{"title":"Our Process","body":"Discovery through continuing care, four stages designed to reduce uncertainty at every decision point. You work with the same leadership team from first conversation through warranty.","bullets":["Discover & evaluate","Plan & align","Build with discipline","Care beyond completion"],"image_url":"/assets/ph-arch-2.png"},{"title":"Service Areas","body":"Bellevue, Clyde Hill, Medina, Hunts Point, Kirkland, Redmond, and surrounding Eastside communities. We know the jurisdictions, slopes, and neighborhood character, because we have built here since 1961.","image_url":"/assets/ph-arch-3.png"},{"title":"Cost & Planning","body":"Transparent progressive estimates before construction begins. Use our cost estimator for a preliminary range, then meet with our preconstruction team for a project-specific conversation.","bullets":["Online cost estimator","Preconstruction planning","Progressive budget ranges"]},{"title":"What Makes a Buchan Custom Home","body":"Hand-chosen materials, rain-screen detailing built for Pacific Northwest weather, and interior volumes resolved before finish work begins. The details you never see are the ones we lose sleep over."}],"ctaTitle":"Ready to plan your custom home?","ctaLink":"/contact?service=I want to build a custom home#inquiry"}'::jsonb
 )
 ON CONFLICT (slug) DO NOTHING;
@@ -15,7 +15,7 @@ INSERT INTO hub_pages (slug, meta_title, meta_description, content)
 VALUES (
   'land-and-site',
   'Land & Site Considerations',
-  'Evaluate your lot, zoning, and site conditions before building on the Seattle Eastside.',
+  'Evaluate your lot, zoning, and site conditions before building in Bellevue and the Greater Eastside.',
   '{"hero":{"eyebrow":"Custom Homes","title":"Land & site","titleEmphasis":"considerations.","image_url":"/assets/ph-arch-3.png"},"intro":"Before design begins, we evaluate what your property can support, zoning, setbacks, slope, utilities, and buildability, so your investment aligns with what is actually possible on your lot.","sections":[{"title":"Site Evaluation","body":"Topography, soil, drainage, and access are reviewed alongside jurisdictional requirements. We flag constraints early so they inform design, not surprise you mid-build.","bullets":["Zoning & setback review","Utility & easement mapping","Slope & drainage assessment"],"image_url":"/assets/ph-arch-2.png"},{"title":"Feasibility & Budget Alignment","body":"Progressive estimates tied to real site conditions, not generic per-square-foot guesses. You know what your lot supports before committing to full design."},{"title":"Working With Your Team","body":"We collaborate with your architect or recommend trusted independent professionals. Buchan leads constructability review, estimating, and schedule planning from the early stages.","image_url":"/assets/ph-arch-4.png"}],"ctaTitle":"Evaluate your property","ctaLink":"/property-feasibility"}'::jsonb
 )
 ON CONFLICT (slug) DO NOTHING;
@@ -24,7 +24,7 @@ INSERT INTO hub_pages (slug, meta_title, meta_description, content)
 VALUES (
   'renovations',
   'Renovations',
-  'Major home renovations on the Seattle Eastside with the same Buchan standard.',
+  'Major home renovations in Bellevue and the Greater Eastside with the same Buchan standard.',
   '{"hero":{"eyebrow":"Renovations","title":"Transform the home","titleEmphasis":"you already love.","image_url":"/assets/ph-arch-2.png"},"intro":"Whole-home and major renovation projects, kitchen and bath, structural additions, and full interior transformations. We apply the same preconstruction discipline and craftsmanship standards as our custom builds.","sections":[{"title":"Major Remodels","body":"Scope from cosmetic refreshes through whole-house renovations and structural additions. We evaluate existing conditions honestly, structure, envelope, mechanical, before committing to a schedule.","bullets":["Whole-home renovations","Kitchen & bath transformations","Additions & structural work"],"image_url":"/assets/ph-arch-4.png"},{"title":"Preconstruction First","body":"Renovations benefit from the same progressive estimating and planning discipline as custom builds. Living-in-place, phasing, and permit timelines are mapped before demolition begins."},{"title":"Living Through the Work","body":"For occupied renovations, we establish dust control, access paths, and weekly owner walkthroughs so you always know what is happening next, and when your kitchen will be back.","image_url":"/assets/ph-arch-1.png"},{"title":"Renovation FAQ","body":"Timeline, living-in-place, permits, and budget, answered in our FAQ section. Common Eastside renovation questions are covered there; your project gets a personal review."}],"ctaTitle":"Discuss your renovation project","ctaLink":"#renovation-inquiry","process_pdf_url":"/assets/documents/buchan-renovation-process.pdf","process_pdf_title":"Your renovation journey with Buchan"}'::jsonb
 )
 ON CONFLICT (slug) DO NOTHING;
@@ -42,8 +42,8 @@ INSERT INTO hub_pages (slug, meta_title, meta_description, content)
 VALUES (
   'why-choose-buchan',
   'Why Choose Buchan',
-  'Family-owned since 1961. 65 years of custom home building on the Seattle Eastside.',
-  '{"hero":{"eyebrow":"Why Choose Buchan","title":"Build with","titleEmphasis":"certainty.","image_url":"/assets/ph-arch-4.png"},"intro":"Three generations, one standard, yours. We combine Eastside expertise with white-glove client care from first conversation through long-term warranty support.","sections":[{"title":"Family-Owned Since 1961","body":"65 years on the Eastside. Decisions made by people who know your project, not a ticket queue.","image_url":"/assets/ph-arch-1.png"},{"title":"Progressive Estimating","body":"Transparent pricing developed through preconstruction, not a single guess before design is resolved."},{"title":"Continuing Care","body":"Warranty, homeowner education, and Buchan Home Care, support that outlasts the keys."}],"ctaTitle":"See our work","ctaLink":"/portfolio"}'::jsonb
+  'Family-owned since 1961. 65 years of custom home building in Bellevue and the Greater Eastside.',
+  '{"hero":{"eyebrow":"Why Choose Buchan","title":"Build with","titleEmphasis":"certainty.","image_url":"/assets/ph-arch-4.png"},"intro":"One family, one standard, yours. We combine Eastside expertise with white-glove client care from first conversation through long-term warranty support.","sections":[{"title":"Family-Owned Since 1961","body":"65 years on the Eastside. Decisions made by people who know your project, not a ticket queue.","image_url":"/assets/ph-arch-1.png"},{"title":"Progressive Estimating","body":"Transparent pricing developed through preconstruction, not a single guess before design is resolved."},{"title":"Continuing Care","body":"Warranty, homeowner education, and Buchan Home Care, support that outlasts the keys."}],"ctaTitle":"See our work","ctaLink":"/portfolio"}'::jsonb
 )
 ON CONFLICT (slug) DO NOTHING;
 
@@ -51,7 +51,7 @@ INSERT INTO hub_pages (slug, meta_title, meta_description, content)
 VALUES (
   'areas-we-serve',
   'Areas We Serve',
-  'Custom homes and renovations across the Seattle Eastside.',
+  'Custom homes and renovations across Bellevue and the Greater Eastside.',
   '{"hero":{"eyebrow":"Local Expertise","title":"Areas we","titleEmphasis":"serve.","image_url":"/assets/ph-arch-1.png"},"intro":"Deep knowledge of Eastside jurisdictions, setbacks, slopes, and neighborhood character, built over 65 years in these communities.","sections":[{"title":"Primary Markets","body":"Bellevue, Medina, Clyde Hill, Yarrow Point, Hunts Point, Kirkland, Redmond, Newcastle, Mercer Island, Sammamish, Issaquah, Woodinville.","bullets":["Bellevue & Bridle Trails","Clyde Hill & Medina","Kirkland & Juanita","Redmond & Sammamish"],"image_url":"/assets/ph-arch-2.png"},{"title":"Jurisdiction Knowledge","body":"Setback rules, tree retention, slope stability, and design review processes vary block by block on the Eastside. We have navigated these jurisdictions for decades, relationships and reputation matter when permits are on the line."},{"title":"Jurisdiction Guides","body":"City-specific planning guides will be added over time, linking from each service area below. In the meantime, start with a property feasibility conversation."}],"ctaTitle":"Evaluate your property","ctaLink":"/property-feasibility","service_areas":["Bellevue","Medina","Clyde Hill","Yarrow Point","Hunts Point","Kirkland","Redmond","Newcastle","Mercer Island","Sammamish","Issaquah","Woodinville",]}'::jsonb
 )
 ON CONFLICT (slug) DO NOTHING;
@@ -60,7 +60,7 @@ INSERT INTO hub_pages (slug, meta_title, meta_description, content)
 VALUES (
   'adus',
   'ADUs & DADUs',
-  'Accessory dwelling units for family housing and rental income on the Seattle Eastside.',
+  'Accessory dwelling units for family housing and rental income in Bellevue and the Greater Eastside.',
   '{"hero":{"eyebrow":"ADUs & DADUs","title":"More living.","titleEmphasis":"Same lot.","image_url":"/assets/ph-arch-3.png"},"intro":"Detached and attached accessory dwelling units for aging-parent housing, guest space, or rental income, evaluated and built with the same Buchan team that handles custom homes.","sections":[{"title":"Feasibility","body":"We evaluate zoning, setbacks, utilities, and access before design begins. Washington ADU legislation has expanded options in many Eastside cities, but every lot is different.","bullets":["Zoning & setback review","Utility & sewer capacity","Access & parking requirements"],"image_url":"/assets/ph-arch-1.png"},{"title":"Design & Build","body":"Integrated with our custom home process, one team from concept through certificate of occupancy. No separate architect-builder handoffs."},{"title":"Zoning & Legislation","body":"Recent state and local ADU reforms may affect your property. We track Bellevue, Kirkland, Seattle-adjacent, and unincorporated King County rules so you understand what is possible before investing in design."},{"title":"Timelines & Budget","body":"Most ADU projects run 10–14 months from feasibility to completion, depending on jurisdiction and utility work. Preliminary ranges are available through our cost estimator; detailed budgets follow preconstruction."}],"ctaTitle":"Explore an ADU on your property","ctaLink":"/contact?service=ADU / DADU#inquiry"}'::jsonb
 )
 ON CONFLICT (slug) DO NOTHING;
@@ -96,7 +96,7 @@ INSERT INTO hub_pages (slug, meta_title, meta_description, content)
 VALUES (
   'find-your-lot',
   'Find Your Lot',
-  'Buy-side lot sourcing for custom home clients on the Seattle Eastside.',
+  'Buy-side lot sourcing for custom home clients in Bellevue and the Greater Eastside.',
   '{"hero":{"eyebrow":"Real Estate","title":"Find your","titleEmphasis":"lot.","image_url":"/assets/ph-arch-2.png"},"intro":"For clients who know they want to build custom but have not yet secured land, we help evaluate and source buildable lots aligned with your vision and budget.","sections":[{"title":"Search Criteria","body":"We start with how you want to live, schools, commute, views, privacy, then filter for lots that can support the home you have in mind, not just what is listed today.","bullets":["Location & lifestyle priorities","Budget range for land + build","Timeline flexibility"],"image_url":"/assets/ph-arch-3.png"},{"title":"Lot Evaluation Checklist","body":"Zoning, setbacks, slope, utilities, and access, understood before you commit. We flag deal-breakers early so you do not fall in love with land that cannot support your plan.","bullets":["Zoning & buildable area","Slope & geotechnical flags","Utility & sewer availability","Tree retention & critical areas"]},{"title":"Typical Timeline","body":"Lot search timelines vary, some clients find land in weeks, others over a year. We stay engaged through feasibility on shortlisted parcels so you know build cost before you write an offer."},{"title":"Next Steps","body":"Share your criteria through our contact form or call 425.827.2266. We will outline active opportunities and off-market relationships where appropriate."}],"ctaTitle":"Start lot search","ctaLink":"/contact?service=Find your lot#inquiry"}'::jsonb
 )
 ON CONFLICT (slug) DO NOTHING;

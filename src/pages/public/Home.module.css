@@ -59,9 +59,9 @@
   inset: 0;
   background: linear-gradient( /* taste-skill-ignore — photo scrim */
     105deg,
-    rgba(13, 21, 18, 0.72) 0%,
-    rgba(13, 21, 18, 0.45) 45%,
-    rgba(13, 21, 18, 0.2) 100%
+    rgba(33, 59, 49, 0.72) 0%,
+    rgba(33, 59, 49, 0.45) 45%,
+    rgba(33, 59, 49, 0.2) 100%
   );
   z-index: 1;
 }
@@ -189,9 +189,9 @@
   inset: 0;
   background: linear-gradient( /* taste-skill-ignore — photo scrim */
     105deg,
-    rgba(13, 21, 18, 0.72) 0%,
-    rgba(13, 21, 18, 0.45) 45%,
-    rgba(13, 21, 18, 0.2) 100%
+    rgba(33, 59, 49, 0.72) 0%,
+    rgba(33, 59, 49, 0.45) 45%,
+    rgba(33, 59, 49, 0.2) 100%
   );
   z-index: 1;
   pointer-events: none;

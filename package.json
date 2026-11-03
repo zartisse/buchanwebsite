@@ -20,7 +20,8 @@
     "cms:check-live": "tsx scripts/check-live.ts",
     "deploy:gh-pages": "bash scripts/deploy-gh-pages.sh",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy:fixes": "node scripts/deploy-fixes.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.108.2",

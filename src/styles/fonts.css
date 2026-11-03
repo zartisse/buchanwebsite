@@ -1,0 +1,39 @@
+/*
+  Licensed brand fonts (JBH Brand Book).
+  Codec Pro = headlines, Aileron = subheads. Both are referenced in tokens.css
+  (--font-display, --font-subhead) and fall back to Montserrat until enabled.
+
+  To enable: put the licensed web-font files in public/fonts/ and uncomment the
+  matching blocks below. Nothing else needs to change.
+*/
+
+/*
+@font-face {
+  font-family: 'Codec Pro';
+  src: url('/fonts/CodecPro-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Codec Pro';
+  src: url('/fonts/CodecPro-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Aileron';
+  src: url('/fonts/Aileron-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Aileron';
+  src: url('/fonts/Aileron-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+*/

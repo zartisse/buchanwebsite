@@ -26,8 +26,29 @@ function dismissAttention(): void {
 type ChatMessage = {
   role: 'user' | 'assistant';
   content: string;
-  citations?: { sourceId: string; title: string }[];
+  streaming?: boolean;
 };
+
+function formatChatText(raw: string): string {
+  let text = raw.replace(/\r\n/g, '\n').trim();
+  text = text.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '$1 ($2)');
+  text = text.replace(/\*\*(.+?)\*\*/g, '$1');
+  text = text.replace(/__(.+?)__/g, '$1');
+  text = text.replace(/(^|[^\w])\*(.+?)\*(?=[^\w]|$)/g, '$1$2');
+  text = text.replace(/(^|[^\w])_(.+?)_(?=[^\w]|$)/g, '$1$2');
+  text = text.replace(/`([^`]+)`/g, '$1');
+  text = text.replace(/^#{1,6}\s+/gm, '');
+  text = text.replace(/^[-*]\s+/gm, '• ');
+  return text.trim();
+}
+
+function prefersReducedMotion(): boolean {
+  try {
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  } catch {
+    return false;
+  }
+}
 
 function getOrCreateSessionId(): string {
   try {
@@ -49,9 +70,61 @@ export function ChatWidget() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState('');
   const [sending, setSending] = useState(false);
+  const [typingOut, setTypingOut] = useState(false);
   const [sessionId, setSessionId] = useState('');
   const [showAttention, setShowAttention] = useState(() => !isAttentionDismissed());
   const listRef = useRef<HTMLDivElement>(null);
+  const typeTimerRef = useRef<number | null>(null);
+
+  const clearTypeTimer = () => {
+    if (typeTimerRef.current != null) {
+      window.clearTimeout(typeTimerRef.current);
+      typeTimerRef.current = null;
+    }
+  };
+
+  useEffect(() => () => clearTypeTimer(), []);
+
+  const revealAssistantReply = useCallback((fullText: string) => {
+    const text = formatChatText(fullText);
+    if (!text) {
+      setSending(false);
+      setTypingOut(false);
+      return;
+    }
+
+    if (prefersReducedMotion()) {
+      setMessages((prev) => [...prev, { role: 'assistant', content: text }]);
+      setSending(false);
+      setTypingOut(false);
+      return;
+    }
+
+    setMessages((prev) => [...prev, { role: 'assistant', content: '', streaming: true }]);
+    setSending(false);
+    setTypingOut(true);
+
+    let index = 0;
+    const step = () => {
+      index = Math.min(text.length, index + (text.length > 280 ? 3 : 2));
+      const slice = text.slice(0, index);
+      setMessages((prev) => {
+        const next = [...prev];
+        const last = next[next.length - 1];
+        if (last?.role === 'assistant' && last.streaming) {
+          next[next.length - 1] = { ...last, content: slice, streaming: index < text.length };
+        }
+        return next;
+      });
+      if (index < text.length) {
+        typeTimerRef.current = window.setTimeout(step, 16);
+      } else {
+        typeTimerRef.current = null;
+        setTypingOut(false);
+      }
+    };
+    typeTimerRef.current = window.setTimeout(step, 180);
+  }, []);
 
   useEffect(() => {
     setSessionId(getOrCreateSessionId());
@@ -86,15 +159,17 @@ export function ChatWidget() {
 
   const handleSend = useCallback(async () => {
     const text = input.trim();
-    if (!text || sending) return;
+    if (!text || sending || typingOut) return;
     setInput('');
+    clearTypeTimer();
+    setTypingOut(false);
     setMessages((prev) => [...prev, { role: 'user', content: text }]);
     setSending(true);
     try {
       const history = messages
         .filter((m) => m.role === 'user' || m.role === 'assistant')
         .slice(-10)
-        .map((m) => ({ role: m.role, content: m.content }));
+        .map((m) => ({ role: m.role, content: formatChatText(m.content) }));
       const data = await sendChatMessage({
         message: text,
         sessionId,
@@ -104,22 +179,12 @@ export function ChatWidget() {
         sessionStorage.setItem(SESSION_KEY, data.sessionId);
         setSessionId(data.sessionId);
       }
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: 'assistant',
-          content: data.reply,
-          citations: data.citations,
-        },
-      ]);
+      revealAssistantReply(data.reply);
     } catch (err) {
       const raw = err instanceof Error ? err.message : 'Something went wrong.';
-      const msg = friendlyChatError(raw);
-      setMessages((prev) => [...prev, { role: 'assistant', content: msg }]);
-    } finally {
-      setSending(false);
+      revealAssistantReply(friendlyChatError(raw));
     }
-  }, [input, sending, messages, sessionId]);
+  }, [input, sending, typingOut, messages, sessionId, revealAssistantReply]);
 
   if (loading) return null;
   if (!settings) return null;
@@ -145,7 +210,7 @@ export function ChatWidget() {
             {messages.map((m, i) => (
               <div
                 key={`${m.role}-${i}`}
-                className={`${styles.bubble} ${m.role === 'user' ? styles.bubbleUser : styles.bubbleAssistant}`}
+                className={`${styles.bubble} ${m.role === 'user' ? styles.bubbleUser : styles.bubbleAssistant} ${m.streaming ? styles.bubbleStreaming : ''}`}
               >
                 {m.content}
               </div>
@@ -174,6 +239,7 @@ export function ChatWidget() {
             <textarea
               className={styles.input}
               rows={1}
+              maxLength={1000}
               placeholder="Ask a question…"
               value={input}
               onChange={(e) => setInput(e.target.value)}
@@ -183,10 +249,10 @@ export function ChatWidget() {
                   void handleSend();
                 }
               }}
-              disabled={sending}
+              disabled={sending || typingOut}
               aria-label="Your message"
             />
-            <button type="submit" className={styles.send} disabled={sending || !input.trim()}>
+            <button type="submit" className={styles.send} disabled={sending || typingOut || !input.trim()}>
               Send
             </button>
           </form>

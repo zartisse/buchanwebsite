@@ -9,7 +9,7 @@ export function CostEstimator() {
     <main>
       <PageMeta
         title="Build Cost & Fit Estimator"
-        description="Directional build cost and fit estimate for custom homes and major renovations on the Seattle Eastside."
+        description="Directional build cost and fit estimate for custom homes and major renovations in Bellevue and the Greater Eastside."
       />
       <section className={ps.hero}>
         <div className={ps.heroInner}>

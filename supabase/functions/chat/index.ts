@@ -5,6 +5,8 @@ import { createAdminClient } from '../_shared/supabaseAdmin.ts';
 const OFFICE = '2821 Northup Way, Suite 100, Bellevue, WA 98004';
 const RATE_LIMIT = 40;
 const RATE_WINDOW_MS = 60 * 60 * 1000;
+const MAX_MESSAGE_CHARS = 1000;
+const MAX_HISTORY_CHARS = 1500;
 
 type HistoryMessage = { role: 'user' | 'assistant'; content: string };
 
@@ -45,7 +47,7 @@ function buildSystemPrompt(settings: {
   hubspot_meeting_url: string;
   system_prompt_append: string;
 }, contextBlock: string): string {
-  return `You are the in-house concierge assistant for John Buchan Homes — a multi-generation custom home builder on the Seattle Eastside since 1961. You help prospective clients the way a knowledgeable team member would: clear, warm, and grounded in what the company actually does.
+  return `You are the in-house concierge assistant for John Buchan Homes — a family-owned custom home builder serving Bellevue and the Greater Eastside since 1961. You help prospective clients the way a knowledgeable team member would: clear, warm, and grounded in what the company actually does.
 
 Voice:
 - Warm, polished, and professional — never stiff, never salesy, never generic brochure language.
@@ -62,7 +64,10 @@ Answering:
 - For "who is Buchan / tell me about you" questions, cover founding year, Eastside focus, custom homes & renovations, and the experience of building with the team — using whatever specifics CONTEXT provides.
 - When inviting a conversation, mention Mischelle (Client Concierge) by name and offer both the booking link and phone.
 - Context lines may start with "Source: <title> (<url>)". Share a page link only when it genuinely helps the visitor dig deeper.
-- Keep replies concise: usually 2–4 short sentences, or a brief list when it helps clarity.
+- Keep replies concise: usually 2–4 short sentences, or a brief numbered list when it helps clarity.
+- Never use Markdown. No asterisks, no **bold**, no _italics_, no # headings, no backticks.
+- For numbered steps write "1. Title — explanation" in plain text. Put each step on its own line.
+- Write URLs as full https:// links, never markdown like [here](url).
 
 Contact facts (always accurate):
 - Phone: ${settings.phone}
@@ -120,13 +125,18 @@ Deno.serve(async (req) => {
       history?: HistoryMessage[];
     };
 
-    if (!message?.trim()) return jsonResponse({ error: 'message required' }, 400);
+    if (typeof message !== 'string' || !message.trim()) return jsonResponse({ error: 'message required' }, 400);
+    if (message.length > MAX_MESSAGE_CHARS) {
+      return jsonResponse({ error: `Please keep questions under ${MAX_MESSAGE_CHARS} characters.` }, 400);
+    }
 
-    const bucketKey = `${ip}:${sessionId ?? 'anon'}`.slice(0, 120);
+    // Limit per visitor IP. (The session id comes from the browser, so it must not be
+    // part of the key: changing it would otherwise reset the limit.)
+    const bucketKey = `chat:${ip}`.slice(0, 120);
     const allowed = await checkRateLimit(supabase, bucketKey);
     if (!allowed) return jsonResponse({ error: 'Too many requests. Please call us or try again later.' }, 429);
 
-    const sid = sessionId ?? crypto.randomUUID();
+    const sid = typeof sessionId === 'string' && sessionId ? sessionId.slice(0, 64) : crypto.randomUUID();
     await supabase.from('chat_logs').insert({ session_id: sid, role: 'user', message: message.trim() });
 
     const queryEmbedding = await embedText(openaiKey, message.trim());
@@ -149,9 +159,10 @@ Deno.serve(async (req) => {
       .join('\n\n');
 
     const system = buildSystemPrompt(settings, contextBlock);
-    const trimmedHistory = (history ?? []).slice(-6).filter(
-      (m) => m.role === 'user' || m.role === 'assistant',
-    );
+    const trimmedHistory = (Array.isArray(history) ? history : [])
+      .slice(-6)
+      .filter((m) => (m?.role === 'user' || m?.role === 'assistant') && typeof m.content === 'string')
+      .map((m) => ({ role: m.role, content: m.content.slice(0, MAX_HISTORY_CHARS) }));
     const reply = await chatCompletion(openaiKey, system, [
       ...trimmedHistory,
       { role: 'user', content: message.trim() },

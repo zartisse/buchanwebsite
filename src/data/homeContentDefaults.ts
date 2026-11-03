@@ -17,7 +17,7 @@ import {
 export const HOME_CONTENT_VERSION = 4;
 
 export const HERITAGE_MARQUEE_DEFAULT =
-  'Celebrating 65 Years · Family-owned since 1961 · 4,000+ homes built · Serving Bellevue and the Eastside · John Buchan Homes';
+  'Celebrating 65 Years · Family-owned · Serving Bellevue & the Greater Eastside · John Buchan Homes';
 
 const LEGACY_HERITAGE_MARQUEE = 'Celebrating 65 Years · John Buchan Homes';
 
@@ -87,7 +87,7 @@ export function getDefaultHomeContent(): HomePageContent {
   return {
     content_version: HOME_CONTENT_VERSION,
     hero: {
-      eyebrow: 'Building since 1961 · Seattle Eastside',
+      eyebrow: 'Custom Homes & Renovations · Bellevue & the Greater Eastside',
       title: 'Build with certainty.',
       title_emphasis: 'Live exceptionally.',
       subtitle: 'Custom homes and major renovations, built on thoughtful planning, expert guidance, and uncompromising craftsmanship, proudly serving Bellevue and the Eastside.',

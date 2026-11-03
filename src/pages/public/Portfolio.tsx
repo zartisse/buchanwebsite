@@ -55,7 +55,7 @@ export function Portfolio() {
 
   return (
     <main>
-      <PageMeta title="Portfolio" description="Custom homes built by John Buchan Homes across the Seattle Eastside." />
+      <PageMeta title="Portfolio" description="Custom homes built by John Buchan Homes across Bellevue and the Greater Eastside." />
       <section className={ps.hero}>
         <div className={ps.heroInner}>
           <span className={ps.eyebrow}>Our Work</span>

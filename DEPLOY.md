@@ -9,7 +9,7 @@ npm run dev
 Open **http://localhost:5173/admin/login**
 
 - Email: `admin@buchan.com`
-- Password: `BuchanAdmin2026!` (change after first login)
+- Password: stored privately (not in this repo). Reset it in Supabase → Authentication → Users if needed.
 
 Run once if hub pages are empty:
 

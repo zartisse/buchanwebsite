@@ -2,16 +2,16 @@
   display: flex;
   height: 100vh;
   overflow: hidden;
-  background: #efefe3;
-  color: #1a2420;
+  background: #f7f5f0;
+  color: #213b31;
   font-family: var(--font-sans);
 }
 
 .sidebar {
   width: 264px;
   flex: 0 0 264px;
-  background: #1a2420;
-  color: #f5f0e8;
+  background: #213b31;
+  color: #f7f5f0;
   display: flex;
   flex-direction: column;
   border-right: 1px solid rgba(0, 0, 0, 0.2);
@@ -19,7 +19,7 @@
 
 .sidebarHeader {
   padding: 26px 24px 22px;
-  border-bottom: 1px solid rgba(245, 240, 232, 0.1);
+  border-bottom: 1px solid rgba(247, 245, 240, 0.1);
 }
 
 .logo {
@@ -31,7 +31,7 @@
   font-size: 10px;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: #b0824c;
+  color: #b88a4b;
   margin-top: 14px;
 }
 
@@ -47,7 +47,7 @@
   font-size: 9px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgba(245, 240, 232, 0.4);
+  color: rgba(247, 245, 240, 0.4);
   padding: 8px 12px 10px;
 }
 
@@ -56,7 +56,7 @@
   background: transparent;
   border: none;
   border-left: 2px solid transparent;
-  color: rgba(245, 240, 232, 0.6);
+  color: rgba(247, 245, 240, 0.6);
   font-family: var(--font-sans);
   font-size: 14px;
   padding: 13px 14px;
@@ -69,9 +69,9 @@
 }
 
 .navItemActive {
-  background: rgba(176, 130, 76, 0.16);
-  border-left-color: #b0824c;
-  color: #f5f0e8;
+  background: rgba(184, 138, 75, 0.16);
+  border-left-color: #b88a4b;
+  color: #f7f5f0;
 }
 
 .navIcon {
@@ -86,8 +86,8 @@
   min-width: 20px;
   height: 20px;
   padding: 0 6px;
-  background: #b0824c;
-  color: #1a2420;
+  background: #b88a4b;
+  color: #213b31;
   border-radius: 100px;
   font-size: 10px;
   font-weight: 600;
@@ -98,7 +98,7 @@
 
 .sidebarFooter {
   padding: 16px 22px;
-  border-top: 1px solid rgba(245, 240, 232, 0.1);
+  border-top: 1px solid rgba(247, 245, 240, 0.1);
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -115,7 +115,7 @@
 .signOut {
   background: none;
   border: none;
-  color: rgba(245, 240, 232, 0.5);
+  color: rgba(247, 245, 240, 0.5);
   font-size: 12px;
   cursor: pointer;
   text-align: left;
@@ -123,7 +123,7 @@
 }
 
 .signOut:hover {
-  color: #f5f0e8;
+  color: #f7f5f0;
 }
 
 .main {

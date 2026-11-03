@@ -99,7 +99,7 @@
 
 .hotspotActive .hotspotDot {
   transform: scale(1.3);
-  outline: 4px solid rgba(197, 160, 125, 0.35);
+  outline: 4px solid rgba(184, 138, 75, 0.35);
 }
 
 .hotspotActive .hotspotRing {
@@ -134,12 +134,12 @@
 }
 
 .callout:hover {
-  background: rgba(197, 160, 125, 0.06);
+  background: rgba(184, 138, 75, 0.06);
 }
 
 .calloutActive {
-  border-color: rgba(197, 160, 125, 0.35);
-  background: rgba(197, 160, 125, 0.08);
+  border-color: rgba(184, 138, 75, 0.35);
+  background: rgba(184, 138, 75, 0.08);
 }
 
 .calloutIcon {

@@ -14,7 +14,7 @@
   background: var(--color-bg-mid);
   color: var(--color-text);
   cursor: pointer;
-  box-shadow: 0 8px 28px rgba(13, 21, 18, 0.35); /* taste-skill-ignore — floating overlay */
+  box-shadow: 0 8px 28px rgba(33, 59, 49, 0.35); /* taste-skill-ignore — floating overlay */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -98,11 +98,11 @@
   0%,
   56%,
   100% {
-    box-shadow: 0 8px 28px rgba(13, 21, 18, 0.35); /* taste-skill-ignore — floating overlay */
+    box-shadow: 0 8px 28px rgba(33, 59, 49, 0.35); /* taste-skill-ignore — floating overlay */
     border-color: var(--color-accent-hairline);
   }
   38% {
-    box-shadow: 0 16px 40px rgba(13, 21, 18, 0.5), 0 0 0 6px var(--color-accent-muted), 0 0 24px rgba(176, 130, 76, 0.45); /* taste-skill-ignore — floating overlay */
+    box-shadow: 0 16px 40px rgba(33, 59, 49, 0.5), 0 0 0 6px var(--color-accent-muted), 0 0 24px rgba(184, 138, 75, 0.45); /* taste-skill-ignore — floating overlay */
     border-color: var(--color-accent);
   }
 }
@@ -136,7 +136,7 @@
   background: var(--color-bg-cream);
   border: 1px solid var(--color-hairline-light);
   border-radius: 10px;
-  box-shadow: 0 6px 20px rgba(13, 21, 18, 0.15); /* taste-skill-ignore — floating overlay */
+  box-shadow: 0 6px 20px rgba(33, 59, 49, 0.15); /* taste-skill-ignore — floating overlay */
   pointer-events: none;
   white-space: nowrap;
   animation: chatTeaserIn 5s ease-in-out 1.5s infinite;
@@ -186,7 +186,7 @@
   color: var(--color-text-on-light);
   border: 1px solid var(--color-hairline-light);
   border-radius: 12px;
-  box-shadow: 0 16px 48px rgba(13, 21, 18, 0.22); /* taste-skill-ignore — floating overlay */
+  box-shadow: 0 16px 48px rgba(33, 59, 49, 0.22); /* taste-skill-ignore — floating overlay */
   overflow: hidden;
 }
 
@@ -194,7 +194,7 @@
   padding: 0.85rem 1rem;
   background: var(--color-bg-mid);
   color: var(--color-text);
-  border-bottom: 1px solid rgba(245, 240, 232, 0.12);
+  border-bottom: 1px solid rgba(247, 245, 240, 0.12);
 }
 
 .headerTitle {
@@ -269,6 +269,10 @@
   align-self: flex-start;
   background: var(--color-bg-white);
   border: 1px solid var(--color-hairline-light);
+}
+
+.bubbleStreaming {
+  animation: chatReplyIn 0.35s var(--ease-out);
 }
 
 .citations {
@@ -361,10 +365,25 @@
   }
 }
 
+@keyframes chatReplyIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .typingDots span {
     animation: none;
     opacity: 0.7;
+  }
+
+  .bubbleStreaming {
+    animation: none;
   }
 
   .togglePulseActive {

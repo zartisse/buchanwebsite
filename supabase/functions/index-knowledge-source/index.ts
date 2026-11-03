@@ -415,6 +415,12 @@ Deno.serve(async (req) => {
     const supabase = createAdminClient();
     const { data: userData, error: userErr } = await supabase.auth.getUser(token);
     if (userErr || !userData?.user) return jsonResponse({ error: 'Sign in to the admin to manage knowledge' }, 401);
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', userData.user.id)
+      .maybeSingle();
+    if (profile?.role !== 'admin') return jsonResponse({ error: 'Admin access required' }, 403);
 
     const body = await req.json();
     const { sourceId, syncCms, crawlStart: startId, crawlStep: stepId, crawlStop: stopId } = body as {

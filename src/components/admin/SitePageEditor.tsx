@@ -42,7 +42,7 @@ export function SitePageEditor({ slug, page, onSave, onCancel }: SitePageEditorP
   );
   const [metaDescription, setMetaDescription] = useState(
     slug === 'home' && page && isStaleHomeCms(page.content as unknown as Record<string, unknown>)
-      ? 'Custom homes and major renovations on the Seattle Eastside since 1961.'
+      ? 'Custom homes and major renovations in Bellevue and the Greater Eastside since 1961.'
       : initial.meta_description,
   );
   const [content, setContent] = useState(initialHomeContent);
@@ -177,7 +177,7 @@ function HomeEditor({ content, onChange }: { content: HomePageContent; onChange:
 
       <fieldset className={styles.fieldset}>
         <legend className={styles.legend}>Trust bar</legend>
-        <p style={{ fontSize: 13, color: 'rgba(26,36,32,0.5)', marginBottom: 12 }}>Three stats shown below the hero. Legacy single-line field kept for older saved content.</p>
+        <p style={{ fontSize: 13, color: 'rgba(33, 59, 49,0.5)', marginBottom: 12 }}>Three stats shown below the hero. Legacy single-line field kept for older saved content.</p>
         <div className={styles.field}>
           <label className={styles.label}>Legacy credibility line</label>
           <input className={styles.input} value={content.credibility_line} onChange={(e) => set({ credibility_line: e.target.value })} />
@@ -196,7 +196,7 @@ function HomeEditor({ content, onChange }: { content: HomePageContent; onChange:
 
       <fieldset className={styles.fieldset}>
         <legend className={styles.legend}>Featured Work labels</legend>
-        <p style={{ fontSize: 13, color: 'rgba(26,36,32,0.5)', marginBottom: 12 }}>Images come from Properties marked as Featured (shows up to 3).</p>
+        <p style={{ fontSize: 13, color: 'rgba(33, 59, 49,0.5)', marginBottom: 12 }}>Images come from Properties marked as Featured (shows up to 3).</p>
         <div className={styles.field}>
           <label className={styles.label}>Eyebrow</label>
           <input className={styles.input} value={content.featured_work.eyebrow} onChange={(e) => set({ featured_work: { ...content.featured_work, eyebrow: e.target.value } })} />
@@ -991,7 +991,7 @@ function AvailableHomesEditor({ content, onChange }: { content: AvailableHomesPa
         <div className={styles.field}><label className={styles.label}>Recently completed title</label><input className={styles.input} value={content.sections.recently_completed_title} onChange={(e) => onChange({ ...content, sections: { ...content.sections, recently_completed_title: e.target.value } })} /></div>
         <div className={styles.field}><label className={styles.label}>Empty state — for sale</label><input className={styles.input} value={content.sections.empty_for_sale} onChange={(e) => onChange({ ...content, sections: { ...content.sections, empty_for_sale: e.target.value } })} /></div>
         <div className={styles.field}><label className={styles.label}>Empty state — coming soon</label><input className={styles.input} value={content.sections.empty_coming_soon} onChange={(e) => onChange({ ...content, sections: { ...content.sections, empty_coming_soon: e.target.value } })} /></div>
-        <p style={{ fontSize: 13, color: 'rgba(26,36,32,0.5)' }}>Home cards pull from Properties with Available, Coming Soon, or Sold status.</p>
+        <p style={{ fontSize: 13, color: 'rgba(33, 59, 49,0.5)' }}>Home cards pull from Properties with Available, Coming Soon, or Sold status.</p>
       </fieldset>
       <fieldset className={styles.fieldset}>
         <legend className={styles.legend}>Closing CTA</legend>
