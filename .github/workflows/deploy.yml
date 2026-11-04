@@ -1,8 +1,8 @@
 name: Deploy to GitHub Pages
 
+# The live site is hosted on Netlify (builds automatically from main).
+# This GitHub Pages copy is manual-only so pushes don't trigger failing runs.
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:

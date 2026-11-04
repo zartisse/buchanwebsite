@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { HubPage, HubPageContent } from '../../types';
-import { HeroFields, ImageField, MetaFields } from './AdminFormFields';
+import { HeroFields, ImageField, MetaFields, PdfUploadField } from './AdminFormFields';
+import { RENOVATION_PROCESS_PDF_URL } from '../../data/renovationAssets';
 import { PageMeta } from '../ui/PageMeta';
 import styles from '../../styles/admin.module.css';
 
@@ -98,15 +99,13 @@ export function HubPageEditor({ slug, page, onSave, onCancel }: HubPageEditorPro
                 onChange={(e) => setContent({ ...content, process_pdf_title: e.target.value })}
               />
             </div>
-            <div className={styles.field}>
-              <label className={styles.label}>PDF URL (path under public/ or full URL)</label>
-              <input
-                className={styles.input}
-                value={content.process_pdf_url ?? ''}
-                onChange={(e) => setContent({ ...content, process_pdf_url: e.target.value })}
-                placeholder="/assets/documents/buchan-renovation-process.pdf"
-              />
-            </div>
+            <PdfUploadField
+              label="Renovation process PDF"
+              value={content.process_pdf_url && content.process_pdf_url !== RENOVATION_PROCESS_PDF_URL ? content.process_pdf_url : ''}
+              onChange={(url) => setContent({ ...content, process_pdf_url: url || RENOVATION_PROCESS_PDF_URL })}
+              folder="documents/renovations"
+              defaultUrl={RENOVATION_PROCESS_PDF_URL}
+            />
           </fieldset>
         )}
 
