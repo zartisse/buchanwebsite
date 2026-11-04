@@ -1,6 +1,6 @@
 .section {
-  padding: clamp(80px, 12vh, 120px) var(--gutter);
-  background: var(--color-bg-white);
+  padding: var(--section-y) var(--gutter);
+  background: var(--color-bg-cream);
 }
 
 .inner {
@@ -9,35 +9,46 @@
 }
 
 .header {
-  text-align: center;
-  margin-bottom: clamp(40px, 6vh, 56px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--s-6);
+  margin-bottom: clamp(40px, 5vw, 72px);
+  padding-bottom: var(--s-6);
+  border-bottom: 1px solid var(--color-hairline-light-3);
 }
 
 .title {
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-size: var(--text-display-xl);
-  font-weight: var(--fw-light);
-  line-height: var(--lh-snug);
-  letter-spacing: var(--tr-display);
+  font-weight: var(--display-weight);
+  line-height: var(--display-lh);
+  letter-spacing: var(--display-tracking);
+  text-transform: var(--display-case);
   color: var(--color-text-on-light);
   margin: 0;
+  max-width: 20ch;
   text-wrap: balance;
 }
 
 .widgetWrap {
-  min-height: 200px;
+  min-height: 240px;
 }
 
-.loading {
-  text-align: center;
-  color: var(--color-text-muted-light);
-  font-size: var(--text-body-sm);
-  margin-top: var(--s-6);
+.skeletonRow {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--s-4);
+}
+
+.skeletonRow span {
+  height: 180px;
+  background: var(--color-bg-trust);
 }
 
 .fallback {
-  text-align: center;
-  padding: var(--s-10) var(--s-4);
+  padding: var(--s-10) 0;
 }
 
 .fallbackText {
@@ -50,7 +61,7 @@
   align-items: center;
   gap: var(--s-2);
   font-size: var(--text-label);
-  letter-spacing: var(--tr-widest);
+  letter-spacing: var(--label-tracking);
   text-transform: uppercase;
   color: var(--color-accent-on-light);
   text-decoration: none;
@@ -58,4 +69,10 @@
 
 .fallbackLink:hover {
   text-decoration: underline;
+}
+
+@media (max-width: 760px) {
+  .skeletonRow {
+    grid-template-columns: 1fr;
+  }
 }

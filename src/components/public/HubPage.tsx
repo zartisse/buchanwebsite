@@ -61,7 +61,10 @@ export function HubPage({ page }: { page: HubPage }) {
       {data.intro && (
         <section className={ps.sectionAlt}>
           <RevealOnScroll>
-            <p className={ps.bodyText} style={{ maxWidth: 720, margin: '0 auto', textAlign: 'center' }}>{data.intro}</p>
+            <div className={hs.introGrid}>
+              <p className="sectionIndex"><b>00</b><span>Overview</span></p>
+              <p className={hs.introLead}>{data.intro}</p>
+            </div>
           </RevealOnScroll>
         </section>
       )}
@@ -73,9 +76,10 @@ export function HubPage({ page }: { page: HubPage }) {
               <RevealOnScroll key={section.title + i}>
                 <div
                   id={page.slug === 'renovations' && i === 0 ? 'what-we-renovate' : undefined}
-                  className={`${hs.sectionRow} ${section.image_url ? hs.sectionRowHasImage : ''}`}
+                  className={`${hs.sectionRow} ${section.image_url ? hs.sectionRowHasImage : ''} ${i % 2 === 1 ? hs.sectionRowReverse : ''}`}
                 >
-                  <div>
+                  <div className={hs.sectionCopy}>
+                    <span className={hs.sectionNo}>{String(i + 1).padStart(2, '0')}</span>
                     <h2 className={hs.sectionHeading}>{section.title}</h2>
                     <p className={ps.bodyText}>{section.body}</p>
                     {section.bullets && (
@@ -88,7 +92,7 @@ export function HubPage({ page }: { page: HubPage }) {
                   </div>
                   {section.image_url && (
                     <div className={hs.sectionImage}>
-                      <OptimizedImage src={section.image_url} seed={section.title} />
+                      <OptimizedImage src={section.image_url} seed={section.title} alt="" displayWidth={1200} sizes="(max-width: 900px) 100vw, 56vw" />
                     </div>
                   )}
                 </div>

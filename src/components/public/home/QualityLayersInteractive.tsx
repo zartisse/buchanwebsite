@@ -3,10 +3,12 @@ import type { HomePageContent, ServiceIconName } from '../../../types';
 import { OptimizedImage } from '../../ui/OptimizedImage';
 import { ServiceIcon } from '../../ui/ServiceIcon';
 import { RevealOnScroll } from '../../ui/RevealOnScroll';
+import { SectionIndex } from '../../ui/SectionIndex';
 import styles from './QualityLayersInteractive.module.css';
 
 type QualityLayersInteractiveProps = {
   section: HomePageContent['quality_layers'];
+  index?: string;
 };
 
 function layerIcon(layer: { icon?: ServiceIconName; id: string }): ServiceIconName {
@@ -52,7 +54,7 @@ function elevationSource(url: string | undefined): string {
   return url;
 }
 
-export function QualityLayersInteractive({ section }: QualityLayersInteractiveProps) {
+export function QualityLayersInteractive({ section, index }: QualityLayersInteractiveProps) {
   const [activeId, setActiveId] = useState<string | null>(section.layers[0]?.id ?? null);
   const active = section.layers.find((l) => l.id === activeId) ?? section.layers[0];
   const leftLayers = section.layers.slice(0, 2);
@@ -66,12 +68,17 @@ export function QualityLayersInteractive({ section }: QualityLayersInteractivePr
   return (
     <section className={styles.section}>
       <div className={styles.inner}>
-        <RevealOnScroll variant="down">
-          <div className={styles.header}>
+        <div className={styles.header}>
+          <RevealOnScroll variant="up">
+            <SectionIndex index={index} label={section.eyebrow} />
             <h2 className={styles.title}>{title}</h2>
-            {section.body && <p className={styles.body}>{section.body}</p>}
-          </div>
-        </RevealOnScroll>
+          </RevealOnScroll>
+          {section.body && (
+            <RevealOnScroll variant="up" index={1}>
+              <p className={styles.body}>{section.body}</p>
+            </RevealOnScroll>
+          )}
+        </div>
 
         <div className={styles.interactiveWrap}>
           <div className={styles.calloutsLeft}>

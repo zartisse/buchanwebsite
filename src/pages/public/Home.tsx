@@ -41,6 +41,8 @@ export function Home() {
   const heroTitle = hero.title_emphasis
     ? <>{hero.title} <em>{hero.title_emphasis}</em></>
     : hero.title;
+  let sectionNo = 0;
+  const nextIndex = () => String(++sectionNo).padStart(2, '0');
 
   useEffect(() => {
     const heroSrc = resolveImageUrl(heroSlides[0] ?? '/assets/ph-arch-1.webp', 'home-hero');
@@ -60,23 +62,33 @@ export function Home() {
     <main className={homeStyles.homePage}>
       <PageMeta title={page?.meta_title ?? 'Build with Certainty | John Buchan Homes'} description={page?.meta_description} />
 
-      <section className={homeStyles.heroOverlay}>
-        <div className={homeStyles.heroMedia} aria-hidden>
-          <HeroCarousel slides={heroSlides} />
+      <section className={homeStyles.hero}>
+        <div className={homeStyles.heroPanel}>
+          <div className={homeStyles.heroPanelInner}>
+            {hero.eyebrow && (
+              <RevealOnScroll variant="up">
+                <p className={homeStyles.heroEyebrow}>{hero.eyebrow}</p>
+              </RevealOnScroll>
+            )}
+            <RevealOnScroll variant="up" index={1}>
+              <h1 className={homeStyles.heroTitle}>{heroTitle}</h1>
+            </RevealOnScroll>
+            <RevealOnScroll variant="up" index={2}>
+              <p className={homeStyles.heroSub}>{hero.subtitle}</p>
+            </RevealOnScroll>
+            <RevealOnScroll variant="up" index={3}>
+              <div className={homeStyles.heroCtas}>
+                <HeroCta url={hero.cta_primary_url} label={hero.cta_primary_label} className="btnPrimaryFill" />
+                <a href="tel:4258272266" className={homeStyles.heroPhone}>
+                  <span>Speak with our team</span>
+                  425.827.2266
+                </a>
+              </div>
+            </RevealOnScroll>
+          </div>
         </div>
-        <div className={homeStyles.heroScrim} aria-hidden />
-        <div className={homeStyles.heroContent}>
-          <RevealOnScroll variant="down">
-            <h1 className={homeStyles.heroTitle}>{heroTitle}</h1>
-          </RevealOnScroll>
-          <RevealOnScroll variant="down" index={1}>
-            <p className={homeStyles.heroSub}>{hero.subtitle}</p>
-          </RevealOnScroll>
-          <RevealOnScroll variant="up" index={2}>
-            <div className={homeStyles.heroCtas}>
-              <HeroCta url={hero.cta_primary_url} label={hero.cta_primary_label} className="btnPrimaryFill" />
-            </div>
-          </RevealOnScroll>
+        <div className={homeStyles.heroMedia}>
+          <HeroCarousel slides={heroSlides} />
         </div>
       </section>
 
@@ -86,7 +98,12 @@ export function Home() {
             {[0, 1].map((group) => (
               <div key={group} className={homeStyles.marqueeGroup}>
                 {Array.from({ length: MARQUEE_GROUP_SIZE }, (_, i) => (
-                  <span key={i}>{hero.marquee} ·</span>
+                  <span key={i}>{hero.marquee.split(' · ').map((part, j, parts) => (
+                    <span key={part} className={homeStyles.marqueePart}>
+                      {part}
+                      {j < parts.length - 1 && <i aria-hidden className={homeStyles.marqueeDot} />}
+                    </span>
+                  ))}<i aria-hidden className={homeStyles.marqueeDot} /></span>
                 ))}
               </div>
             ))}
@@ -94,52 +111,62 @@ export function Home() {
         </section>
       )}
 
-      <FeaturedWorkGrid labels={content.featured_work} />
+      <FeaturedWorkGrid labels={content.featured_work} index={nextIndex()} />
 
-      <DifferenceSection section={content.difference_section} />
+      <DifferenceSection section={content.difference_section} index={nextIndex()} />
 
-      <WhatWeDo section={content.what_we_do} />
+      <WhatWeDo section={content.what_we_do} index={nextIndex()} />
 
       <PreconstructionBand band={content.what_we_do.preconstruction} />
 
-      <BetterPlannedPath section={content.better_planned_path} stages={content.process_stages} />
+      <BetterPlannedPath section={content.better_planned_path} stages={content.process_stages} index={nextIndex()} />
 
-      <QualityLayersInteractive section={content.quality_layers} />
+      <QualityLayersInteractive section={content.quality_layers} index={nextIndex()} />
 
       <GoogleReviewsSection
         section={content.google_reviews_section}
         widgetId={import.meta.env.VITE_GOOGLE_REVIEWS_WIDGET_ID}
+        index={nextIndex()}
       />
 
-      <ClientConcerns section={content.client_concerns} />
+      <ClientConcerns section={content.client_concerns} index={nextIndex()} />
 
-      <PickYourPath section={content.pick_your_path} />
+      <PickYourPath section={content.pick_your_path} index={nextIndex()} />
 
-      <section className={homeStyles.closingCta}>
-        <div className={homeStyles.closingCtaBg} aria-hidden>
+      <section className={`${homeStyles.closingCta} onDark`}>
+        <RevealOnScroll variant="mask" className={homeStyles.closingCtaMedia}>
           <OptimizedImage
             src={content.closing_cta.background_image_url ?? '/assets/ph-arch-1.webp'}
             seed="closing-cta"
+            alt=""
+            displayWidth={1400}
+            sizes="(max-width: 900px) 100vw, 58vw"
           />
-        </div>
-        <div className={homeStyles.closingCtaOverlay} aria-hidden />
-        <div className={homeStyles.closingCtaContent}>
-          <div className={homeStyles.closingCtaInner}>
-            <h2 className={homeStyles.closingCtaTitle}>
-              {content.closing_cta.title.split('\n').map((line, i, lines) => (
-                <span key={line}>
-                  {line}
-                  {i < lines.length - 1 && <br />}
-                </span>
+        </RevealOnScroll>
+        <div className={homeStyles.closingCtaPanel}>
+          <RevealOnScroll variant="up">
+            <h2 className={`${homeStyles.closingCtaTitle} displayTitle displayTitleOnDark`}>
+              {content.closing_cta.title.split('\n').map((line, i) => (
+                i === 0 ? <span key={line}>{line} </span> : <em key={line}>{line}</em>
               ))}
             </h2>
-            {content.closing_cta.subtitle && (
+          </RevealOnScroll>
+          {content.closing_cta.subtitle && (
+            <RevealOnScroll variant="up" index={1}>
               <p className={homeStyles.closingCtaSub}>{content.closing_cta.subtitle}</p>
-            )}
+            </RevealOnScroll>
+          )}
+          <RevealOnScroll variant="up" index={2}>
             <div className={homeStyles.closingCtaActions}>
               <Link to={content.closing_cta.primary_url} className="btnPrimaryFill">{content.closing_cta.primary_label}</Link>
+              {content.closing_cta.phone && (
+                <a href={content.closing_cta.phone_href ?? 'tel:4258272266'} className={homeStyles.heroPhone}>
+                  <span>Or call</span>
+                  {content.closing_cta.phone}
+                </a>
+              )}
             </div>
-          </div>
+          </RevealOnScroll>
         </div>
       </section>
     </main>

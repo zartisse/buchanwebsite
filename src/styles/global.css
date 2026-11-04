@@ -17,7 +17,7 @@ body {
   color: var(--color-text-on-light);
   font-family: var(--font-sans);
   font-size: var(--text-body);
-  line-height: var(--lh-relaxed);
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -28,6 +28,7 @@ h3,
 h4 {
   text-wrap: balance;
   letter-spacing: var(--tr-display);
+  font-weight: var(--fw-medium);
 }
 
 p,
@@ -97,12 +98,8 @@ img {
   outline-offset: 3px;
 }
 
-a:active,
-button:active,
-.btnPrimaryFill:active,
-.btnGhostLight:active,
-.btnGhostDark:active {
-  transform: scale(0.98);
+button:active {
+  transform: translateY(1px);
 }
 
 @keyframes jbh-marquee {
@@ -117,13 +114,15 @@ button:active,
   will-change: transform;
 }
 
-.heritage-marquee-track span {
+.heritage-marquee-track > div > span {
+  display: inline-flex;
+  align-items: center;
   flex-shrink: 0;
-  padding: 0 2.5rem;
-  font-size: clamp(11px, 1.1vw, 13px);
-  letter-spacing: 0.24em;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: #ffffff;
+  color: inherit;
   white-space: nowrap;
   line-height: var(--heritage-marquee-height);
 }
@@ -146,7 +145,7 @@ button:active,
 
 .reveal {
   opacity: 0;
-  transition: opacity var(--d-slower) var(--ease-out), transform var(--d-slower) var(--ease-out);
+  transition: opacity var(--d-reveal) var(--ease-settle), transform var(--d-reveal) var(--ease-settle), clip-path var(--d-reveal) var(--ease-settle);
 }
 
 .reveal.visible {
@@ -154,7 +153,26 @@ button:active,
 }
 
 .reveal-up {
-  transform: translateY(28px);
+  transform: translateY(24px);
+}
+
+/* Image un-mask: the frame opens from the bottom edge */
+.reveal-mask {
+  opacity: 1;
+  clip-path: inset(0 0 100% 0);
+}
+
+.reveal-mask.visible {
+  clip-path: inset(0 0 0 0);
+}
+
+.reveal-mask img {
+  transform: scale(1.08);
+  transition: transform 1600ms var(--ease-settle);
+}
+
+.reveal-mask.visible img {
+  transform: scale(1);
 }
 
 .reveal-up.visible {
@@ -206,6 +224,7 @@ button:active,
   .reveal {
     opacity: 1;
     transform: none !important;
+    clip-path: none !important;
   }
 
   .heritage-marquee-track {
@@ -271,17 +290,19 @@ button:active,
   color: #c0562e;
 }
 
-/* ---- Shared mockup-style utilities ---- */
+/* ---- Shared editorial utilities (see DESIGN.md) ---- */
+
+/* Small caps label preceded by a gold hairline */
 .eyebrowRule {
   display: inline-flex;
   align-items: center;
   gap: var(--s-3);
-  font-size: var(--text-label);
+  font-size: var(--text-micro);
   line-height: 1.4;
-  letter-spacing: var(--tr-wider);
+  letter-spacing: var(--label-tracking);
   text-transform: uppercase;
   color: var(--color-accent-on-light);
-  font-weight: var(--fw-medium);
+  font-weight: var(--fw-semibold);
 }
 
 .eyebrowRule::before {
@@ -296,96 +317,163 @@ button:active,
   justify-content: center;
 }
 
-.btnPrimaryFill {
+/* Section index label: "02 — What we build" */
+.sectionIndex {
   display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--s-2);
-  padding: var(--btn-primary-padding);
-  background: var(--btn-primary-bg);
-  color: var(--btn-primary-text);
-  font-family: var(--font-sans);
-  font-size: var(--text-body-sm);
-  font-weight: var(--fw-medium);
-  letter-spacing: var(--tr-wide);
+  align-items: baseline;
+  gap: var(--s-3);
+  margin: 0 0 var(--s-6);
+  font-size: var(--text-micro);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--label-tracking);
   text-transform: uppercase;
-  text-decoration: none;
-  border: none;
-  cursor: pointer;
-  transition: background var(--d-base) var(--ease-out), transform var(--d-base) var(--ease-out);
+  color: var(--color-accent-on-light);
+  font-variant-numeric: lining-nums tabular-nums;
 }
 
-.btnPrimaryFill:hover {
-  background: var(--btn-primary-bg-hover);
+.sectionIndex b {
+  font-weight: var(--fw-semibold);
+  color: var(--color-accent-fill);
 }
 
-.btnGhostLight {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--s-2);
-  padding: var(--btn-primary-padding);
-  background: transparent;
-  color: var(--btn-ghost-text);
-  font-family: var(--font-sans);
-  font-size: var(--text-body-sm);
-  font-weight: var(--fw-medium);
-  letter-spacing: var(--tr-wide);
-  text-transform: uppercase;
-  text-decoration: none;
-  border: 1px solid var(--btn-ghost-border);
-  cursor: pointer;
-  transition: background var(--d-base) var(--ease-out), color var(--d-base) var(--ease-out);
+.sectionIndex b::after {
+  content: '';
+  display: inline-block;
+  width: 28px;
+  height: 1px;
+  margin-left: var(--s-3);
+  vertical-align: middle;
+  background: var(--color-accent-fill);
 }
 
-.btnGhostLight:hover {
-  background: rgba(255, 255, 255, 0.12);
+.onDark .sectionIndex,
+.sectionIndexOnDark {
+  color: rgba(247, 245, 240, 0.72);
 }
 
+/* Display headline helpers for components that render their own h1/h2 */
+.displayTitle {
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  text-transform: var(--display-case);
+  letter-spacing: var(--display-tracking);
+  line-height: var(--display-lh);
+  text-wrap: balance;
+}
+
+.displayTitle em {
+  display: block;
+  font-style: normal;
+  font-weight: var(--display-emphasis-weight);
+  color: var(--display-emphasis-on-light);
+}
+
+.onDark .displayTitle em,
+.displayTitleOnDark em {
+  color: var(--display-emphasis-on-dark);
+}
+
+/* Buttons: sharp, tracked caps, no glow */
+.btnPrimaryFill,
+.btnGhostLight,
 .btnGhostDark {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--s-2);
-  padding: 12px 22px;
-  background: transparent;
-  color: var(--btn-ghost-text-dark);
+  gap: var(--s-3);
+  min-height: 48px;
+  padding: var(--btn-primary-padding);
   font-family: var(--font-sans);
-  font-size: var(--text-body-sm);
-  font-weight: var(--fw-medium);
-  letter-spacing: var(--tr-wide);
+  font-size: var(--text-label);
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   text-decoration: none;
+  border-radius: var(--r-0);
+  cursor: pointer;
+  transition: background var(--d-base) var(--ease-out), color var(--d-base) var(--ease-out),
+    border-color var(--d-base) var(--ease-out), transform var(--d-fast) var(--ease-out);
+}
+
+.btnPrimaryFill {
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  border: 1px solid var(--btn-primary-bg);
+}
+
+.btnPrimaryFill:hover {
+  background: var(--color-accent-dark);
+  border-color: var(--color-accent-dark);
+  color: #ffffff;
+}
+
+.btnGhostLight {
+  background: transparent;
+  color: var(--btn-ghost-text);
+  border: 1px solid rgba(247, 245, 240, 0.6);
+}
+
+.btnGhostLight:hover {
+  background: var(--color-bg-cream);
+  border-color: var(--color-bg-cream);
+  color: var(--color-text-on-light);
+}
+
+.btnGhostDark {
+  background: transparent;
+  color: var(--btn-ghost-text-dark);
   border: 1px solid var(--btn-ghost-border-dark);
-  transition: background var(--d-base) var(--ease-out), color var(--d-base) var(--ease-out);
 }
 
 .btnGhostDark:hover {
   background: var(--color-text-on-light);
-  color: var(--color-bg-white);
+  color: var(--color-bg-cream);
 }
 
+.btnPrimaryFill:active,
+.btnGhostLight:active,
+.btnGhostDark:active {
+  transform: translateY(1px);
+}
+
+/* Text CTA: caps label + gold rule that extends on hover */
 .linkAccent {
   display: inline-flex;
   align-items: center;
-  gap: var(--s-2);
-  font-size: var(--text-body-sm);
-  letter-spacing: var(--tr-wide);
+  gap: var(--s-3);
+  min-height: 44px;
+  font-size: var(--text-label);
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--color-accent-on-light);
   text-decoration: none;
-  font-weight: var(--fw-medium);
+  font-weight: var(--fw-semibold);
   transition: color var(--d-base) var(--ease-out);
 }
 
+.linkAccent > span {
+  display: inline-block;
+  width: 28px;
+  height: 1px;
+  overflow: hidden;
+  font-size: 0;
+  color: transparent;
+  background: currentColor;
+  transition: width var(--d-base) var(--ease-out);
+}
+
 .linkAccent:hover {
-  color: var(--color-accent-dark);
+  color: var(--color-text-on-light);
 }
 
-.linkAccent span {
-  transition: transform var(--d-base) var(--ease-out);
+.linkAccent:hover > span {
+  width: 44px;
 }
 
-.linkAccent:hover span {
-  transform: translateX(4px);
+.onDark .linkAccent {
+  color: var(--color-accent-fill);
+}
+
+.onDark .linkAccent:hover {
+  color: var(--color-bg-cream);
 }

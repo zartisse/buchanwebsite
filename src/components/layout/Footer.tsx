@@ -22,46 +22,9 @@ export function Footer() {
 
   return (
     <footer className={styles.footer}>
-      <div className={styles.close}>
-        <div className={styles.statementCol}>
-          <img src={assetUrl('/assets/logo.png')} alt="John Buchan Homes" className={styles.footerLogo} />
-          <p className={styles.statement}>{FOOTER_STATEMENT}</p>
-          <p className={styles.tagline}>{FOOTER_MISSION}</p>
-        </div>
-        <address className={styles.contactCol}>
-          <p className={styles.contactLine}>
-            {OFFICE_ADDRESS_LINES[0]}
-            <br />
-            {OFFICE_ADDRESS_LINES[1]}
-          </p>
-          <p className={styles.contactLine}>{OFFICE_HOURS}</p>
-          <a href="tel:4258272266" className={`${styles.contactStrong} tabularNums`}>425.827.2266</a>
-          <a href="mailto:MischelleM@buchan.com" className={styles.contactStrong}>MischelleM@buchan.com</a>
-          <Link to="/contact" className="btnPrimaryFill">Let&apos;s talk</Link>
-        </address>
-      </div>
-
-      <nav className={styles.grid} aria-label="Footer">
-        <div className={styles.linkCol}>
-          <span className={styles.colTitle}>Company</span>
-          {FOOTER_COMPANY.map((l) => (
-            <Link key={l.label + l.to} to={l.to}>{l.label}</Link>
-          ))}
-        </div>
-        <div className={styles.linkCol}>
-          <span className={styles.colTitle}>Services</span>
-          {FOOTER_SERVICES.map((l) => (
-            <Link key={l.label} to={l.to}>{l.label}</Link>
-          ))}
-        </div>
-        <div className={styles.linkCol}>
-          <span className={styles.colTitle}>Resources</span>
-          {FOOTER_RESOURCES.map((l) => (
-            <Link key={l.label} to={l.to}>{l.label}</Link>
-          ))}
-        </div>
-        <div className={styles.linkCol}>
-          <span className={styles.colTitle}>Recognition</span>
+      <section className={styles.recognition} aria-label="Recognition">
+        <div className={styles.recognitionInner}>
+          <p className={styles.recognitionLabel}>Recognition</p>
           <div className={styles.awardRow}>
             {imageBadges.map((badge) => {
               const href = badge.href ?? HOUZZ_PROFILE_URL;
@@ -89,34 +52,78 @@ export function Footer() {
               );
             })}
           </div>
-          {textBadges.map((badge) => {
-            const href = badge.href ?? HOUZZ_PROFILE_URL;
-            if (isInternalHref(href)) {
-              return <Link key={badge.alt} to={href}>{badge.alt}</Link>;
-            }
-            return (
-              <a key={badge.alt} href={href} target="_blank" rel="noopener noreferrer">
-                {badge.alt}
-              </a>
-            );
-          })}
+          {textBadges.length > 0 && (
+            <p className={styles.awardText}>
+              {textBadges.map((badge, i) => {
+                const href = badge.href ?? HOUZZ_PROFILE_URL;
+                const sep = i < textBadges.length - 1 ? <span aria-hidden className={styles.awardSep}>·</span> : null;
+                if (isInternalHref(href)) {
+                  return <span key={badge.alt}><Link to={href}>{badge.alt}</Link>{sep}</span>;
+                }
+                return (
+                  <span key={badge.alt}>
+                    <a href={href} target="_blank" rel="noopener noreferrer">{badge.alt}</a>{sep}
+                  </span>
+                );
+              })}
+            </p>
+          )}
         </div>
-      </nav>
+      </section>
 
-      <div className={styles.bottomBar}>
-        <span>© {new Date().getFullYear()} John Buchan Homes. All rights reserved.</span>
-        <span className={styles.bottomLinks}>
-          {SOCIAL_LINKS.map((s) => (
-            <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer">{s.label}</a>
-          ))}
-          <Link to="/faq#privacy">Privacy policy</Link>
-          <Link to="/faq#terms">Terms of use</Link>
-        </span>
+      <div className={styles.main}>
+        <div className={styles.close}>
+          <div className={styles.statementCol}>
+            <img src={assetUrl('/assets/logo-reverse.png')} alt="John Buchan Homes" className={styles.footerLogo} />
+            <p className={styles.statement}>{FOOTER_STATEMENT}</p>
+            <p className={styles.tagline}>{FOOTER_MISSION}</p>
+          </div>
+          <address className={styles.contactCol}>
+            <span className={styles.colTitle}>Visit &amp; contact</span>
+            <p className={styles.contactLine}>
+              {OFFICE_ADDRESS_LINES[0]}
+              <br />
+              {OFFICE_ADDRESS_LINES[1]}
+            </p>
+            <p className={styles.contactLine}>{OFFICE_HOURS}</p>
+            <a href="tel:4258272266" className={`${styles.contactStrong} tabularNums`}>425.827.2266</a>
+            <a href="mailto:MischelleM@buchan.com" className={styles.contactStrong}>MischelleM@buchan.com</a>
+            <Link to="/contact" className="btnPrimaryFill">Let&apos;s talk</Link>
+          </address>
+        </div>
+
+        <nav className={styles.grid} aria-label="Footer">
+          <div className={styles.linkCol}>
+            <span className={styles.colTitle}>Company</span>
+            {FOOTER_COMPANY.map((l) => (
+              <Link key={l.label + l.to} to={l.to}>{l.label}</Link>
+            ))}
+          </div>
+          <div className={styles.linkCol}>
+            <span className={styles.colTitle}>Services</span>
+            {FOOTER_SERVICES.map((l) => (
+              <Link key={l.label} to={l.to}>{l.label}</Link>
+            ))}
+          </div>
+          <div className={styles.linkCol}>
+            <span className={styles.colTitle}>Resources</span>
+            {FOOTER_RESOURCES.map((l) => (
+              <Link key={l.label} to={l.to}>{l.label}</Link>
+            ))}
+          </div>
+        </nav>
+
+        <div className={styles.bottomBar}>
+          <span>© {new Date().getFullYear()} John Buchan Homes. All rights reserved.</span>
+          <span className={styles.bottomLinks}>
+            {SOCIAL_LINKS.map((s) => (
+              <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer">{s.label}</a>
+            ))}
+            <Link to="/faq#privacy">Privacy policy</Link>
+            <Link to="/faq#terms">Terms of use</Link>
+          </span>
+        </div>
       </div>
-
-      <p className={styles.wordmark} aria-hidden>
-        John Buchan Homes
-      </p>
     </footer>
   );
 }

@@ -41,7 +41,7 @@
   --btn-primary-bg: var(--color-accent-fill);
   --btn-primary-bg-hover: var(--color-accent-fill-hover);
   --btn-primary-text: var(--color-accent-fill-text);
-  --btn-primary-padding: 14px 28px;
+  --btn-primary-padding: 15px 30px;
   --btn-ghost-border: rgba(255, 255, 255, 0.85);
   --btn-ghost-text: #ffffff;
   --btn-ghost-border-dark: var(--color-text-on-light);
@@ -64,16 +64,27 @@
   --font-serif: var(--font-display); /* legacy name kept so existing components switch automatically */
   --font-sans: 'Montserrat', system-ui, -apple-system, sans-serif;
 
-  /* ---- Type scale (editorial, modular ~1.25) ---- */
-  --text-display-2xl: clamp(40px, 6vw, 84px);     /* hero H1 (sized for Montserrat's wider letters) */
-  --text-display-xl: clamp(30px, 3.8vw, 52px);    /* section H2 */
-  --text-display-lg: clamp(24px, 2.7vw, 36px);    /* card / subsection titles */
-  --text-display-md: clamp(20px, 2vw, 25px);      /* pull quotes */
-  --text-body-lg: clamp(17px, 1.4vw, 20px);
+  /* ---- Type scale (editorial; caps display set smaller than sentence case) ---- */
+  --text-display-2xl: clamp(34px, 4.6vw, 64px);   /* H1 */
+  --text-display-xl: clamp(26px, 3vw, 44px);      /* section H2 */
+  --text-display-lg: clamp(22px, 2.2vw, 30px);    /* subsection titles */
+  --text-display-md: clamp(19px, 1.6vw, 24px);    /* H3, card titles, pull quotes */
+  --text-body-lg: clamp(17px, 1.3vw, 19px);
+  --text-body-md: 17px;
   --text-body: 16px;
   --text-body-sm: 14px;
   --text-label: 12px;   /* eyebrows, uppercase labels */
   --text-micro: 11px;
+
+  /* ---- Display treatment (Codec Pro: bold caps; Montserrat stand-in) ---- */
+  --display-weight: 500;
+  --display-emphasis-weight: 300;
+  --display-case: uppercase;
+  --display-tracking: 0.04em;
+  --display-lh: 1.08;
+  --display-emphasis-on-light: #8a6334; /* Gold Ink: AA shade of Buchan Gold */
+  --display-emphasis-on-dark: #b88a4b;  /* Buchan Gold */
+  --label-tracking: 0.2em;
 
   /* ---- Line height ---- */
   --lh-tight: 0.95;
@@ -110,11 +121,13 @@
 
   /* ---- Motion ---- */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-settle: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
   --d-fast: 200ms;
   --d-base: 350ms;
   --d-slow: 600ms;
-  --d-slower: 900ms;
+  --d-slower: 1000ms;
+  --d-reveal: 1100ms;
 
   /* ---- Stacking ---- */
   --z-raised: 2;
@@ -127,11 +140,12 @@
   --z-skip-link: 1500;
 
   /* ---- Layout ---- */
-  --section-padding: clamp(100px, 16vh, 180px) 8vw;
+  --section-padding: clamp(80px, 12vw, 168px) var(--gutter);
+  --section-y: clamp(80px, 11vw, 160px);
   --max-width-narrow: 720px;
   --max-width: 1280px;
-  --max-width-wide: 1440px;
-  --gutter: 8vw;
+  --max-width-wide: 1360px;
+  --gutter: clamp(20px, 6vw, 96px);
 
   /* ---- Texture: full logo square mark (used in selective bands only) ---- */
   --texture-mark-square: url('/assets/logo-mark-square.svg');

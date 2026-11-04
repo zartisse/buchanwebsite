@@ -24,7 +24,7 @@
   color: var(--color-text-on-light);
   font-family: var(--font-serif);
   font-size: clamp(20px, 2.5vw, 26px);
-  font-weight: 300;
+  font-weight: var(--fw-regular);
   line-height: 1.35;
 }
 
@@ -48,9 +48,11 @@
 .categoryTitle {
   font-family: var(--font-serif);
   font-size: clamp(28px, 3.5vw, 36px);
-  font-weight: 300;
+  font-weight: var(--display-weight);
   margin: 48px 0 8px;
   color: var(--color-text-on-light);
+  text-transform: var(--display-case);
+  letter-spacing: var(--display-tracking);
 }
 
 .categoryTitle:first-child {

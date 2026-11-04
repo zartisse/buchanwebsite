@@ -28,13 +28,13 @@ export function Testimonials() {
 
       <section className={ps.sectionAlt}>
         <RevealOnScroll>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 48, maxWidth: 'var(--max-width)', margin: '0 auto', alignItems: 'center' }}>
-            <img src={resolveImageUrl(content.featured.image_url, 'testimonials-featured')} alt="" style={{ width: '100%', height: 400, objectFit: 'cover' }} />
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 'clamp(32px, 6vw, 112px)', maxWidth: 'var(--max-width-wide)', margin: '0 auto', alignItems: 'center' }}>
+            <img src={resolveImageUrl(content.featured.image_url, 'testimonials-featured')} alt="" style={{ width: '100%', aspectRatio: '5 / 4', height: 'auto', objectFit: 'cover' }} />
             <div>
-              <blockquote style={{ fontFamily: 'var(--font-serif)', fontSize: quoteFontSize(), fontWeight: 300, lineHeight: 1.35, margin: 0, fontStyle: 'italic' }}>
+              <blockquote style={{ fontFamily: 'var(--font-display)', fontSize: quoteFontSize(), fontWeight: 400, lineHeight: 1.4, letterSpacing: '-0.005em', margin: 0, paddingLeft: 24, borderLeft: '1px solid var(--color-accent)', color: 'var(--color-text-on-light)' }}>
                 &ldquo;{content.featured.quote}&rdquo;
               </blockquote>
-              <cite style={{ display: 'block', marginTop: 24, fontSize: 12, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--color-accent)', fontStyle: 'normal' }}>
+              <cite style={{ display: 'block', marginTop: 24, paddingLeft: 24, fontSize: 11, fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--color-accent-on-light)', fontStyle: 'normal' }}>
                 {content.featured.cite}
               </cite>
             </div>
@@ -47,9 +47,9 @@ export function Testimonials() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 32 }}>
             {content.quotes.map((q) => (
               <RevealOnScroll key={q.name}>
-                <div style={{ border: '1px solid var(--color-hairline-light-2)', padding: 32 }}>
-                  <p className={ps.bodyText} style={{ fontStyle: 'italic' }}>&ldquo;{q.quote}&rdquo;</p>
-                  <div style={{ marginTop: 20, fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--color-accent)' }}>
+                <div style={{ borderTop: '1px solid var(--color-hairline-light-3)', paddingTop: 28 }}>
+                  <p className={ps.bodyText}>&ldquo;{q.quote}&rdquo;</p>
+                  <div style={{ marginTop: 20, fontSize: 11, fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--color-accent-on-light)' }}>
                     {q.name} · {q.city}
                   </div>
                 </div>

@@ -6,7 +6,7 @@ type HeroCarouselProps = {
   slides: string[];
 };
 
-const INTERVAL_MS = 6000;
+const INTERVAL_MS = 6500;
 
 export function HeroCarousel({ slides }: HeroCarouselProps) {
   const validSlides = slides.filter(Boolean);
@@ -23,11 +23,11 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
 
   useEffect(() => {
     if (validSlides.length <= 1 || reduceMotion) return;
-    const timer = window.setInterval(() => {
+    const timer = window.setTimeout(() => {
       setActiveIndex((i) => (i + 1) % validSlides.length);
     }, INTERVAL_MS);
-    return () => window.clearInterval(timer);
-  }, [validSlides.length, reduceMotion]);
+    return () => window.clearTimeout(timer);
+  }, [validSlides.length, reduceMotion, activeIndex]);
 
   if (validSlides.length === 0) {
     return (
@@ -36,10 +36,12 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
         seed="home-hero"
         priority
         displayWidth={1920}
-        sizes="100vw"
+        sizes="(max-width: 900px) 100vw, 60vw"
       />
     );
   }
+
+  const pad = (n: number) => String(n).padStart(2, '0');
 
   return (
     <>
@@ -54,10 +56,31 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
             seed={`home-hero-${i}`}
             priority={i === 0}
             displayWidth={1920}
-            sizes="100vw"
+            sizes="(max-width: 900px) 100vw, 60vw"
           />
         </div>
       ))}
+      {validSlides.length > 1 && (
+        <div className={homeStyles.heroPager}>
+          <span className={homeStyles.heroPagerCount}>
+            {pad(activeIndex + 1)} <i>/</i> {pad(validSlides.length)}
+          </span>
+          <span className={homeStyles.heroPagerBars}>
+            {validSlides.map((src, i) => (
+              <button
+                key={`bar-${src}-${i}`}
+                type="button"
+                className={`${homeStyles.heroPagerBar} ${i === activeIndex ? homeStyles.heroPagerBarActive : ''}`}
+                onClick={() => setActiveIndex(i)}
+                aria-label={`Show image ${i + 1} of ${validSlides.length}`}
+                aria-current={i === activeIndex ? 'true' : undefined}
+              >
+                <span style={{ animationDuration: reduceMotion ? '0s' : `${INTERVAL_MS}ms` }} />
+              </button>
+            ))}
+          </span>
+        </div>
+      )}
     </>
   );
 }

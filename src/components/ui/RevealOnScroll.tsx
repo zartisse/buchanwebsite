@@ -1,6 +1,6 @@
 import { useEffect, useRef, type ReactNode } from 'react';
 
-type RevealVariant = 'up' | 'scale' | 'left' | 'down' | 'right';
+type RevealVariant = 'up' | 'scale' | 'left' | 'down' | 'right' | 'mask';
 
 interface RevealOnScrollProps {
   children: ReactNode;

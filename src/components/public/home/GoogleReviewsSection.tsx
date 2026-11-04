@@ -2,17 +2,19 @@ import { useEffect, useRef, useState } from 'react';
 import type { HomePageContent } from '../../../types';
 import { loadReviewWidgetScript, reviewWidgetContainerClass } from '../../../lib/reviewWidget';
 import { RevealOnScroll } from '../../ui/RevealOnScroll';
+import { SectionIndex } from '../../ui/SectionIndex';
 import styles from './GoogleReviewsSection.module.css';
 
 type GoogleReviewsSectionProps = {
   section: HomePageContent['google_reviews_section'];
   widgetId?: string;
+  index?: string;
 };
 
 const DEFAULT_MAPS_URL =
   'https://www.google.com/maps/search/?api=1&query=John+Buchan+Homes+Bellevue+WA';
 
-export function GoogleReviewsSection({ section, widgetId }: GoogleReviewsSectionProps) {
+export function GoogleReviewsSection({ section, widgetId, index }: GoogleReviewsSectionProps) {
   const widgetRef = useRef<HTMLDivElement>(null);
   const [scriptLoaded, setScriptLoaded] = useState(false);
   const [failed, setFailed] = useState(false);
@@ -44,14 +46,24 @@ export function GoogleReviewsSection({ section, widgetId }: GoogleReviewsSection
       <div className={styles.inner}>
         <RevealOnScroll>
           <header className={styles.header}>
-            <h2 className={styles.title}>{section.title || section.eyebrow}</h2>
+            <div>
+              <SectionIndex index={index} label={section.eyebrow} />
+              <h2 className={styles.title}>{section.title || section.eyebrow}</h2>
+            </div>
+            <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="linkAccent">
+              Read every review on Google <span>→</span>
+            </a>
           </header>
         </RevealOnScroll>
 
         {id && !failed ? (
           <div ref={widgetRef} className={styles.widgetWrap}>
             <div className={reviewWidgetContainerClass(id)} data-elfsight-app-lazy />
-            {!scriptLoaded && <p className={styles.loading}>Loading reviews…</p>}
+            {!scriptLoaded && (
+              <div className={styles.skeletonRow} aria-hidden>
+                <span /><span /><span />
+              </div>
+            )}
           </div>
         ) : (
           <div className={styles.fallback}>
