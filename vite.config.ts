@@ -10,6 +10,12 @@ export default defineConfig({
       : undefined,
   ].filter(Boolean),
   base: process.env.VITE_BASE_PATH || '/',
+  define: {
+    // Netlify sets NETLIFY=true during builds: route photos through the Netlify Image CDN there.
+    'import.meta.env.VITE_NETLIFY_IMAGES': JSON.stringify(
+      process.env.VITE_NETLIFY_IMAGES ?? (process.env.NETLIFY === 'true' ? 'true' : 'false'),
+    ),
+  },
   build: {
     rollupOptions: {
       output: {

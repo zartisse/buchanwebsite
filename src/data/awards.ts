@@ -5,6 +5,9 @@ export interface AwardBadge {
   image?: string;
   alt: string;
   href?: string;
+  /** Shown larger, with a caption, ahead of the other badges. */
+  featured?: boolean;
+  caption?: string;
 }
 
 export const FOOTER_AWARD_BADGES: AwardBadge[] = [
@@ -12,6 +15,8 @@ export const FOOTER_AWARD_BADGES: AwardBadge[] = [
     image: '/assets/awards/best-in-pnw-2026.jpg',
     alt: 'Best in the PNW 2026 Winner — The Seattle Times, The People’s Choice',
     href: '/awards',
+    featured: true,
+    caption: 'Best in the PNW 2026 · The Seattle Times People’s Choice',
   },
   { image: '/assets/awards/boh-2022-design.png', alt: '2022 Best of Houzz Design', href: HOUZZ_PROFILE_URL },
   { image: '/assets/awards/boh-2021.png', alt: '2021 Best of Houzz Design', href: HOUZZ_PROFILE_URL },

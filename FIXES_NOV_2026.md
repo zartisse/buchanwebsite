@@ -8,7 +8,7 @@ All code changes are already in this folder. Originals of every changed file are
 | # | Issue | Fix |
 |---|---|---|
 | 1 | Any signed-in account had full admin rights | Database now only allows accounts with role `admin` (migration 012). The admin UI shows "no access" to anyone else. The knowledge-base function checks the role too. |
-| 2 | Nobody was notified about new leads | New function `notify-submission` emails every form to **MischelleM@buchan.com** (reply goes straight to the client). Optional HubSpot form sync. |
+| 2 | Nobody was notified about new leads | New function `notify-submission` emails every form to **mischellem@buchan.com** (reply goes straight to the client). Optional HubSpot form sync. |
 | 3 | No tracking | Google Tag Manager `GTM-W8ZCL9F` on every page, plus `virtual_page_view` and `generate_lead` events. |
 | 4 | Chat could run up the OpenAI bill | Limit is now per visitor IP (40/hour), questions capped at 1,000 characters, history trimmed. |
 | 5 | Colors off-brand | Exact palette: Buchan Green #213B31, Buchan Gold #B88A4B, Warm White #F7F5F0, Architectural Stone #D6D0C5, Soft Charcoal #2F3430. Template purple removed. |
@@ -16,7 +16,7 @@ All code changes are already in this folder. Originals of every changed file are
 | 7 | "Seattle Eastside" | Now "Bellevue and the Greater Eastside" in code, seeds, chat, and live CMS content (migration 013). |
 | 8 | 1960 vs 1961 | 1961 everywhere; removed from the home hero/marquee so it is not repeated. |
 | 9 | Unverified claims | "4,000+ homes built" and "Three generations" removed. Sample "Harmon Family" testimonial replaced with a real review. |
-| 10 | Contact email | Footer and lead emails use MischelleM@buchan.com. |
+| 10 | Contact email | Footer and lead emails use mischellem@buchan.com. |
 | 11 | Logos | Official full-color logo on light, official all-white logo on dark (were redrawn/recolored versions). |
 | 12 | Search / sharing | Fixed doubled page titles, added canonical + link-preview tags and image, `robots.txt`, `sitemap.xml`, alt text on content images. |
 | 13 | Admin password in GitHub | Removed from DEPLOY.md, seed and scripts. **Still change the password** (it is in GitHub history). |

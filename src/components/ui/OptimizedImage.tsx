@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { resolveImageUrl, supabaseImageUrl, supabaseSrcSet } from '../../lib/placeholders';
 import { assetUrl } from '../../lib/assets';
 
@@ -35,8 +36,11 @@ export function OptimizedImage({
   sizes,
   className,
   style,
+  onError,
   ...rest
 }: OptimizedImageProps) {
+  // If a resized CDN variant fails, fall back to the original file instead of a broken image.
+  const [useOriginal, setUseOriginal] = useState(false);
   const resolvedSrc = resolved
     ? (src ?? '')
     : direct
@@ -48,11 +52,12 @@ export function OptimizedImage({
     ?? (typeof width === 'number' ? width : undefined)
     ?? (typeof width === 'string' && /^\d+$/.test(width) ? Number(width) : undefined);
 
-  const imageSrc = targetWidth
+  const imageSrc = !useOriginal && targetWidth
     ? supabaseImageUrl(resolvedSrc, targetWidth)
     : resolvedSrc;
 
-  const srcSet = supabaseSrcSet(resolvedSrc);
+  const srcSet = useOriginal ? undefined : supabaseSrcSet(resolvedSrc);
+  const canFallBack = !useOriginal && (imageSrc !== resolvedSrc || Boolean(srcSet));
 
   return (
     <img
@@ -67,6 +72,10 @@ export function OptimizedImage({
       loading={priority ? 'eager' : 'lazy'}
       decoding="async"
       fetchPriority={priority ? 'high' : 'auto'}
+      onError={(e) => {
+        if (canFallBack) setUseOriginal(true);
+        onError?.(e);
+      }}
       {...rest}
     />
   );

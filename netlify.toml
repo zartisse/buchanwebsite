@@ -1,0 +1,11 @@
+# Build command / publish dir are set in the Netlify UI (npm run build -> dist).
+
+# Netlify Image CDN: allow resizing photos stored in Supabase Storage.
+[images]
+  remote_images = ["https://itrdpbtbndabtrfyoidu\\.supabase\\.co/storage/v1/object/public/.*"]
+
+# Cache images, logos and build files for a day (revalidate in the background).
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"

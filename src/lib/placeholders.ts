@@ -10,6 +10,7 @@ const ARCH_PLACEHOLDERS = [
 const LEGACY_PORTRAIT = '/assets/ph-portrait.svg';
 
 const SRCSET_WIDTHS = [640, 1280, 1920] as const;
+const CDN_SRCSET_WIDTHS = [480, 800, 1200, 1600, 2000] as const;
 
 /** Map legacy large PNG/JPG defaults to compressed WebP variants. */
 export function optimizeAssetPath(path: string): string {
@@ -67,13 +68,35 @@ function isSupabaseObjectUrl(url: string): boolean {
     || /supabase\.co\/storage\/v1\/render\/image\/public\//i.test(url);
 }
 
+/** Netlify Image CDN: resizes + converts to AVIF/WebP at the edge (enabled for Netlify builds). */
+function netlifyImagesEnabled(): boolean {
+  return import.meta.env.VITE_NETLIFY_IMAGES === 'true';
+}
+
+function isLocalRasterAsset(url: string): boolean {
+  const path = url.split('?')[0];
+  return /^\/(?:[^?#]*\/)?assets\/[^?#]+\.(?:jpe?g|png|webp)$/i.test(path);
+}
+
+function netlifyEligible(url: string): boolean {
+  return netlifyImagesEnabled() && (isSupabaseObjectUrl(url) || isLocalRasterAsset(url));
+}
+
+function netlifyImageUrl(url: string, width: number, quality = 72): string {
+  const w = Math.min(2400, Math.max(1, Math.round(width)));
+  return `/.netlify/images?url=${encodeURIComponent(url)}&w=${w}&q=${quality}`;
+}
+
 /**
- * Optionally rewrite Supabase public object URLs to the image transform renderer.
- * Off by default — this project’s storage plan does not serve /render/image/
- * reliably. Set VITE_SUPABASE_IMAGE_TRANSFORM=true once transforms are enabled.
+ * Rewrite image URLs to a resized, compressed variant.
+ * - Supabase render endpoint when VITE_SUPABASE_IMAGE_TRANSFORM=true (paid storage plan)
+ * - otherwise the Netlify Image CDN on Netlify builds (see netlify.toml [images])
+ * - otherwise the original URL
  */
 export function supabaseImageUrl(url: string, width?: number, quality = 75): string {
-  if (!width || !transformsEnabled() || !url.includes('supabase.co/storage/')) return url;
+  if (!width) return url;
+  if (!transformsEnabled() && netlifyEligible(url)) return netlifyImageUrl(url, width);
+  if (!transformsEnabled() || !url.includes('supabase.co/storage/')) return url;
 
   let next = url.replace(
     /\/storage\/v1\/object\/public\//i,
@@ -93,6 +116,9 @@ export function supabaseImageUrl(url: string, width?: number, quality = 75): str
 }
 
 export function supabaseSrcSet(url: string, quality = 75): string | undefined {
+  if (!transformsEnabled() && netlifyEligible(url)) {
+    return CDN_SRCSET_WIDTHS.map((w) => `${netlifyImageUrl(url, w)} ${w}w`).join(', ');
+  }
   if (!transformsEnabled() || !isSupabaseObjectUrl(url)) return undefined;
   return SRCSET_WIDTHS
     .map((w) => `${supabaseImageUrl(url, w, quality)} ${w}w`)

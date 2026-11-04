@@ -16,7 +16,7 @@ import { OptimizedImage } from '../../components/ui/OptimizedImage';
 import { RevealOnScroll } from '../../components/ui/RevealOnScroll';
 import { mergeHomeContent } from '../../data/homeContentDefaults';
 import { getDemoPageContent } from '../../data/sitePagesDemo';
-import { resolveImageUrl } from '../../lib/placeholders';
+import { resolveImageUrl, supabaseImageUrl, supabaseSrcSet } from '../../lib/placeholders';
 import homeStyles from './Home.module.css';
 
 const MARQUEE_GROUP_SIZE = 2;
@@ -49,7 +49,13 @@ export function Home() {
     const link = document.createElement('link');
     link.rel = 'preload';
     link.as = 'image';
-    link.href = heroSrc;
+    // Preload the same resized variant the hero <img> will request (avoids a double download).
+    link.href = supabaseImageUrl(heroSrc, 1920);
+    const srcSet = supabaseSrcSet(heroSrc);
+    if (srcSet) {
+      link.setAttribute('imagesrcset', srcSet);
+      link.setAttribute('imagesizes', '100vw');
+    }
     link.setAttribute('fetchpriority', 'high');
     link.setAttribute('data-home-hero-preload', 'true');
     document.head.appendChild(link);

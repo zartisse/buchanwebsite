@@ -4,7 +4,7 @@
 //
 // Secrets (Supabase -> Edge Functions -> Secrets):
 //   RESEND_API_KEY      required for email (resend.com, free tier is enough)
-//   NOTIFY_TO           optional, comma-separated. Default: MischelleM@buchan.com
+//   NOTIFY_TO           optional, comma-separated. Default: mischellem@buchan.com
 //   NOTIFY_FROM         optional. Default: "Buchan Website <onboarding@resend.dev>"
 //                       (use an address on a domain verified in Resend, e.g. website@buchan.com)
 //   HUBSPOT_PORTAL_ID   optional, with HUBSPOT_FORM_GUID: also submit the lead to a HubSpot form
@@ -62,7 +62,7 @@ async function allowed(supabase: ReturnType<typeof createAdminClient>, key: stri
 async function sendEmail(lead: Required<Lead>): Promise<string | null> {
   const key = Deno.env.get('RESEND_API_KEY');
   if (!key) return 'RESEND_API_KEY not set';
-  const to = (Deno.env.get('NOTIFY_TO') || 'MischelleM@buchan.com').split(',').map((s) => s.trim()).filter(Boolean);
+  const to = (Deno.env.get('NOTIFY_TO') || 'mischellem@buchan.com').split(',').map((s) => s.trim()).filter(Boolean);
   const from = Deno.env.get('NOTIFY_FROM') || 'Buchan Website <onboarding@resend.dev>';
 
   const rows: [string, string][] = [

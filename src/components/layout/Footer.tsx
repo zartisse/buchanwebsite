@@ -16,8 +16,9 @@ function isInternalHref(href: string | undefined): href is string {
 }
 
 export function Footer() {
-  const badges = FOOTER_AWARD_BADGES.map((b) => ({ image_url: b.image, alt: b.alt, href: b.href }));
-  const imageBadges = badges.filter((b) => b.image_url);
+  const badges = FOOTER_AWARD_BADGES.map((b) => ({ image_url: b.image, alt: b.alt, href: b.href, featured: b.featured, caption: b.caption }));
+  const featuredBadges = badges.filter((b) => b.image_url && b.featured);
+  const imageBadges = badges.filter((b) => b.image_url && !b.featured);
   const textBadges = badges.filter((b) => !b.image_url);
 
   return (
@@ -36,7 +37,7 @@ export function Footer() {
           </p>
           <p className={styles.contactLine}>{OFFICE_HOURS}</p>
           <a href="tel:4258272266" className={`${styles.contactStrong} tabularNums`}>425.827.2266</a>
-          <a href="mailto:MischelleM@buchan.com" className={styles.contactStrong}>MischelleM@buchan.com</a>
+          <a href="mailto:mischellem@buchan.com" className={styles.contactStrong}>mischellem@buchan.com</a>
           <Link to="/contact" className="btnPrimaryFill">Let&apos;s talk</Link>
         </address>
       </div>
@@ -62,6 +63,20 @@ export function Footer() {
         </div>
         <div className={styles.linkCol}>
           <span className={styles.colTitle}>Recognition</span>
+          {featuredBadges.map((badge) => {
+            const href = badge.href ?? HOUZZ_PROFILE_URL;
+            const inner = (
+              <>
+                <img src={assetUrl(badge.image_url!)} alt={badge.alt} className={styles.awardFeaturedLogo} loading="lazy" decoding="async" width={96} height={96} />
+                {badge.caption && <span className={styles.awardFeaturedCaption}>{badge.caption}</span>}
+              </>
+            );
+            return isInternalHref(href) ? (
+              <Link key={badge.alt} to={href} className={styles.awardFeatured} title={badge.alt}>{inner}</Link>
+            ) : (
+              <a key={badge.alt} href={href} target="_blank" rel="noopener noreferrer" className={styles.awardFeatured} title={badge.alt}>{inner}</a>
+            );
+          })}
           <div className={styles.awardRow}>
             {imageBadges.map((badge) => {
               const href = badge.href ?? HOUZZ_PROFILE_URL;
