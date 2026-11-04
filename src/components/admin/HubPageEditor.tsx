@@ -113,7 +113,7 @@ export function HubPageEditor({ slug, page, onSave, onCancel }: HubPageEditorPro
           <legend className={styles.legend}>Closing CTA</legend>
           <div className={styles.field}><label className={styles.label}>CTA title</label><input className={styles.input} value={content.ctaTitle} onChange={(e) => setContent({ ...content, ctaTitle: e.target.value })} /></div>
           <div className={styles.field}><label className={styles.label}>CTA link</label><input className={styles.input} value={content.ctaLink ?? ''} onChange={(e) => setContent({ ...content, ctaLink: e.target.value })} /></div>
-          <ImageField label="Closing CTA background photo (optional — falls back to hero)" value={content.cta_background_image_url ?? ''} onChange={(url) => setContent({ ...content, cta_background_image_url: url })} folder={`hub-pages/${slug}/cta`} />
+          <p className={styles.dropzoneHint}>Closing section photo: the same photo is used on every page for consistency.</p>
         </fieldset>
 
         <div className={styles.formActions}>

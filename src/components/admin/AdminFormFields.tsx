@@ -24,22 +24,16 @@ export function ImageField({
   );
 }
 
-export function CtaBackgroundField({
-  value,
-  onChange,
-  folder,
-}: {
+/** The closing "Let's talk" photo is shared by every page (src/data/siteImages.ts). */
+export function CtaBackgroundField(_props: {
   value?: string;
   onChange: (url: string) => void;
   folder: string;
 }) {
   return (
-    <ImageField
-      label="Closing CTA background photo"
-      value={value ?? ''}
-      onChange={onChange}
-      folder={folder}
-    />
+    <p className={styles.dropzoneHint} style={{ margin: '8px 0 0' }}>
+      Closing section photo: the same photo is used on every page for consistency.
+    </p>
   );
 }
 

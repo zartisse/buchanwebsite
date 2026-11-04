@@ -1,0 +1,75 @@
+.wrap {
+  max-width: var(--max-width-wide);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: center;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  margin-top: var(--s-6);
+  max-width: 440px;
+}
+
+.fine {
+  margin: var(--s-1) 0 0;
+  font-size: var(--text-micro);
+  color: var(--color-text-muted-light);
+}
+
+.unlocked {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  margin-top: var(--s-6);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-4);
+}
+
+.preview {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--color-hairline-light-3);
+  background: var(--color-bg-white);
+  box-shadow: 0 24px 48px -32px rgba(33, 59, 49, 0.35); /* taste-skill-ignore — document preview */
+}
+
+.preview img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Blur everything below the title until the guide is unlocked */
+.preview::after {
+  content: '';
+  position: absolute;
+  inset: 16% 0 0 0;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  background: linear-gradient(180deg, rgba(247, 245, 240, 0.15), rgba(247, 245, 240, 0.55)); /* taste-skill-ignore — preview veil */
+  transition: opacity var(--d-slow) var(--ease-out);
+}
+
+.previewOpen::after {
+  opacity: 0;
+}
+
+@media (max-width: 900px) {
+  .wrap {
+    grid-template-columns: 1fr;
+  }
+}

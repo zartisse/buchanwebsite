@@ -3,6 +3,23 @@ import { useSubmissions } from '../../hooks/useSubmissions';
 import { fieldErrors } from '../../lib/formValidation';
 import { FormField, inputClass } from '../ui/FormField';
 import ps from '../../styles/pages.module.css';
+import { SERVICE_AREAS } from '../../data/navigation';
+
+/** Qualifying questions on the contact form: help Mischelle prioritize and prepare for the first call. */
+const OWNERSHIP_OPTIONS = ['Yes, I own the home or lot', 'Not yet, I am looking for land', 'Under contract', 'Not applicable'];
+const TIMING_OPTIONS = ['Within 6 months', '6 to 12 months', '1 to 2 years', 'Just exploring'];
+const BUDGET_OPTIONS = ['Under $500K', '$500K to $1M', '$1M to $2M', '$2M to $4M', '$4M+', 'Not sure yet'];
+
+function projectDetails(fd: FormData): string {
+  const rows: [string, string][] = [
+    ['Property location', String(fd.get('area') ?? '')],
+    ['Owns home/lot', String(fd.get('ownership') ?? '')],
+    ['Timing', String(fd.get('timing') ?? '')],
+    ['Investment range', String(fd.get('budget') ?? '')],
+  ];
+  const filled = rows.filter(([, v]) => v.trim());
+  return filled.length ? `Project details\n${filled.map(([k, v]) => `• ${k}: ${v}`).join('\n')}\n\n` : '';
+}
 
 type ContactInquiryFormProps = {
   variant: 'contact';
@@ -61,12 +78,14 @@ export function InquiryForm(props: InquiryFormProps) {
           property_name: props.propertyName,
         });
       } else {
+        const timing = String(fd.get('timing') ?? '');
+        const area = String(fd.get('area') ?? '');
         await createSubmission({
           name: String(fd.get('name') ?? ''),
           email: String(fd.get('email') ?? ''),
           phone: String(fd.get('phone') ?? ''),
-          subject: String(fd.get('subject') ?? ''),
-          message: String(fd.get('message') ?? ''),
+          subject: [String(fd.get('subject') ?? ''), area, timing].filter(Boolean).join(' · '),
+          message: projectDetails(fd) + String(fd.get('message') ?? ''),
           source: 'Contact page',
         });
       }
@@ -136,6 +155,40 @@ export function InquiryForm(props: InquiryFormProps) {
           </select>
         </FormField>
       ) : null}
+      {props.variant === 'contact' && (
+        <fieldset className={ps.qualifyGrid}>
+          <legend className={ps.qualifyLegend}>About your project (optional, helps us prepare)</legend>
+          <label className={ps.qualifyField}>
+            <span>Where is the property?</span>
+            <select name="area" className={ps.formInput} defaultValue="">
+              <option value="">Select a city</option>
+              {SERVICE_AREAS.map((a) => <option key={a} value={a}>{a}</option>)}
+              <option value="Other / not sure">Other / not sure</option>
+            </select>
+          </label>
+          <label className={ps.qualifyField}>
+            <span>Do you own the home or lot?</span>
+            <select name="ownership" className={ps.formInput} defaultValue="">
+              <option value="">Select</option>
+              {OWNERSHIP_OPTIONS.map((o) => <option key={o} value={o}>{o}</option>)}
+            </select>
+          </label>
+          <label className={ps.qualifyField}>
+            <span>When would you like to start?</span>
+            <select name="timing" className={ps.formInput} defaultValue="">
+              <option value="">Select</option>
+              {TIMING_OPTIONS.map((o) => <option key={o} value={o}>{o}</option>)}
+            </select>
+          </label>
+          <label className={ps.qualifyField}>
+            <span>Approximate investment</span>
+            <select name="budget" className={ps.formInput} defaultValue="">
+              <option value="">Select</option>
+              {BUDGET_OPTIONS.map((o) => <option key={o} value={o}>{o}</option>)}
+            </select>
+          </label>
+        </fieldset>
+      )}
       <FormField name="message" error={fieldErr.message}>
         <textarea
           name="message"

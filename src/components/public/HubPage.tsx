@@ -1,9 +1,13 @@
+import { Link } from 'react-router-dom';
 import type { ReactNode } from 'react';
 import type { HubPage } from '../../types';
 import { EstimatorLink } from '../ui/EstimatorLink';
 import { PageMeta } from '../ui/PageMeta';
 import { PageCta } from '../ui/PageCta';
+import { SITE_CTA_IMAGE } from '../../data/siteImages';
+import { areaSlug, findArea } from '../../data/areas';
 import { RevealOnScroll } from '../ui/RevealOnScroll';
+import { GatedGuide } from './GatedGuide';
 import { HeroTitle } from '../ui/HeroTitle';
 import { ESTIMATOR_URL } from '../../lib/estimator';
 import { OptimizedImage } from '../ui/OptimizedImage';
@@ -36,7 +40,7 @@ function HubCtaPrimaryButton({ to, className, children }: { to: string; classNam
 export function HubPage({ page }: { page: HubPage }) {
   const data = page.content;
   const ctaTo = data.ctaLink ?? '/contact';
-  const ctaBg = data.cta_background_image_url ?? data.hero.image_url ?? '/assets/ph-arch-1.webp';
+  const ctaBg = SITE_CTA_IMAGE;
   const isExternal = ctaTo.startsWith('tel:') || ctaTo.startsWith('http');
   const isHashCta = ctaTo.startsWith('#');
   const pdfUrl = data.process_pdf_url;
@@ -102,42 +106,25 @@ export function HubPage({ page }: { page: HubPage }) {
         <section className={ps.sectionAlt}>
           <div className={ps.sectionInner}>
             <div className={ps.areaChips}>
-              {data.service_areas.map((area) => (
-                <span key={area} className={ps.areaChip}>{area}</span>
-              ))}
+              {data.service_areas.map((area) => {
+                const match = findArea(areaSlug(area));
+                return match ? (
+                  <Link key={area} to={`/areas-we-serve/${match.slug}`} className={ps.areaChip} style={{ textDecoration: 'none' }}>
+                    {area}
+                  </Link>
+                ) : (
+                  <span key={area} className={ps.areaChip}>{area}</span>
+                );
+              })}
             </div>
           </div>
         </section>
       )}
 
       {page.slug === 'renovations' && pdfUrl && (
-        <section className={ps.sectionAlt}>
+        <section id="renovation-guide" className={ps.sectionAlt}>
           <RevealOnScroll>
-            <div className={ps.sectionInner}>
-              <span className={ps.eyebrow}>Process overview</span>
-              <h2 className={ps.sectionTitle} style={{ marginTop: 16 }}>{pdfTitle}</h2>
-              <p className={ps.bodyText} style={{ marginTop: 12, maxWidth: 640 }}>
-                Preview the step-by-step process you will follow with Buchan, or download a copy to share with your household.
-              </p>
-              <div className={hs.pdfActions}>
-                <a href={pdfUrl} download className={ps.btnPrimary}>
-                  Download PDF
-                </a>
-                <a href={pdfUrl} target="_blank" rel="noopener noreferrer" className={ps.btnGhost}>
-                  Open in new tab
-                </a>
-              </div>
-              <div className={hs.pdfPreviewWrap}>
-                <iframe
-                  title={pdfTitle}
-                  src={pdfUrl}
-                  className={hs.pdfPreviewFrame}
-                />
-              </div>
-              <p className={ps.bodyText} style={{ marginTop: 12, fontSize: '0.9rem' }}>
-                If the preview does not load in your browser, use Download PDF or Open in new tab.
-              </p>
-            </div>
+            <GatedGuide pdfUrl={pdfUrl} title={pdfTitle} />
           </RevealOnScroll>
         </section>
       )}

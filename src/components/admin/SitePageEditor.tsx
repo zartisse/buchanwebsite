@@ -346,7 +346,7 @@ function HomeEditor({ content, onChange }: { content: HomePageContent; onChange:
         <legend className={styles.legend}>Closing CTA</legend>
         <div className={styles.field}><label className={styles.label}>Title</label><input className={styles.input} value={content.closing_cta.title} onChange={(e) => set({ closing_cta: { ...content.closing_cta, title: e.target.value } })} /></div>
         <div className={styles.field}><label className={styles.label}>Subtitle</label><input className={styles.input} value={content.closing_cta.subtitle ?? ''} onChange={(e) => set({ closing_cta: { ...content.closing_cta, subtitle: e.target.value } })} /></div>
-        <ImageField label="Background photo" value={content.closing_cta.background_image_url ?? ''} onChange={(url) => set({ closing_cta: { ...content.closing_cta, background_image_url: url } })} folder="pages/home/closing-cta" />
+        <p className={styles.dropzoneHint}>Closing section photo: the same photo is used on every page for consistency.</p>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
           <div className={styles.field}><label className={styles.label}>Primary label</label><input className={styles.input} value={content.closing_cta.primary_label} onChange={(e) => set({ closing_cta: { ...content.closing_cta, primary_label: e.target.value } })} /></div>
           <div className={styles.field}><label className={styles.label}>Primary URL</label><input className={styles.input} value={content.closing_cta.primary_url} onChange={(e) => set({ closing_cta: { ...content.closing_cta, primary_url: e.target.value } })} /></div>

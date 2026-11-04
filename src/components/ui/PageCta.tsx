@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { OptimizedImage } from './OptimizedImage';
 import ps from '../../styles/pages.module.css';
+import { SITE_CTA_IMAGE } from '../../data/siteImages';
 
 type PageCtaProps = {
   title: string;
@@ -35,7 +36,7 @@ export function PageCta({
       <section className={ps.ctaPhoto}>
         <div className={ps.ctaPhotoBg} aria-hidden>
           <OptimizedImage
-            src={backgroundImage}
+            src={SITE_CTA_IMAGE}
             seed="page-cta"
             displayWidth={1600}
             sizes="100vw"

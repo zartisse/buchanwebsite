@@ -18,6 +18,7 @@ import { mergeHomeContent } from '../../data/homeContentDefaults';
 import { getDemoPageContent } from '../../data/sitePagesDemo';
 import { resolveImageUrl, supabaseImageUrl, supabaseSrcSet } from '../../lib/placeholders';
 import homeStyles from './Home.module.css';
+import { SITE_CTA_IMAGE } from '../../data/siteImages';
 
 const MARQUEE_GROUP_SIZE = 2;
 
@@ -124,7 +125,7 @@ export function Home() {
       <section className={homeStyles.closingCta}>
         <div className={homeStyles.closingCtaBg} aria-hidden>
           <OptimizedImage
-            src={content.closing_cta.background_image_url ?? '/assets/ph-arch-1.webp'}
+            src={SITE_CTA_IMAGE}
             seed="closing-cta"
           />
         </div>

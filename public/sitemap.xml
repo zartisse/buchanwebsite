@@ -31,10 +31,16 @@
   <url><loc>https://clever-eclair-fcfebc.netlify.app/faq</loc><priority>0.7</priority></url>
   <url><loc>https://clever-eclair-fcfebc.netlify.app/warranty</loc><priority>0.7</priority></url>
   <url><loc>https://clever-eclair-fcfebc.netlify.app/awards</loc><priority>0.7</priority></url>
-  <url><loc>https://clever-eclair-fcfebc.netlify.app/posts</loc><priority>0.7</priority></url>
-  <url><loc>https://clever-eclair-fcfebc.netlify.app/properties</loc><priority>0.7</priority></url>
-  <url><loc>https://clever-eclair-fcfebc.netlify.app/pages</loc><priority>0.7</priority></url>
-  <url><loc>https://clever-eclair-fcfebc.netlify.app/hub-pages</loc><priority>0.7</priority></url>
-  <url><loc>https://clever-eclair-fcfebc.netlify.app/submissions</loc><priority>0.7</priority></url>
-  <url><loc>https://clever-eclair-fcfebc.netlify.app/knowledge</loc><priority>0.7</priority></url>
+  <url><loc>https://clever-eclair-fcfebc.netlify.app/areas-we-serve/bellevue</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://clever-eclair-fcfebc.netlify.app/areas-we-serve/medina</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://clever-eclair-fcfebc.netlify.app/areas-we-serve/clyde-hill</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://clever-eclair-fcfebc.netlify.app/areas-we-serve/yarrow-point</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://clever-eclair-fcfebc.netlify.app/areas-we-serve/hunts-point</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://clever-eclair-fcfebc.netlify.app/areas-we-serve/kirkland</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://clever-eclair-fcfebc.netlify.app/areas-we-serve/redmond</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://clever-eclair-fcfebc.netlify.app/areas-we-serve/newcastle</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://clever-eclair-fcfebc.netlify.app/areas-we-serve/mercer-island</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://clever-eclair-fcfebc.netlify.app/areas-we-serve/sammamish</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://clever-eclair-fcfebc.netlify.app/areas-we-serve/issaquah</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://clever-eclair-fcfebc.netlify.app/areas-we-serve/woodinville</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
 </urlset>

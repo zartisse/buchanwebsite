@@ -19,6 +19,7 @@ const Contact = lazy(() => import('../pages/public/Contact').then((m) => ({ defa
 const Faq = lazy(() => import('../pages/public/Faq').then((m) => ({ default: m.Faq })));
 const Warranty = lazy(() => import('../pages/public/Warranty').then((m) => ({ default: m.Warranty })));
 const Awards = lazy(() => import('../pages/public/Awards').then((m) => ({ default: m.Awards })));
+const AreaPage = lazy(() => import('../pages/public/AreaPage').then((m) => ({ default: m.AreaPage })));
 const CostEstimator = lazy(() => import('../pages/public/CostEstimator').then((m) => ({ default: m.CostEstimator })));
 const NotFound = lazy(() => import('../pages/public/NotFound').then((m) => ({ default: m.NotFound })));
 const AvailableHomes = lazy(() => import('../pages/public/AvailableHomes').then((m) => ({ default: m.AvailableHomes })));
@@ -86,6 +87,7 @@ export function AppRouter() {
           <Route path="case-studies/builder-transition" element={<Lazy><BuilderTransitionCaseStudy /></Lazy>} />
           <Route path="why-choose-buchan" element={<IaPageRoute name="WhyChooseBuchan" />} />
           <Route path="areas-we-serve" element={<IaPageRoute name="AreasWeServe" />} />
+          <Route path="areas-we-serve/:area" element={<Lazy><AreaPage /></Lazy>} />
           <Route path="land-acquisition" element={<IaPageRoute name="LandAcquisition" />} />
           <Route path="second-opinion" element={<IaPageRoute name="SecondOpinion" />} />
           <Route path="property-feasibility" element={<IaPageRoute name="PropertyFeasibility" />} />

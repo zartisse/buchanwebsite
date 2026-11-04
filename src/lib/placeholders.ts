@@ -1,11 +1,27 @@
 import { assetUrl } from './assets';
 
+/**
+ * Real Buchan project photos (Clyde Hill) used wherever a page has no photo of its own,
+ * or still points at one of the old dark placeholders (/assets/ph-arch-N).
+ */
 const ARCH_PLACEHOLDERS = [
-  '/assets/ph-arch-1.webp',
-  '/assets/ph-arch-2.webp',
-  '/assets/ph-arch-3.webp',
-  '/assets/ph-arch-4.webp',
+  '/assets/photos/clyde-hill-46.webp',
+  '/assets/photos/clyde-hill-19.webp',
+  '/assets/photos/clyde-hill-42.webp',
+  '/assets/photos/clyde-hill-23.webp',
+  '/assets/photos/clyde-hill-47.webp',
+  '/assets/photos/clyde-hill-33.webp',
+  '/assets/photos/clyde-hill-44.webp',
+  '/assets/photos/clyde-hill-38.webp',
+  '/assets/photos/clyde-hill-41.webp',
+  '/assets/photos/clyde-hill-21.webp',
+  '/assets/photos/clyde-hill-43.webp',
+  '/assets/photos/clyde-hill-37.webp',
+  '/assets/photos/clyde-hill-15.webp',
+  '/assets/photos/clyde-hill-09.webp',
 ] as const;
+
+const OLD_PLACEHOLDER = /\/assets\/ph-arch-\d+\.(?:png|webp|svg|jpe?g)$/i;
 
 const LEGACY_PORTRAIT = '/assets/ph-portrait.svg';
 
@@ -52,6 +68,9 @@ export function coalesceImageList(value: string[] | undefined | null, fallback: 
 export function resolveImageUrl(url: string | undefined | null, seed?: string | number): string {
   if (!url || url.trim() === '' || url === LEGACY_PORTRAIT) {
     return assetUrl(placeholderImage(seed));
+  }
+  if (OLD_PLACEHOLDER.test(url.split('?')[0])) {
+    return assetUrl(placeholderImage(seed ?? url));
   }
   if (/^https?:\/\//i.test(url) || url.startsWith('data:') || url.startsWith('blob:')) {
     return url;
