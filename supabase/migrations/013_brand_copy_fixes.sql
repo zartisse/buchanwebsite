@@ -44,6 +44,12 @@ WHERE content::text ~ '(Seattle Eastside|since 1960|4,000\+ homes|Three generati
    OR meta_title ~ '(Seattle Eastside|since 1960)'
    OR meta_description ~ '(Seattle Eastside|since 1960|Three generations)';
 
+-- Timeline entries store the founding year on its own ("year": "1960").
+UPDATE site_pages
+SET content = regexp_replace(content::text, '"year"\s*:\s*"1960"', '"year": "1961"', 'g')::jsonb,
+    updated_at = now()
+WHERE content::text ~ '"year"\s*:\s*"1960"';
+
 -- hub_pages only exists if migration 004 was applied
 DO $do$
 BEGIN
