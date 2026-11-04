@@ -39,6 +39,7 @@ type Lead = {
   page_url?: string;
 };
 
+const hasEmailAddress = (v: string) => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v);
 const clip = (v: unknown, n: number) => (typeof v === 'string' ? v.trim().slice(0, n) : '');
 const esc = (s: string) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -67,7 +68,7 @@ async function sendEmail(lead: Required<Lead>): Promise<string | null> {
 
   const rows: [string, string][] = [
     ['Name', lead.name],
-    ['Email', lead.email],
+    ['Email', lead.email || '—'],
     ['Phone', lead.phone || '—'],
     ['Topic', lead.subject || '—'],
     ['Property', lead.property_name || '—'],
@@ -81,7 +82,7 @@ async function sendEmail(lead: Required<Lead>): Promise<string | null> {
     .join('')}</table>
 <p style="margin:16px 0 4px;color:#B88A4B">Message</p>
 <p style="margin:0;white-space:pre-wrap">${esc(lead.message || '—')}</p>
-<p style="margin:20px 0 0;font-size:12px;color:#857B66">Reply to this email to answer the client directly. All inquiries are also in the website admin under Submissions.</p>
+<p style="margin:20px 0 0;font-size:12px;color:#857B66">${hasEmailAddress(lead.email) ? 'Reply to this email to answer the client directly.' : 'No email given: please call the client back.'} All inquiries are also in the website admin under Submissions.</p>
 </div>`;
 
   const res = await fetch('https://api.resend.com/emails', {
@@ -90,7 +91,7 @@ async function sendEmail(lead: Required<Lead>): Promise<string | null> {
     body: JSON.stringify({
       from,
       to,
-      reply_to: lead.email,
+      ...(hasEmailAddress(lead.email) ? { reply_to: lead.email } : {}),
       subject: `New inquiry: ${lead.subject || 'Website'} — ${lead.name}`,
       html,
     }),
@@ -101,10 +102,10 @@ async function sendEmail(lead: Required<Lead>): Promise<string | null> {
 async function sendToHubSpot(lead: Required<Lead>): Promise<string | null> {
   const portal = Deno.env.get('HUBSPOT_PORTAL_ID');
   const form = Deno.env.get('HUBSPOT_FORM_GUID');
-  if (!portal || !form) return null;
+  if (!portal || !form || !hasEmailAddress(lead.email)) return null;
   const [firstname, ...rest] = lead.name.split(/\s+/);
   const fields = [
-    { name: 'email', value: lead.email },
+    { name: 'email', value: hasEmailAddress(lead.email) ? lead.email : '' },
     { name: 'firstname', value: firstname ?? '' },
     { name: 'lastname', value: rest.join(' ') },
     { name: 'phone', value: lead.phone },
@@ -134,8 +135,10 @@ Deno.serve(async (req) => {
       property_name: clip(body.property_name, 160),
       page_url: clip(body.page_url, 300),
     };
-    if (!lead.name || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(lead.email)) {
-      return jsonResponse({ error: 'name and valid email required' }, 400);
+    const hasEmail = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(lead.email);
+    const hasPhone = lead.phone.replace(/\D/g, '').length >= 7;
+    if (!lead.name || (!hasEmail && !hasPhone)) {
+      return jsonResponse({ error: 'name and an email or phone number are required' }, 400);
     }
 
     const supabase = createAdminClient();

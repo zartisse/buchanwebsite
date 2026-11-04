@@ -127,20 +127,18 @@
 .teaser {
   position: absolute;
   right: 0;
-  bottom: calc(3.25rem + 0.5rem);
-  max-width: 11rem;
-  padding: 0.45rem 0.65rem;
-  font-size: 0.75rem;
-  line-height: 1.35;
-  color: var(--color-text-on-light);
+  bottom: calc(3.25rem + 0.6rem);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.25rem;
+  width: max-content;
+  max-width: min(16rem, calc(100vw - 2.5rem));
+  padding: 0.55rem 0.4rem 0.55rem 0.8rem;
   background: var(--color-bg-cream);
-  border: 1px solid var(--color-hairline-light);
+  border: 1px solid var(--color-hairline-light-3);
   border-radius: 10px;
-  box-shadow: 0 6px 20px rgba(33, 59, 49, 0.15); /* taste-skill-ignore — floating overlay */
-  pointer-events: none;
-  white-space: nowrap;
-  animation: chatTeaserIn 5s ease-in-out 1.5s infinite;
-  font-weight: 600;
+  box-shadow: 0 10px 28px rgba(33, 59, 49, 0.18); /* taste-skill-ignore — floating overlay */
+  animation: chatTeaserIn 0.5s var(--ease-out) both;
 }
 
 .teaser::after {
@@ -151,26 +149,49 @@
   width: 10px;
   height: 10px;
   background: var(--color-bg-cream);
-  border-right: 1px solid var(--color-hairline-light);
-  border-bottom: 1px solid var(--color-hairline-light);
+  border-right: 1px solid var(--color-hairline-light-3);
+  border-bottom: 1px solid var(--color-hairline-light-3);
   transform: rotate(45deg);
 }
 
+.teaserText {
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: left;
+  color: var(--color-text-on-light);
+  cursor: pointer;
+}
+
+.teaserText:hover {
+  color: var(--color-accent-dark);
+}
+
+.teaserClose {
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  border: none;
+  background: none;
+  font-size: 1rem;
+  line-height: 1;
+  color: var(--color-text-muted-light);
+  cursor: pointer;
+}
+
 @keyframes chatTeaserIn {
-  0%,
-  56%,
-  100% {
+  from {
     opacity: 0;
-    transform: translateY(10px) scale(0.96);
+    transform: translateY(8px) scale(0.97);
   }
-  5%,
-  45% {
+  to {
     opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-  52% {
-    opacity: 0;
-    transform: translateY(6px) scale(0.98);
+    transform: none;
   }
 }
 
@@ -179,7 +200,7 @@
   bottom: calc(3.25rem + 0.75rem);
   right: 0;
   width: min(22rem, calc(100vw - 2rem));
-  max-height: min(32rem, calc(100dvh - 6rem));
+  height: min(36rem, calc(100dvh - 6rem));
   display: flex;
   flex-direction: column;
   background: var(--color-bg-cream);
@@ -190,7 +211,16 @@
   overflow: hidden;
 }
 
+.panelWide {
+  width: min(44rem, calc(100vw - 2rem));
+  height: min(46rem, calc(100dvh - 6rem));
+}
+
 .header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
   padding: 0.85rem 1rem;
   background: var(--color-bg-mid);
   color: var(--color-text);
@@ -209,6 +239,362 @@
   margin: 0.2rem 0 0;
   font-size: 0.72rem;
   opacity: 0.72;
+}
+
+.headerClose {
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: -0.25rem -0.35rem 0 0;
+  border: none;
+  border-radius: 6px;
+  background: none;
+  color: var(--color-text);
+  opacity: 0.75;
+  cursor: pointer;
+}
+
+.headerClose:hover {
+  opacity: 1;
+  background: rgba(247, 245, 240, 0.08);
+}
+
+/* ---- Concierge strip ---- */
+.concierge {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 0.75rem;
+  background: var(--color-bg-white);
+  border-bottom: 1px solid var(--color-hairline-light);
+}
+
+.avatar,
+.bookCardAvatar {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--color-bg-mid);
+  color: var(--color-accent);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  border: 1px solid var(--color-accent-hairline);
+}
+
+.avatar img,
+.bookCardAvatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 30%;
+}
+
+.conciergeText {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+}
+
+.conciergeText strong {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text-on-light);
+}
+
+.conciergeText span {
+  font-size: 0.68rem;
+  color: var(--color-text-muted-light);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.conciergeActions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.conciergeBtnPrimary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.1rem;
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: 6px;
+  background: var(--color-accent-fill);
+  color: var(--color-accent-fill-text);
+  font: inherit;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.conciergeBtnPrimary:hover {
+  background: var(--color-accent-fill-hover);
+  color: #ffffff;
+}
+
+.conciergeBtnPrimary:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.conciergeIconBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  border: 1px solid var(--color-hairline-light-2);
+  border-radius: 6px;
+  color: var(--color-text-on-light);
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.conciergeIconBtn:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent-dark);
+}
+
+.linkBtn {
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  font-size: 0.74rem;
+  color: var(--color-accent-dark);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+.linkBtn:hover {
+  color: var(--color-text-on-light);
+}
+
+/* ---- Messages extras ---- */
+.messageGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.messageGroup .bubbleUser {
+  align-self: flex-end;
+}
+
+.bookCard {
+  align-self: flex-start;
+  display: flex;
+  gap: 0.6rem;
+  max-width: 92%;
+  padding: 0.7rem;
+  background: var(--color-bg-white);
+  border: 1px solid var(--color-accent-hairline);
+  border-left: 3px solid var(--color-accent);
+  border-radius: 10px;
+  animation: chatReplyIn 0.35s var(--ease-out);
+}
+
+.bookCardBody {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.76rem;
+  line-height: 1.4;
+  color: var(--color-text-body);
+}
+
+.bookCardBody strong {
+  font-size: 0.82rem;
+  color: var(--color-text-on-light);
+}
+
+.bookCardActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.35rem;
+}
+
+.starters {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.4rem;
+  margin-top: 0.15rem;
+}
+
+.starter {
+  max-width: 92%;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid var(--color-accent-hairline);
+  border-radius: 999px;
+  background: transparent;
+  font: inherit;
+  font-size: 0.76rem;
+  line-height: 1.35;
+  text-align: left;
+  color: var(--color-text-on-light);
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.starter:hover {
+  background: var(--color-bg-white);
+  border-color: var(--color-accent);
+}
+
+.callbackStrip {
+  padding: 0.4rem 0.75rem;
+  border-top: 1px solid var(--color-hairline-light);
+  background: var(--color-bg-cream);
+  text-align: center;
+}
+
+/* ---- Calendar + callback views ---- */
+.calendarView,
+.callbackView {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg-white);
+}
+
+.subBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.45rem 0.75rem;
+  border-bottom: 1px solid var(--color-hairline-light);
+  background: var(--color-bg-cream);
+}
+
+.backBtn {
+  padding: 0.25rem 0;
+  border: none;
+  background: none;
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--color-text-on-light);
+  cursor: pointer;
+}
+
+.backBtn:hover {
+  color: var(--color-accent-dark);
+}
+
+.subBarLink {
+  font-size: 0.72rem;
+  color: var(--color-accent-dark);
+}
+
+.calendarFrame {
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+  border: 0;
+  background: var(--color-bg-white);
+}
+
+.confirm {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 1.25rem 1rem;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--color-text-body);
+}
+
+.confirm strong {
+  font-size: 0.95rem;
+  color: var(--color-text-on-light);
+}
+
+.confirm p {
+  margin: 0;
+}
+
+.callbackForm {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  padding: 0.9rem 1rem 1rem;
+}
+
+.callbackIntro {
+  margin: 0 0 0.2rem;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--color-text-body);
+}
+
+.cbLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--color-text-on-light);
+}
+
+.cbLabel span {
+  font-weight: 400;
+  color: var(--color-text-muted-light);
+}
+
+.cbInput {
+  min-height: 2.4rem;
+  padding: 0.45rem 0.6rem;
+  border: 1px solid var(--color-hairline-light-2);
+  border-radius: 6px;
+  background: var(--color-bg-white);
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--color-text-on-light);
+}
+
+.cbInput:focus {
+  outline: 2px solid var(--color-accent-muted);
+  border-color: var(--color-accent);
+}
+
+.cbError {
+  margin: 0;
+  font-size: 0.74rem;
+  color: #a0461f;
+}
+
+.callbackForm .conciergeBtnPrimary {
+  align-self: flex-start;
+  margin-top: 0.2rem;
+  min-height: 2.5rem;
+  padding: 0.5rem 1rem;
 }
 
 .quickActions {
@@ -398,10 +784,9 @@
     animation: none;
   }
 
-  .teaser {
+  .teaser,
+  .bookCard {
     animation: none;
-    opacity: 1;
-    transform: none;
   }
 }
 
@@ -411,14 +796,13 @@
     right: 0.75rem;
   }
 
-  .panel {
+  .panel,
+  .panelWide {
     width: calc(100vw - 1.5rem);
+    height: calc(100dvh - 5.5rem);
   }
 
-  .teaser {
-    max-width: 9.5rem;
-    font-size: 0.7rem;
+  .conciergeText span {
     white-space: normal;
-    text-align: right;
   }
 }

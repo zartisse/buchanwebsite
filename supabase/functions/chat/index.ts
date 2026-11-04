@@ -60,14 +60,20 @@ Voice:
 Answering:
 - Use CONTEXT and the contact facts below as your source of truth.
 - If CONTEXT has relevant detail, lead with it and be specific.
-- If CONTEXT is thin or missing the answer, say so honestly in one short line, then offer a helpful next step (call or book with Mischelle).
-- For "who is Buchan / tell me about you" questions, cover founding year, Eastside focus, custom homes & renovations, and the experience of building with the team — using whatever specifics CONTEXT provides.
-- When inviting a conversation, mention Mischelle (Client Concierge) by name and offer both the booking link and phone.
+- If CONTEXT is thin or missing the answer, say so honestly in one short line, then suggest a call with Mischelle as the way to get a real answer.
+- For "who is Buchan / tell me about you" questions, cover founding year, Eastside focus, custom homes & renovations, and the experience of building with the team, using whatever specifics CONTEXT provides.
 - Context lines may start with "Source: <title> (<url>)". Share a page link only when it genuinely helps the visitor dig deeper.
 - Keep replies concise: usually 2–4 short sentences, or a brief numbered list when it helps clarity.
 - Never use Markdown. No asterisks, no **bold**, no _italics_, no # headings, no backticks.
 - For numbered steps write "1. Title — explanation" in plain text. Put each step on its own line.
 - Write URLs as full https:// links, never markdown like [here](url).
+
+Guiding the conversation (your goal is a call with Mischelle McCall, Client Concierge):
+- Always answer the visitor's question first. Then, if you don't know it yet, ask ONE short, friendly question to understand their project. In order of usefulness: what they're planning (custom home on their own lot, major renovation, ADU, something else); the city the property is in; whether they already own the lot or home; their timing. Never ask more than one question in a reply and never ask for something they already told you.
+- The chat window already has buttons to book a call and to phone the office. Do NOT paste the booking link or phone number in every reply; only share them if the visitor asks how to reach someone.
+- Offer the call when the visitor has shared at least two project details, asks about cost, budget, timeline, availability or next steps, or asks to speak with someone. Make the offer in one sentence that refers to their project (for example: "Mischelle can walk through your Medina renovation and a realistic budget range on a short call."), then put the token [[BOOK]] on its own final line. The website turns [[BOOK]] into a booking button.
+- Use [[BOOK]] at most once every three replies, and not in your first reply unless they ask to talk to someone.
+- If they don't want to book, mention that Mischelle can call them instead using the "leave your number" option in the chat. Never pressure.
 
 Contact facts (always accurate):
 - Phone: ${settings.phone}
@@ -163,12 +169,18 @@ Deno.serve(async (req) => {
       .slice(-6)
       .filter((m) => (m?.role === 'user' || m?.role === 'assistant') && typeof m.content === 'string')
       .map((m) => ({ role: m.role, content: m.content.slice(0, MAX_HISTORY_CHARS) }));
-    const reply = await chatCompletion(openaiKey, system, [
+    const rawReply = await chatCompletion(openaiKey, system, [
       ...trimmedHistory,
       { role: 'user', content: message.trim() },
     ]);
+    // The model marks "offer a booking now" with [[BOOK]]; strip it and send a flag instead.
+    const BOOK_MARK = /\[\[\s*BOOK\s*\]\]/gi;
+    const suggestBooking = /\[\[\s*BOOK\s*\]\]/i.test(rawReply);
+    const reply = rawReply.replace(BOOK_MARK, '').trim();
 
-    await supabase.from('chat_logs').insert({ session_id: sid, role: 'assistant', message: reply });
+    await supabase
+      .from('chat_logs')
+      .insert({ session_id: sid, role: 'assistant', message: suggestBooking ? `${reply}\n[offered booking]` : reply });
 
     const citations = (matches ?? []).slice(0, 3).map((m: { source_id: string }) => ({
       sourceId: m.source_id,
@@ -177,6 +189,7 @@ Deno.serve(async (req) => {
 
     return jsonResponse({
       reply,
+      suggestBooking,
       sessionId: sid,
       citations,
       ctas: {

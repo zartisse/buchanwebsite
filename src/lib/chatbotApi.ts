@@ -57,6 +57,7 @@ export async function sendChatMessage(payload: {
   }
   return data as {
     reply: string;
+    suggestBooking?: boolean;
     sessionId: string;
     citations?: { sourceId: string; title: string }[];
     ctas?: { phone: string; phoneHref: string; hubspotMeetingUrl: string };
