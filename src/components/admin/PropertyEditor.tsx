@@ -96,6 +96,7 @@ export function PropertyEditor({ property, existingSlugs = [], onSave, onCancel 
             <select className={styles.select} value={status} onChange={(e) => setStatus(e.target.value as PropertyStatus)}>
               <option>Available</option>
               <option>Coming Soon</option>
+              <option>Pending</option>
               <option>Sold</option>
               <option>Draft</option>
             </select>

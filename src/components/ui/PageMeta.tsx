@@ -1,8 +1,11 @@
 import { Helmet } from 'react-helmet-async';
 import { useLocation } from 'react-router-dom';
+import { canonicalPath } from '../../lib/legacy';
 
 interface PageMetaProps {
   title: string;
+  /** Override the canonical path (e.g. an imported post's original URL). */
+  canonical?: string;
   description?: string;
   /** Absolute or site-relative image for link previews. Defaults to the site-wide image. */
   image?: string;
@@ -18,11 +21,11 @@ function absolute(url: string): string {
   return `${window.location.origin}${url.startsWith(base) ? '' : base}${url}`;
 }
 
-export function PageMeta({ title, description, image }: PageMetaProps) {
+export function PageMeta({ title, description, image, canonical: canonicalOverride }: PageMetaProps) {
   const { pathname } = useLocation();
   // CMS titles sometimes already end with the brand name; never repeat it.
   const fullTitle = title.includes(BRAND) ? title : `${title} | ${BRAND}`;
-  const canonical = typeof window !== 'undefined' ? `${window.location.origin}${pathname}` : pathname;
+  const canonical = typeof window !== 'undefined' ? `${window.location.origin}${canonicalOverride ?? canonicalPath(pathname)}` : (canonicalOverride ?? canonicalPath(pathname));
   const ogImage = absolute(image || DEFAULT_IMAGE);
 
   return (

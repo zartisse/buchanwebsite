@@ -4,8 +4,8 @@ import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { getSchemaCapabilities } from '../lib/schemaCapabilities';
 import { DEMO_POSTS } from '../data/demo';
 
-const POST_LIST_COLUMNS = 'id,title,slug,category,status,date,excerpt,image_url,featured';
-const POST_DETAIL_COLUMNS = 'id,title,slug,category,status,date,excerpt,body,image_url,meta_title,meta_description,featured';
+const POST_LIST_COLUMNS = 'id,title,slug,category,status,date,excerpt,image_url,featured,path';
+const POST_DETAIL_COLUMNS = 'id,title,slug,category,status,date,excerpt,body,image_url,meta_title,meta_description,featured,path';
 
 export function usePosts(options?: { publishedOnly?: boolean; admin?: boolean }) {
   const [posts, setPosts] = useState<Post[]>([]);

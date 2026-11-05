@@ -6,7 +6,7 @@ import { DEMO_PROPERTIES } from '../data/demo';
 
 const PROPERTY_LIST_BASE = 'id,name,slug,status,city,image_url,featured,featured_order';
 const PROPERTY_DETAIL_BASE =
-  'id,name,slug,status,address,city,beds,baths,sqft,lot,year,description,image_url,gallery_urls,meta_title,meta_description,featured,featured_order';
+  'id,name,slug,status,address,city,beds,baths,sqft,lot,year,description,image_url,gallery_urls,meta_title,meta_description,featured,featured_order,brochure_url';
 const FEATURED_COLUMNS = 'name,slug,city,image_url,featured,featured_order,status';
 
 function propertyListColumns(portfolioType: boolean) {

@@ -101,7 +101,17 @@ export function PortfolioDetail() {
       <section className={ps.section}>
         <RevealOnScroll>
           <div style={{ maxWidth: 720, margin: '0 auto' }}>
-            <p className={ps.bodyText}>{property.description || `A custom ${property.name} built by John Buchan Homes in ${property.city}.`}</p>
+            {(property.description || `A custom ${property.name} built by John Buchan Homes in ${property.city}.`)
+              .split(/\n+/)
+              .filter((line) => line.trim())
+              .map((line, i) => (
+                <p key={i} className={ps.bodyText} style={{ marginBottom: line.trim().startsWith('•') ? 6 : 18 }}>{line}</p>
+              ))}
+            {property.brochure_url && (
+              <a href={property.brochure_url} target="_blank" rel="noopener noreferrer" className="btnPrimaryFill" style={{ marginTop: 16 }}>
+                Download the floor plan (PDF)
+              </a>
+            )}
           </div>
         </RevealOnScroll>
       </section>
@@ -116,7 +126,7 @@ export function PortfolioDetail() {
               onClick={() => openLightbox(url)}
               aria-label="View image fullscreen"
             >
-              <OptimizedImage src={url} alt={`${property.name} photo ${index + 1}`} resolved priority={index === 0} />
+              <OptimizedImage src={url} alt={`${property.name} photo ${index + 1}`} resolved priority={index === 0} sizes="(max-width: 700px) 100vw, 33vw" />
             </button>
           ))}
         </div>

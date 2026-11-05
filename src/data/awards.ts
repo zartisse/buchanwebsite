@@ -12,7 +12,7 @@ export interface AwardBadge {
 
 export const FOOTER_AWARD_BADGES: AwardBadge[] = [
   {
-    image: '/assets/awards/best-in-pnw-2026.jpg',
+    image: '/assets/awards/best-in-pnw-2026.png',
     alt: 'Best in the PNW 2026 Winner — The Seattle Times, The People’s Choice',
     href: '/awards',
     featured: true,

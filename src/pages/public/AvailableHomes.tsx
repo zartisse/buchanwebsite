@@ -34,7 +34,7 @@ export function AvailableHomes() {
           <RevealOnScroll>
             <div style={{ maxWidth: 'var(--max-width)', margin: '0 auto', padding: '0 8vw' }}>
               <span className={ps.eyebrow}>{content.featured_eyebrow}</span>
-              <Link to={`/portfolio/${spotlight.slug}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link to={`/portfolio/${spotlight.slug}/`} style={{ textDecoration: 'none', color: 'inherit' }}>
                 <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 32, marginTop: 24, alignItems: 'center' }}>
                   <div style={{ overflow: 'hidden', height: 'clamp(280px, 35vw, 420px)' }}>
                     <img src={resolveImageUrl(spotlight.image_url, spotlight.slug)} alt={spotlight.name} className={ps.imageCover} />
@@ -84,7 +84,7 @@ function HomeSection({ title, items, empty }: { title: string; items: ReturnType
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 32 }}>
           {items.map((h) => (
             <RevealOnScroll key={h.id}>
-              <Link to={`/portfolio/${h.slug}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link to={`/portfolio/${h.slug}/`} style={{ textDecoration: 'none', color: 'inherit' }}>
                 <div style={{ overflow: 'hidden', height: 280, marginBottom: 16 }}>
                   <img src={resolveImageUrl(h.image_url, h.slug)} alt={h.name} className={ps.imageCover} />
                 </div>

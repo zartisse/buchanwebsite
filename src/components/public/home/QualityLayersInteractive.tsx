@@ -44,7 +44,7 @@ function CalloutButton({
 /** Line-drawing cutaways ship with a baked white plate; use the transparent local WebP. */
 function elevationSource(url: string | undefined): string {
   // Cache-bust when the transparent asset is regenerated locally.
-  const local = '/assets/quality-layers-house.webp?v=3';
+  const local = '/assets/quality-layers-house.webp?v=4';
   if (!url) return local;
   if (/quality-layers-house/i.test(url) || /\/pages\/home\/quality\//i.test(url)) {
     return local;

@@ -7,12 +7,13 @@ import { RevealOnScroll } from '../../components/ui/RevealOnScroll';
 import { fmtDate } from '../../lib/utils';
 import { resolveImageUrl } from '../../lib/placeholders';
 import ps from '../../styles/pages.module.css';
+import { postHref } from '../../lib/legacy';
 
-type CatFilter = 'All' | 'Company Updates' | 'Industry News';
+type CatFilter = 'All' | 'Company Updates' | 'Industry News' | 'Lifestyle' | 'Custom Homes';
 
-export function Blog() {
+export function Blog({ category }: { category?: CatFilter } = {}) {
   const { posts, loading, error } = usePosts({ publishedOnly: true });
-  const [cat, setCat] = useState<CatFilter>('All');
+  const [cat, setCat] = useState<CatFilter>(category ?? 'All');
 
   const filtered = posts.filter((p) => cat === 'All' || p.category === cat);
   const featured = filtered.find((p) => p.featured) ?? filtered[0];
@@ -20,7 +21,7 @@ export function Blog() {
 
   return (
     <main>
-      <PageMeta title="Blog" description="Notes and news from John Buchan Homes, building in Bellevue and the Greater Eastside since 1961." />
+      <PageMeta title={category ? `${category} | Blog` : 'Blog'} description="Notes and news from John Buchan Homes, building in Bellevue and the Greater Eastside since 1961." />
       <section className={ps.hero}>
         <div className={ps.heroInner}>
           <span className={ps.eyebrow}>The Journal</span>
@@ -31,7 +32,7 @@ export function Blog() {
       {featured && (
         <section className={ps.sectionAlt}>
           <RevealOnScroll>
-            <Link to={`/blog/${featured.slug}`} className={ps.cardLink} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 48, maxWidth: 'var(--max-width-wide)', margin: '0 auto' }}>
+            <Link to={postHref(featured)} className={ps.cardLink} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 48, maxWidth: 'var(--max-width-wide)', margin: '0 auto' }}>
               <img src={resolveImageUrl(featured.image_url, featured.slug)} alt={featured.title} style={{ width: '100%', height: 'clamp(280px, 35vw, 420px)', objectFit: 'cover' }} />
               <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                 <span className={ps.cardLabel}>Featured</span>
@@ -47,7 +48,7 @@ export function Blog() {
       <section className={ps.section}>
         <div className={ps.sectionInner}>
           <div className={ps.filterRow}>
-            {(['All', 'Company Updates', 'Industry News'] as CatFilter[]).map((c) => (
+            {(['All', 'Company Updates', 'Industry News', 'Lifestyle', 'Custom Homes'] as CatFilter[]).filter((c) => c === 'All' || posts.some((p) => p.category === c)).map((c) => (
               <button
                 key={c}
                 type="button"
@@ -73,7 +74,7 @@ export function Blog() {
           <div className={ps.cardGrid}>
             {gridPosts.map((p) => (
               <RevealOnScroll key={p.id}>
-                <Link to={`/blog/${p.slug}`} className={ps.cardLink}>
+                <Link to={postHref(p)} className={ps.cardLink}>
                   <div className={ps.cardImageWrapSm}>
                     <img src={resolveImageUrl(p.image_url, p.slug)} alt={p.title} className={ps.imageCover} />
                   </div>

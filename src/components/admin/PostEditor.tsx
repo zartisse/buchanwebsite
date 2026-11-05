@@ -82,6 +82,8 @@ export function PostEditor({ post, existingSlugs = [], onSave, onCancel }: PostE
             <select className={styles.select} value={category} onChange={(e) => setCategory(e.target.value as PostCategory)}>
               <option>Company Updates</option>
               <option>Industry News</option>
+              <option>Lifestyle</option>
+              <option>Custom Homes</option>
             </select>
           </div>
           <div className={styles.field}>

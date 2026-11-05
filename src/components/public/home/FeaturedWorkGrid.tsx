@@ -26,7 +26,7 @@ function FeaturedCard({
   const wrapClass = variant === 'hero' ? styles.imgWrap : styles.sideImgWrap;
 
   return (
-    <Link to={`/portfolio/${property.slug}`} className={`${cardClass} imageHover`}>
+    <Link to={`/portfolio/${property.slug}/`} className={`${cardClass} imageHover`}>
       <div className={wrapClass}>
         <OptimizedImage
           src={property.image_url}

@@ -1,6 +1,6 @@
-export type PostCategory = 'Company Updates' | 'Industry News';
+export type PostCategory = 'Company Updates' | 'Industry News' | 'Lifestyle' | 'Custom Homes';
 export type PostStatus = 'Draft' | 'Published';
-export type PropertyStatus = 'Available' | 'Coming Soon' | 'Sold' | 'Draft';
+export type PropertyStatus = 'Available' | 'Coming Soon' | 'Pending' | 'Sold' | 'Draft';
 export type SubmissionStatus = 'New' | 'Read' | 'Archived';
 
 export type PortfolioType = 'custom-homes' | 'renovations' | 'interiors' | 'available-homes' | 'video-tours';
@@ -18,6 +18,8 @@ export interface Post {
   meta_title: string;
   meta_description: string;
   featured?: boolean;
+  /** Original buchan.com URL path for imported posts, e.g. /company-updates/slug/ */
+  path?: string | null;
   created_at?: string;
   updated_at?: string;
 }
@@ -42,6 +44,8 @@ export interface Property {
   featured?: boolean;
   featured_order?: number;
   portfolio_type?: PortfolioType;
+  /** Floor plan / brochure PDF */
+  brochure_url?: string;
   created_at?: string;
   updated_at?: string;
 }

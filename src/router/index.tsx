@@ -22,6 +22,7 @@ const Awards = lazy(() => import('../pages/public/Awards').then((m) => ({ defaul
 const AreaPage = lazy(() => import('../pages/public/AreaPage').then((m) => ({ default: m.AreaPage })));
 const CostEstimator = lazy(() => import('../pages/public/CostEstimator').then((m) => ({ default: m.CostEstimator })));
 const NotFound = lazy(() => import('../pages/public/NotFound').then((m) => ({ default: m.NotFound })));
+const LegacyPage = lazy(() => import('../pages/public/LegacyPage').then((m) => ({ default: m.LegacyPage })));
 const AvailableHomes = lazy(() => import('../pages/public/AvailableHomes').then((m) => ({ default: m.AvailableHomes })));
 const BuilderTransitionCaseStudy = lazy(() => import('../pages/public/CaseStudies').then((m) => ({ default: m.BuilderTransitionCaseStudy })));
 
@@ -111,11 +112,31 @@ export function AppRouter() {
           <Route path="faq" element={<Lazy><Faq /></Lazy>} />
           <Route path="warranty" element={<Lazy><Warranty /></Lazy>} />
           <Route path="awards" element={<Lazy><Awards /></Lazy>} />
+          {/* ---- Original buchan.com URLs (kept exactly so rankings carry over) ---- */}
+          <Route path="about-us" element={<Lazy><About /></Lazy>} />
+          <Route path="contact-us" element={<Lazy><Contact /></Lazy>} />
+          <Route path="services/build" element={<IaPageRoute name="CustomHomes" />} />
+          <Route path="services/remodel" element={<IaPageRoute name="Renovations" />} />
+          <Route path="services/design" element={<IaPageRoute name="PlanningBudgeting" />} />
+          <Route path="portfolio/page/:page" element={<Lazy><Portfolio /></Lazy>} />
+          <Route path="blog/page/:page" element={<Lazy><Blog /></Lazy>} />
+          <Route path="company-updates" element={<Lazy><Blog category="Company Updates" /></Lazy>} />
+          <Route path="industry-news" element={<Lazy><Blog category="Industry News" /></Lazy>} />
+          <Route path="lifestyle" element={<Lazy><Blog category="Lifestyle" /></Lazy>} />
+          <Route path="category/company-updates" element={<Lazy><Blog category="Company Updates" /></Lazy>} />
+          <Route path="category/industry-news" element={<Lazy><Blog category="Industry News" /></Lazy>} />
+          <Route path="category/lifestyle" element={<Lazy><Blog category="Lifestyle" /></Lazy>} />
+          <Route path="category/custom-homes" element={<Lazy><Blog category="Custom Homes" /></Lazy>} />
+          <Route path="company-updates/:slug" element={<Lazy><BlogPost /></Lazy>} />
+          <Route path="industry-news/:slug" element={<Lazy><BlogPost /></Lazy>} />
+          <Route path="lifestyle/:slug" element={<Lazy><BlogPost /></Lazy>} />
+          <Route path="custom-homes/:slug" element={<Lazy><BlogPost /></Lazy>} />
           <Route path="build" element={<Navigate to="/custom-homes" replace />} />
           <Route path="remodel" element={<Navigate to="/renovations" replace />} />
           <Route path="design" element={<Navigate to="/services/planning-budgeting" replace />} />
           <Route path="neighborhoods" element={<Navigate to="/areas-we-serve" replace />} />
-          <Route path="*" element={<Lazy><NotFound /></Lazy>} />
+          {/* Floor plans, legal pages and other imported buchan.com pages; 404 if not found */}
+          <Route path="*" element={<Lazy><LegacyPage /></Lazy>} />
         </Route>
 
         <Route path="admin/login" element={<Lazy><AdminLogin /></Lazy>} />

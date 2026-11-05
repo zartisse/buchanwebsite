@@ -8,7 +8,7 @@ export function StatusPill({ status }: StatusPillProps) {
   const cls =
     status === 'Published' || status === 'Available'
       ? adminStyles.pillGold
-      : status === 'Coming Soon'
+      : status === 'Coming Soon' || status === 'Pending'
         ? adminStyles.pillNew
         : status === 'Sold'
         ? adminStyles.pillMuted

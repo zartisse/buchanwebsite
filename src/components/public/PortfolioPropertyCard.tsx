@@ -8,10 +8,10 @@ type PortfolioPropertyCardProps = {
 };
 
 export function PortfolioPropertyCard({ property }: PortfolioPropertyCardProps) {
-  const showBanner = property.status === 'Available' || property.status === 'Coming Soon';
+  const showBanner = property.status === 'Available' || property.status === 'Coming Soon' || property.status === 'Pending';
 
   return (
-    <Link to={`/portfolio/${property.slug}`} className={`${ps.cardLink} imageHover`}>
+    <Link to={`/portfolio/${property.slug}/`} className={`${ps.cardLink} imageHover`}>
       <div className={ps.cardImageWrap}>
         <OptimizedImage
           src={property.image_url}
