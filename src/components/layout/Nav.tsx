@@ -100,9 +100,10 @@ function DesktopNavItem({
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
   const hasDropdown = group.links.length > 0;
-  const isCurrent = [group.to, ...group.links.map((l) => l.to)].some(
-    (to) => to !== '/' && !to.startsWith('http') && (pathname === to || pathname.startsWith(`${to}/`)),
-  );
+  const isCurrent = [group.to, ...group.links.map((l) => l.to)].some((raw) => {
+    const to = raw.split(/[?#]/)[0].replace(/\/$/, '');
+    return to !== '' && !to.startsWith('http') && (pathname.replace(/\/$/, '') === to || pathname.startsWith(`${to}/`));
+  });
 
   return (
     <div

@@ -53,6 +53,17 @@ export const PRIMARY_NAV: NavGroup[] = [
     ],
   },
   {
+    label: 'Blog',
+    to: '/blog/',
+    links: [
+      { label: 'All Articles', to: '/blog/' },
+      { label: 'Company Updates', to: '/company-updates/' },
+      { label: 'Industry News', to: '/industry-news/' },
+      { label: 'Lifestyle', to: '/lifestyle/' },
+      { label: 'Custom Homes', to: '/category/custom-homes/' },
+    ],
+  },
+  {
     label: 'About',
     to: '/about',
     links: [
