@@ -22,7 +22,9 @@
 .rich h3 { font-size: clamp(20px, 2vw, 24px); }
 .rich h4 { font-size: 19px; }
 
-.rich p { margin: 0; }
+.rich p { margin: 0 0 1.1em; }
+
+.rich p:last-child { margin-bottom: 0; }
 
 .rich ul,
 .rich ol {
