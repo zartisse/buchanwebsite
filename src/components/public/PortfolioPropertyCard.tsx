@@ -17,6 +17,8 @@ export function PortfolioPropertyCard({ property }: PortfolioPropertyCardProps) 
           src={property.image_url}
           seed={property.slug}
           alt={property.name}
+          displayWidth={800}
+          sizes="(max-width: 1000px) 100vw, 33vw"
           className={ps.imageCover}
           style={{ transition: 'transform 0.55s ease' }}
         />

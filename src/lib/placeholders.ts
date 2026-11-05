@@ -112,8 +112,40 @@ function netlifyImageUrl(url: string, width: number, quality = 72): string {
  * - otherwise the Netlify Image CDN on Netlify builds (see netlify.toml [images])
  * - otherwise the original URL
  */
+/**
+ * Photos imported from the old site have pre-made smaller copies next to the original
+ * (name-800.webp, name-1600.webp). Serving those directly is faster than resizing on the fly.
+ */
+const LEGACY_IMAGE = /\/storage\/v1\/object\/public\/media\/legacy\/.+\.webp$/i;
+const LEGACY_VARIANT = /-(800|1600)\.webp$/i;
+
+export function isLegacyImage(url: string): boolean {
+  const path = url.split('?')[0];
+  return LEGACY_IMAGE.test(path) && !LEGACY_VARIANT.test(path);
+}
+
+export function legacyVariant(url: string, width: number): string {
+  if (!isLegacyImage(url)) return url;
+  if (width <= 800) return url.replace(/\.webp$/i, '-800.webp');
+  if (width <= 1600) return url.replace(/\.webp$/i, '-1600.webp');
+  return url;
+}
+
+/** Best size for the full-screen gallery view. */
+export function lightboxImageUrl(url: string): string {
+  if (isLegacyImage(url)) return legacyVariant(url, 1600);
+  return supabaseImageUrl(url, 1600);
+}
+
+/** Small copy used as an instant placeholder while the large one loads. */
+export function previewImageUrl(url: string): string {
+  if (isLegacyImage(url)) return legacyVariant(url, 800);
+  return supabaseImageUrl(url, 800);
+}
+
 export function supabaseImageUrl(url: string, width?: number, quality = 75): string {
   if (!width) return url;
+  if (isLegacyImage(url)) return legacyVariant(url, width);
   if (!transformsEnabled() && netlifyEligible(url)) return netlifyImageUrl(url, width);
   if (!transformsEnabled() || !url.includes('supabase.co/storage/')) return url;
 
@@ -135,6 +167,9 @@ export function supabaseImageUrl(url: string, width?: number, quality = 75): str
 }
 
 export function supabaseSrcSet(url: string, quality = 75): string | undefined {
+  if (isLegacyImage(url)) {
+    return `${legacyVariant(url, 800)} 800w, ${legacyVariant(url, 1600)} 1600w, ${url} 2000w`;
+  }
   if (!transformsEnabled() && netlifyEligible(url)) {
     return CDN_SRCSET_WIDTHS.map((w) => `${netlifyImageUrl(url, w)} ${w}w`).join(', ');
   }
