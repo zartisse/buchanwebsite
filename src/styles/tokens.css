@@ -63,6 +63,8 @@
   --font-subhead: 'Aileron', 'Montserrat', system-ui, -apple-system, sans-serif;
   --font-serif: var(--font-display); /* legacy name kept so existing components switch automatically */
   --font-sans: 'Montserrat', system-ui, -apple-system, sans-serif;
+  /* Signature + project names on hover (Heather's direction, Nov 2026). Not for body or headlines. */
+  --font-script: 'Mrs Saint Delafield', 'Snell Roundhand', cursive;
 
   /* ---- Type scale (editorial, modular ~1.25) ---- */
   --text-display-2xl: clamp(40px, 6vw, 84px);     /* hero H1 (sized for Montserrat's wider letters) */

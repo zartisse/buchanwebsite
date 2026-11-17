@@ -5,6 +5,7 @@ import { RevealOnScroll } from '../../components/ui/RevealOnScroll';
 import { HeroTitle, SectionTitleWithEmphasis } from '../../components/ui/HeroTitle';
 import { getDemoPageContent } from '../../data/sitePagesDemo';
 import { resolveImageUrl } from '../../lib/placeholders';
+import { TeamPhoto } from '../../components/public/TeamPhoto';
 import ps from '../../styles/pages.module.css';
 
 export function About() {
@@ -65,7 +66,12 @@ export function About() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 32 }}>
             {content.team.members.map((m) => (
               <RevealOnScroll key={m.name}>
-                <img src={resolveImageUrl(m.image_url, m.name)} alt={m.name} style={{ width: '100%', aspectRatio: '3/4', objectFit: 'cover', marginBottom: 16 }} />
+                <TeamPhoto
+                  src={resolveImageUrl(m.image_url, m.name)}
+                  alt={m.name}
+                  archiveSrc={/heather/i.test(m.name) ? '/assets/history/stratford-archive.webp' : undefined}
+                  archiveAlt="Archive photograph of two early John Buchan Homes builders at the Stratford at Lakemont sign"
+                />
                 <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: 22, margin: '0 0 4px' }}>{m.name}</h3>
                 <span style={{ fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--color-accent)' }}>{m.role}</span>
               </RevealOnScroll>

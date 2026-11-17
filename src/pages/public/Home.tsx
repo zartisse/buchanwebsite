@@ -1,47 +1,30 @@
-import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
-import { BetterPlannedPath } from '../../components/public/home/BetterPlannedPath';
-import { ClientConcerns } from '../../components/public/home/ClientConcerns';
-import { DifferenceSection } from '../../components/public/home/DifferenceSection';
-import { FeaturedWorkGrid } from '../../components/public/home/FeaturedWorkGrid';
-import { HeroCarousel } from '../../components/public/home/HeroCarousel';
-import { PickYourPath } from '../../components/public/home/PickYourPath';
-import { PreconstructionBand } from '../../components/public/home/PreconstructionBand';
-import { QualityLayersInteractive } from '../../components/public/home/QualityLayersInteractive';
-import { GoogleReviewsSection } from '../../components/public/home/GoogleReviewsSection';
-import { WhatWeDo } from '../../components/public/home/WhatWeDo';
+import { Craftsmanship } from '../../components/public/landing/Craftsmanship';
+import { HeroSection } from '../../components/public/landing/HeroSection';
+import { HistorySection } from '../../components/public/landing/HistorySection';
+import { ProcessPreview } from '../../components/public/landing/ProcessPreview';
+import { RecentWork } from '../../components/public/landing/RecentWork';
+import { ServicesSection } from '../../components/public/landing/ServicesSection';
+import { StartConversation } from '../../components/public/landing/StartConversation';
+import { TrustSection } from '../../components/public/landing/TrustSection';
 import { useSitePage } from '../../hooks/useSitePage';
 import { PageMeta } from '../../components/ui/PageMeta';
-import { OptimizedImage } from '../../components/ui/OptimizedImage';
-import { RevealOnScroll } from '../../components/ui/RevealOnScroll';
 import { mergeHomeContent } from '../../data/homeContentDefaults';
 import { getDemoPageContent } from '../../data/sitePagesDemo';
 import { resolveImageUrl, supabaseImageUrl, supabaseSrcSet } from '../../lib/placeholders';
 import homeStyles from './Home.module.css';
-import { SITE_CTA_IMAGE } from '../../data/siteImages';
 
-const MARQUEE_GROUP_SIZE = 2;
-
-function HeroCta({ url, label, className }: { url: string; label: string; className: string }) {
-  if (url.startsWith('#')) {
-    return <a href={url} className={className}>{label}</a>;
-  }
-  if (url.startsWith('http')) {
-    return <a href={url} className={className} target="_blank" rel="noopener noreferrer">{label}</a>;
-  }
-  return <Link to={url} className={className}>{label}</Link>;
-}
-
+/**
+ * Homepage sequence (Heather's direction, Nov 2026):
+ * Hero, History, Recent Work, Craftsmanship, Services, Process, Client Trust, Start a Conversation.
+ * Hero photos and the services cards still come from the admin-managed home content.
+ */
 export function Home() {
   const { page } = useSitePage('home');
   const rawContent = page?.content ?? getDemoPageContent('home');
   const content = mergeHomeContent(rawContent);
   const { hero } = content;
   const heroSlides = hero.image_urls?.length ? hero.image_urls : [hero.image_url];
-
-  const heroTitle = hero.title_emphasis
-    ? <>{hero.title} <em>{hero.title_emphasis}</em></>
-    : hero.title;
 
   useEffect(() => {
     const heroSrc = resolveImageUrl(heroSlides[0] ?? '/assets/ph-arch-1.webp', 'home-hero');
@@ -66,89 +49,14 @@ export function Home() {
   return (
     <main className={homeStyles.homePage}>
       <PageMeta title={page?.meta_title ?? 'Build with Certainty | John Buchan Homes'} description={page?.meta_description} />
-
-      <section className={homeStyles.heroOverlay}>
-        <div className={homeStyles.heroMedia} aria-hidden>
-          <HeroCarousel slides={heroSlides} />
-        </div>
-        <div className={homeStyles.heroScrim} aria-hidden />
-        <div className={homeStyles.heroContent}>
-          <RevealOnScroll variant="down">
-            <h1 className={homeStyles.heroTitle}>{heroTitle}</h1>
-          </RevealOnScroll>
-          <RevealOnScroll variant="down" index={1}>
-            <p className={homeStyles.heroSub}>{hero.subtitle}</p>
-          </RevealOnScroll>
-          <RevealOnScroll variant="up" index={2}>
-            <div className={homeStyles.heroCtas}>
-              <HeroCta url={hero.cta_primary_url} label={hero.cta_primary_label} className="btnPrimaryFill" />
-            </div>
-          </RevealOnScroll>
-        </div>
-      </section>
-
-      {hero.marquee && (
-        <section className={homeStyles.heritageMarquee} aria-label="Company heritage">
-          <div className="heritage-marquee-track">
-            {[0, 1].map((group) => (
-              <div key={group} className={homeStyles.marqueeGroup}>
-                {Array.from({ length: MARQUEE_GROUP_SIZE }, (_, i) => (
-                  <span key={i}>{hero.marquee} ·</span>
-                ))}
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
-
-      <FeaturedWorkGrid labels={content.featured_work} />
-
-      <DifferenceSection section={content.difference_section} />
-
-      <WhatWeDo section={content.what_we_do} />
-
-      <PreconstructionBand band={content.what_we_do.preconstruction} />
-
-      <BetterPlannedPath section={content.better_planned_path} stages={content.process_stages} />
-
-      <QualityLayersInteractive section={content.quality_layers} />
-
-      <GoogleReviewsSection
-        section={content.google_reviews_section}
-        widgetId={import.meta.env.VITE_GOOGLE_REVIEWS_WIDGET_ID}
-      />
-
-      <ClientConcerns section={content.client_concerns} />
-
-      <PickYourPath section={content.pick_your_path} />
-
-      <section className={homeStyles.closingCta}>
-        <div className={homeStyles.closingCtaBg} aria-hidden>
-          <OptimizedImage
-            src={SITE_CTA_IMAGE}
-            seed="closing-cta"
-          />
-        </div>
-        <div className={homeStyles.closingCtaOverlay} aria-hidden />
-        <div className={homeStyles.closingCtaContent}>
-          <div className={homeStyles.closingCtaInner}>
-            <h2 className={homeStyles.closingCtaTitle}>
-              {content.closing_cta.title.split('\n').map((line, i, lines) => (
-                <span key={line}>
-                  {line}
-                  {i < lines.length - 1 && <br />}
-                </span>
-              ))}
-            </h2>
-            {content.closing_cta.subtitle && (
-              <p className={homeStyles.closingCtaSub}>{content.closing_cta.subtitle}</p>
-            )}
-            <div className={homeStyles.closingCtaActions}>
-              <Link to={content.closing_cta.primary_url} className="btnPrimaryFill">{content.closing_cta.primary_label}</Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      <HeroSection slides={heroSlides} />
+      <HistorySection />
+      <RecentWork />
+      <Craftsmanship />
+      <ServicesSection section={content.what_we_do} />
+      <ProcessPreview />
+      <TrustSection reviewsUrl={content.google_reviews_section.fallback_maps_url} />
+      <StartConversation />
     </main>
   );
 }
