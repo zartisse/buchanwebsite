@@ -77,6 +77,43 @@ export const PRIMARY_NAV: NavGroup[] = [
   },
 ];
 
+
+/**
+ * Minimal top bar (Nov 2026 direction): Homes · Process on the left, About · Contact on the right,
+ * logo centered. Everything from the former six-group menu is still reachable from these dropdowns
+ * or the footer, and all old URLs keep working.
+ */
+export const NAV_LEFT: NavGroup[] = [
+  {
+    label: 'Homes',
+    to: '/portfolio',
+    links: [
+      { label: 'Custom Homes', to: '/custom-homes' },
+      { label: 'Renovations', to: '/renovations' },
+      { label: 'Services', to: '/services' },
+      { label: 'Portfolio', to: '/portfolio' },
+      { label: 'Available Homes', to: '/portfolio?type=available-homes' },
+    ],
+  },
+  { label: 'Process', to: '/process', links: [] },
+];
+
+export const NAV_RIGHT: NavGroup[] = [
+  {
+    label: 'About',
+    to: '/about',
+    links: [
+      { label: 'Our Story', to: '/about' },
+      { label: 'Why Buchan', to: '/why-choose-buchan' },
+      { label: 'Client Stories', to: '/testimonials' },
+      { label: 'Blog', to: '/blog/' },
+      { label: 'News & Recognition', to: '/awards' },
+      { label: 'Areas We Serve', to: '/areas-we-serve' },
+    ],
+  },
+  { label: 'Contact', to: '/contact', links: [] },
+];
+
 export const FOOTER_COMPANY = [
   { label: 'About', to: '/about' },
   { label: 'Our Story', to: '/about' },
