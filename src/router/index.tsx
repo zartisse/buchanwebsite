@@ -12,6 +12,7 @@ const Services = lazy(() => import('../pages/public/Services').then((m) => ({ de
 const Process = lazy(() => import('../pages/public/Process').then((m) => ({ default: m.Process })));
 const Testimonials = lazy(() => import('../pages/public/Testimonials').then((m) => ({ default: m.Testimonials })));
 const Portfolio = lazy(() => import('../pages/public/Portfolio').then((m) => ({ default: m.Portfolio })));
+const Tour = lazy(() => import('../pages/public/Tour').then((m) => ({ default: m.Tour })));
 const PortfolioDetail = lazy(() => import('../pages/public/PortfolioDetail').then((m) => ({ default: m.PortfolioDetail })));
 const Blog = lazy(() => import('../pages/public/Blog').then((m) => ({ default: m.Blog })));
 const BlogPost = lazy(() => import('../pages/public/BlogPost').then((m) => ({ default: m.BlogPost })));
@@ -106,6 +107,7 @@ export function AppRouter() {
           <Route path="testimonials" element={<Lazy><Testimonials /></Lazy>} />
           <Route path="portfolio" element={<Lazy><Portfolio /></Lazy>} />
           <Route path="portfolio/:slug" element={<Lazy><PortfolioDetail /></Lazy>} />
+          <Route path="tour/:tourId" element={<Lazy><Tour /></Lazy>} />
           <Route path="blog" element={<Lazy><Blog /></Lazy>} />
           <Route path="blog/:slug" element={<Lazy><BlogPost /></Lazy>} />
           <Route path="contact" element={<Lazy><Contact /></Lazy>} />
