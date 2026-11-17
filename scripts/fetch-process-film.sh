@@ -15,8 +15,8 @@ for (const m of t.matchAll(/src\('([^']+)', '([^']+)'\)/g)) console.log(cdn + '/
   tmp="$OUT/.dl-$name"
   curl -fsSL "$url" -o "$tmp"
   case "$name" in
-    *.mp4) ffmpeg -y -loglevel error -i "$tmp" -an -vf "scale=1280:-2" -c:v libx264 -crf 28 -preset slow -pix_fmt yuv420p -movflags +faststart "$OUT/$name" ;;
-    *.jpg) ffmpeg -y -loglevel error -i "$tmp" -vf "scale=1280:-2" -q:v 4 "$OUT/$name" ;;
+    *.mp4) ffmpeg -nostdin -y -loglevel error -i "$tmp" -an -vf "scale=1280:-2" -c:v libx264 -crf 28 -preset slow -pix_fmt yuv420p -movflags +faststart "$OUT/$name" ;;
+    *.jpg) ffmpeg -nostdin -y -loglevel error -i "$tmp" -vf "scale=1280:-2" -q:v 4 "$OUT/$name" ;;
   esac
   rm -f "$tmp"
   echo "saved $OUT/$name"
