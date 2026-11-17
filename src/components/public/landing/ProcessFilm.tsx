@@ -64,6 +64,23 @@ export function ProcessFilm({ phase, playing, onPhaseEnd }: Props) {
 
   const finalFrame = shots[shots.length - 1].end;
 
+  // Warm the cache for whatever plays next (next shot, or the next phase's first shot).
+  const upcoming = shot < shots.length - 1
+    ? shots[shot + 1]
+    : PROCESS_FILM[(phase + 1) % PROCESS_FILM.length][0];
+  useEffect(() => {
+    if (!seen || reduced || !upcoming.video) return;
+    const v = document.createElement('video');
+    v.muted = true;
+    v.preload = 'auto';
+    v.src = upcoming.video;
+    v.load();
+    return () => {
+      v.removeAttribute('src');
+      v.load();
+    };
+  }, [seen, reduced, upcoming.video]);
+
   return (
     <div className={styles.film}>
       {!seen ? null : reduced || !current.video ? (

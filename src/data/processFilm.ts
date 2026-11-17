@@ -14,14 +14,14 @@ const local = (name: string) => `${import.meta.env.BASE_URL}assets/process/${nam
 const src = (cdnFile: string, localName: string) => (PROCESS_FILM_BASE ? `${PROCESS_FILM_BASE}/${cdnFile}` : local(localName));
 
 export const STILLS = {
-  lot: src('hf_20261117_182024_49359b4c-e66a-42a2-8f63-94afecaa7636.png', '01-lot.jpg'),
-  blueprint: src('hf_20261117_182025_53c48fca-798d-4a1f-b1d4-81d0aebff6b2.png', '02-blueprint.jpg'),
-  excavation: src('hf_20261117_182025_600763d9-a678-4e35-96b6-3c7240d290ef.png', '03-excavation.jpg'),
-  foundation: src('hf_20261117_182025_e044d460-50eb-4729-9933-e82b741a4886.png', '04-foundation.jpg'),
-  framing: src('hf_20261117_182024_4e946355-1634-4450-b864-5304460d4344.png', '05-framing.jpg'),
-  roughIn: src('hf_20261117_182024_ea5a120b-60b7-4209-b8ce-e8ab661bb3a9.png', '06-rough-in.jpg'),
-  finished: src('hf_20261117_180906_6d9ca3ac-d8d0-4fca-9e4b-a5085137501b.png', '07-finished.jpg'),
-  twilight: src('hf_20261117_182025_3d2e69d2-6ae8-447e-980f-93e1133abaff.png', '08-twilight.jpg'),
+  lot: src('hf_20261117_182024_49359b4c-e66a-42a2-8f63-94afecaa7636.png', '01-lot.webp'),
+  blueprint: src('hf_20261117_182025_53c48fca-798d-4a1f-b1d4-81d0aebff6b2.png', '02-blueprint.webp'),
+  excavation: src('hf_20261117_182025_600763d9-a678-4e35-96b6-3c7240d290ef.png', '03-excavation.webp'),
+  foundation: src('hf_20261117_182025_e044d460-50eb-4729-9933-e82b741a4886.png', '04-foundation.webp'),
+  framing: src('hf_20261117_182024_4e946355-1634-4450-b864-5304460d4344.png', '05-framing.webp'),
+  roughIn: src('hf_20261117_182024_ea5a120b-60b7-4209-b8ce-e8ab661bb3a9.png', '06-rough-in.webp'),
+  finished: src('hf_20261117_180906_6d9ca3ac-d8d0-4fca-9e4b-a5085137501b.png', '07-finished.webp'),
+  twilight: src('hf_20261117_182025_3d2e69d2-6ae8-447e-980f-93e1133abaff.png', '08-twilight.webp'),
 } as const;
 
 export interface FilmShot {
