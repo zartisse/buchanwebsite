@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { FOOTER_AWARD_BADGES } from '../../data/awards';
+import { FOOTER_AWARD_BADGES, HOUZZ_PROFILE_URL } from '../../data/awards';
 import { assetUrl } from '../../lib/assets';
 import { SOCIAL_LINKS } from '../../data/navigation';
 import { OFFICE_ADDRESS_LINES, OFFICE_HOURS } from '../../data/contactInfo';
@@ -21,7 +21,7 @@ const FOOTER_LINKS: { label: string; to: string; external?: boolean }[] = [
 ];
 
 export function Footer() {
-  const badge = FOOTER_AWARD_BADGES.find((b) => b.featured && b.image);
+  const badges = FOOTER_AWARD_BADGES.filter((b) => b.image);
 
   return (
     <footer className={styles.footer}>
@@ -38,11 +38,26 @@ export function Footer() {
           <a href="mailto:mischellem@buchan.com">mischellem@buchan.com</a>
         </address>
 
-        {badge && (
-          <Link to={badge.href ?? '/awards'} className={styles.badge} title={badge.alt}>
-            <img src={assetUrl(badge.image!)} alt={badge.alt} width={96} height={96} loading="lazy" decoding="async" />
-          </Link>
-        )}
+      </div>
+
+      <div className={styles.awards} aria-label="Awards and recognition">
+        {badges.map((badge) => {
+          const href = badge.href ?? HOUZZ_PROFILE_URL;
+          const img = (
+            <img
+              src={assetUrl(badge.image!)}
+              alt={badge.alt}
+              className={badge.featured ? styles.awardFeatured : styles.awardLogo}
+              loading="lazy"
+              decoding="async"
+            />
+          );
+          return href.startsWith('/') ? (
+            <Link key={badge.alt} to={href} title={badge.alt}>{img}</Link>
+          ) : (
+            <a key={badge.alt} href={href} target="_blank" rel="noopener noreferrer" title={badge.alt}>{img}</a>
+          );
+        })}
       </div>
 
       <nav className={styles.links} aria-label="Footer">

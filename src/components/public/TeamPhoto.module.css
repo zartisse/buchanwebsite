@@ -1,0 +1,66 @@
+.plain {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  margin-bottom: 16px;
+}
+
+.swap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  margin-bottom: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--color-bg-trust);
+}
+
+.portrait {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 1100ms var(--ease-out), transform 1600ms var(--ease-out);
+}
+
+.swapShown .portrait {
+  opacity: 0;
+  transform: scale(1.03);
+}
+
+/* The archive photo sits like a print laid on the stone-coloured card. */
+.archive {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 10px;
+  background: var(--color-bg-trust);
+  opacity: 0;
+  transition: opacity 1100ms var(--ease-out);
+}
+
+.swapShown .archive {
+  opacity: 1;
+}
+
+.print {
+  width: 100%;
+  height: auto;
+  padding: 5px;
+  background: #fbfaf6;
+  border: 1px solid var(--color-hairline-light-3);
+  box-shadow: 0 24px 40px -28px rgba(33, 59, 49, 0.5);
+  filter: grayscale(1) contrast(1.03);
+  transform: rotate(-1.2deg) scale(0.96);
+  transition: transform 1600ms var(--ease-out);
+}
+
+.swapShown .print {
+  transform: rotate(-1.2deg) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portrait, .archive, .print { transition: none; }
+}

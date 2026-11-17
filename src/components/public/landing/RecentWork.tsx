@@ -15,6 +15,58 @@ function place(p: Property): string {
   return city ? `${city}, Washington` : 'Washington';
 }
 
+
+/** One project. On hover or focus the photo goes dark and the name is signed in. */
+function WorkSlide({ property }: { property: Property }) {
+  const [active, setActive] = useState(false);
+  const [run, setRun] = useState(0);
+  const timer = useRef<number | undefined>(undefined);
+
+  const enter = () => {
+    window.clearTimeout(timer.current);
+    setRun((n) => n + 1); // remount the name so the signing restarts each time
+    setActive(true);
+  };
+  const leave = () => {
+    timer.current = window.setTimeout(() => setActive(false), 0);
+  };
+
+  useEffect(() => () => window.clearTimeout(timer.current), []);
+
+  // Longer names get a slightly longer stroke.
+  const ms = Math.min(2600, 900 + property.name.length * 70);
+
+  return (
+    <Link
+      to={`/portfolio/${property.slug}/`}
+      className={`${styles.slide} ${active ? styles.slideActive : ''}`}
+      onMouseEnter={enter}
+      onMouseLeave={leave}
+      onFocus={enter}
+      onBlur={leave}
+    >
+      <OptimizedImage
+        src={property.image_url}
+        seed={property.slug}
+        alt={`${property.name}, ${place(property)}`}
+        displayWidth={1400}
+        sizes="(max-width: 720px) 82vw, 40vw"
+      />
+      <span className={styles.slideVeil} aria-hidden>
+        <span
+          key={run}
+          className={`${styles.slideName} ${styles.writeOn} ${active ? styles.writeOnRun : ''}`}
+          style={{ '--write-ms': `${ms}ms` } as React.CSSProperties}
+        >
+          {property.name}
+        </span>
+        <span className={styles.slideRule} />
+        <span className={styles.slidePlace}>{place(property)}</span>
+      </span>
+    </Link>
+  );
+}
+
 export function RecentWork() {
   const { properties, loading } = useProperties({ publicOnly: true });
   const trackRef = useRef<HTMLDivElement>(null);
@@ -69,21 +121,7 @@ export function RecentWork() {
 
       <div className={styles.track} ref={trackRef} onScroll={update} tabIndex={0} role="region" aria-label="Project photography, scroll horizontally">
         {loading && [0, 1, 2].map((i) => <div key={i} className={styles.slideSkeleton} aria-hidden />)}
-        {!loading && slides.map((p) => (
-          <Link key={p.slug} to={`/portfolio/${p.slug}/`} className={styles.slide}>
-            <OptimizedImage
-              src={p.image_url}
-              seed={p.slug}
-              alt={`${p.name}, ${place(p)}`}
-              displayWidth={1400}
-              sizes="(max-width: 720px) 82vw, 40vw"
-            />
-            <span className={styles.slideVeil}>
-              <span className={styles.slideName}>{p.name}</span>
-              <span className={styles.slidePlace}>{place(p)}</span>
-            </span>
-          </Link>
-        ))}
+        {!loading && slides.map((p) => <WorkSlide key={p.slug} property={p} />)}
       </div>
     </section>
   );

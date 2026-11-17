@@ -6,7 +6,7 @@
 
 .top {
   display: grid;
-  grid-template-columns: minmax(0, 5fr) minmax(0, 5fr) auto;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 5fr);
   align-items: start;
   gap: clamp(32px, 6vw, 96px);
   max-width: var(--max-width-wide);
@@ -57,9 +57,36 @@
   color: var(--color-accent-dark);
 }
 
-.badge img {
-  width: 96px;
-  height: 96px;
+.awards {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-5) var(--s-8);
+  max-width: var(--max-width-wide);
+  margin: clamp(32px, 4vw, 56px) auto 0;
+}
+
+.awards a {
+  display: block;
+  transition: transform 500ms var(--ease-out);
+}
+
+.awards a:hover {
+  transform: translateY(-2px);
+}
+
+.awardFeatured {
+  display: block;
+  height: 88px;
+  width: auto;
+  object-fit: contain;
+}
+
+.awardLogo {
+  display: block;
+  height: 56px;
+  width: auto;
+  max-width: 120px;
   object-fit: contain;
 }
 
@@ -68,7 +95,7 @@
   flex-wrap: wrap;
   gap: var(--s-3) var(--s-8);
   max-width: var(--max-width-wide);
-  margin: clamp(40px, 5vw, 64px) auto 0;
+  margin: clamp(32px, 4vw, 48px) auto 0;
   padding: var(--s-6) 0;
   border-top: 1px solid var(--color-hairline-light-3);
   border-bottom: 1px solid var(--color-hairline-light-3);

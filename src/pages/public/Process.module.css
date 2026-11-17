@@ -1,6 +1,6 @@
 .hero {
   position: relative;
-  min-height: clamp(460px, 68dvh, 720px);
+  min-height: clamp(440px, 58dvh, 600px);
   display: flex;
   align-items: flex-end;
   overflow: hidden;
@@ -29,7 +29,7 @@
   width: 100%;
   max-width: var(--max-width-wide);
   margin: 0 auto;
-  padding: 0 var(--gutter) clamp(120px, 14vw, 168px);
+  padding: clamp(150px, 15vw, 190px) var(--gutter) clamp(104px, 9vw, 128px);
 }
 
 .eyebrowLight {
@@ -55,8 +55,8 @@
   margin: 0 0 var(--s-6);
   font-family: var(--font-serif);
   font-weight: var(--fw-light);
-  font-size: clamp(44px, 6.4vw, 92px);
-  line-height: 1.02;
+  font-size: clamp(40px, 5vw, 72px);
+  line-height: 1.04;
   letter-spacing: var(--tr-tight);
 }
 
@@ -66,8 +66,8 @@
 
 .heroSub {
   margin: 0;
-  max-width: 40ch;
-  font-size: var(--text-body-lg);
+  max-width: 54ch;
+  font-size: var(--text-body);
   font-weight: var(--fw-light);
   line-height: var(--lh-relaxed);
   color: rgba(255, 255, 255, 0.92);
@@ -75,7 +75,7 @@
 
 .body {
   background: var(--color-bg-cream);
-  padding: 0 var(--gutter) clamp(96px, 12vw, 160px);
+  padding: 0 var(--gutter) clamp(64px, 8vw, 104px);
 }
 
 .inner {
@@ -87,7 +87,7 @@
 .tabsShell {
   position: relative;
   z-index: 2;
-  margin-top: calc(-1 * clamp(72px, 8vw, 104px));
+  margin-top: calc(-1 * clamp(64px, 6vw, 84px));
   padding: 8px;
   background: rgba(247, 245, 240, 0.7);
   border: 1px solid var(--color-hairline-light-3);
@@ -106,7 +106,7 @@
   flex-direction: column;
   align-items: center;
   gap: var(--s-2);
-  padding: var(--s-8) var(--s-4) var(--s-6);
+  padding: var(--s-6) var(--s-4) var(--s-5);
   background: none;
   border: none;
   border-left: 1px solid var(--color-hairline-light-3);
@@ -174,7 +174,7 @@
 
 .panelWrap {
   position: relative;
-  padding-top: clamp(64px, 8vw, 104px);
+  padding-top: clamp(28px, 3vw, 40px);
 }
 
 .anchor {
@@ -199,7 +199,7 @@
 .panel {
   display: grid;
   grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
-  gap: clamp(40px, 7vw, 112px);
+  gap: clamp(32px, 5vw, 72px);
   align-items: start;
   animation: panelIn 700ms var(--ease-out);
 }
@@ -211,7 +211,7 @@
 
 .panelHead {
   position: sticky;
-  top: 120px;
+  top: 110px;
 }
 
 .panelKicker {
@@ -267,7 +267,7 @@
   align-items: center;
   gap: var(--s-4);
   width: 100%;
-  padding: var(--s-6) var(--s-4);
+  padding: var(--s-4) var(--s-4);
   background: none;
   border: none;
   cursor: pointer;
@@ -318,7 +318,7 @@
 }
 
 .stepOpen .stepBodyInner {
-  padding-bottom: var(--s-8);
+  padding-bottom: var(--s-6);
 }
 
 .stepBodyInner p {
@@ -340,8 +340,8 @@
   justify-content: space-between;
   gap: var(--s-8);
   flex-wrap: wrap;
-  margin-top: clamp(64px, 8vw, 112px);
-  padding: clamp(28px, 4vw, 48px);
+  margin-top: clamp(40px, 5vw, 64px);
+  padding: clamp(24px, 3vw, 36px);
   background: var(--color-bg-trust);
   border: 1px solid var(--color-hairline-light-3);
 }

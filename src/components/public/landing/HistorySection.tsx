@@ -1,6 +1,7 @@
 import { RevealOnScroll } from '../../ui/RevealOnScroll';
 import { assetUrl } from '../../../lib/assets';
 import { ArrowLink } from './ArrowLink';
+import { WriteOn } from './WriteOn';
 import styles from './Landing.module.css';
 
 export function HistorySection() {
@@ -63,7 +64,7 @@ export function HistorySection() {
               We invite you to discover the people, principles, and proud history that make a John Buchan home
               truly special.
             </p>
-            <span className={styles.signature} role="img" aria-label="Signed, Heather Dosch">Heather Dosch</span>
+            <span className={styles.signature}><WriteOn ms={2800} label="Signed, Heather Dosch">Heather Dosch</WriteOn></span>
             <ArrowLink to="/about">Explore our story</ArrowLink>
           </div>
         </RevealOnScroll>

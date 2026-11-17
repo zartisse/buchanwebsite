@@ -16,7 +16,7 @@ const HERO_IMAGE = '/assets/photos/clyde-hill-46.webp';
 
 /** Thin line icons, one per phase. */
 function PhaseIcon({ n }: { n: string }) {
-  const common = { width: 44, height: 44, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 0.9, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const, 'aria-hidden': true };
+  const common = { width: 36, height: 36, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 0.9, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const, 'aria-hidden': true };
   switch (n) {
     case '1':
       return (
@@ -88,10 +88,7 @@ export function Process() {
         <div className={styles.heroInner}>
           <p className={styles.eyebrowLight}>Our process</p>
           <h1 className={styles.heroTitle}>A guided <em>journey.</em></h1>
-          <p className={styles.heroSub}>
-            A clear, collaborative process that gives you confidence at every step, from first conversation to
-            years in your new home.
-          </p>
+          <p className={styles.heroSub}>{PROCESS_INTRO}</p>
         </div>
       </section>
 
@@ -126,10 +123,6 @@ export function Process() {
           <div id="process-steps" className={styles.panelWrap}>
             <div id={`phase-0${phase.n}`} className={styles.anchor} />
             <div id="custom-homes" className={styles.anchor} />
-            <RevealOnScroll>
-              <p className={styles.intro}>{PROCESS_INTRO}</p>
-            </RevealOnScroll>
-
             <div
               id={`${baseId}-panel`}
               role="tabpanel"
