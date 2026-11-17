@@ -8,7 +8,7 @@
  */
 
 const CDN = 'https://d8j0ntlcm91z4.cloudfront.net/user_3Ali3yWAoxKodgQjg4TuTFW28bm';
-export const PROCESS_FILM_BASE: string = CDN;
+export const PROCESS_FILM_BASE: string = '';
 
 const local = (name: string) => `${import.meta.env.BASE_URL}assets/process/${name}`;
 const src = (cdnFile: string, localName: string) => (PROCESS_FILM_BASE ? `${PROCESS_FILM_BASE}/${cdnFile}` : local(localName));
