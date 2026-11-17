@@ -3,11 +3,11 @@
  * generated on Higgsfield (Nov 2026). Each clip ends on the frame the next one starts from,
  * so they play back to back as a single time-lapse. Videos always play muted.
  *
- * Files are on Higgsfield's CDN for now. To self-host, run scripts/fetch-process-film.sh,
- * then set PROCESS_FILM_BASE to '' so the local /assets/process/ copies are used.
+ * Served from public/assets/process/ (compressed, no audio) by scripts/fetch-process-film.sh,
+ * which the "Process film media" workflow runs. Set PROCESS_FILM_BASE = CDN to stream the originals.
  */
 
-const CDN = 'https://d8j0ntlcm91z4.cloudfront.net/user_3Ali3yWAoxKodgQjg4TuTFW28bm';
+export const CDN = 'https://d8j0ntlcm91z4.cloudfront.net/user_3Ali3yWAoxKodgQjg4TuTFW28bm';
 export const PROCESS_FILM_BASE: string = '';
 
 const local = (name: string) => `${import.meta.env.BASE_URL}assets/process/${name}`;
