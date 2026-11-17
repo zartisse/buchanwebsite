@@ -19,6 +19,11 @@ export function ProcessFilm({ phase, playing, onPhaseEnd }: Props) {
   const shots = PROCESS_FILM[phase];
   const [shot, setShot] = useState(0);
   const [done, setDone] = useState(false);
+  // Nothing downloads until the panel has been on screen once, so the hero loads first.
+  const [seen, setSeen] = useState(false);
+  useEffect(() => {
+    if (playing) setSeen(true);
+  }, [playing]);
   const videoRef = useRef<HTMLVideoElement>(null);
   const endRef = useRef(onPhaseEnd);
   endRef.current = onPhaseEnd;
@@ -61,8 +66,8 @@ export function ProcessFilm({ phase, playing, onPhaseEnd }: Props) {
 
   return (
     <div className={styles.film}>
-      {reduced || !current.video ? (
-        <img className={styles.filmMedia} src={reduced ? finalFrame : current.poster} alt="" />
+      {!seen ? null : reduced || !current.video ? (
+        <img className={styles.filmMedia} src={reduced ? finalFrame : current.poster} alt="" decoding="async" />
       ) : (
         <video
           key={`${phase}-${shot}`}

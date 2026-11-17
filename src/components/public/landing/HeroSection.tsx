@@ -13,6 +13,14 @@ type HeroSectionProps = {
 export function HeroSection({ slides }: HeroSectionProps) {
   const valid = slides.filter(Boolean);
   const [active, setActive] = useState(0);
+  // Only the first slide loads up front; each later one loads just before it is shown.
+  const [loaded, setLoaded] = useState(1);
+
+  useEffect(() => {
+    if (active + 1 >= valid.length) return;
+    const t = window.setTimeout(() => setLoaded((n) => Math.max(n, active + 2)), 2500);
+    return () => window.clearTimeout(t);
+  }, [active, valid.length]);
 
   useEffect(() => {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -26,7 +34,9 @@ export function HeroSection({ slides }: HeroSectionProps) {
       <div className={styles.heroMedia} aria-hidden>
         {(valid.length ? valid : ['/assets/ph-arch-1.webp']).map((src, i) => (
           <div key={`${src}-${i}`} className={`${styles.heroSlide} ${i === active ? styles.heroSlideActive : ''}`}>
-            <OptimizedImage src={src} seed={`home-hero-${i}`} priority={i === 0} displayWidth={1920} sizes="100vw" />
+            {i < loaded && (
+              <OptimizedImage src={src} seed={`home-hero-${i}`} priority={i === 0} displayWidth={1920} sizes="100vw" />
+            )}
           </div>
         ))}
       </div>
