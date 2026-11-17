@@ -1,0 +1,195 @@
+.viewer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #213b31;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  outline: none;
+}
+.viewer:active {
+  cursor: grabbing;
+}
+.viewer:focus-visible {
+  box-shadow: inset 0 0 0 2px #b88a4b;
+}
+.canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.status {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: #f7f5f0;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  pointer-events: none;
+}
+.hotspot {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+.hotspotDot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid #f7f5f0;
+  background: rgba(184, 138, 75, 0.85);
+  box-shadow: 0 0 0 6px rgba(247, 245, 240, 0.18);
+}
+.hotspotLabel {
+  padding: 4px 10px;
+  background: rgba(33, 59, 49, 0.85);
+  color: #f7f5f0;
+  font-family: 'Aileron', 'Montserrat', Arial, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Full-screen tour shell */
+.shell {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  background: #213b31;
+  color: #f7f5f0;
+}
+.page {
+  padding-top: clamp(96px, 9vw, 124px);
+  background: #f7f5f0;
+}
+.shellPage {
+  position: relative;
+  height: calc(100svh - clamp(96px, 9vw, 124px));
+  min-height: 480px;
+  display: flex;
+  flex-direction: column;
+  background: #213b31;
+  color: #f7f5f0;
+}
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 20px;
+  border-bottom: 1px solid rgba(184, 138, 75, 0.35);
+}
+.title {
+  margin: 0;
+  font-family: 'Codec Pro', 'Montserrat', Arial, sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.eyebrow {
+  display: block;
+  color: #c9a16a;
+  font-family: 'Aileron', 'Montserrat', Arial, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+.close {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(247, 245, 240, 0.35);
+  border-radius: 50%;
+  background: transparent;
+  color: #f7f5f0;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+.close:hover,
+.close:focus-visible {
+  border-color: #b88a4b;
+  color: #c9a16a;
+}
+.stage {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+  padding: 12px 20px;
+  border-top: 1px solid rgba(184, 138, 75, 0.35);
+}
+.scenes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.sceneBtn {
+  padding: 8px 14px;
+  border: 1px solid rgba(247, 245, 240, 0.3);
+  background: transparent;
+  color: #f7f5f0;
+  font-family: 'Aileron', 'Montserrat', Arial, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.sceneBtn[aria-pressed='true'] {
+  border-color: #b88a4b;
+  background: rgba(184, 138, 75, 0.16);
+  color: #c9a16a;
+}
+.note {
+  margin: 0;
+  max-width: 560px;
+  color: rgba(247, 245, 240, 0.6);
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.hint {
+  position: absolute;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  padding: 6px 14px;
+  background: rgba(33, 59, 49, 0.8);
+  color: #f7f5f0;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 12px;
+  pointer-events: none;
+}
+
+/* Entry button on the property page */
+.launch {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.launchIcon {
+  width: 18px;
+  height: 18px;
+}

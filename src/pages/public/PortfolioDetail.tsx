@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { lazy, Suspense, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useProperties, useProperty } from '../../hooks/useProperties';
 import { PortfolioPropertyCard } from '../../components/public/PortfolioPropertyCard';
@@ -8,7 +8,11 @@ import { OptimizedImage } from '../../components/ui/OptimizedImage';
 import { PageMeta } from '../../components/ui/PageMeta';
 import { RevealOnScroll } from '../../components/ui/RevealOnScroll';
 import { resolveImageUrl } from '../../lib/placeholders';
+import { getTourForProperty } from '../../data/tours';
 import ps from '../../styles/pages.module.css';
+
+// The 360° viewer is only downloaded when a visitor opens the tour.
+const HomeTour = lazy(() => import('../../components/tour/HomeTour'));
 
 function buildImageList(heroUrl: string, galleryUrls: string[]) {
   const seen = new Set<string>();
@@ -29,6 +33,8 @@ export function PortfolioDetail() {
   const { property, loading, error } = useProperty(slug);
   const { properties: allProperties } = useProperties({ publicOnly: true });
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [tourOpen, setTourOpen] = useState(false);
+  const tour = getTourForProperty(slug);
 
   const heroUrl = property?.image_url || '/assets/ph-arch-1.webp';
   const fallbackGallery = [heroUrl, '/assets/ph-arch-2.webp', '/assets/ph-arch-3.webp'];
@@ -107,6 +113,16 @@ export function PortfolioDetail() {
               .map((line, i) => (
                 <p key={i} className={ps.bodyText} style={{ marginBottom: line.trim().startsWith('•') ? 6 : 18 }}>{line}</p>
               ))}
+            {tour && (
+              <button
+                type="button"
+                className="btnPrimaryFill"
+                onClick={() => setTourOpen(true)}
+                style={{ marginTop: 16, marginRight: 12 }}
+              >
+                Explore in 360°
+              </button>
+            )}
             {property.brochure_url && (
               <a href={property.brochure_url} target="_blank" rel="noopener noreferrer" className="btnPrimaryFill" style={{ marginTop: 16 }}>
                 Download the floor plan (PDF)
@@ -168,6 +184,12 @@ export function PortfolioDetail() {
             </div>
           </div>
         </section>
+      )}
+
+      {tour && tourOpen && (
+        <Suspense fallback={null}>
+          <HomeTour tour={tour} onClose={() => setTourOpen(false)} />
+        </Suspense>
       )}
 
       {lightboxIndex !== null && (
