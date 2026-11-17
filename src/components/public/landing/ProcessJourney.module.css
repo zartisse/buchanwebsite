@@ -237,6 +237,94 @@
 .l4 .lamp { fill: #e8b96a; }
 .l4 .pendant { fill: none; stroke: #b88a4b; stroke-width: 0.9; }
 
+/* Build film (replaces the line drawing in the panel) */
+.paperFilm {
+  padding: 0;
+  background: #213b31;
+  overflow: hidden;
+}
+
+.film {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: #213b31;
+}
+
+.filmMedia {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Buchan Green tint at the foot so the caption reads over the photo. */
+.film::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 42%;
+  background: linear-gradient(to top, rgba(33, 59, 49, 0.78), rgba(33, 59, 49, 0));
+  pointer-events: none;
+}
+
+.paperFilm .caption {
+  z-index: 2;
+  color: rgba(247, 245, 240, 0.86);
+}
+
+.paperFilm .caption span {
+  color: #d9b77f;
+}
+
+.filmStep {
+  position: absolute;
+  z-index: 2;
+  top: clamp(12px, 1.6vw, 20px);
+  left: clamp(16px, 2.4vw, 32px);
+  margin: 0;
+  padding: 6px 10px;
+  font-size: 10px;
+  letter-spacing: var(--tr-widest);
+  text-transform: uppercase;
+  color: #f7f5f0;
+  background: rgba(33, 59, 49, 0.62);
+  backdrop-filter: blur(6px);
+  animation: captionIn 700ms var(--ease-out);
+}
+
+.filmStep span {
+  margin-right: var(--s-2, 8px);
+  color: #d9b77f;
+  font-weight: var(--fw-semibold);
+}
+
+.filmDots {
+  position: absolute;
+  z-index: 2;
+  right: clamp(16px, 2.4vw, 32px);
+  bottom: clamp(14px, 1.8vw, 22px);
+  display: flex;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.filmDots li {
+  width: 18px;
+  height: 2px;
+  background: rgba(247, 245, 240, 0.3);
+  transition: background 600ms var(--ease-out);
+}
+
+.filmDots li.filmDotOn {
+  background: #b88a4b;
+}
+
+@media (max-width: 600px) {
+  .filmDots { display: none; }
+}
+
 @media (max-width: 960px) {
   .grid {
     grid-template-columns: 1fr;
@@ -250,5 +338,5 @@
 @media (prefers-reduced-motion: reduce) {
   .bar { animation: none; transform: scaleX(1); }
   .draw, .on .draw, .fade, .on .fade, .rowBody { transition: none; }
-  .caption { animation: none; }
+  .caption, .filmStep { animation: none; }
 }

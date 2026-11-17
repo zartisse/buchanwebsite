@@ -5,9 +5,10 @@ import { PROCESS_PHASES } from '../../../data/buchanProcess';
 import { ArrowLink } from './ArrowLink';
 import styles from './ProcessJourney.module.css';
 import shared from './Landing.module.css';
-import { HouseIllustration } from './HouseIllustration';
+import { ProcessFilm } from './ProcessFilm';
+import { phaseFilmMs } from '../../../data/processFilm';
 
-const STAGE_MS = 5400;
+const REDUCED_STAGE_MS = 5400;
 
 function firstSentence(text: string): string {
   const m = text.match(/^.*?[.!?](\s|$)/);
@@ -28,12 +29,19 @@ export function ProcessPreview() {
     return () => io.disconnect();
   }, []);
 
+  const advance = () => setStage((s) => (s + 1) % PROCESS_PHASES.length);
+
+  // The film drives the pace; with reduced motion there is no film, so step on a timer.
   useEffect(() => {
     if (!auto || !inView) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const t = window.setTimeout(() => setStage((s) => (s + 1) % PROCESS_PHASES.length), STAGE_MS);
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const t = window.setTimeout(advance, REDUCED_STAGE_MS);
     return () => window.clearTimeout(t);
   }, [stage, auto, inView]);
+
+  const stageMs = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ? REDUCED_STAGE_MS
+    : phaseFilmMs(stage);
 
   const choose = (i: number) => {
     setAuto(false); // once someone clicks, they drive
@@ -75,7 +83,7 @@ export function ProcessPreview() {
                           </Link>
                         </div>
                       </div>
-                      {active && auto && inView && <span key={`bar-${stage}`} className={styles.bar} style={{ animationDuration: `${STAGE_MS}ms` }} aria-hidden />}
+                      {active && auto && inView && <span key={`bar-${stage}`} className={styles.bar} style={{ animationDuration: `${stageMs}ms` }} aria-hidden />}
                     </li>
                   );
                 })}
@@ -89,8 +97,8 @@ export function ProcessPreview() {
 
           <RevealOnScroll variant="right" className={styles.right}>
             <div className={styles.bezel}>
-              <div className={styles.paper}>
-                <HouseIllustration stage={stage} />
+              <div className={`${styles.paper} ${styles.paperFilm}`}>
+                <ProcessFilm phase={stage} playing={inView} onPhaseEnd={() => auto && advance()} />
                 <p className={styles.caption} key={phase.n} aria-live="polite">
                   <span>Phase {phase.n.padStart(2, '0')}</span> {phase.title}
                 </p>
